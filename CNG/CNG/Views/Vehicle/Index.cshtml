@@ -5,77 +5,120 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Vehicle</h2>
+<!-- start: TOOLBAR -->
+<div class="toolbar row">
+    <div class="col-sm-6 hidden-xs">
+        <div class="page-header">
+            <h1>Vehicle </h1>
+        </div>
+    </div>
+</div>
+<!-- end: TOOLBAR -->
+<!-- end: PAGE HEADER -->
+<!-- start: BREADCRUMB -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="breadcrumb"></div>
+    </div>
+</div>
+<!-- end: BREADCRUMB -->
+<!-- start: PAGE CONTENT -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- start: BASIC TABLE PANEL -->
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h4 class="panel-title pull-left"><span class="text-bold">Vehicle List</span></h4>
+                <div class="pull-right">
+                    <a href="@Url.Action("Create")" class="btn btn-dark-blue">Create</a>
+                </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Make)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Year)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Model)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CnNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LicenseNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EngineNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ChasisNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Color)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Active)
-        </th>
-        <th></th>
-    </tr>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Make)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Year)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Model)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CnNo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LicenseNo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EngineNo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ChasisNo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Color)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Active)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Make)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Year)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Model)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CnNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LicenseNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EngineNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ChasisNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Color)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Active)
+                                </td>
+                                <td>
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="@Url.Action("Edit", new { id = item.Id })" data-original-title="Edit" data-placement="top" class="btn btn-xs btn-blue tooltips"><i class="fa fa-edit"></i></a>
+                                        <a href="@Url.Action("Delete", new { id = item.Id })" data-original-title="Remove" data-placement="top" class="btn btn-xs btn-red tooltips"><i class="fa fa-times fa fa-white"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- end: BASIC TABLE PANEL -->
+    </div>
+</div>
+<script>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Make)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Year)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Model)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CnNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LicenseNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EngineNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ChasisNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Color)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Active)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    $(document).ready(function () {
+        $('ul.main-navigation-menu li:nth-child(5)').addClass('active open');
+    });
 
-</table>
+</script>
