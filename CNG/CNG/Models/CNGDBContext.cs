@@ -20,5 +20,6 @@ namespace CNG.Models
         public virtual DbSet<Vehicle> Vehicles { get; set; }
 
         public System.Data.Entity.DbSet<CNG.Models.PurchaseOrder> PurchaseOrders { get; set; }
+        public System.Data.Entity.DbSet<CNG.Models.PurchaseOrderItem> PurchaseOrderItems { get; set; }
     }
 }

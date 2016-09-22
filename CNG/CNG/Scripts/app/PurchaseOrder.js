@@ -1,5 +1,26 @@
 ﻿$(document).ready(function () {
-    GetGeneratePoNumber();
+    $('#btnSubmit').click(function (event) {
+        event.preventDefault();
+
+        var purchaseOrder = new Object();
+        //purchaseOrder.No = (backend generated);
+        purchaseOrder.VendorId = $('#Vendor').val();
+        purchaseOrder.ShipTo = $('#ShipTo').val();
+        purchaseOrder.Terms = "100";
+        //purchaseOrder.PreparedBy = (backend generated);
+        //purchaseOrder.ApprovedBy = (backend generated);
+
+        $.ajax({
+            url: "/PurchaseOrder/Save",
+            type: "POST",
+            data: JSON.stringify(purchaseOrder),
+            contentType: "application/json; charset=utf-8",
+            success: function (r) {
+                
+                alert("saved");
+            }
+        });
+    });
 
     $('#Vendor').change(function () {
         var vendorId = $(this).val();
@@ -77,14 +98,3 @@
         });
     });
 });
-
-function GetGeneratePoNumber() {
-    $.ajax({
-        url: "/PurchaseOrder/GeneratePoNumber",
-        type: "POST",
-        contentType: "application/json; charset=utf-8",
-        success: function (r) {
-            $('#lblPoNumber').text(r);
-        }
-    });
-}

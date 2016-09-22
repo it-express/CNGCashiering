@@ -12,7 +12,7 @@ namespace CNG.Models
         public int Id { get; set; }
 
         [Required]
-        public int PurchaseOrderNo { get; set; }
+        public string PurchaseOrderNo { get; set; }
 
         [Required]
         public int ItemId { get; set; }
