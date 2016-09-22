@@ -31,5 +31,7 @@ namespace CNG.Models
 
         [Required]
         public int ApprovedBy { get; set; }
+
+        public int ReceivingStatus { get; set; }
     }
 }

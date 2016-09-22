@@ -150,6 +150,7 @@
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\PurchaseOrderController.cs" />
     <Compile Include="Controllers\ReceivingController.cs" />
+    <Compile Include="Controllers\RequisitionController.cs" />
     <Compile Include="Controllers\VehicleController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Global.asax.cs">
@@ -218,10 +219,14 @@
     <Content Include="Views\Vehicle\Index.cshtml" />
     <Content Include="Views\Vehicle\Edit.cshtml" />
     <Content Include="Views\PurchaseOrder\Create.cshtml" />
+    <Content Include="Views\Receiving\List.cshtml" />
+    <Content Include="Views\Receiving\Index.cshtml" />
+    <Content Include="Views\Receiving\RequisitionToPurchase.cshtml" />
+    <Content Include="Views\Receiving\ExcessParts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Receiving\" />
+    <Folder Include="Views\Requisition\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

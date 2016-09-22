@@ -29,5 +29,7 @@ namespace CNG.Models
         public int ReceivedQuantity { get; set; }
 
         public DateTime Date { get; set; }
+
+        public virtual Item Item { get; set; }
     }
 }

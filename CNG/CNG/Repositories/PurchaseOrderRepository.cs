@@ -26,5 +26,20 @@ namespace CNG.Models
 
             return poNumber;
         }
+
+
+        public List<PurchaseOrder> ListReceived() {
+            IQueryable<PurchaseOrder> lst = List().Where(p =>
+            p.ReceivingStatus == (int) EReceivingStatus.Partial || 
+            p.ReceivingStatus == (int) EReceivingStatus.Complete);
+
+            return lst.ToList();
+        }
+    }
+
+    public enum EReceivingStatus {
+        NotReceived = 0,
+        Partial = 1,
+        Complete = 2
     }
 }
