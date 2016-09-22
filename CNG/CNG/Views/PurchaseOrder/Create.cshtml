@@ -1,0 +1,94 @@
+﻿@model CNG.Models.PurchaseOrder
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/app/PurchaseOrder.js"></script>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>New Purchase Order</h4>
+        <hr />
+        
+        <div>
+            PO Number<label id="lblPoNumber"></label>
+        </div>
+        <br/>
+        
+        <div>
+            Vendor @Html.DropDownList("Vendor", (IEnumerable<SelectListItem>)ViewBag.Vendors)
+
+            <br />
+            Name <label id="lblVendorName"></label> <br />
+            Address <label id="lblVendorAddress"></label> <br />
+            Contact Person <label id="lblVendorContactPerson"></label> <br />
+            Contact No <label id="lblVendorContactNo"></label> <br />
+        </div>
+        
+        <br/>
+
+        <div>
+            Ship To @Html.DropDownList("Company", (IEnumerable<SelectListItem>)ViewBag.Companies)
+            
+            <br/><br/>
+            Company Name <label id="lblCompanyname"></label>  <br/>
+            Address <label id="lblShippingAddress"></label> <br />
+            Contact Person <label id="lblShippingContactPerson"></label> <br />
+            Contact No <label id="lblShippingContactNo"></label> <br />
+        </div>
+
+        <div>
+            Terms <input type="text" />
+        </div>
+
+        Due Date <label></label>
+
+        <br />
+
+        <div>
+            Add Items
+
+            <br/><br />
+
+            Search item: @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items)
+            <input type="button" id="btnAddItem" value="Ok" />
+
+            <br/>
+
+            <table id="tblItems">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Description</th>
+                        <th>Brand</th>
+                        <th>Unit Cost</th>
+                        <th>Type</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        
+        <br/>
+        <div>
+            Prepared By: <label id="lblPreparedBy"></label>
+            <br/>
+            Approved By: <label id="lblApprovedBy"></label>
+        </div>
+
+        <br/>
+        
+        <input id="btnSubmit" type="submit" value="Submit" />
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

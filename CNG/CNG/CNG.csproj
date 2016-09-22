@@ -148,6 +148,7 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
+    <Compile Include="Controllers\PurchaseOrderController.cs" />
     <Compile Include="Controllers\VehicleController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Global.asax.cs">
@@ -166,6 +167,7 @@
     <Compile Include="Repositories\CompanyRepository.cs" />
     <Compile Include="Repositories\ItemRepository.cs" />
     <Compile Include="Repositories\ItemTypeRepository.cs" />
+    <Compile Include="Repositories\PurchaseOrderRepository.cs" />
     <Compile Include="Repositories\VehicleRepository.cs" />
     <Compile Include="Repositories\VendorRepository.cs" />
   </ItemGroup>
@@ -176,6 +178,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\app\PurchaseOrder.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -190,7 +193,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -210,6 +215,7 @@
     <Content Include="Views\Vendor\Edit.cshtml" />
     <Content Include="Views\Vehicle\Index.cshtml" />
     <Content Include="Views\Vehicle\Edit.cshtml" />
+    <Content Include="Views\PurchaseOrder\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -8,6 +8,9 @@ namespace CNG.Models
 {
     public class PurchaseOrder
     {
+        [Key]
+        public int Id { get; set; }
+
         [Required]
         public string No { get; set; }
 

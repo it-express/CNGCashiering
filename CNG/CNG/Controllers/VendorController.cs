@@ -56,5 +56,11 @@ namespace CNG.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public JsonResult GetById(int id) {
+            Vendor vendor = vendorRepo.GetById(id);
+
+            return Json(vendor);
+        }
     }
 }

@@ -18,5 +18,7 @@ namespace CNG.Models
         public virtual DbSet<ItemType> ItemTypes { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
         public virtual DbSet<Vehicle> Vehicles { get; set; }
+
+        public System.Data.Entity.DbSet<CNG.Models.PurchaseOrder> PurchaseOrders { get; set; }
     }
 }
