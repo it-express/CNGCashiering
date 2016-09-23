@@ -151,11 +151,13 @@
     <Compile Include="Controllers\PurchaseOrderController.cs" />
     <Compile Include="Controllers\ReceivingController.cs" />
     <Compile Include="Controllers\RequisitionController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\VehicleController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\SelectListHelper.cs" />
     <Compile Include="Models\CNGDBContext.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Item.cs" />
@@ -163,6 +165,8 @@
     <Compile Include="Models\PurchaseOrder.cs" />
     <Compile Include="Models\PurchaseOrderItem.cs" />
     <Compile Include="Models\Requisition.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserType.cs" />
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Models\Vendor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -171,6 +175,8 @@
     <Compile Include="Repositories\ItemTypeRepository.cs" />
     <Compile Include="Repositories\PurchaseOrderItemRepository.cs" />
     <Compile Include="Repositories\PurchaseOrderRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Repositories\UserTypeRepository.cs" />
     <Compile Include="Repositories\VehicleRepository.cs" />
     <Compile Include="Repositories\VendorRepository.cs" />
   </ItemGroup>
@@ -223,6 +229,9 @@
     <Content Include="Views\Receiving\Index.cshtml" />
     <Content Include="Views\Receiving\RequisitionToPurchase.cshtml" />
     <Content Include="Views\Receiving\ExcessParts.cshtml" />
+    <Content Include="Views\PurchaseOrder\Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

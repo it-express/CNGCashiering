@@ -15,7 +15,6 @@ namespace CNG.Controllers
         public ActionResult Index()
         {
             List<Item> lstItem = itemRepo.List().ToList();
-            ViewBag.ItemTypeId = new SelectList(itemTypeRepo.List(), "Id", "Name", 0);
 
             return View(lstItem);
         }

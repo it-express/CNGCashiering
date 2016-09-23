@@ -1,0 +1,53 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using CNG.Models;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+
+namespace CNG.Models
+{
+    public class User
+    {
+        [Key]
+        public int Id { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Username { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Password { get; set; }
+
+        [Required]
+        [StringLength(150)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(150)]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name ="User Type")]
+        public int UserTypeId { get; set; }
+
+        [Required]
+        [Display(Name = "General Manager")]
+        public int GeneralManagerId { get; set; }
+
+        public string FullName {
+            get { return LastName + ", " + FirstName; }
+        }
+
+        public virtual UserType UserType { get; set; }
+        public virtual User GeneralManager { get; set; }
+    }
+
+    public enum EUserType
+    {
+        User = 1,
+        GeneralManager = 2
+    }
+}

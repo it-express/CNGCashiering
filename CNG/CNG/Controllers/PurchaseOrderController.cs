@@ -16,7 +16,9 @@ namespace CNG.Controllers
         // GET: PurchaseOrder
         public ActionResult Index()
         {
-            return View();
+            List<PurchaseOrder> lstPo = poRepo.List().ToList();
+
+            return View(lstPo);
         }
 
         public ActionResult Create()

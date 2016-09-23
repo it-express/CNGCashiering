@@ -24,7 +24,7 @@ namespace CNG.Models
         public int ShipTo { get; set; }
 
         [Required]
-        public string Terms { get; set; }
+        public int Terms { get; set; }
 
         [Required]
         public int PreparedBy { get; set; }
