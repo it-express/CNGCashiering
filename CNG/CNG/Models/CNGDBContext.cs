@@ -13,9 +13,9 @@ namespace CNG.Models
         {
         }
 
-        public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<ItemType> ItemTypes { get; set; }
+        public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
         public virtual DbSet<Vehicle> Vehicles { get; set; }
         public virtual DbSet<User> Users { get; set; }
@@ -23,5 +23,11 @@ namespace CNG.Models
 
         public virtual DbSet<PurchaseOrder> PurchaseOrders { get; set; }
         public virtual DbSet<PurchaseOrderItem> PurchaseOrderItems { get; set; }
+
+        public virtual DbSet<RequisitionPurchase> RequisitionPurchases { get; set; }
+        public virtual DbSet<RequisitionPurchaseItems> RequisitionPurchaseItems { get; set; }
+
+        public virtual DbSet<ExcessPartsSet> ExcessPartsSets { get; set; }
+        public virtual DbSet<ExcessPartsSetItems> ExcessPartsSetItems { get; set; }
     }
 }

@@ -13,20 +13,19 @@ namespace CNG.Controllers
         PurchaseOrderItemRepository poItemRepo = new PurchaseOrderItemRepository();
         CNGDBContext context = new CNGDBContext();
 
-        // GET: Receiving
         public ActionResult Index()
         {
-            ViewBag.PurchaseOrders = new SelectList(poRepo.List(), "No", "No");
-
-            return View();
-        }
-
-        public ActionResult List() {
             List<PurchaseOrder> lstReceivedPo = poRepo.ListReceived();
 
             return View(lstReceivedPo);
         }
 
+        public ActionResult Create() {
+            ViewBag.PurchaseOrders = new SelectList(poRepo.List(), "No", "No");
+
+            return View();
+        }
+        
         public JsonResult ListItemByPoNo(string poNo)
         {
             List<PurchaseOrderItem> lstItem = poItemRepo.ListByPoNo(poNo);
