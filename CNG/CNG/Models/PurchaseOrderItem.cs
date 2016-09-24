@@ -20,6 +20,9 @@ namespace CNG.Models
         [Required]
         public decimal UnitCost { get; set; }
 
+        [Required]
+        public int Quantity { get; set; }
+
         [StringLength(500)]
         public string Remarks { get; set; }
 
@@ -31,5 +34,17 @@ namespace CNG.Models
         public DateTime Date { get; set; }
 
         public virtual Item Item { get; set; }
+
+        public decimal Amount {
+            get {
+                return UnitCost * Quantity;
+            }
+        }
+
+        public decimal Balance {
+            get {
+                return Quantity - ReceivedQuantity;
+            }
+        }
     }
 }

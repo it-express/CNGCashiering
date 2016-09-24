@@ -28,8 +28,7 @@ namespace CNG.Models
         public string ContactNo { get; set; }
 
         [Required]
-        [StringLength(500)]
-        public string Terms { get; set; }
+        public int Terms { get; set; }
 
         [Required]
         public bool Active { get; set; }

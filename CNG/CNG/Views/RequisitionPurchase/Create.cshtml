@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/app/RequisitionPurchase.js"></script>
+
+<h2>Create</h2>
+
+<div>
+    RP# <input type="text" id="txtRpNo" />
+    Date <input type="text" id="txtDate">
+</div>
+
+<div>
+    Select Item: @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items)
+    <input id="btnAddItem" type="button" value="Ok" />
+    <br/>
+    
+    <table id="tblItems">
+        <thead>
+            <tr>
+                <th>Item Code</th>
+                <th>Description</th>
+                <th>Brand</th>
+                <th>Unit Cost</th>
+                <th>Quantity</th>
+                <th>Item Type</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>

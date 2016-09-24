@@ -161,6 +161,7 @@
     <Compile Include="Helper\SelectListHelper.cs" />
     <Compile Include="Models\CNGDBContext.cs" />
     <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\DTO\PurchaseOrderDTO.cs" />
     <Compile Include="Models\ExcessPartsSet.cs" />
     <Compile Include="Models\ExcessPartsSetItems.cs" />
     <Compile Include="Models\Item.cs" />
@@ -194,6 +195,8 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\app\PurchaseOrder.js" />
+    <Content Include="Scripts\app\Receiving.js" />
+    <Content Include="Scripts\app\RequisitionPurchase.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -205,6 +208,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -233,15 +237,15 @@
     <Content Include="Views\PurchaseOrder\Create.cshtml" />
     <Content Include="Views\Receiving\Index.cshtml" />
     <Content Include="Views\Receiving\Create.cshtml" />
-    <Content Include="Views\Receiving\RequisitionToPurchase.cshtml" />
-    <Content Include="Views\Receiving\ExcessParts.cshtml" />
     <Content Include="Views\PurchaseOrder\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\RequisitionPurchase\Index.cshtml" />
+    <Content Include="Views\Shared\_ReceivingMenu.cshtml" />
+    <Content Include="Views\RequisitionPurchase\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\RequisitionPurchase\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -6,6 +6,7 @@
 }
 
 <script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/moment.js"></script>
 <script src="~/Scripts/app/PurchaseOrder.js"></script>
 
 @using (Html.BeginForm())
@@ -35,26 +36,25 @@
 
         <div>
             Ship To @Html.DropDownList("Company", (IEnumerable<SelectListItem>)ViewBag.Companies)
-            
-            <br/><br/>
+            <br/>
             Company Name <label id="lblCompanyname"></label>  <br/>
             Address <label id="lblShippingAddress"></label> <br />
             Contact Person <label id="lblShippingContactPerson"></label> <br />
             Contact No <label id="lblShippingContactNo"></label> <br />
         </div>
 
-        <div>
-            Terms <input type="text" />
-        </div>
+        <br/>
 
-        Due Date <label></label>
+        <div>
+            Terms <label id="lblTerms"></label> <br/>
+
+            Due Date <label id="lblDueDate"></label>
+        </div>
 
         <br />
 
         <div>
-            Add Items
-
-            <br/><br />
+            Add Items<br />
 
             Search item: @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items)
             <input type="button" id="btnAddItem" value="Ok" />
@@ -67,9 +67,11 @@
                         <th>Code</th>
                         <th>Description</th>
                         <th>Brand</th>
-                        <th>Unit Cost</th>
                         <th>Type</th>
+                        <th>Unit Cost</th>
+                        <th>Quantity</th>
                         <th>Remarks</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody></tbody>

@@ -6,49 +6,7 @@
 
 <h2>Receiving</h2>
 
-<div>
-    @Html.ActionLink("Receiving", "Index") |
-    @Html.ActionLink("Requisition to Purchase", "RequisitionToPurchase") |
-    @Html.ActionLink("Excess parts from set", "ExcessParts")
-</div>
-<br/><br />
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        var poNo = $('#PurchaseOrders').val();
-
-        $('#PurchaseOrders').change(function (event) {
-            $('#tblItems tbody').empty();
-
-            $.ajax({
-                url: "/Receiving/ListItemByPoNo",
-                type: "POST",
-                data: "{'poNo' : '" + poNo + "'}",
-                contentType: "application/json; charset=utf-8",
-                success: function (r) {
-
-                    var result = "";
-                    $.each(r, function (i, v) {
-                        result += "<tr>";
-                        result += "<td>" + v.Item.Code + "</td>";
-                        result += "<td>" + v.Item.Description + "</td>";
-                        result += "<td>" + v.Item.Brand + "</td>";
-                        result += "<td>" + v.UnitCost + "</td>";
-                        result += "<td>" + v.Remarks + "</td>";
-                        result += "<td><input type='text' id='txtSerialNo' /></td>";
-                        result += "<td><input type='text' id='txtReceivedQuantity' /></td>";
-                        result += "<td>" + v.UnitCost + "</td>";
-                        result += "<td><input type='text' id='DrNo' /></td>";
-                        result += "<td><input type='text' id='txtDate' /></td>";
-                        result += "</tr>";
-                    });
-
-                    $('#tblItems').append(result);
-                }
-            });
-        });
-    });
-</script>
+<script src="~/Scripts/app/Receiving.js"></script>
 
 <div>
     Search PO @Html.DropDownList("PurchaseOrders", (IEnumerable<SelectListItem>)ViewBag.PurchaseOrders)
@@ -58,12 +16,12 @@
             <thead>
                 <tr>
                     <th>Item</th>
-                    <th>Quantity</th>
-                    <th>Unit Cost</th>
                     <th>Description</th>
-                    <th>Amount</th>
-                    <th>SN/PN #</th>
-                    <th>RCV QTY</th>
+                    <th>Brand</th>
+                    <th>Unit Cost</th>
+                    <th>Item Type</th>
+                    <th>Remarks</th>
+                    <th>Quantity</th>
                     <th>Balance</th>
                     <th>Inv/DR #</th>
                     <th>Date</th>

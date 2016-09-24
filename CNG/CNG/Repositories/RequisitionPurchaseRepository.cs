@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace CNG.Repositories
+namespace CNG.Models
 {
     public class RequisitionPurchaseRepository
     {

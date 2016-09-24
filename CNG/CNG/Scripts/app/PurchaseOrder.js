@@ -1,14 +1,16 @@
 ﻿$(document).ready(function () {
     $('#btnSubmit').click(function (event) {
         event.preventDefault();
-
+        
         var purchaseOrder = new Object();
         //purchaseOrder.No = (backend generated);
         purchaseOrder.VendorId = $('#Vendor').val();
         purchaseOrder.ShipTo = $('#ShipTo').val();
-        purchaseOrder.Terms = "100";
+        //purchaseOrder.Terms = (backen generated)
         //purchaseOrder.PreparedBy = (backend generated);
         //purchaseOrder.ApprovedBy = (backend generated);
+
+        purchaseOrder.Items = GetSelectedItems();
 
         $.ajax({
             url: "/PurchaseOrder/Save",
@@ -37,9 +39,22 @@
                 $('#lblVendorAddress').text(vendor.Address);
                 $('#lblVendorContactPerson').text(vendor.ContactPerson);
                 $('#lblVendorContactNo').text(vendor.ContactNo);
+
+                $('#lblTerms').text(vendor.Terms + ' days');
+
+                var today = new Date();
+                var dueDate = moment(today).add('days', vendor.Terms);
+
+                $('#lblDueDate').text(dueDate.format("MMMM Do YYYY"));
             }
         });
     });
+
+    function addDays(date, days) {
+        var result = new Date(date);
+        result.setDate(result.getDate() + days);
+        return result;
+    }
 
     $('#Company').change(function () {
         var companyId = $(this).val();
@@ -66,35 +81,52 @@
         var itemId = $('#Items').val();
 
         $.ajax({
-            url: "/PurchaseOrder/AddItem",
+            url: "/Item/GetById",
             type: "POST",
-            data: "{'itemId' : '" + itemId + "'}",
+            data: "{'id' : '" + itemId + "'}",
             contentType: "application/json; charset=utf-8",
             success: function (r) {
+                var item = r;
+                //$('#tblItems tbody').empty();
 
-                $('#tblItems tbody').empty();
+                var result = "";
+                result += "<tr class='item-row' data-item-id=" + item.Id + ">";
+                result += "<td>" + item.Code + "</td>";
+                result += "<td>" + item.Description + "</td>";
+                result += "<td>" + item.Brand + "</td>";
+                result += "<td>" + item.Type.Description + "</td>";
+                result += "<td>" + item.UnitCost + "</td>";
+                result += "<td> <input type='text' class='txtQuantity'> </td>";
+                result += "<td> <input type='text' class='txtRemarks'> </td>";
+                result += "<td> <input type='button' class='btnRemoveItem' value='Remove'> </td>";
+                result += "</tr>";
 
-                $.ajax({
-                    url: "/PurchaseOrder/ListItems",
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (r) {
-
-                        var result = "";
-                        $.each(r, function (i, v) {
-                            result += "<tr>";
-                            result += "<td>" + v.Code + "</td>";
-                            result += "<td>" + v.Description + "</td>";
-                            result += "<td>" + v.Brand + "</td>";
-                            result += "<td>" + v.UnitCost + "</td>";
-                            result += "<td>" + v.Type.Description + "</td>";
-                            result += "</tr>";
-                        });
-
-                        $('#tblItems').append(result);
-                    }
-                });
+                $('#tblItems').append(result);
             }
         });
     });
+
+    $(document).on('click', '.btnRemoveItem', function () {
+        var $row = $(this).closest("tr");
+        $row.fadeOut("fast", function () {
+            $row.remove();
+        })
+    });
+
+    function GetSelectedItems() {
+        var lstItem = new Array();
+
+        $("tr.item-row").each(function () {
+            $this = $(this);
+
+            var item = new Object();
+            item.Id = $this.data("item-id");
+            item.Quantity = $this.find(".txtQuantity").val();
+            item.Remarks = $this.find(".txtRemarks").val();
+
+            lstItem.push(item);
+        });
+
+        return lstItem;
+    }
 });

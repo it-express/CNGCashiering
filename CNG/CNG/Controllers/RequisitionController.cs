@@ -9,11 +9,10 @@ namespace CNG.Controllers
 {
     public class RequisitionController : Controller
     {
-        // GET: Requisition
+        private CNGDBContext context = new CNGDBContext();
+
         public ActionResult Index()
         {
-
-
             return View();
         }
     }

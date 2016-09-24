@@ -20,7 +20,8 @@ namespace CNG.Controllers
             return View(lstReceivedPo);
         }
 
-        public ActionResult Create() {
+        public ActionResult Create()
+        {
             ViewBag.PurchaseOrders = new SelectList(poRepo.List(), "No", "No");
 
             return View();
@@ -31,28 +32,6 @@ namespace CNG.Controllers
             List<PurchaseOrderItem> lstItem = poItemRepo.ListByPoNo(poNo);
 
             return Json(lstItem);
-        }
-
-        public ActionResult RequisitionToPurchase() {
-            Session["selectedItems"] = null;
-
-            ViewBag.rpNo = poRepo.GeneratePoNumber();
-            ViewBag.Vendors = new SelectList(context.Vendors, "Id", "Name");
-            ViewBag.Companies = new SelectList(context.Companies, "Id", "Name");
-            ViewBag.Items = new SelectList(context.Items, "Id", "Code");
-
-            return View();
-        }
-
-        public ActionResult ExcessParts() {
-            Session["selectedItems"] = null;
-
-            ViewBag.rpNo = poRepo.GeneratePoNumber();
-            ViewBag.Vendors = new SelectList(context.Vendors, "Id", "Name");
-            ViewBag.Companies = new SelectList(context.Companies, "Id", "Name");
-            ViewBag.Items = new SelectList(context.Items, "Id", "Code");
-
-            return View();
         }
     }
 }

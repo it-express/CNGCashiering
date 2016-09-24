@@ -7,15 +7,10 @@
 
 <h2>Receiving List</h2>
 
-<div>
-    @Html.ActionLink("Receiving", "Index") |
-    @Html.ActionLink("Requisition to Purchase", "RequisitionToPurchase") |
-    @Html.ActionLink("Excess parts from set", "ExcessParts")
-</div>
-<br /><br />
+@{ Html.RenderPartial("_ReceivingMenu"); }
 
 <p>
-    @Html.ActionLink("Receiving", "Index")
+    @Html.ActionLink("Create", "Create")
 </p>
 <table class="table">
     <tr>
