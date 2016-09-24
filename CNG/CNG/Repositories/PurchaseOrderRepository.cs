@@ -13,6 +13,12 @@ namespace CNG.Models
             return context.PurchaseOrders;
         }
 
+        public PurchaseOrder GetByNo(string poNo) {
+            PurchaseOrder po = context.PurchaseOrders.FirstOrDefault(p => p.No == poNo);
+
+            return po;
+        }
+
         public string GeneratePoNumber()
         {
             //get last id
@@ -21,17 +27,15 @@ namespace CNG.Models
                 lastId = List().Max(p => p.Id);
             }
 
-            //mmyy-series
-            string poNumber = DateTime.Now.ToString("mmyy") + "-" + (lastId + 1).ToString().PadLeft(4, '0');
+            //MMyy-series
+            string poNumber = DateTime.Now.ToString("MMyy") + "-" + (lastId + 1).ToString().PadLeft(4, '0');
 
             return poNumber;
         }
 
-
         public List<PurchaseOrder> ListReceived() {
             IQueryable<PurchaseOrder> lst = List().Where(p =>
-            p.ReceivingStatus == (int) EReceivingStatus.Partial || 
-            p.ReceivingStatus == (int) EReceivingStatus.Complete);
+            p.IsCompleted == true);
 
             return lst.ToList();
         }
@@ -39,7 +43,6 @@ namespace CNG.Models
 
     public enum EReceivingStatus {
         NotReceived = 0,
-        Partial = 1,
-        Complete = 2
+        Received = 1
     }
 }

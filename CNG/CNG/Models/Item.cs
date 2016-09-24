@@ -34,6 +34,8 @@ namespace CNG.Models
         [Required]
         public bool Active { get; set; }
 
+        public int QuantityOnHand { get; set; }
+
         public virtual ItemType Type { get; set; }
     }
 }

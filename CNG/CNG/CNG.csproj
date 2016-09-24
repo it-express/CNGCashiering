@@ -162,6 +162,7 @@
     <Compile Include="Models\CNGDBContext.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\DTO\PurchaseOrderDTO.cs" />
+    <Compile Include="Models\DTO\ReceivingDTO.cs" />
     <Compile Include="Models\ExcessPartsSet.cs" />
     <Compile Include="Models\ExcessPartsSetItems.cs" />
     <Compile Include="Models\Item.cs" />
@@ -171,6 +172,8 @@
     <Compile Include="Models\Requisition.cs" />
     <Compile Include="Models\RequisitionPurchase.cs" />
     <Compile Include="Models\RequisitionPurchaseItems.cs" />
+    <Compile Include="Models\TransactionLog.cs" />
+    <Compile Include="Models\TransactionMethod.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserType.cs" />
     <Compile Include="Models\Vehicle.cs" />
@@ -182,6 +185,7 @@
     <Compile Include="Repositories\PurchaseOrderItemRepository.cs" />
     <Compile Include="Repositories\PurchaseOrderRepository.cs" />
     <Compile Include="Repositories\RequisitionPurchaseRepository.cs" />
+    <Compile Include="Repositories\TransactionLogRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\UserTypeRepository.cs" />
     <Compile Include="Repositories\VehicleRepository.cs" />

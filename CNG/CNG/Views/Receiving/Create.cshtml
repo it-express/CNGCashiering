@@ -7,6 +7,7 @@
 <h2>Receiving</h2>
 
 <script src="~/Scripts/app/Receiving.js"></script>
+<script src="~/Scripts/moment.js"></script>
 
 <div>
     Search PO @Html.DropDownList("PurchaseOrders", (IEnumerable<SelectListItem>)ViewBag.PurchaseOrders)
@@ -16,12 +17,12 @@
             <thead>
                 <tr>
                     <th>Item</th>
-                    <th>Description</th>
-                    <th>Brand</th>
-                    <th>Unit Cost</th>
-                    <th>Item Type</th>
-                    <th>Remarks</th>
                     <th>Quantity</th>
+                    <th>Unit Cost</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>SN/PN#</th>
+                    <th>Received Quantity</th>
                     <th>Balance</th>
                     <th>Inv/DR #</th>
                     <th>Date</th>
@@ -33,8 +34,8 @@
     
     <br/><br />
     <div>
-        <input type="button" value="Save"/>
-        <input type="button" value="Submit" />
+        <input type="button" id="btnSave" value="Save"/>
+        <input type="button" id="btnSubmit" value="Submit" />
     </div>
 
     <br/>

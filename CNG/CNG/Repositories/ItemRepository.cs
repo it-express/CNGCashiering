@@ -53,5 +53,12 @@ namespace CNG.Models
 
             context.SaveChanges();
         }
+
+        public void AdjustQuantity(int itemId, int quantity) {
+            Item item = context.Items.Find(itemId);
+            item.QuantityOnHand += quantity;
+
+            Save(item);
+        }
     }
 }

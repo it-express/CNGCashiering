@@ -33,9 +33,9 @@
         <th>
             @Html.DisplayNameFor(model => model.ApprovedBy)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.ReceivingStatus)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
@@ -62,9 +62,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.ApprovedBy)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.ReceivingStatus)
-        </td>
+        </td>*@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id })
         </td>

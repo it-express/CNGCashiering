@@ -9,11 +9,15 @@ namespace CNG.Controllers
 {
     public class PurchaseOrderController : Controller
     {
-        private CNGDBContext context = new CNGDBContext();
+        CNGDBContext context = new CNGDBContext();
         PurchaseOrderRepository poRepo = new PurchaseOrderRepository();
-        PurchaseOrderItemRepository poItemRepo = new PurchaseOrderItemRepository();
+        PurchaseOrderItemRepository poItemRepo;
         VendorRepository vendorRepo = new VendorRepository();
         ItemRepository itemRepo = new ItemRepository();
+
+        public PurchaseOrderController() {
+            poItemRepo = new PurchaseOrderItemRepository(context);
+        }
 
         // GET: PurchaseOrder
         public ActionResult Index()

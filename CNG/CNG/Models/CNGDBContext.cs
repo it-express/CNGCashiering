@@ -29,5 +29,8 @@ namespace CNG.Models
 
         public virtual DbSet<ExcessPartsSet> ExcessPartsSets { get; set; }
         public virtual DbSet<ExcessPartsSetItems> ExcessPartsSetItems { get; set; }
+
+        public virtual DbSet<TransactionLog> TransactionLogs { get; set; }
+        public virtual DbSet<TransactionMethod> TransactionMethods { get; set; }
     }
 }
