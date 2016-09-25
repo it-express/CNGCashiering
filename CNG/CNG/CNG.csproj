@@ -146,6 +146,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\ExcessPartsSetController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\PurchaseOrderController.cs" />
@@ -161,8 +162,10 @@
     <Compile Include="Helper\SelectListHelper.cs" />
     <Compile Include="Models\CNGDBContext.cs" />
     <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\DTO\ExcessPartsSetDTO.cs" />
     <Compile Include="Models\DTO\PurchaseOrderDTO.cs" />
     <Compile Include="Models\DTO\ReceivingDTO.cs" />
+    <Compile Include="Models\DTO\RequisitionPurchaseDTO.cs" />
     <Compile Include="Models\ExcessPartsSet.cs" />
     <Compile Include="Models\ExcessPartsSetItems.cs" />
     <Compile Include="Models\Item.cs" />
@@ -180,10 +183,13 @@
     <Compile Include="Models\Vendor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CompanyRepository.cs" />
+    <Compile Include="Repositories\ExcessPartsSetItemRepository.cs" />
+    <Compile Include="Repositories\ExcessPartsSetRepository.cs" />
     <Compile Include="Repositories\ItemRepository.cs" />
     <Compile Include="Repositories\ItemTypeRepository.cs" />
     <Compile Include="Repositories\PurchaseOrderItemRepository.cs" />
     <Compile Include="Repositories\PurchaseOrderRepository.cs" />
+    <Compile Include="Repositories\RequisitionPurchaseItemRepository.cs" />
     <Compile Include="Repositories\RequisitionPurchaseRepository.cs" />
     <Compile Include="Repositories\TransactionLogRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
@@ -247,6 +253,9 @@
     <Content Include="Views\RequisitionPurchase\Index.cshtml" />
     <Content Include="Views\Shared\_ReceivingMenu.cshtml" />
     <Content Include="Views\RequisitionPurchase\Create.cshtml" />
+    <Content Include="Views\RequisitionPurchase\Details.cshtml" />
+    <Content Include="Views\ExcessPartsSet\Index.cshtml" />
+    <Content Include="Views\ExcessPartsSet\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

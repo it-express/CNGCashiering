@@ -1,19 +1,20 @@
-﻿@model IEnumerable<CNG.Models.RequisitionPurchase>
+﻿@model IEnumerable<CNG.Models.ExcessPartsSet>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Requisition to Purchase</h2>
-
-@{ Html.RenderPartial("_ReceivingMenu"); }
+<h2>Excess Parts from Set</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.No)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Date)
         </th>
@@ -29,6 +30,9 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.No)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Date)
         </td>
         <td>
@@ -38,8 +42,8 @@
             @Html.DisplayFor(modelItem => item.ApprovedBy)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { rpNo=item.No }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.No })
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

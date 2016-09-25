@@ -97,7 +97,7 @@
                 result += "<td>" + item.Type.Description + "</td>";
                 result += "<td>" + item.UnitCost + "</td>";
                 result += "<td> <input type='text' class='txtQuantity'> </td>";
-                result += "<td> <input type='text' class='txtRemarks'> </td>";
+                result += "<td> <textarea id='txtRemarks'> </textarea></td>";
                 result += "<td> <input type='button' class='btnRemoveItem' value='Remove'> </td>";
                 result += "</tr>";
 

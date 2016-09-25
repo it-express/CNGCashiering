@@ -9,6 +9,7 @@ namespace CNG.Models
     public class ExcessPartsSet
     {
         [Key]
+        public int Id { get; set; }
         public string No { get; set; }
         public DateTime Date { get; set; }
         public int PreparedBy { get; set; }

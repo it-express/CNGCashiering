@@ -25,10 +25,10 @@ namespace CNG.Models
         public virtual DbSet<PurchaseOrderItem> PurchaseOrderItems { get; set; }
 
         public virtual DbSet<RequisitionPurchase> RequisitionPurchases { get; set; }
-        public virtual DbSet<RequisitionPurchaseItems> RequisitionPurchaseItems { get; set; }
+        public virtual DbSet<RequisitionPurchaseItem> RequisitionPurchaseItems { get; set; }
 
         public virtual DbSet<ExcessPartsSet> ExcessPartsSets { get; set; }
-        public virtual DbSet<ExcessPartsSetItems> ExcessPartsSetItems { get; set; }
+        public virtual DbSet<ExcessPartsSetItem> ExcessPartsSetItems { get; set; }
 
         public virtual DbSet<TransactionLog> TransactionLogs { get; set; }
         public virtual DbSet<TransactionMethod> TransactionMethods { get; set; }
