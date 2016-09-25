@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -21,6 +22,7 @@ namespace CNG.Models
         public int VendorId { get; set; }
 
         [Required]
+        [ForeignKey("ShipToCompany")]
         public int ShipTo { get; set; }
 
         [Required]
@@ -33,5 +35,8 @@ namespace CNG.Models
         public int ApprovedBy { get; set; }
 
         public bool IsCompleted { get; set; }
+
+        public virtual Vendor Vendor { get; set; }
+        public virtual Company ShipToCompany { get; set; }
     }
 }

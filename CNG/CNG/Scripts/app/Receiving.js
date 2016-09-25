@@ -28,7 +28,8 @@
             contentType: "application/json; charset=utf-8",
             success: function (r) {
 
-                alert("saved");
+                alert("Saved");
+                window.location.href = "/Receiving";
             }
         });
     }

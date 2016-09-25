@@ -48,10 +48,10 @@
             @Html.DisplayFor(modelItem => item.Date)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.VendorId)
+            @Html.DisplayFor(modelItem => item.Vendor.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ShipTo)
+            @Html.DisplayFor(modelItem => item.ShipToCompany.Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Terms)

@@ -5,7 +5,7 @@
         var purchaseOrder = new Object();
         //purchaseOrder.No = (backend generated);
         purchaseOrder.VendorId = $('#Vendor').val();
-        purchaseOrder.ShipTo = $('#ShipTo').val();
+        purchaseOrder.ShipTo = $('#Company').val();
         //purchaseOrder.Terms = (backen generated)
         //purchaseOrder.PreparedBy = (backend generated);
         //purchaseOrder.ApprovedBy = (backend generated);
@@ -18,8 +18,8 @@
             data: JSON.stringify(purchaseOrder),
             contentType: "application/json; charset=utf-8",
             success: function (r) {
-                
-                alert("saved");
+                alert("Successfully created Purchase Order");
+                window.location.href = "/PurchaseOrder";
             }
         });
     });

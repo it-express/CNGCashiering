@@ -23,7 +23,7 @@
         <br/>
         
         <div>
-            Vendor @Html.DropDownList("Vendor", (IEnumerable<SelectListItem>)ViewBag.Vendors)
+            Vendor @Html.DropDownList("Vendor", (IEnumerable<SelectListItem>)ViewBag.Vendors, "")
 
             <br />
             Name <label id="lblVendorName"></label> <br />
@@ -35,7 +35,7 @@
         <br/>
 
         <div>
-            Ship To @Html.DropDownList("Company", (IEnumerable<SelectListItem>)ViewBag.Companies)
+            Ship To @Html.DropDownList("Company", (IEnumerable<SelectListItem>)ViewBag.Companies, "")
             <br/>
             Company Name <label id="lblCompanyname"></label>  <br/>
             Address <label id="lblShippingAddress"></label> <br />

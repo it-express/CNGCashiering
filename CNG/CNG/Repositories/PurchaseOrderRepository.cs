@@ -13,6 +13,10 @@ namespace CNG.Models
             return context.PurchaseOrders;
         }
 
+        public IQueryable<PurchaseOrder> ListForReceiving() {
+            return context.PurchaseOrders.Where(p => p.IsCompleted == false);
+        }
+
         public PurchaseOrder GetByNo(string poNo) {
             PurchaseOrder po = context.PurchaseOrders.FirstOrDefault(p => p.No == poNo);
 

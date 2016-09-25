@@ -26,7 +26,7 @@ namespace CNG.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.PurchaseOrders = new SelectList(poRepo.List(), "No", "No");
+            ViewBag.PurchaseOrders = new SelectList(poRepo.ListForReceiving(), "No", "No");
 
             return View();
         }
