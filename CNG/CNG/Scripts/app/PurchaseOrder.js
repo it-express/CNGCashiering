@@ -4,8 +4,8 @@
         
         var purchaseOrder = new Object();
         //purchaseOrder.No = (backend generated);
-        purchaseOrder.VendorId = $('#Vendor').val();
-        purchaseOrder.ShipTo = $('#Company').val();
+        purchaseOrder.VendorId = $('#VendorId').val();
+        purchaseOrder.ShipTo = $('#ShipTo').val();
         //purchaseOrder.Terms = (backen generated)
         //purchaseOrder.PreparedBy = (backend generated);
         //purchaseOrder.ApprovedBy = (backend generated);
@@ -24,7 +24,7 @@
         });
     });
 
-    $('#Vendor').change(function () {
+    $('#VendorId').change(function () {
         var vendorId = $(this).val();
 
         $.ajax({
@@ -56,7 +56,7 @@
         return result;
     }
 
-    $('#Company').change(function () {
+    $('#ShipTo').change(function () {
         var companyId = $(this).val();
 
         $.ajax({

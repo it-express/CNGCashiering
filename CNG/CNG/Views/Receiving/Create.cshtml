@@ -1,16 +1,19 @@
-﻿
+﻿@model CNG.Models.PurchaseOrder
+
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Receiving</h2>
-
 <script src="~/Scripts/app/Receiving.js"></script>
 <script src="~/Scripts/moment.js"></script>
 
+<h2>Receiving</h2>
+
 <div>
-    Search PO @Html.DropDownList("PurchaseOrders", (IEnumerable<SelectListItem>)ViewBag.PurchaseOrders)
+    @{ Html.RenderPartial("_ReceivingMenu"); }
+
+    Search PO @Html.DropDownList("PurchaseOrders", (IEnumerable<SelectListItem>)ViewBag.PurchaseOrders, "")
 
     <div>
         <table id="tblItems">
@@ -28,7 +31,43 @@
                     <th>Date</th>
                 </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+                @foreach (var poItem in Model.PurchaseOrderItems)
+                {
+                    <tr class='item-row' data-poitem-id="@poItem.ItemId">
+                        <td>
+                            @poItem.Item.Code
+                        </td>
+                        <td class="lblQuantity">
+                            @poItem.Quantity
+                        </td>
+                        <td>
+                            @poItem.UnitCost
+                        </td>
+                        <td>
+                            @poItem.Item.Description
+                        </td>
+                        <td>
+                            @poItem.Amount
+                        </td>
+                        <td>
+                            <input type='text' class='txtSerialNo' value='@poItem.SerialNo' />
+                        </td>
+                        <td>
+                            <input type='text' class='txtReceivedQuantity' value='@poItem.ReceivedQuantity' />
+                        </td>
+                        <td class='lblBalance'>
+                            @poItem.Balance
+                        </td>
+                        <td>
+                            <input type='text' class='txtDrNo' value='@poItem.DrNo' />
+                        </td>
+                        <td>
+                            <input type='text' class='txtDate' value='@poItem.Date.ToShortDateString()' />
+                        </td>
+                    </tr>
+                }
+            </tbody>
         </table>
     </div>
     

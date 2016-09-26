@@ -12,7 +12,7 @@ namespace CNG.Models
         public int Id { get; set; }
 
         [Required]
-        public string PurchaseOrderNo { get; set; }
+        public int PurchaseOrderId { get; set; }
 
         [Required]
         public int ItemId { get; set; }
@@ -48,5 +48,7 @@ namespace CNG.Models
                 return Quantity - ReceivedQuantity;
             }
         }
+
+        //public virtual PurchaseOrder PurchaseOrder { get; set; }
     }
 }

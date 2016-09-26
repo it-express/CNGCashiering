@@ -29,20 +29,44 @@ namespace CNG.Controllers
 
         public ActionResult Create()
         {
-            Session["selectedItems"] = null;
-
             ViewBag.PoNumber = poRepo.GeneratePoNumber();
             ViewBag.Vendors = new SelectList(context.Vendors, "Id", "Name");
             ViewBag.Companies = new SelectList(context.Companies, "Id", "Name");
             ViewBag.Items = new SelectList(context.Items, "Id", "Code");
 
-            return View(new PurchaseOrder());
+            PurchaseOrder po = new PurchaseOrder();
+            po.PurchaseOrderItems = new List<PurchaseOrderItem>();
+
+            return View(po);
+        }
+
+        public ActionResult Edit(string poNo) {
+            PurchaseOrder po = poRepo.GetByNo(poNo);
+
+            ViewBag.PoNumber = po.No;
+            ViewBag.Vendors = new SelectList(context.Vendors, "Id", "Name");
+            ViewBag.Companies = new SelectList(context.Companies, "Id", "Name");
+            ViewBag.Items = new SelectList(context.Items, "Id", "Code");
+
+            return View("Create", po);
         }
 
         public string GeneratePoNumber() {
             string poNumber = poRepo.GeneratePoNumber();
 
             return poNumber;
+        }
+
+        [HttpPost]
+        public JsonResult ListItemByPoNo(string poNo) {
+            PurchaseOrder po = poRepo.GetByNo(poNo);
+
+            List<PurchaseOrderItem> lstPoItem = new List<PurchaseOrderItem>();
+            if (po != null) {
+                lstPoItem = po.PurchaseOrderItems;
+            }
+
+            return Json(lstPoItem);
         }
 
         public void Save(PurchaseOrderDTO entry) {
@@ -55,13 +79,13 @@ namespace CNG.Controllers
             po.Terms = vendorRepo.GetById(entry.VendorId).Terms;
             po.PreparedBy = 0; //Get from session
             po.ApprovedBy = 0; //Get from session
-            
+
             context.PurchaseOrders.Add(po);
             context.SaveChanges();
 
             foreach (PurchaseOrderDTO.Item item in entry.Items) {
                 PurchaseOrderItem poItem = new PurchaseOrderItem();
-                poItem.PurchaseOrderNo = po.No;
+                poItem.PurchaseOrderId = po.Id;
                 poItem.ItemId = item.Id;
                 Item _item = itemRepo.GetById(item.Id);
 

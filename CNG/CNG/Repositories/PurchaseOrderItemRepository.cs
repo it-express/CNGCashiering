@@ -25,11 +25,5 @@ namespace CNG.Models
 
             context.SaveChanges();
         }
-
-        public List<PurchaseOrderItem> ListByPoNo(string poNo) {
-            IQueryable<PurchaseOrderItem> lstPoItem = context.PurchaseOrderItems.Where(p => p.PurchaseOrderNo == poNo);
-
-            return lstPoItem.ToList();
-        }
     }
 }

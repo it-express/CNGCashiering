@@ -9,6 +9,10 @@ namespace CNG.Models
 {
     public class PurchaseOrder
     {
+        public PurchaseOrder() {
+            PurchaseOrderItems = new List<PurchaseOrderItem>();
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -34,9 +38,18 @@ namespace CNG.Models
         [Required]
         public int ApprovedBy { get; set; }
 
-        public bool IsCompleted { get; set; }
+        public int Status { get; set; }
 
         public virtual Vendor Vendor { get; set; }
         public virtual Company ShipToCompany { get; set; }
+
+        public virtual List<PurchaseOrderItem> PurchaseOrderItems { get; set; }
+    }
+
+    public enum EPurchaseOrderStatus
+    {
+        Open = 0,
+        Saved = 1,
+        Submitted = 2
     }
 }

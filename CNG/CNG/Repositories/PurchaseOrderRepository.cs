@@ -14,7 +14,7 @@ namespace CNG.Models
         }
 
         public IQueryable<PurchaseOrder> ListForReceiving() {
-            return context.PurchaseOrders.Where(p => p.IsCompleted == false);
+            return context.PurchaseOrders.Where(p => p.Status == (int) EPurchaseOrderStatus.Open);
         }
 
         public PurchaseOrder GetByNo(string poNo) {
@@ -39,9 +39,16 @@ namespace CNG.Models
 
         public List<PurchaseOrder> ListReceived() {
             IQueryable<PurchaseOrder> lst = List().Where(p =>
-            p.IsCompleted == true);
+            p.Status != (int) EPurchaseOrderStatus.Open);
 
             return lst.ToList();
+        }
+
+        public void ChangeStatus(string poNo, int status) {
+            PurchaseOrder po = context.PurchaseOrders.FirstOrDefault(p => p.No == poNo);
+            po.Status = status;
+
+            context.SaveChanges();
         }
     }
 

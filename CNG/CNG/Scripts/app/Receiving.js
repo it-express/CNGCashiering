@@ -1,8 +1,8 @@
 ﻿$(document).ready(function () {
-    function Save(isCompleted) {
+    function Save(status) {
         var receiving = new Object();
         receiving.PoNo = $('#PurchaseOrders').val();
-        receiving.IsCompleted = isCompleted;
+        receiving.Status = status;
 
         var lstItem = new Array();
 
@@ -37,13 +37,13 @@
     $('#btnSave').click(function (event) {
         event.preventDefault();
 
-        Save(false);
+        Save(1); //1 = saved
     });
 
     $('#btnSubmit').click(function (event) {
         event.preventDefault();
 
-        Save(true);
+        Save(2); //2 = submitted
     });
 
     $('#PurchaseOrders').change(function (event) {

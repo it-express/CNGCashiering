@@ -23,7 +23,7 @@
         <br/>
         
         <div>
-            Vendor @Html.DropDownList("Vendor", (IEnumerable<SelectListItem>)ViewBag.Vendors, "")
+            Vendor @Html.DropDownList("VendorId", (IEnumerable<SelectListItem>)ViewBag.Vendors, "")
 
             <br />
             Name <label id="lblVendorName"></label> <br />
@@ -35,7 +35,7 @@
         <br/>
 
         <div>
-            Ship To @Html.DropDownList("Company", (IEnumerable<SelectListItem>)ViewBag.Companies, "")
+            Ship To @Html.DropDownList("ShipTo", (IEnumerable<SelectListItem>)ViewBag.Companies, "")
             <br/>
             Company Name <label id="lblCompanyname"></label>  <br/>
             Address <label id="lblShippingAddress"></label> <br />
@@ -56,7 +56,7 @@
         <div>
             Add Items<br />
 
-            Search item: @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items)
+            Search item: @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items, "")
             <input type="button" id="btnAddItem" value="Ok" />
 
             <br/>
@@ -74,7 +74,38 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+
+                <tbody>
+                    @foreach (var poItem in Model.PurchaseOrderItems)
+                    {
+                        <tr data-item-id="@poItem.ItemId">
+                            <td>
+                                @poItem.Item.Code
+                            </td>
+                            <td>
+                                @poItem.Item.Description
+                            </td>
+                            <td>
+                                @poItem.Item.Brand
+                            </td>
+                            <td>
+                                @poItem.Item.Type.Description
+                            </td>
+                            <td>
+                                @poItem.UnitCost
+                            </td>
+                            <td>
+                                <input type='text' class='txtQuantity' value="@poItem.Quantity" />
+                            </td>
+                            <td>
+                                <textarea id='txtRemarks'> @poItem.Remarks </textarea>
+                            </td>
+                            <td>
+                                <input type='button' class='btnRemoveItem' value='Remove'>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
             </table>
         </div>
         

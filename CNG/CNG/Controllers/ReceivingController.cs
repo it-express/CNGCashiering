@@ -28,12 +28,23 @@ namespace CNG.Controllers
         {
             ViewBag.PurchaseOrders = new SelectList(poRepo.ListForReceiving(), "No", "No");
 
-            return View();
+            return View(new PurchaseOrder());
+        }
+
+        public ActionResult Edit(string poNo)
+        {
+            ViewBag.PurchaseOrders = new SelectList(poRepo.List(), "No", "No");
+
+            PurchaseOrder po = poRepo.GetByNo(poNo);
+
+            return View("Create", po);
         }
         
         public JsonResult ListItemByPoNo(string poNo)
         {
-            List<PurchaseOrderItem> lstItem = poItemRepo.ListByPoNo(poNo);
+            PurchaseOrder po = poRepo.GetByNo(poNo);
+
+            List<PurchaseOrderItem> lstItem = po.PurchaseOrderItems;
 
             return Json(lstItem);
         }
@@ -49,7 +60,10 @@ namespace CNG.Controllers
 
                 context.SaveChanges();
 
-                if (receivingDTO.IsCompleted == true) {
+                poRepo.ChangeStatus(receivingDTO.PoNo, receivingDTO.Status);
+
+                if (receivingDTO.Status == (int)EPurchaseOrderStatus.Submitted)
+                {
                     InsertLogs(poItem.ItemId, poItem.ReceivedQuantity);
                 }
             }
