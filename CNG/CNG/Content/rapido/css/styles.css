@@ -8062,4 +8062,21 @@ margin-left:0px !important;
 .topbar .container .navbar-header .navbar-brand{
 line-height:normal !important;
 }
+
+
+.form-horizontal label.form-control{
+border:none !important;
+box-shadow:none !important;
+}
+
+.toolbar .navbar-right > li > a{
+width:120px;
+line-height:normal;
+height:78px;   
+border-radius:unset;
+}
+
+.toolbar .navbar-right > li > a.active{
+background:#ddd;
+}
 /*additional*/

@@ -5,43 +5,96 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Requisition to Purchase</h2>
+<!-- start: TOOLBAR -->
+<div class="toolbar row">
+    <div class="col-sm-6 hidden-xs">
+        <div class="page-header">
+            <h1>Requisition to Purchase </h1>
+        </div>
+    </div>
 
-@{ Html.RenderPartial("_ReceivingMenu"); }
+    <div class="col-sm-6 col-xs-12">
+        <div class="toolbar-tools pull-right">
+            <!-- start: TOP NAVIGATION MENU -->
+            @{ Html.RenderPartial("_ReceivingMenu"); }
+        </div>
+    </div>
+</div>
+<!-- end: TOOLBAR -->
+<!-- end: PAGE HEADER -->
+<!-- start: BREADCRUMB -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="breadcrumb"></div>
+    </div>
+</div>
+<!-- end: BREADCRUMB -->
+<!-- start: PAGE CONTENT -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- start: BASIC TABLE PANEL -->
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h4 class="panel-title pull-left"><span class="text-bold">Receiving List</span></h4>
+                <div class="pull-right">
+                    <a href="@Url.Action("Create")" class="btn btn-dark-blue">Create</a>
+                </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PreparedBy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ApprovedBy)
-        </th>
-        <th></th>
-    </tr>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel-body">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PreparedBy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApprovedBy)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details", new { rpNo=item.No }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.No })
-        </td>
-    </tr>
-}
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Date)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PreparedBy)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ApprovedBy)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Date)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PreparedBy)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ApprovedBy)
+                                </td>
+                                <td>
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="@Url.Action("Details", new { rpNo = item.Id })" data-original-title="Details" data-placement="top" class="btn btn-xs btn-green tooltips"><i class="fa fa-list"></i></a>
+                                        <a href="@Url.Action("Remove", new { id = item.Id })" data-original-title="Delete" data-placement="top" class="btn btn-xs btn-red tooltips"><i class="fa fa-times"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
 
-</table>
+                </table>
+            </div>
+        </div>
+        <!-- end: BASIC TABLE PANEL -->
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+
+    $('ul.main-navigation-menu li:nth-child(3)').addClass('active open');
+
+    $('.toolbar .navbar-right > li:nth-child(2) > a').addClass('active');
+});
+
+</script>

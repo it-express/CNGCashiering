@@ -8,77 +8,136 @@
 <script src="~/Scripts/app/Receiving.js"></script>
 <script src="~/Scripts/moment.js"></script>
 
-<h2>Receiving</h2>
-
-<div>
-    @{ Html.RenderPartial("_ReceivingMenu"); }
-
-    Search PO @Html.DropDownList("PurchaseOrders", (IEnumerable<SelectListItem>)ViewBag.PurchaseOrders, "")
-
-    <div>
-        <table id="tblItems">
-            <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Quantity</th>
-                    <th>Unit Cost</th>
-                    <th>Description</th>
-                    <th>Amount</th>
-                    <th>SN/PN#</th>
-                    <th>Received Quantity</th>
-                    <th>Balance</th>
-                    <th>Inv/DR #</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var poItem in Model.PurchaseOrderItems)
-                {
-                    <tr class='item-row' data-poitem-id="@poItem.ItemId">
-                        <td>
-                            @poItem.Item.Code
-                        </td>
-                        <td class="lblQuantity">
-                            @poItem.Quantity
-                        </td>
-                        <td>
-                            @poItem.UnitCost
-                        </td>
-                        <td>
-                            @poItem.Item.Description
-                        </td>
-                        <td>
-                            @poItem.Amount
-                        </td>
-                        <td>
-                            <input type='text' class='txtSerialNo' value='@poItem.SerialNo' />
-                        </td>
-                        <td>
-                            <input type='text' class='txtReceivedQuantity' value='@poItem.ReceivedQuantity' />
-                        </td>
-                        <td class='lblBalance'>
-                            @poItem.Balance
-                        </td>
-                        <td>
-                            <input type='text' class='txtDrNo' value='@poItem.DrNo' />
-                        </td>
-                        <td>
-                            <input type='text' class='txtDate' value='@poItem.Date.ToShortDateString()' />
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    
-    <br/><br />
-    <div>
-        <input type="button" id="btnSave" value="Save"/>
-        <input type="button" id="btnSubmit" value="Submit" />
+<!-- start: TOOLBAR -->
+<div class="toolbar row">
+    <div class="col-sm-6 hidden-xs">
+        <div class="page-header">
+            <h1>Receiving </h1>
+        </div>
     </div>
 
-    <br/>
-    @Html.ActionLink("Back to List", "Index")
+    <div class="col-sm-6 col-xs-12">
+        <div class="toolbar-tools pull-right">
+            <!-- start: TOP NAVIGATION MENU -->
+            @{ Html.RenderPartial("_ReceivingMenu"); }
+        </div>
+    </div>
 </div>
+<!-- end: TOOLBAR -->
+<!-- end: PAGE HEADER -->
+<!-- start: BREADCRUMB -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="breadcrumb"></div>
+    </div>
+</div>
+<!-- end: BREADCRUMB -->
+<!-- start: PAGE CONTENT -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- start: BASIC TABLE PANEL -->
+        <div class="panel panel-white">
+
+            <div class="panel-body">
+
+                <div class="form-horizontal">
+                    <h4>Receiving</h4>
+                    <hr />
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Search PO</label>
+                        <div class="col-md-5">
+                            @Html.DropDownList("PurchaseOrders", (IEnumerable<SelectListItem>)ViewBag.PurchaseOrders, "", new { @class = "form-control" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-md-1"></label>
+                        <div class="col-md-10">
+                            <table id="tblItems" class="table table-hover table-striped table-bordered" style="margin:24px 0px !Important; display:block;">
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Quantity</th>
+                                        <th>Unit Cost</th>
+                                        <th>Description</th>
+                                        <th>Amount</th>
+                                        <th>SN/PN#</th>
+                                        <th>Received Quantity</th>
+                                        <th>Balance</th>
+                                        <th>Inv/DR #</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var poItem in Model.PurchaseOrderItems)
+                                    {
+                                    <tr class='item-row' data-poitem-id="@poItem.ItemId">
+                                        <td>
+                                            @poItem.Item.Code
+                                        </td>
+                                        <td class="lblQuantity">
+                                            @poItem.Quantity
+                                        </td>
+                                        <td>
+                                            @poItem.UnitCost
+                                        </td>
+                                        <td>
+                                            @poItem.Item.Description
+                                        </td>
+                                        <td>
+                                            @poItem.Amount
+                                        </td>
+                                        <td>
+                                            <input type='text' class='txtSerialNo' value='@poItem.SerialNo' />
+                                        </td>
+                                        <td>
+                                            <input type='text' class='txtReceivedQuantity' value='@poItem.ReceivedQuantity' />
+                                        </td>
+                                        <td class='lblBalance'>
+                                            @poItem.Balance
+                                        </td>
+                                        <td>
+                                            <input type='text' class='txtDrNo' value='@poItem.DrNo' />
+                                        </td>
+                                        <td>
+                                            <input type='text' class='txtDate' value='@poItem.Date.ToShortDateString()' />
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="button" id="btnSave" value="Save" class="btn btn-dark-blue" />
+                            <input type="button" id="btnSubmit" value="Submit" class="btn btn-blue" />
+                            <a href="@Url.Action("Index")" class="btn btn-dark-beige">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end: BASIC TABLE PANEL -->
+        </div>
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+        $('ul.main-navigation-menu li:nth-child(3)').addClass('active open');
+
+        $('.toolbar .navbar-right > li:nth-child(1) > a').addClass('active');
+    });
+
+</script>
+
+
 
 

@@ -5,125 +5,236 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script src="~/Scripts/jquery-1.10.2.js"></script>
+@*<script src="~/Scripts/jquery-1.10.2.js"></script>*@
 <script src="~/Scripts/moment.js"></script>
 <script src="~/Scripts/app/PurchaseOrder.js"></script>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>New Purchase Order</h4>
-        <hr />
-        
-        <div>
-            PO Number<label id="lblPoNumber">@ViewBag.PoNumber</label>
+
+<!-- start: TOOLBAR -->
+<div class="toolbar row">
+    <div class="col-sm-6 hidden-xs">
+        <div class="page-header">
+            <h1>Purchase Order </h1>
         </div>
-        <br/>
-        
-        <div>
-            Vendor @Html.DropDownList("VendorId", (IEnumerable<SelectListItem>)ViewBag.Vendors, "")
-
-            <br />
-            Name <label id="lblVendorName"></label> <br />
-            Address <label id="lblVendorAddress"></label> <br />
-            Contact Person <label id="lblVendorContactPerson"></label> <br />
-            Contact No <label id="lblVendorContactNo"></label> <br />
-        </div>
-        
-        <br/>
-
-        <div>
-            Ship To @Html.DropDownList("ShipTo", (IEnumerable<SelectListItem>)ViewBag.Companies, "")
-            <br/>
-            Company Name <label id="lblCompanyname"></label>  <br/>
-            Address <label id="lblShippingAddress"></label> <br />
-            Contact Person <label id="lblShippingContactPerson"></label> <br />
-            Contact No <label id="lblShippingContactNo"></label> <br />
-        </div>
-
-        <br/>
-
-        <div>
-            Terms <label id="lblTerms"></label> <br/>
-
-            Due Date <label id="lblDueDate"></label>
-        </div>
-
-        <br />
-
-        <div>
-            Add Items<br />
-
-            Search item: @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items, "")
-            <input type="button" id="btnAddItem" value="Ok" />
-
-            <br/>
-
-            <table id="tblItems">
-                <thead>
-                    <tr>
-                        <th>Code</th>
-                        <th>Description</th>
-                        <th>Brand</th>
-                        <th>Type</th>
-                        <th>Unit Cost</th>
-                        <th>Quantity</th>
-                        <th>Remarks</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    @foreach (var poItem in Model.PurchaseOrderItems)
-                    {
-                        <tr data-item-id="@poItem.ItemId">
-                            <td>
-                                @poItem.Item.Code
-                            </td>
-                            <td>
-                                @poItem.Item.Description
-                            </td>
-                            <td>
-                                @poItem.Item.Brand
-                            </td>
-                            <td>
-                                @poItem.Item.Type.Description
-                            </td>
-                            <td>
-                                @poItem.UnitCost
-                            </td>
-                            <td>
-                                <input type='text' class='txtQuantity' value="@poItem.Quantity" />
-                            </td>
-                            <td>
-                                <textarea id='txtRemarks'> @poItem.Remarks </textarea>
-                            </td>
-                            <td>
-                                <input type='button' class='btnRemoveItem' value='Remove'>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-        
-        <br/>
-        <div>
-            Prepared By: <label id="lblPreparedBy"></label>
-            <br/>
-            Approved By: <label id="lblApprovedBy"></label>
-        </div>
-
-        <br/>
-        
-        <input id="btnSubmit" type="submit" value="Submit" />
-
-        <br />
-        @Html.ActionLink("Back to List", "Index")
     </div>
-}
+</div>
+<!-- end: TOOLBAR -->
+<!-- end: PAGE HEADER -->
+<!-- start: BREADCRUMB -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="breadcrumb"></div>
+    </div>
+</div>
+<!-- end: BREADCRUMB -->
+<!-- start: PAGE CONTENT -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- start: BASIC TABLE PANEL -->
+        <div class="panel panel-white">
+
+            <div class="panel-body">
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <h4>PO Number<label id="lblPoNumber">@ViewBag.PoNumber</label></h4>
+                        <hr />
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Vendor</label>
+                            <div class="col-md-5">
+                                @Html.DropDownList("VendorId", (IEnumerable<SelectListItem>)ViewBag.Vendors, "", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2"></label>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align:left;">Name</label>
+                                    <div class="col-md-5">
+                                        <label id="lblVendorName" class="form-control"></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align:left;">Address</label>
+                                    <div class="col-md-5">
+                                        <label id="lblVendorAddress" class="form-control"></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align:left;">Contact Person</label>
+                                    <div class="col-md-5">
+                                        <label id="lblVendorContactPerson" class="form-control"></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align:left;">Contact No</label>
+                                    <div class="col-md-5">
+                                        <label id="lblVendorContactNo" class="form-control"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Ship To</label>
+                            <div class="col-md-5">
+                                @Html.DropDownList("ShipTo", (IEnumerable<SelectListItem>)ViewBag.Companies, "", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2"></label>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align:left;">Name</label>
+                                    <div class="col-md-5">
+                                        <label id="lblCompanyname" class="form-control"></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align:left;">Address</label>
+                                    <div class="col-md-5">
+                                        <label id="lblShippingAddress" class="form-control"></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align:left;">Contact Person</label>
+                                    <div class="col-md-5">
+                                        <label id="lblShippingContactPerson" class="form-control"></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align:left;">Contact No</label>
+                                    <div class="col-md-5">
+                                        <label id="lblShippingContactNo" class="form-control"></label>
+                                    </div>
+                                </div>                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Terms</label>
+                            <div class="col-md-5">
+                                <label id="lblTerms" class="form-control"></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Due Date</label>
+                            <div class="col-md-5">
+                                <label id="lblDueDate" class="form-control"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <h4 class="control-label col-md-2">Add Items</h4>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Search Item</label>
+                            <div class="col-md-5">
+                                @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items, "", new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-1">
+                                <input type="button" id="btnAddItem" value="Ok" class="btn btn-dark-blue" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2"></label>
+                            <div class="col-md-9">
+                                <table id="tblItems" class="table table-hover table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Code</th>
+                                            <th>Description</th>
+                                            <th>Brand</th>
+                                            <th>Type</th>
+                                            <th>Unit Cost</th>
+                                            <th>Quantity</th>
+                                            <th>Remarks</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @foreach (var poItem in Model.PurchaseOrderItems)
+                                        {
+                                            <tr data-item-id="@poItem.ItemId">
+                                                <td>
+                                                    @poItem.Item.Code
+                                                </td>
+                                                <td>
+                                                    @poItem.Item.Description
+                                                </td>
+                                                <td>
+                                                    @poItem.Item.Brand
+                                                </td>
+                                                <td>
+                                                    @poItem.Item.Type.Description
+                                                </td>
+                                                <td>
+                                                    @poItem.UnitCost
+                                                </td>
+                                                <td>
+                                                    <input type='text' class='txtQuantity form-control' value="@poItem.Quantity" />
+                                                </td>
+                                                <td>
+                                                    <textarea id='txtRemarks' class="form-control"> @poItem.Remarks </textarea>
+                                                </td>
+                                                <td>
+                                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                                        <a href="#" data-original-title="Remove" data-placement="top" class="btn btn-xs btn-red tooltips btnRemoveItem"><i class="fa fa-times fa fa-white"></i></a>
+                                                    </div>
+                                                    @*<input type='button' class='btnRemoveItem' value='Remove'>*@
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Prepared By</label>
+                            <div class="col-md-5">
+                                <label id="lblPreparedBy" class="form-control"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Approved By</label>
+                            <div class="col-md-5">
+                                <label id="lblApprovedBy" class="form-control"></label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input id="btnSubmit" type="submit" value="Submit" class="btn btn-dark-blue" />
+                                <a href="@Url.Action("Index")" class="btn btn-dark-beige">
+                                    Back to List
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+        </div>
+        <!-- end: BASIC TABLE PANEL -->
+    </div>
+</div>
+
+<script>
+
+$(document).ready(function() {
+    $('ul.main-navigation-menu > li:nth-child(2)').addClass('active open');
+});
+
+</script>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

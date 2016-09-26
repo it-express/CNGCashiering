@@ -6,40 +6,107 @@
 
 <script src="~/Scripts/app/RequisitionPurchase.js"></script>
 
-<h2>Requisition to Purchase</h2>
 
-@{ Html.RenderPartial("_ReceivingMenu"); }
+<!-- start: TOOLBAR -->
+<div class="toolbar row">
+    <div class="col-sm-6 hidden-xs">
+        <div class="page-header">
+            <h1>Requisition to Purchase </h1>
+        </div>
+    </div>
 
-<div>
-    RP# <label id="lblRpNo">@ViewBag.RpNo</label>
-    Date <input type="text" id="txtDate" value="@ViewBag.Date" />
+    <div class="col-sm-6 col-xs-12">
+        <div class="toolbar-tools pull-right">
+            <!-- start: TOP NAVIGATION MENU -->
+            @{ Html.RenderPartial("_ReceivingMenu"); }
+        </div>
+    </div>
+</div>
+<!-- end: TOOLBAR -->
+<!-- end: PAGE HEADER -->
+<!-- start: BREADCRUMB -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="breadcrumb"></div>
+    </div>
+</div>
+<!-- end: BREADCRUMB -->
+<!-- start: PAGE CONTENT -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- start: BASIC TABLE PANEL -->
+        <div class="panel panel-white">
+
+            <div class="panel-body">
+
+                <div class="form-horizontal">
+                    <h4>Requisition to Purchase</h4>
+                    <hr />
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">RP#</label>
+                        <div class="col-md-5">
+                            <label id="lblRpNo" class="form-control">@ViewBag.RpNo</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Date</label>
+                        <div class="col-md-5">
+                            <input type="text" id="txtDate" value="@ViewBag.Date" class="form-control date-picker" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Select Item</label>
+                        <div class="col-md-5">
+                            @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-5">
+                            <input id="btnAddItem" type="button" value="Ok" class="btn btn-dark-blue" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-1"></label>
+                        <div class="col-md-8">
+                            <table id="tblItems" class="table table-hover table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Item Code</th>
+                                        <th>Description</th>
+                                        <th>Brand</th>
+                                        <th>Unit Cost</th>
+                                        <th>Quantity</th>
+                                        <th>Item Type</th>
+                                        <th>Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="button" id="btnSubmit" value="Submit" class="btn btn-dark-blue" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end: BASIC TABLE PANEL -->
+        </div>
+    </div>
 </div>
 
-<br/>
+<script>
 
-<div>
-    Select Item: @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items)
-    <input id="btnAddItem" type="button" value="Ok" />
-    <br/>
-    
-    <table id="tblItems">
-        <thead>
-            <tr>
-                <th>Item Code</th>
-                <th>Description</th>
-                <th>Brand</th>
-                <th>Unit Cost</th>
-                <th>Quantity</th>
-                <th>Item Type</th>
-                <th>Remarks</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-</div>
+    $(document).ready(function () {
+        $('ul.main-navigation-menu li:nth-child(3)').addClass('active open');
 
-<br/>
-<input type="button" id="btnSubmit" value="Submit" />
+        $('.toolbar .navbar-right > li:nth-child(2) > a').addClass('active');
+    });
 
-<br />
-@Html.ActionLink("Back to List", "Index")
+</script>

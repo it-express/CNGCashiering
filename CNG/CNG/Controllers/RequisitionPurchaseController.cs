@@ -34,8 +34,9 @@ namespace CNG.Controllers
             return View();
         }
 
-        public ActionResult Details(string rpNo) {
-            RequisitionPurchase rp = rpRepo.GetByRpNo(rpNo);
+        public ActionResult Details(int rpNo) {
+            RequisitionPurchase rp = rpRepo.GetById(rpNo);
+            rp.RequisitionPurchaseItems = new List<RequisitionPurchaseItem>();
 
             return View(rp);
         }
