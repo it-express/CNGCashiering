@@ -44,76 +44,92 @@
                         <h4>PO Number<label id="lblPoNumber">@ViewBag.PoNumber</label></h4>
                         <hr />
 
-                        <div class="form-group">
-                            <label class="control-label col-md-2">Vendor</label>
-                            <div class="col-md-5">
-                                @Html.DropDownList("VendorId", (IEnumerable<SelectListItem>)ViewBag.Vendors, "", new { @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2"></label>
-                            <div class="col-md-9">
-                                <div class="form-group">
-                                    <label class="control-label col-md-2" style="text-align:left;">Name</label>
-                                    <div class="col-md-5">
-                                        <label id="lblVendorName" class="form-control"></label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2" style="text-align:left;">Address</label>
-                                    <div class="col-md-5">
-                                        <label id="lblVendorAddress" class="form-control"></label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2" style="text-align:left;">Contact Person</label>
-                                    <div class="col-md-5">
-                                        <label id="lblVendorContactPerson" class="form-control"></label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2" style="text-align:left;">Contact No</label>
-                                    <div class="col-md-5">
-                                        <label id="lblVendorContactNo" class="form-control"></label>
-                                    </div>
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label class="control-label col-md-4">Vendor</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownList("VendorId", (IEnumerable<SelectListItem>)ViewBag.Vendors, "", new { @class = "form-control" })
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">Ship To</label>
-                            <div class="col-md-5">
-                                @Html.DropDownList("ShipTo", (IEnumerable<SelectListItem>)ViewBag.Companies, "", new { @class = "form-control" })
+                            <div class="form-group">
+                                <label class="control-label col-md-4"></label>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-5" style="text-align:left;">Name</label>
+                                        <div class="col-md-7">
+                                            <label id="lblVendorName" class="form-control"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-5" style="text-align:left;">Address</label>
+                                        <div class="col-md-7">
+                                            <label id="lblVendorAddress" class="form-control"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-5" style="text-align:left;">Contact Person</label>
+                                        <div class="col-md-7">
+                                            <label id="lblVendorContactPerson" class="form-control"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-5" style="text-align:left;">Contact No</label>
+                                        <div class="col-md-7">
+                                            <label id="lblVendorContactNo" class="form-control"></label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2"></label>
-                            <div class="col-md-9">
-                                <div class="form-group">
-                                    <label class="control-label col-md-2" style="text-align:left;">Name</label>
-                                    <div class="col-md-5">
-                                        <label id="lblCompanyname" class="form-control"></label>
-                                    </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4">Ship To</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownList("ShipTo", (IEnumerable<SelectListItem>)ViewBag.Companies, "", new { @class = "form-control" })
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2" style="text-align:left;">Address</label>
-                                    <div class="col-md-5">
-                                        <label id="lblShippingAddress" class="form-control"></label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2" style="text-align:left;">Contact Person</label>
-                                    <div class="col-md-5">
-                                        <label id="lblShippingContactPerson" class="form-control"></label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2" style="text-align:left;">Contact No</label>
-                                    <div class="col-md-5">
-                                        <label id="lblShippingContactNo" class="form-control"></label>
-                                    </div>
-                                </div>                                
                             </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4"></label>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-5" style="text-align:left;">Name</label>
+                                        <div class="col-md-7">
+                                            <label id="lblCompanyname" class="form-control"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-5" style="text-align:left;">Address</label>
+                                        <div class="col-md-7">
+                                            <label id="lblShippingAddress" class="form-control"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-5" style="text-align:left;">Contact Person</label>
+                                        <div class="col-md-7">
+                                            <label id="lblShippingContactPerson" class="form-control"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-5" style="text-align:left;">Contact No</label>
+                                        <div class="col-md-7">
+                                            <label id="lblShippingContactNo" class="form-control"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
+
+
+
+                        
+                        
+                        <div class="clearfix"></div>
+                        
+                        
+                        
                         <div class="form-group">
                             <label class="control-label col-md-2">Terms</label>
                             <div class="col-md-5">
