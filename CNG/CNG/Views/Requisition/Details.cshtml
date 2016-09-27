@@ -1,0 +1,171 @@
+﻿@model CNG.Models.Requisition
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Requisition</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.No)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.No)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JobOrderNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JobOrderNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JobOrderDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JobOrderDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UnitPlateNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnitPlateNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OdometerReading)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OdometerReading)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DriverName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DriverName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReportedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReportedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CheckedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CheckedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApprovedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApprovedBy)
+        </dd>
+
+    </dl>
+    <div class="form-group">
+        <label class="col-md-1"></label>
+        <div class="col-md-9">
+            <table class="table table-hover table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            Item/Part
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Serial No
+                        </th>
+                        <th>
+                            Item/Parts Required
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            SerialNo
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var rpItem in Model.RequisitionItems)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => rpItem.Item.Code)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => rpItem.Quantity)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => rpItem.Item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => rpItem.SerialNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => rpItem.Item.Code)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => rpItem.Quantity)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => rpItem.Item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => rpItem.SerialNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => rpItem.Type)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

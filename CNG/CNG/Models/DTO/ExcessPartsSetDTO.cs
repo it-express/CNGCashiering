@@ -16,6 +16,7 @@ namespace CNG.Models
         }
 
         public string No { get; set; }
+        public DateTime Date { get; set; }
 
         public List<Item> Items { get; set; }
     }

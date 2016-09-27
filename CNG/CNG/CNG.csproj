@@ -208,6 +208,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\app\ExcessPartsSet.js" />
     <Content Include="Scripts\app\PurchaseOrder.js" />
     <Content Include="Scripts\app\Receiving.js" />
     <Content Include="Scripts\app\Requisition.js" />
@@ -263,6 +264,7 @@
     <Content Include="Views\ExcessPartsSet\Create.cshtml" />
     <Content Include="Views\Requisition\Index.cshtml" />
     <Content Include="Views\Requisition\Create.cshtml" />
+    <Content Include="Views\Requisition\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

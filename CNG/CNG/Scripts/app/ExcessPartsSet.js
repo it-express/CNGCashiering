@@ -2,7 +2,7 @@
     $('#btnSubmit').click(function (event) {
         event.preventDefault();
 
-        var rp = new Object();
+        var eps = new Object();
 
         var lstItem = new Array();
 
@@ -18,17 +18,17 @@
             lstItem.push(item);
         });
 
-        rp.Items = lstItem;
+        eps.Items = lstItem;
 
         $.ajax({
-            url: "/RequisitionPurchase/Save",
+            url: "/ExcessPartsSet/Save",
             type: "POST",
-            data: JSON.stringify(rp),
+            data: JSON.stringify(eps),
             contentType: "application/json; charset=utf-8",
             success: function (r) {
 
                 alert("Saved");
-                window.location.href = "/RequisitionPurchase";
+                window.location.href = "/ExcessPartsSet";
             }
         });
     });

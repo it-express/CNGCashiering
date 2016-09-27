@@ -28,15 +28,17 @@ namespace CNG.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.RpNo = epsRepo.GenerateEpsNo();
+            ViewBag.EpsNo = epsRepo.GenerateEpsNo();
+            ViewBag.Date = DateTime.Now.ToShortDateString();
             ViewBag.Items = new SelectList(context.Items, "Id", "Code");
 
             return View();
         }
 
-        public ActionResult Details(string epsNo)
+        [HttpGet]
+        public ActionResult Details(int id)
         {
-            ExcessPartsSet eps = epsRepo.GetByEpsNo(epsNo);
+            ExcessPartsSet eps = epsRepo.GetById(id);
 
             return View(eps);
         }

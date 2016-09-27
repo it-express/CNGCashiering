@@ -38,6 +38,13 @@ namespace CNG.Controllers
             return View(new Requisition());
         }
 
+        public ActionResult Details(string reqNo) {
+            Requisition req = reqRepo.GetByNo(reqNo);
+            req.RequisitionItems = new List<RequisitionItem>();
+
+            return View(req);
+        }
+
         public void Save(RequisitionDTO entry)
         {
             Requisition req = new Requisition();

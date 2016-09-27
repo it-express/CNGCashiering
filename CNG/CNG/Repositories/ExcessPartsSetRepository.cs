@@ -16,7 +16,7 @@ namespace CNG.Models
 
         public ExcessPartsSet GetById(int id)
         {
-            ExcessPartsSet eps = context.ExcessPartsSets.FirstOrDefault(p => p.Id == id);
+            ExcessPartsSet eps = context.ExcessPartsSets.Find(id);
 
             return eps;
         }
