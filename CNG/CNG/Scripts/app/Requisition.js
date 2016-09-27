@@ -70,7 +70,7 @@
                 result += "<td>" + item.Code + "</td>";
                 result += "<td><label class='lblQuantity'></label> </td>";
                 result += "<td>" + item.Description + "</td>";
-                result += "<td> <input type='text' class='txtSerialNoform-control' /></td>";
+                result += "<td> <input type='text' class='txtSerialNo form-control' /></td>";
 
                 result += "<td> <select id='selType' class='form-control'><option value='1'>scrap</option><option value='2'>junk</option></select> </td>";
 
