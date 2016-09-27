@@ -7,73 +7,120 @@
 
 <h2>User Management</h2>
 
-@using (Html.BeginForm("Edit", "User"))
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
-
-            <div class="col-md-10">
-                @*@Html.EditorFor(model => model.UserTypeId, new { htmlAttributes = new { @class = "form-control" } })*@
-                @Html.DropDownList("UserTypeId", (IEnumerable<SelectListItem>)ViewBag.UserType)
-                @Html.ValidationMessageFor(model => model.UserTypeId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.GeneralManagerId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @*@Html.EditorFor(model => model.GeneralManagerId, new { htmlAttributes = new { @class = "form-control" } })*@
-                @Html.DropDownList("GeneralManagerId", (IEnumerable<SelectListItem>)ViewBag.GeneralManager)
-                @Html.ValidationMessageFor(model => model.GeneralManagerId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+<!-- start: TOOLBAR -->
+<div class="toolbar row">
+    <div class="col-sm-6 hidden-xs">
+        <div class="page-header">
+            <h1>Vehicle </h1>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
+<!-- end: TOOLBAR -->
+<!-- end: PAGE HEADER -->
+<!-- start: BREADCRUMB -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="breadcrumb"></div>
+    </div>
+</div>
+<!-- end: BREADCRUMB -->
+<!-- start: PAGE CONTENT -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- start: BASIC TABLE PANEL -->
+        <div class="panel panel-white">
+
+            <div class="panel-body">
+
+               @using (Html.BeginForm("Edit", "User"))
+               {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>User Management</h4>
+                    <hr />
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UserTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                        <div class="col-md-5">
+                            @*@Html.EditorFor(model => model.UserTypeId, new { htmlAttributes = new { @class = "form-control" } })*@
+                            @Html.DropDownList("UserTypeId", (IEnumerable<SelectListItem>)ViewBag.UserType, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.UserTypeId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.GeneralManagerId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @*@Html.EditorFor(model => model.GeneralManagerId, new { htmlAttributes = new { @class = "form-control" } })*@
+                            @Html.DropDownList("GeneralManagerId", (IEnumerable<SelectListItem>)ViewBag.GeneralManager, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.GeneralManagerId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button type="submit" class="btn btn-dark-blue">
+                                Save
+                            </button>
+                            <a href="@Url.Action("Index")" class="btn btn-dark-beige">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+
+
+                </div>
+               }
+
+            </div>
+        </div>
+        <!-- end: BASIC TABLE PANEL -->
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+        $('ul.main-navigation-menu > li:nth-child(5)').addClass('active open');
+
+        $('ul.main-navigation-menu > li:nth-child(5) ul.sub-menu> li:nth-child(5)').addClass('active');
+    });
+
+</script>
