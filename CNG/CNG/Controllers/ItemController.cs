@@ -22,12 +22,16 @@ namespace CNG.Controllers
         [HttpGet]
         public ViewResult Create()
         {
+            InitViewBags();
+
             return View("Edit", new Item());
         }
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
+            InitViewBags();
+
             Item item = itemRepo.GetById(id);
 
             return View(item);
@@ -63,6 +67,11 @@ namespace CNG.Controllers
             Item item = itemRepo.GetById(id);
 
             return Json(item);
+        }
+
+        private void InitViewBags() {
+            ViewBag.ItemTypes = new SelectList(itemTypeRepo.List(), "Id", "Description");
+
         }
     }
 }

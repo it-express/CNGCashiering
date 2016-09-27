@@ -52,7 +52,7 @@
                 result += "<td>" + item.Code + "</td>";
                 result += "<td>" + item.Description + "</td>";
                 result += "<td>" + item.Brand + "</td>";
-                result += "<td> <input type='text' class='txtUnitCost' value='" + item.UnitCost + "'/></td>";
+                result += "<td> <input type='text' disabled='disabled' class='txtUnitCost' value='0'/></td>";
                 result += "<td> <input type='text' class='txtQuantity'> </td>";
                 result += "<td>" + item.Type.Description + "</td>";
                 result += "<td> <textarea class='txtRemarks'> </textarea></td>";
