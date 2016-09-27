@@ -15,5 +15,7 @@ namespace CNG.Models
         public decimal UnitCost { get; set; }
         public int Quantity { get; set; }
         public string Remarks { get; set; }
+
+        public Item Item { get; set; }
     }
 }

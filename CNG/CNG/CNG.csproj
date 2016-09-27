@@ -265,6 +265,7 @@
     <Content Include="Views\Requisition\Index.cshtml" />
     <Content Include="Views\Requisition\Create.cshtml" />
     <Content Include="Views\Requisition\Details.cshtml" />
+    <Content Include="Views\ExcessPartsSet\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
