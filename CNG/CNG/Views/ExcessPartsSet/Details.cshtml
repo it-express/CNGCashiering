@@ -5,108 +5,158 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>ExcessPartsSet</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.No)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.No)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PreparedBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PreparedBy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ApprovedBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ApprovedBy)
-        </dd>
-
-    </dl>
-
-    <div class="form-group">
-        <label class="col-md-1"></label>
-        <div class="col-md-9">
-            <table class="table table-hover table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>
-                            Item Code
-                        </th>
-                        <th>
-                            Description
-                        </th>
-                        <th>
-                            Brand
-                        </th>
-                        <th>
-                            Unit Cost
-                        </th>
-                        <th>
-                            Item Type
-                        </th>
-                        <th>
-                            Remarks
-                        </th>
-                        <th>
-                            Quantity
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var rpItem in Model.ExcessPartsSetItems)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => rpItem.Item.Code)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => rpItem.Item.Description)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => rpItem.Item.Brand)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => rpItem.UnitCost)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => rpItem.Item.Type.Description)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => rpItem.Remarks)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => rpItem.Quantity)
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+<!-- start: TOOLBAR -->
+<div class="toolbar row">
+    <div class="col-sm-6 hidden-xs">
+        <div class="page-header">
+            <h1>Excess Parts Set </h1>
         </div>
     </div>
 
+    <div class="col-sm-6 col-xs-12">
+        <div class="toolbar-tools pull-right">
+            <!-- start: TOP NAVIGATION MENU -->
+            @{ Html.RenderPartial("_ReceivingMenu"); }
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<!-- end: TOOLBAR -->
+<!-- end: PAGE HEADER -->
+<!-- start: BREADCRUMB -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="breadcrumb"></div>
+    </div>
+</div>
+<!-- end: BREADCRUMB -->
+<!-- start: PAGE CONTENT -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- start: BASIC TABLE PANEL -->
+        <div class="panel panel-white">
+
+            <div class="panel-body">
+
+                <div class="form-horizontal">
+                    <h4>Excess Parts Set</h4>
+                    <hr />
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.No)</label>
+                        <div class="col-md-5">
+                            <label class="form-control">@Html.DisplayFor(model => model.No)</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.Date)</label>
+                        <div class="col-md-5">
+                            <label class="form-control">@Html.DisplayFor(model => model.Date)</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.PreparedBy)</label>
+                        <div class="col-md-5">
+                            <label class="form-control">@Html.DisplayFor(model => model.PreparedBy)</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.ApprovedBy)</label>
+                        <div class="col-md-5">
+                            <label class="form-control">@Html.DisplayFor(model => model.ApprovedBy)</label>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label col-md-1"></label>
+                        <div class="col-md-10">
+                            <table class="table table-hover table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Item Code
+                                        </th>
+                                        <th>
+                                            Description
+                                        </th>
+                                        <th>
+                                            Brand
+                                        </th>
+                                        <th>
+                                            Unit Cost
+                                        </th>
+                                        <th>
+                                            Item Type
+                                        </th>
+                                        <th>
+                                            Remarks
+                                        </th>
+                                        <th>
+                                            Quantity
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var rpItem in Model.ExcessPartsSetItems)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => rpItem.Item.Code)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => rpItem.Item.Description)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => rpItem.Item.Brand)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => rpItem.UnitCost)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => rpItem.Item.Type.Description)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => rpItem.Remarks)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => rpItem.Quantity)
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <a href="@Url.Action("Index")" class="btn btn-dark-beige">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- end: BASIC TABLE PANEL -->
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+    $('ul.main-navigation-menu li:nth-child(3)').addClass('active open');
+
+    $('.toolbar .navbar-right > li:nth-child(3) > a').addClass('active');
+});
+
+</script>
+
+

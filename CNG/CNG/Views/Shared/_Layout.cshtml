@@ -262,8 +262,23 @@
             Main.init();
             SVExamples.init();
             FormElements.init();
+
+            $('.date-picker').datepicker();
         });
+
+        //$(window).load(function() {
+           
+        //});
+
+        $(window).on("load", function () {
+            $.ready.then(function () {
+                $('.date-picker').datepicker();
+            });
+        })
+
     </script>
+
+
 </body>
 <!-- end: BODY -->
 </html>

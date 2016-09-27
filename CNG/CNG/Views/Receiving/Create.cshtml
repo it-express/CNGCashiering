@@ -55,7 +55,7 @@
                     <div class="form-group">
                         <label class="col-md-1"></label>
                         <div class="col-md-10">
-                            <table id="tblItems" class="table table-hover table-striped table-bordered" style="margin:24px 0px !Important; display:block;">
+                            <table id="tblItems" class="table table-hover table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th>Item</th>
@@ -90,19 +90,19 @@
                                             @poItem.Amount
                                         </td>
                                         <td>
-                                            <input type='text' class='txtSerialNo' value='@poItem.SerialNo' />
+                                            <input type='text' class='txtSerialNo form-control' value='@poItem.SerialNo' />
                                         </td>
                                         <td>
-                                            <input type='text' class='txtReceivedQuantity' value='@poItem.ReceivedQuantity' />
+                                            <input type='text' class='txtReceivedQuantity form-control' value='@poItem.ReceivedQuantity' />
                                         </td>
                                         <td class='lblBalance'>
                                             @poItem.Balance
                                         </td>
                                         <td>
-                                            <input type='text' class='txtDrNo' value='@poItem.DrNo' />
+                                            <input type='text' class='txtDrNo form-control' value='@poItem.DrNo' />
                                         </td>
                                         <td>
-                                            <input type='text' class='txtDate' value='@poItem.Date.ToShortDateString()' />
+                                            <input type='text' class='txtDate form-control date-picker' value='@poItem.Date.ToShortDateString()' />
                                         </td>
                                     </tr>
                                     }
@@ -135,6 +135,8 @@
 
         $('.toolbar .navbar-right > li:nth-child(1) > a').addClass('active');
     });
+
+   
 
 </script>
 

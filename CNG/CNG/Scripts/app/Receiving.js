@@ -73,7 +73,7 @@
 
                     var formattedDate = moment(v.Date).format('MM/DD/YYYY');
 
-                    result += "<td><input type='text' class='txtDate form-control' value ='" + formattedDate + "' /></td>";
+                    result += "<td><input type='text' class='txtDate form-control date-picker' value ='" + formattedDate + "' /></td>";
                     result += "</tr>";
                 });
 
