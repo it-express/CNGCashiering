@@ -1,0 +1,107 @@
+﻿@model CNG.Models.Requisition
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/app/Requisition.js"></script>
+
+<h2>Requsition</h2>
+
+<div class="form-horizontal">
+    <h4>New Requisition</h4>
+    <hr />
+
+    <div>
+        Requisition Number<label id="lblReqNo">@ViewBag.ReqNumber</label>
+    </div>
+    <br />
+
+    Requisition Date <input type="text" id="lblReqDate" />
+    <br/>
+    Job Order No <input type="text" id="txtJobOrderNo" />
+    <br/>
+    Search unit plate no: @Html.DropDownList("UnitPlateNo", (IEnumerable<SelectListItem>)ViewBag.PlateNos, "")
+    <br />
+    JO Date <input type="text" id="txtJobOrderDate" />
+    <br />
+    Odometer Reading <input type="text" id="txtOdometerReading" />
+    <br />
+    Drivers Name <input type="text" id="txtDriverName" />
+    <br />
+
+    <div>
+        Add Items<br />
+
+        Search item: @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items, "")
+        <input type="button" id="btnAddItem" value="Ok" />
+
+        <br />
+
+        Requested Items
+        
+        Return Items
+        <br/>
+        <table id="tblItems">
+            <thead>
+                <tr>
+                    <th>Item/Part Required</th>
+                    <th>Quantity</th>
+                    <th>Description</th>
+                    <th>Serial No</th>
+                    <th>Item/Part Required</th>
+                    <th>Quantity</th>
+                    <th>Description</th>
+                    <th>Serial No</th>
+                    <th>Type</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var poItem in Model.RequisitionItems)
+                {
+                    <tr data-item-id="@poItem.ItemId">
+                        <td>
+                            @poItem.Item.Code
+                        </td>
+                        <td>
+                            @poItem.Item.Description
+                        </td>
+                        <td>
+                            @poItem.Item.Brand
+                        </td>
+                        <td>
+                            @poItem.Item.Type.Description
+                        </td>
+                        <td>
+                            @poItem.Item.UnitCost
+                        </td>
+                        <td>
+                            <input type='text' class='txtQuantity' value="@poItem.Quantity" />
+                        </td>
+                        <td>
+                            <input type='button' class='btnRemoveItem' value='Remove'>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <br />
+    <div>
+        Prepared By: <label id="lblPreparedBy"></label>
+        <br />
+        Approved By: <label id="lblApprovedBy"></label>
+    </div>
+
+    <br />
+
+    <input id="btnSubmit" type="submit" value="Submit" />
+
+    <br />
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

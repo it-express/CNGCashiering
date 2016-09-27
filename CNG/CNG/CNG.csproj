@@ -165,6 +165,7 @@
     <Compile Include="Models\DTO\ExcessPartsSetDTO.cs" />
     <Compile Include="Models\DTO\PurchaseOrderDTO.cs" />
     <Compile Include="Models\DTO\ReceivingDTO.cs" />
+    <Compile Include="Models\DTO\RequisitionDTO.cs" />
     <Compile Include="Models\DTO\RequisitionPurchaseDTO.cs" />
     <Compile Include="Models\ExcessPartsSet.cs" />
     <Compile Include="Models\ExcessPartsSetItems.cs" />
@@ -173,6 +174,7 @@
     <Compile Include="Models\PurchaseOrder.cs" />
     <Compile Include="Models\PurchaseOrderItem.cs" />
     <Compile Include="Models\Requisition.cs" />
+    <Compile Include="Models\RequisitionItem.cs" />
     <Compile Include="Models\RequisitionPurchase.cs" />
     <Compile Include="Models\RequisitionPurchaseItems.cs" />
     <Compile Include="Models\TransactionLog.cs" />
@@ -189,8 +191,10 @@
     <Compile Include="Repositories\ItemTypeRepository.cs" />
     <Compile Include="Repositories\PurchaseOrderItemRepository.cs" />
     <Compile Include="Repositories\PurchaseOrderRepository.cs" />
+    <Compile Include="Repositories\RequisitionItemRepository.cs" />
     <Compile Include="Repositories\RequisitionPurchaseItemRepository.cs" />
     <Compile Include="Repositories\RequisitionPurchaseRepository.cs" />
+    <Compile Include="Repositories\RequisitionRepository.cs" />
     <Compile Include="Repositories\TransactionLogRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\UserTypeRepository.cs" />
@@ -206,6 +210,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\app\PurchaseOrder.js" />
     <Content Include="Scripts\app\Receiving.js" />
+    <Content Include="Scripts\app\Requisition.js" />
     <Content Include="Scripts\app\RequisitionPurchase.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -256,6 +261,8 @@
     <Content Include="Views\RequisitionPurchase\Details.cshtml" />
     <Content Include="Views\ExcessPartsSet\Index.cshtml" />
     <Content Include="Views\ExcessPartsSet\Create.cshtml" />
+    <Content Include="Views\Requisition\Index.cshtml" />
+    <Content Include="Views\Requisition\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

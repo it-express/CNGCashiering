@@ -32,5 +32,8 @@ namespace CNG.Models
 
         public virtual DbSet<TransactionLog> TransactionLogs { get; set; }
         public virtual DbSet<TransactionMethod> TransactionMethods { get; set; }
+
+        public virtual DbSet<Requisition> Requisitions { get; set; }
+        public virtual DbSet<RequisitionItem> RequisitionItems { get; set; }
     }
 }

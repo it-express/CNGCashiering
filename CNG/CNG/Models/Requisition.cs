@@ -8,7 +8,13 @@ namespace CNG.Models
 {
     public class Requisition
     {
+        public Requisition() {
+            RequisitionItems = new List<RequisitionItem>();
+        }
+
         [Key]
+        public int Id { get; set; }
+
         public string No { get; set; }
 
         [Required]
@@ -18,12 +24,15 @@ namespace CNG.Models
         public string JobOrderNo { get; set; }
 
         [Required]
+        public DateTime JobOrderDate { get; set; }
+
+        [Required]
         [StringLength(100)]
         public string UnitPlateNo { get; set; }
 
         [Required]
         [StringLength(100)]
-        public string OdometerReader { get; set; }
+        public string OdometerReading { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -35,5 +44,7 @@ namespace CNG.Models
         public int CheckedBy { get; set; }
 
         public int ApprovedBy { get; set; }
+
+        public virtual List<RequisitionItem> RequisitionItems { get; set; }
     }
 }
