@@ -14,6 +14,12 @@ namespace CNG.Models
             return context.Users;
         }
 
+        public User GetByCredentials(string username, string password) {
+            User user = List().FirstOrDefault(p => p.Username == username && p.Password == password);
+
+            return user;
+        }
+
         public User GetById(int id)
         {
             User user = context.Users.FirstOrDefault(p => p.Id == id);

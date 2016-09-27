@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CNG.Models;
 
 namespace CNG.Controllers
 {
@@ -11,6 +12,28 @@ namespace CNG.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Login() {
+
+
+            return View();
+        }
+
+        public ActionResult Login(string username, string password) {
+            UserRepository userRepo = new UserRepository();
+
+            User user = userRepo.GetByCredentials(username, password);
+            if (user != null)
+            {
+                return RedirectToAction("Index");
+            }
+            else {
+                ViewBag.ErrorMessage = "Inivalid username and/or password.";
+
+                return View();
+            }
         }
     }
 }

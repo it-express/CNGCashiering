@@ -35,5 +35,7 @@ namespace CNG.Models
 
         public virtual DbSet<Requisition> Requisitions { get; set; }
         public virtual DbSet<RequisitionItem> RequisitionItems { get; set; }
+
+        public System.Data.Entity.DbSet<CNG.Models.UserAccount> UserAccounts { get; set; }
     }
 }
