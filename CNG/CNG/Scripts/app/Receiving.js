@@ -66,14 +66,14 @@
                     result += "<td>" + v.UnitCost + "</td>";
                     result += "<td>" + v.Item.Description + "</td>";
                     result += "<td>" + v.Amount + "</td>";
-                    result += "<td><input type='text' class='txtSerialNo' value='" + v.SerialNo + "' /></td>";
-                    result += "<td><input type='text' class='txtReceivedQuantity' value='" + v.ReceivedQuantity + "' /></td>";
+                    result += "<td><input type='text' class='txtSerialNo form-control' value='" + v.SerialNo + "' /></td>";
+                    result += "<td><input type='text' class='txtReceivedQuantity form-control' value='" + v.ReceivedQuantity + "' /></td>";
                     result += "<td class='lblBalance'>" + v.Balance + "</td>";
-                    result += "<td><input type='text' class='txtDrNo' value ='" + v.DrNo + "' /></td>";
+                    result += "<td><input type='text' class='txtDrNo form-control' value ='" + v.DrNo + "' /></td>";
 
                     var formattedDate = moment(v.Date).format('MM/DD/YYYY');
 
-                    result += "<td><input type='text' class='txtDate' value ='" + formattedDate + "' /></td>";
+                    result += "<td><input type='text' class='txtDate form-control' value ='" + formattedDate + "' /></td>";
                     result += "</tr>";
                 });
 

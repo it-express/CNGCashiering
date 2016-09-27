@@ -7,101 +7,197 @@
 
 <script src="~/Scripts/app/Requisition.js"></script>
 
-<h2>Requsition</h2>
-
-<div class="form-horizontal">
-    <h4>New Requisition</h4>
-    <hr />
-
-    <div>
-        Requisition Number<label id="lblReqNo">@ViewBag.ReqNumber</label>
+<!-- start: TOOLBAR -->
+<div class="toolbar row">
+    <div class="col-sm-6 hidden-xs">
+        <div class="page-header">
+            <h1>Requsition </h1>
+        </div>
     </div>
-    <br />
-
-    Requisition Date <input type="text" id="lblReqDate" />
-    <br/>
-    Job Order No <input type="text" id="txtJobOrderNo" />
-    <br/>
-    Search unit plate no: @Html.DropDownList("UnitPlateNo", (IEnumerable<SelectListItem>)ViewBag.PlateNos, "")
-    <br />
-    JO Date <input type="text" id="txtJobOrderDate" />
-    <br />
-    Odometer Reading <input type="text" id="txtOdometerReading" />
-    <br />
-    Drivers Name <input type="text" id="txtDriverName" />
-    <br />
-
-    <div>
-        Add Items<br />
-
-        Search item: @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items, "")
-        <input type="button" id="btnAddItem" value="Ok" />
-
-        <br />
-
-        Requested Items
-        
-        Return Items
-        <br/>
-        <table id="tblItems">
-            <thead>
-                <tr>
-                    <th>Item/Part Required</th>
-                    <th>Quantity</th>
-                    <th>Description</th>
-                    <th>Serial No</th>
-                    <th>Item/Part Required</th>
-                    <th>Quantity</th>
-                    <th>Description</th>
-                    <th>Serial No</th>
-                    <th>Type</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @foreach (var poItem in Model.RequisitionItems)
-                {
-                    <tr data-item-id="@poItem.ItemId">
-                        <td>
-                            @poItem.Item.Code
-                        </td>
-                        <td>
-                            @poItem.Item.Description
-                        </td>
-                        <td>
-                            @poItem.Item.Brand
-                        </td>
-                        <td>
-                            @poItem.Item.Type.Description
-                        </td>
-                        <td>
-                            @poItem.Item.UnitCost
-                        </td>
-                        <td>
-                            <input type='text' class='txtQuantity' value="@poItem.Quantity" />
-                        </td>
-                        <td>
-                            <input type='button' class='btnRemoveItem' value='Remove'>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+</div>
+<!-- end: TOOLBAR -->
+<!-- end: PAGE HEADER -->
+<!-- start: BREADCRUMB -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="breadcrumb"></div>
     </div>
+</div>
+<!-- end: BREADCRUMB -->
+<!-- start: PAGE CONTENT -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- start: BASIC TABLE PANEL -->
+        <div class="panel panel-white">
 
-    <br />
-    <div>
-        Prepared By: <label id="lblPreparedBy"></label>
-        <br />
-        Approved By: <label id="lblApprovedBy"></label>
+            <div class="panel-body">
+
+                <div class="form-horizontal">
+                    <h4>Manage Requsition</h4>
+                    <hr />
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Requisition Number</label>
+                        <div class="col-md-5">
+                            <label id="lblReqNo" class="form-control">@ViewBag.ReqNumber</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Requisition Date</label>
+                        <div class="col-md-5">
+                            <input type="text" id="lblReqDate" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Job Order No</label>
+                        <div class="col-md-5">
+                            <input type="text" id="txtJobOrderNo" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Search unit plate no</label>
+                        <div class="col-md-5">
+                            @Html.DropDownList("UnitPlateNo", (IEnumerable<SelectListItem>)ViewBag.PlateNos, "", new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">JO Date</label>
+                        <div class="col-md-5">
+                            <input type="text" id="txtJobOrderDate" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Odometer Reading</label>
+                        <div class="col-md-5">
+                            <input type="text" id="txtOdometerReading" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Drivers Name</label>
+                        <div class="col-md-5">
+                            <input type="text" id="txtDriverName" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h4 class="control-label col-md-2">Add Items</h4>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Search item</label>
+                        <div class="col-md-5">
+                            @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items, "", new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-1">
+                            <input type="button" id="btnAddItem" value="Ok" class="btn btn-dark-blue" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <h4 class="control-label col-md-5">
+                                    Requested Items
+                                </h4>
+                            </div>
+
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <h4 class="control-label col-md-3">
+                                    Return Items
+                                </h4>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @*<label class="control-label col-md-1"></label>*@
+                        <div class="col-md-12">
+                            <table id="tblItems" class="table table-hover table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Item/Part Required</th>
+                                        <th>Quantity</th>
+                                        <th>Description</th>
+                                        <th>Serial No</th>
+                                        <th>Item/Part Required</th>
+                                        <th>Quantity</th>
+                                        <th>Description</th>
+                                        <th>Serial No</th>
+                                        <th>Type</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var poItem in Model.RequisitionItems)
+                                    {
+                                        <tr data-item-id="@poItem.ItemId">
+                                            <td>
+                                                @poItem.Item.Code
+                                            </td>
+                                            <td>
+                                                @poItem.Item.Description
+                                            </td>
+                                            <td>
+                                                @poItem.Item.Brand
+                                            </td>
+                                            <td>
+                                                @poItem.Item.Type.Description
+                                            </td>
+                                            <td>
+                                                @poItem.Item.UnitCost
+                                            </td>
+                                            <td>
+                                                <input type='text' class='txtQuantity form-control' value="@poItem.Quantity" />
+                                            </td>
+                                            <td>
+                                                <input type='button' class='btnRemoveItem form-control' value='Remove'>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Prepared By</label>
+                        <div class="col-md-5">
+                            <label id="lblPreparedBy" class="form-control"></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Approved By</label>
+                        <div class="col-md-5">
+                            <label id="lblApprovedBy" class="form-control"></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input id="btnSubmit" value="Submit" class="btn btn-dark-blue" type="submit">
+                            <a href="@Url.Action("Index")" class="btn btn-dark-beige">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- end: BASIC TABLE PANEL -->
     </div>
-
-    <br />
-
-    <input id="btnSubmit" type="submit" value="Submit" />
-
-    <br />
-    @Html.ActionLink("Back to List", "Index")
 </div>
 
