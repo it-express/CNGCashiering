@@ -42,5 +42,13 @@ namespace CNG.Models
 
             return epsNumber;
         }
+
+        public void Delete(string epsNo) {
+            ExcessPartsSet eps = context.ExcessPartsSets.FirstOrDefault(p => p.No == epsNo);
+
+            context.ExcessPartsSets.Remove(eps);
+
+            context.SaveChanges();
+        }
     }
 }

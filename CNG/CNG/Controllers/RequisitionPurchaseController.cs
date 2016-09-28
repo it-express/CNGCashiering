@@ -34,6 +34,12 @@ namespace CNG.Controllers
             return View();
         }
 
+        public ActionResult Remove(string rpNo) {
+            rpRepo.Delete(rpNo);
+
+            return RedirectToAction("Index");
+        }
+
         public ActionResult Details(int rpNo) {
             RequisitionPurchase rp = rpRepo.GetById(rpNo);
             rp.RequisitionPurchaseItems = new List<RequisitionPurchaseItem>();

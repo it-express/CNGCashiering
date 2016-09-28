@@ -51,6 +51,12 @@ namespace CNG.Controllers
             return View("Create", po);
         }
 
+        public ActionResult Delete(string poNo) {
+            poRepo.Delete(poNo);
+
+            return RedirectToAction("Index");
+        }
+
         public string GeneratePoNumber() {
             string poNumber = poRepo.GeneratePoNumber();
 

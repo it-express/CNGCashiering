@@ -50,6 +50,14 @@ namespace CNG.Models
 
             context.SaveChanges();
         }
+
+        public void Delete(string poNo) {
+            PurchaseOrder po = context.PurchaseOrders.FirstOrDefault(p => p.No == poNo);
+
+            context.PurchaseOrders.Remove(po);
+
+            context.SaveChanges();
+        }
     }
 
     public enum EReceivingStatus {

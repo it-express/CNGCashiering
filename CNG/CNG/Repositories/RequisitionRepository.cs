@@ -22,6 +22,14 @@ namespace CNG.Models
             return req;
         }
 
+        public void Delete(string reqNo) {
+            Requisition req = context.Requisitions.FirstOrDefault(p => p.No == reqNo);
+
+            context.Requisitions.Remove(req);
+
+            context.SaveChanges();
+        }
+
         public string GenerateReqNo()
         {
             //get last id

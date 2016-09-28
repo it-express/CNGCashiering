@@ -38,6 +38,12 @@ namespace CNG.Controllers
             return View(new Requisition());
         }
 
+        public ActionResult Delete(string reqNo) {
+            reqRepo.Delete(reqNo);
+
+            return RedirectToAction("Index");
+        }
+
         public ActionResult Details(string reqNo) {
             Requisition req = reqRepo.GetByNo(reqNo);
             req.RequisitionItems = new List<RequisitionItem>();

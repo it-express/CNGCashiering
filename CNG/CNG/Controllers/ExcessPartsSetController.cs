@@ -89,5 +89,11 @@ namespace CNG.Controllers
 
             transactionLogRepo.Add(transactionLog);
         }
+
+        public ActionResult Remove(string epsNo) {
+            epsRepo.Delete(epsNo);
+
+            return RedirectToAction("Index");
+        }
     }
 }

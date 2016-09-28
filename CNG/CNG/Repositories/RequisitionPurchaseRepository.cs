@@ -27,6 +27,14 @@ namespace CNG.Models
             return rp;
         }
 
+        public void Delete(string rpNo) {
+            RequisitionPurchase rp = context.RequisitionPurchases.FirstOrDefault(p => p.No == rpNo);
+
+            context.RequisitionPurchases.Remove(rp);
+
+            context.SaveChanges();
+        }
+
         public string GenerateRpNo()
         {
             //get last id
