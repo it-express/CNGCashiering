@@ -83,8 +83,7 @@ namespace CNG.Controllers
             {
                 ItemId = itemId,
                 Quantity = quantiy,
-                TransactionMethodId = (int)ETransactionMethod.ExcessPartsFromSet,
-                Date = DateTime.Now
+                TransactionMethodId = (int)ETransactionMethod.ExcessPartsFromSet
             };
 
             transactionLogRepo.Add(transactionLog);

@@ -87,8 +87,7 @@ namespace CNG.Controllers
             {
                 ItemId = itemId,
                 Quantity = quantiy,
-                TransactionMethodId = (int)ETransactionMethod.RequisitionToPurchase,
-                Date = DateTime.Now
+                TransactionMethodId = (int)ETransactionMethod.RequisitionToPurchase
             };
 
             transactionLogRepo.Add(transactionLog);

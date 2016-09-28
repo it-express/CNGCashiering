@@ -12,7 +12,9 @@ namespace CNG.Models
         public int Quantity { get; set; }
         public int TransactionMethodId { get; set; }
         public DateTime Date { get; set; }
+        public int UserId { get; set; }
 
         public virtual TransactionMethod TransactionMethod { get; set; }
+        public virtual User User { get; set; }
     }
 }
