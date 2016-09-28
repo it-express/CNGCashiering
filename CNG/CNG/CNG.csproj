@@ -148,6 +148,7 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\ExcessPartsSetController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\PurchaseOrderController.cs" />
     <Compile Include="Controllers\ReceivingController.cs" />
@@ -268,6 +269,7 @@
     <Content Include="Views\Requisition\Details.cshtml" />
     <Content Include="Views\ExcessPartsSet\Details.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Inventory\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

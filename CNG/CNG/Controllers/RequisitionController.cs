@@ -81,7 +81,24 @@ namespace CNG.Controllers
                 reqItem.Type = item.Type;
 
                 reqItemRepo.Save(reqItem);
+
+                InsertLogs(item.ItemId, reqItem.Quantity);
             }
+        }
+        
+        public void InsertLogs(int itemId, int quantiy)
+        {
+            TransactionLogRepository transactionLogRepo = new TransactionLogRepository();
+
+            TransactionLog transactionLog = new TransactionLog
+            {
+                ItemId = itemId,
+                Quantity = -quantiy,
+                TransactionMethodId = (int)ETransactionMethod.Requisition,
+                Date = DateTime.Now
+            };
+
+            transactionLogRepo.Add(transactionLog);
         }
     }
 }
