@@ -17,8 +17,14 @@ namespace CNG.Controllers
         [HttpGet]
         public ActionResult Login() {
 
-
             return View();
+        }
+
+        public ActionResult Logout() {
+            Session.Abandon();
+            Session.Clear();
+
+            return RedirectToAction("Login");
         }
 
         public ActionResult Login(string username, string password) {
@@ -27,6 +33,9 @@ namespace CNG.Controllers
             User user = userRepo.GetByCredentials(username, password);
             if (user != null)
             {
+                Session["uid"] = user.Id;
+                Session["uname"] = user.Username;
+
                 return RedirectToAction("Index");
             }
             else {

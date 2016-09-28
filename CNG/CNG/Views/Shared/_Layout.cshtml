@@ -70,6 +70,12 @@
 <!-- end: HEAD -->
 <!-- start: BODY -->
 <body>
+    @* To be replaced by controller filters later... *@
+    @{
+        if (Session["uid"] == null) {
+            Response.Redirect("/Home/Login");
+        }
+    }
 
     <!-- end: SLIDING BAR -->
     <div class="main-wrapper">
@@ -94,11 +100,14 @@
                         <!-- start: USER DROPDOWN -->
                         <li class="dropdown current-user">
                             <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="#">
-                                <img src="@Url.Content("~/Content/rapido/images/avatar-1-small.jpg")" class="img-circle" alt=""> <span class="username hidden-xs">Username</span> <i class="fa fa-caret-down "></i>
+                                <img src="@Url.Content("~/Content/rapido/images/avatar-1-small.jpg")" class="img-circle" alt=""> <span class="username hidden-xs">@Session["uname"].ToString()</span> <i class="fa fa-caret-down "></i>
                             </a>
                             <ul class="dropdown-menu dropdown-dark">
                                 <li>
-                                    <a href="#">
+                                    @*<a href="#">
+                                        Log Out
+                                    </a>*@
+                                    <a href="@Url.Action("Logout", "Home")">
                                         Log Out
                                     </a>
                                 </li>
