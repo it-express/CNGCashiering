@@ -48,6 +48,12 @@ namespace CNG.Models
         public virtual Company ShipToCompany { get; set; }
 
         public virtual List<PurchaseOrderItem> PurchaseOrderItems { get; set; }
+
+        [ForeignKey("PreparedBy")]
+        public virtual User PreparedByObj { get; set; }
+
+        [ForeignKey("ApprovedBy")]
+        public virtual User ApprovedByObj { get; set; }
     }
 
     public enum EPurchaseOrderStatus

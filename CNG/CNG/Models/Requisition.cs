@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CNG.Models
 {
@@ -46,5 +47,8 @@ namespace CNG.Models
         public int ApprovedBy { get; set; }
 
         public virtual List<RequisitionItem> RequisitionItems { get; set; }
+
+        [ForeignKey("ApprovedBy")]
+        public virtual User ApprovedByObj { get; set; }
     }
 }

@@ -88,10 +88,10 @@
                                     @Html.DisplayFor(modelItem => item.Terms)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.PreparedBy)
+                                    @Html.DisplayFor(modelItem => item.PreparedByObj.FullName)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.ApprovedBy)
+                                    @Html.DisplayFor(modelItem => item.ApprovedByObj.FullName)
                                 </td>
                                 @*<td>
                                         @Html.DisplayFor(modelItem => item.ReceivingStatus)
