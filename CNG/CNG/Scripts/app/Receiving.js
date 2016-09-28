@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     function Save(status) {
         var receiving = new Object();
-        receiving.PoNo = $('#PurchaseOrders').val();
+        receiving.PoNo = $('#No').val();
         receiving.Status = status;
 
         var lstItem = new Array();
@@ -46,10 +46,10 @@
         Save(2); //2 = submitted
     });
 
-    $('#PurchaseOrders').change(function (event) {
+    $('#No').change(function (event) {
         $('#tblItems tbody').empty();
 
-        var poNo = $('#PurchaseOrders').val();
+        var poNo = $('#No').val();
 
         $.ajax({
             url: "/Receiving/ListItemByPoNo",

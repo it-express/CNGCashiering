@@ -5,10 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
-
-
 <!-- start: TOOLBAR -->
 <div class="toolbar row">
     <div class="col-sm-6 hidden-xs">
@@ -86,10 +82,10 @@
                                     @Html.DisplayFor(modelItem => item.Date)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.VendorId)
+                                    @Html.DisplayFor(modelItem => item.Vendor.Name)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.ShipTo)
+                                    @Html.DisplayFor(modelItem => item.ShipToCompany.Name)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Terms)
@@ -102,7 +98,10 @@
                                 </td>
                                 <td>
                                     <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                        <a href="@Url.Action("Edit", new { poNo = item.No })" data-original-title="Edit" data-placement="top" class="btn btn-xs btn-blue tooltips"><i class="fa fa-edit"></i></a>
+                                        @if (item.Status != (int) CNG.Models.EPurchaseOrderStatus.Submitted)
+                                        {
+                                            <a href="@Url.Action("Edit", new { poNo = item.No })" data-original-title="Edit" data-placement="top" class="btn btn-xs btn-blue tooltips"><i class="fa fa-edit"></i></a>
+                                        }
                                     </div>
                                 </td>
                             </tr>

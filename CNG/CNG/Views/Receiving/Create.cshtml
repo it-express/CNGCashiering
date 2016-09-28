@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-2">Search PO</label>
                         <div class="col-md-5">
-                            @Html.DropDownList("PurchaseOrders", (IEnumerable<SelectListItem>)ViewBag.PurchaseOrders, "", new { @class = "form-control" })
+                            @Html.DropDownList("No", (IEnumerable<SelectListItem>)ViewBag.PurchaseOrders, "", new { @class = "form-control" })
                         </div>
                     </div>
 
@@ -73,7 +73,7 @@
                                 <tbody>
                                     @foreach (var poItem in Model.PurchaseOrderItems)
                                     {
-                                    <tr class='item-row' data-poitem-id="@poItem.ItemId">
+                                    <tr class='item-row' data-poitem-id="@poItem.Id">
                                         <td>
                                             @poItem.Item.Code
                                         </td>
@@ -116,7 +116,7 @@
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
                             <input type="button" id="btnSave" value="Save" class="btn btn-dark-blue" />
-                            <input type="button" id="btnSubmit" value="Submit" class="btn btn-blue" />
+                            <input type="button" id="btnSubmit" value="Submit" class="btn btn-blue" disabled="disabled" />
                             <a href="@Url.Action("Index")" class="btn btn-dark-beige">
                                 Back to List
                             </a>

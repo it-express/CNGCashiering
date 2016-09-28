@@ -98,7 +98,7 @@
                 result += "<td>" + item.UnitCost + "</td>";
                 result += "<td> <input type='number' class='txtQuantity form-control'> </td>";
                 result += "<td> <textarea id='txtRemarks' class='form-control'> </textarea></td>";
-                result += "<td> <a href='/' data-original-title='Remove' data-placement='top' class='btn btn-xs btn-red tooltips btnRemoveItem'><i class='fa fa-times fa fa-white'></i></a> </td>";
+                result += "<td> <a href='#!' data-original-title='Remove' data-placement='top' class='btn btn-xs btn-red tooltips btnRemoveItem'><i class='fa fa-times fa fa-white'></i></a> </td>";
                 result += "</tr>";
 
                 $('#tblItems').append(result);

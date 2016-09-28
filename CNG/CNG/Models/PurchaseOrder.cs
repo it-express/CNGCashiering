@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -23,10 +24,12 @@ namespace CNG.Models
         public DateTime Date { get; set; }
 
         [Required]
+        [DisplayName("Vendor")]
         public int VendorId { get; set; }
 
         [Required]
         [ForeignKey("ShipToCompany")]
+        [DisplayName("Ship To")]
         public int ShipTo { get; set; }
 
         [Required]
@@ -41,6 +44,7 @@ namespace CNG.Models
         public int Status { get; set; }
 
         public virtual Vendor Vendor { get; set; }
+        [ForeignKey("ShipTo")]
         public virtual Company ShipToCompany { get; set; }
 
         public virtual List<PurchaseOrderItem> PurchaseOrderItems { get; set; }
