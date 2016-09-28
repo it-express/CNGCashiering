@@ -33,6 +33,8 @@ namespace CNG.Controllers
             ViewBag.Vendors = new SelectList(context.Vendors, "Id", "Name");
             ViewBag.Companies = new SelectList(context.Companies, "Id", "Name");
             ViewBag.Items = new SelectList(context.Items, "Id", "Code");
+            ViewBag.User = Common.GetCurrentUser.FullName;
+            ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
 
             PurchaseOrder po = new PurchaseOrder();
             po.PurchaseOrderItems = new List<PurchaseOrderItem>();
@@ -47,6 +49,8 @@ namespace CNG.Controllers
             ViewBag.Vendors = new SelectList(context.Vendors, "Id", "Name");
             ViewBag.Companies = new SelectList(context.Companies, "Id", "Name");
             ViewBag.Items = new SelectList(context.Items, "Id", "Code");
+            ViewBag.User = Common.GetCurrentUser.FullName;
+            ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
 
             return View("Create", po);
         }
@@ -83,8 +87,9 @@ namespace CNG.Controllers
             po.VendorId = entry.VendorId;
             po.ShipTo = entry.ShipTo;
             po.Terms = vendorRepo.GetById(entry.VendorId).Terms;
-            po.PreparedBy = 0; //Get from session
-            po.ApprovedBy = 0; //Get from session
+
+            po.PreparedBy = Common.GetCurrentUser.Id;
+            po.ApprovedBy = Common.GetCurrentUser.GeneralManagerId;
 
             context.PurchaseOrders.Add(po);
             context.SaveChanges();

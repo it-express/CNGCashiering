@@ -28,7 +28,7 @@
             success: function (r) {
 
                 alert("Saved");
-                window.location.href = "/ExcessPartsSet";
+                window.location.href = "/ExcessPartsSet/Index";
             }
         });
     });

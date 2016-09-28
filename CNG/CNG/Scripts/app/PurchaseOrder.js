@@ -19,7 +19,7 @@
             contentType: "application/json; charset=utf-8",
             success: function (r) {
                 alert("Successfully created Purchase Order");
-                window.location.href = "/PurchaseOrder";
+                window.location.href = "/PurchaseOrder/Index";
             }
         });
     });

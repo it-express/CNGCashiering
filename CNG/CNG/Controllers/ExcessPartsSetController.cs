@@ -31,6 +31,8 @@ namespace CNG.Controllers
             ViewBag.EpsNo = epsRepo.GenerateEpsNo();
             ViewBag.Date = DateTime.Now.ToShortDateString();
             ViewBag.Items = new SelectList(context.Items, "Id", "Code");
+            ViewBag.User = Common.GetCurrentUser.FullName;
+            ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
 
             return View();
         }
@@ -48,8 +50,9 @@ namespace CNG.Controllers
             ExcessPartsSet eps = new ExcessPartsSet();
             eps.No = epsRepo.GenerateEpsNo();
             eps.Date = DateTime.Now;
-            eps.PreparedBy = 0; //Get from session
-            eps.ApprovedBy = 0; //Get from session
+
+            eps.PreparedBy = Common.GetCurrentUser.Id;
+            eps.ApprovedBy = Common.GetCurrentUser.GeneralManagerId;
 
             context.ExcessPartsSets.Add(eps);
             context.SaveChanges();

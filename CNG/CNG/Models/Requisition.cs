@@ -39,9 +39,9 @@ namespace CNG.Models
         public string DriverName { get; set; }
 
         [Required]
-        public int ReportedBy { get; set; }
+        public string ReportedBy { get; set; }
 
-        public int CheckedBy { get; set; }
+        public string CheckedBy { get; set; }
 
         public int ApprovedBy { get; set; }
 

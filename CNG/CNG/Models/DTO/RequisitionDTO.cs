@@ -22,6 +22,9 @@ namespace CNG.Models
         public string OdometerReading { get; set; }
         public string DriverName { get; set; }
 
+        public string ReportedBy { get; set; }
+        public string CheckedBy { get; set; }
+
         public List<Item> Items { get; set; }
     }
 }

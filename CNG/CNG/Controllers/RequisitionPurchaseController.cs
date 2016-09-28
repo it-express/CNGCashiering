@@ -30,6 +30,8 @@ namespace CNG.Controllers
             ViewBag.RpNo = rpRepo.GenerateRpNo();
             ViewBag.Date = DateTime.Now.ToShortDateString();
             ViewBag.Items = new SelectList(context.Items, "Id", "Code");
+            ViewBag.User = Common.GetCurrentUser.FullName;
+            ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
 
             return View();
         }
@@ -52,8 +54,9 @@ namespace CNG.Controllers
             RequisitionPurchase rp = new RequisitionPurchase();
             rp.No = rpRepo.GenerateRpNo();
             rp.Date = DateTime.Now;
-            rp.PreparedBy = 0; //Get from session
-            rp.ApprovedBy = 0; //Get from session
+
+            rp.PreparedBy = Common.GetCurrentUser.Id;
+            rp.ApprovedBy = Common.GetCurrentUser.GeneralManagerId;
 
             context.RequisitionPurchases.Add(rp);
             context.SaveChanges();

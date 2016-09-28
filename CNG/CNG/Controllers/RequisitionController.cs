@@ -35,6 +35,8 @@ namespace CNG.Controllers
             ViewBag.PlateNos = new SelectList(lstPlateNos, "No", "No");
             ViewBag.Items = new SelectList(itemRepo.List(), "Id", "Code");
 
+            ViewBag.ApprovedBy = Common.GetCurrentUser.FullName;
+
             return View(new Requisition());
         }
 
@@ -62,9 +64,9 @@ namespace CNG.Controllers
             req.JobOrderDate = entry.JobOrderDate;
             req.OdometerReading = entry.OdometerReading; //Get from session
             req.DriverName = entry.DriverName; //Get from session
-            req.ReportedBy = 0; //Get from session
-            req.CheckedBy = 0; //Get from session
-            req.ApprovedBy = 0; //Get from session
+            req.ReportedBy = entry.ReportedBy; //Get from session
+            req.CheckedBy = entry.CheckedBy; //Get from session
+            req.ApprovedBy = Common.GetCurrentUser.Id; //Get from session
 
             context.Requisitions.Add(req);
             context.SaveChanges();

@@ -29,7 +29,7 @@
             success: function (r) {
 
                 alert("Saved");
-                window.location.href = "/Receiving";
+                window.location.href = "/Receiving/Index";
             }
         });
     }

@@ -106,7 +106,6 @@
                                     Requested Items
                                 </h4>
                             </div>
-
                         </div>
                         <div class="col-md-7">
                             <div class="form-group">
@@ -114,11 +113,8 @@
                                     Return Items
                                 </h4>
                             </div>
-
-
                         </div>
                     </div>
-
 
                     <div class="form-group">
                         @*<label class="control-label col-md-1"></label>*@
@@ -171,16 +167,23 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-2">Prepared By</label>
+                        <label class="control-label col-md-2">Reported/Requested By:</label>
                         <div class="col-md-5">
-                            <label id="lblPreparedBy" class="form-control"></label>
+                            <input type="text" id="txtReportedBy" class="form-control" />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-2">Approved By</label>
+                        <label class="control-label col-md-2">Checked By:</label>
                         <div class="col-md-5">
-                            <label id="lblApprovedBy" class="form-control"></label>
+                            <input type="text" id="txtApprovedBy" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Approved By:</label>
+                        <div class="col-md-5">
+                            <label id="lblApprovedBy" class="form-control">@ViewBag.ApprovedBy</label>
                         </div>
                     </div>
 

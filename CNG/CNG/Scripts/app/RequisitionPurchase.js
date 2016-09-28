@@ -28,7 +28,7 @@
             success: function (r) {
 
                 alert("Saved");
-                window.location.href = "/RequisitionPurchase";
+                window.location.href = "/RequisitionPurchase/Index";
             }
         });
     });

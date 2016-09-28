@@ -17,6 +17,9 @@
         req.OdometerReading = $('#txtOdometerReading').val();
         req.DriverName = $('#txtDriverName').val();
 
+        req.ReportedBy = $('#txtReportedBy').val();
+        req.CheckedBy = $('#txtCheckedBy').val();
+
         var lstItem = new Array();
 
         $("tr.item-row").each(function () {
@@ -41,7 +44,7 @@
             success: function (r) {
 
                 alert("Saved");
-                window.location.href = "/Requisition";
+                window.location.href = "/Requisition/Index";
             }
         });
     });
@@ -74,7 +77,7 @@
 
                 result += "<td> <select id='selType' class='form-control'><option value='1'>scrap</option><option value='2'>junk</option></select> </td>";
 
-                result += "<td> <a href='#' data-original-title='Remove' data-placement='top' class='btn btn-xs btn-red tooltips btnRemoveItem'><i class='fa fa-times fa fa-white'></i></a></td>";
+                result += "<td> <a href='#!' data-original-title='Remove' data-placement='top' class='btn btn-xs btn-red tooltips btnRemoveItem'><i class='fa fa-times fa fa-white'></i></a></td>";
                 result += "</tr>";
 
                 $('#tblItems').append(result);
