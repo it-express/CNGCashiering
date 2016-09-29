@@ -22,8 +22,7 @@ namespace CNG.Controllers
         [HttpGet]
         public ViewResult Create()
         {
-            ViewBag.UserType = SelectListHelper.UserTypes();
-            ViewBag.GeneralManager = SelectListHelper.GeneralManagers();
+            InitViewBags();
 
             return View("Edit", new User());
         }
@@ -31,8 +30,7 @@ namespace CNG.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            ViewBag.UserType = SelectListHelper.UserTypes();
-            ViewBag.GeneralManager = SelectListHelper.GeneralManagers();
+            InitViewBags();
 
             User user = userRepo.GetById(id);
 
@@ -52,6 +50,8 @@ namespace CNG.Controllers
             }
             else
             {
+                InitViewBags();
+
                 return View(user);
             }
         }
@@ -62,6 +62,12 @@ namespace CNG.Controllers
             userRepo.Delete(id);
 
             return RedirectToAction("Index");
+        }
+
+        private void InitViewBags()
+        {
+            ViewBag.UserType = SelectListHelper.UserTypes();
+            ViewBag.GeneralManager = SelectListHelper.GeneralManagers();
         }
     }
 }

@@ -40,6 +40,7 @@ namespace CNG.Models
                     dbEntry.EngineNo = vehicle.EngineNo;
                     dbEntry.ChasisNo = vehicle.ChasisNo;
                     dbEntry.Color = vehicle.Color;
+                    dbEntry.Active = vehicle.Active;
                 }
             }
 

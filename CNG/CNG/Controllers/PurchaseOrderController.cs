@@ -29,12 +29,7 @@ namespace CNG.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.PoNumber = poRepo.GeneratePoNumber();
-            ViewBag.Vendors = new SelectList(context.Vendors, "Id", "Name");
-            ViewBag.Companies = new SelectList(context.Companies, "Id", "Name");
-            ViewBag.Items = new SelectList(context.Items, "Id", "Code");
-            ViewBag.User = Common.GetCurrentUser.FullName;
-            ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
+            InitViewBags();
 
             PurchaseOrder po = new PurchaseOrder();
             po.PurchaseOrderItems = new List<PurchaseOrderItem>();
@@ -45,12 +40,7 @@ namespace CNG.Controllers
         public ActionResult Edit(string poNo) {
             PurchaseOrder po = poRepo.GetByNo(poNo);
 
-            ViewBag.PoNumber = po.No;
-            ViewBag.Vendors = new SelectList(context.Vendors, "Id", "Name");
-            ViewBag.Companies = new SelectList(context.Companies, "Id", "Name");
-            ViewBag.Items = new SelectList(context.Items, "Id", "Code");
-            ViewBag.User = Common.GetCurrentUser.FullName;
-            ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
+            InitViewBags();
 
             return View("Create", po);
         }
@@ -107,6 +97,16 @@ namespace CNG.Controllers
 
                 poItemRepo.Save(poItem);
             }
+        }
+
+        private void InitViewBags()
+        {
+            ViewBag.PoNumber = poRepo.GeneratePoNumber();
+            ViewBag.Vendors = new SelectList(context.Vendors.Where(p => p.Active), "Id", "Name");
+            ViewBag.Companies = new SelectList(context.Companies.Where(p => p.Active), "Id", "Name");
+            ViewBag.Items = new SelectList(context.Items.Where(p => p.Active), "Id", "Code");
+            ViewBag.User = Common.GetCurrentUser.FullName;
+            ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
         }
     }
 }

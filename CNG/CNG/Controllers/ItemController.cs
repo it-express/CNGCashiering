@@ -50,6 +50,8 @@ namespace CNG.Controllers
             }
             else
             {
+                InitViewBags();
+
                 return View(item);
             }
         }
