@@ -1,4 +1,14 @@
 ﻿$(document).ready(function () {
+    function Validate(rp) {
+        var err = "";
+
+        if (rp.Items.length == 0) {
+            err = "Please select item/s.";
+        }
+
+        return err;
+    }
+
     $('#btnSubmit').click(function (event) {
         event.preventDefault();
 
@@ -19,6 +29,13 @@
         });
 
         rp.Items = lstItem;
+
+        var err = Validate(rp);
+        if (err != "") {
+            alert(err);
+
+            return;
+        }
 
         $.ajax({
             url: "/RequisitionPurchase/Save",

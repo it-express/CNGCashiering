@@ -1,4 +1,20 @@
 ﻿$(document).ready(function () {
+    function Validate(po) {
+        var err = "";
+
+        if (po.VendorId == "") {
+            err = "Vendor is required.";
+        }
+        else if (po.ShipTo == "") {
+            err = "Ship To is required.";
+        }
+        else if (po.Items.length == 0) {
+            err = "Please select item/s.";
+        }
+
+        return err;
+    }
+
     $('#btnSubmit').click(function (event) {
         event.preventDefault();
         
@@ -11,6 +27,13 @@
         //purchaseOrder.ApprovedBy = (backend generated);
 
         purchaseOrder.Items = GetSelectedItems();
+
+        var err = Validate(purchaseOrder);
+        if (err != "") {
+            alert(err);
+
+            return;
+        }
 
         $.ajax({
             url: "/PurchaseOrder/Save",

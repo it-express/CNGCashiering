@@ -1,4 +1,14 @@
 ﻿$(document).ready(function () {
+    function Validate(po) {
+        var err = "";
+
+        if (po.PoNo == "") {
+            err = "Please select PO number.";
+        }
+
+        return err;
+    }
+
     function Save(status) {
         var receiving = new Object();
         receiving.PoNo = $('#No').val();
@@ -20,6 +30,13 @@
         });
 
         receiving.Items = lstItem;
+
+        var err = Validate(receiving);
+        if (err != "") {
+            alert(err);
+
+            return;
+        }
 
         $.ajax({
             url: "/Receiving/Save",

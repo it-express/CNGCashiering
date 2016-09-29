@@ -1,4 +1,14 @@
 ﻿$(document).ready(function () {
+    function Validate(eps) {
+        var err = "";
+
+        if (eps.Items.length == 0) {
+            err = "Please select item/s.";
+        }
+
+        return err;
+    }
+
     $('#btnSubmit').click(function (event) {
         event.preventDefault();
 
@@ -19,6 +29,13 @@
         });
 
         eps.Items = lstItem;
+
+        var err = Validate(eps);
+        if (err != "") {
+            alert(err);
+
+            return;
+        }
 
         $.ajax({
             url: "/ExcessPartsSet/Save",
