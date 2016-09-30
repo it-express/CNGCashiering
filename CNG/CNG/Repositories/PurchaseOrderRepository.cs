@@ -8,6 +8,7 @@ namespace CNG.Models
     public class PurchaseOrderRepository
     {
         private CNGDBContext context = new CNGDBContext();
+        VendorRepository vendorRepo = new VendorRepository();
 
         public IQueryable<PurchaseOrder> List() {
             return context.PurchaseOrders;
@@ -21,6 +22,54 @@ namespace CNG.Models
             PurchaseOrder po = context.PurchaseOrders.FirstOrDefault(p => p.No == poNo);
 
             return po;
+        }
+
+        public void Save(PurchaseOrder po) {
+            bool poExist = context.PurchaseOrders.Count(p => p.No == po.No) > 0;
+
+            int id;
+
+            if (!poExist)
+            {
+                context.PurchaseOrders.Add(po);
+
+                context.SaveChanges();
+
+                id = po.Id;
+            }
+            else
+            {
+                PurchaseOrder dbEntry = context.PurchaseOrders.FirstOrDefault(p => p.No == po.No);
+                if (dbEntry != null)
+                {
+                    dbEntry.No = po.No;
+
+                    dbEntry.Date = DateTime.Now;
+                    dbEntry.VendorId = po.VendorId;
+                    dbEntry.ShipTo = po.ShipTo;
+                    dbEntry.Terms = vendorRepo.GetById(po.VendorId).Terms;
+
+                    dbEntry.PreparedBy = Common.GetCurrentUser.Id;
+                    dbEntry.ApprovedBy = Common.GetCurrentUser.GeneralManagerId;
+                }
+
+                id = dbEntry.Id;
+
+                //Delete previous items
+                foreach (PurchaseOrderItem poItem in dbEntry.PurchaseOrderItems.ToList())
+                {
+                    context.PurchaseOrderItems.Remove(poItem);
+                }
+            }
+
+            foreach (PurchaseOrderItem poItem in po.PurchaseOrderItems.ToList())
+            {
+                poItem.PurchaseOrderId = id;
+
+                context.PurchaseOrderItems.Add(poItem);
+            }
+
+            context.SaveChanges();
         }
 
         public string GeneratePoNumber()

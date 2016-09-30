@@ -29,10 +29,12 @@ namespace CNG.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.PoNumber = poRepo.GeneratePoNumber();
             InitViewBags();
 
             PurchaseOrder po = new PurchaseOrder();
-            po.PurchaseOrderItems = new List<PurchaseOrderItem>();
+            po.Vendor = new Vendor();
+            po.ShipToCompany = new Company();
 
             return View(po);
         }
@@ -40,6 +42,7 @@ namespace CNG.Controllers
         public ActionResult Edit(string poNo) {
             PurchaseOrder po = poRepo.GetByNo(poNo);
 
+            ViewBag.PoNumber = poNo;
             InitViewBags();
 
             return View("Create", po);
@@ -78,7 +81,9 @@ namespace CNG.Controllers
         public void Save(PurchaseOrderDTO entry) {
             PurchaseOrder po = new PurchaseOrder();
 
-            po.No = poRepo.GeneratePoNumber();
+            //po.No = poRepo.GeneratePoNumber();
+            po.No = entry.No;
+
             po.Date = DateTime.Now;
             po.VendorId = entry.VendorId;
             po.ShipTo = entry.ShipTo;
@@ -87,10 +92,9 @@ namespace CNG.Controllers
             po.PreparedBy = Common.GetCurrentUser.Id;
             po.ApprovedBy = Common.GetCurrentUser.GeneralManagerId;
 
-            context.PurchaseOrders.Add(po);
-            context.SaveChanges();
-
-            foreach (PurchaseOrderDTO.Item item in entry.Items) {
+            po.PurchaseOrderItems = new List<PurchaseOrderItem>();
+            foreach (PurchaseOrderDTO.Item item in entry.Items)
+            {
                 PurchaseOrderItem poItem = new PurchaseOrderItem();
                 poItem.PurchaseOrderId = po.Id;
                 poItem.ItemId = item.Id;
@@ -101,13 +105,14 @@ namespace CNG.Controllers
                 poItem.Remarks = item.Remarks;
                 poItem.Date = DateTime.Now;
 
-                poItemRepo.Save(poItem);
+                po.PurchaseOrderItems.Add(poItem);
             }
+
+            poRepo.Save(po);
         }
 
         private void InitViewBags()
         {
-            ViewBag.PoNumber = poRepo.GeneratePoNumber();
             ViewBag.Vendors = new SelectList(context.Vendors.Where(p => p.Active), "Id", "Name");
             ViewBag.Companies = new SelectList(context.Companies.Where(p => p.Active), "Id", "Name");
             ViewBag.Items = new SelectList(context.Items.Where(p => p.Active), "Id", "Code");

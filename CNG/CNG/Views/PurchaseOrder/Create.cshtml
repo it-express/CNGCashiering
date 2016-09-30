@@ -56,25 +56,25 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-5" style="text-align:left;">Name</label>
                                         <div class="col-md-7">
-                                            <label id="lblVendorName" class="form-control"></label>
+                                            <label id="lblVendorName" class="form-control">@Model.Vendor.Name</label>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-5" style="text-align:left;">Address</label>
                                         <div class="col-md-7">
-                                            <label id="lblVendorAddress" class="form-control"></label>
+                                            <label id="lblVendorAddress" class="form-control">@Model.Vendor.Address</label>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-5" style="text-align:left;">Contact Person</label>
                                         <div class="col-md-7">
-                                            <label id="lblVendorContactPerson" class="form-control"></label>
+                                            <label id="lblVendorContactPerson" class="form-control">@Model.Vendor.ContactPerson</label>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-5" style="text-align:left;">Contact No</label>
                                         <div class="col-md-7">
-                                            <label id="lblVendorContactNo" class="form-control"></label>
+                                            <label id="lblVendorContactNo" class="form-control">@Model.Vendor.ContactNo</label>
                                         </div>
                                     </div>
                                 </div>
@@ -94,25 +94,25 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-5" style="text-align:left;">Name</label>
                                         <div class="col-md-7">
-                                            <label id="lblCompanyname" class="form-control"></label>
+                                            <label id="lblCompanyname" class="form-control">@Model.ShipToCompany.Name</label>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-5" style="text-align:left;">Address</label>
                                         <div class="col-md-7">
-                                            <label id="lblShippingAddress" class="form-control"></label>
+                                            <label id="lblShippingAddress" class="form-control">@Model.ShipToCompany.Address</label>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-5" style="text-align:left;">Contact Person</label>
                                         <div class="col-md-7">
-                                            <label id="lblShippingContactPerson" class="form-control"></label>
+                                            <label id="lblShippingContactPerson" class="form-control">@Model.ShipToCompany.ContactPerson</label>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-5" style="text-align:left;">Contact No</label>
                                         <div class="col-md-7">
-                                            <label id="lblShippingContactNo" class="form-control"></label>
+                                            <label id="lblShippingContactNo" class="form-control">@Model.ShipToCompany.ContactNo</label>
                                         </div>
                                     </div>
                                 </div>
@@ -125,13 +125,13 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">Terms</label>
                             <div class="col-md-5">
-                                <label id="lblTerms" class="form-control"></label>
+                                <label id="lblTerms" class="form-control">@Model.Terms</label>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-2">Due Date</label>
                             <div class="col-md-5">
-                                <label id="lblDueDate" class="form-control"></label>
+                                <label id="lblDueDate" class="form-control">@Model.Date.ToShortDateString()</label>
                             </div>
                         </div>
 
@@ -168,7 +168,7 @@
                                     <tbody>
                                         @foreach (var poItem in Model.PurchaseOrderItems)
                                         {
-                                            <tr data-item-id="@poItem.ItemId">
+                                            <tr data-item-id="@poItem.ItemId" class="item-row">
                                                 <td>
                                                     @poItem.Item.Code
                                                 </td>

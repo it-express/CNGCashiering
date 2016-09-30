@@ -19,7 +19,7 @@
         event.preventDefault();
         
         var purchaseOrder = new Object();
-        //purchaseOrder.No = (backend generated);
+        purchaseOrder.No = $('#lblPoNumber').text();
         purchaseOrder.VendorId = $('#VendorId').val();
         purchaseOrder.ShipTo = $('#ShipTo').val();
         //purchaseOrder.Terms = (backen generated)
@@ -41,7 +41,7 @@
             data: JSON.stringify(purchaseOrder),
             contentType: "application/json; charset=utf-8",
             success: function (r) {
-                alert("Successfully created Purchase Order");
+                alert("Successfully saved Purchase Order");
                 window.location.href = "/PurchaseOrder/Index";
             }
         });
@@ -120,7 +120,7 @@
                 result += "<td>" + item.Type.Description + "</td>";
                 result += "<td>" + item.UnitCost + "</td>";
                 result += "<td> <input type='number' class='txtQuantity form-control'> </td>";
-                result += "<td> <textarea id='txtRemarks' class='form-control'> </textarea></td>";
+                result += "<td> <textarea class='txtRemarks' class='form-control'> </textarea></td>";
                 result += "<td> <a href='#!' data-original-title='Remove' data-placement='top' class='btn btn-xs btn-red tooltips btnRemoveItem'><i class='fa fa-times fa fa-white'></i></a> </td>";
                 result += "</tr>";
 
