@@ -54,6 +54,25 @@ namespace CNG.Models
 
         [ForeignKey("ApprovedBy")]
         public virtual User ApprovedByObj { get; set; }
+
+        public string StatusDescription {
+            get {
+                string description = "";
+                switch (Status) {
+                    case (int)EPurchaseOrderStatus.Open:
+                        description = "Open";
+                        break;
+                    case (int)EPurchaseOrderStatus.Saved:
+                        description = "Saved";
+                        break;
+                    case (int)EPurchaseOrderStatus.Submitted:
+                        description = "Submitted";
+                        break;
+                }
+
+                return description;
+            }
+        }
     }
 
     public enum EPurchaseOrderStatus

@@ -1,0 +1,104 @@
+﻿@model CNG.Models.PurchaseOrder
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.No)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.No)
+        </dd>
+    </dl>
+
+    <div class="form-group">
+        <label class="col-md-1"></label>
+        <div class="col-md-9">
+            <table class="table table-hover table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            Item
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th>
+                            Unit Cost
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Amount
+                        </th>
+                        <th>
+                            Serial No.
+                        </th>
+                        <th>
+                            Received Quantity
+                        </th>
+                        <th>
+                            Balance
+                        </th>
+                        <th>
+                            Inv/Dr No.
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var poItem in Model.PurchaseOrderItems)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => poItem.Item.Code)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => poItem.Quantity)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => poItem.UnitCost)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => poItem.Item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => poItem.Amount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => poItem.SerialNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => poItem.ReceivedQuantity)
+                            </td>
+                            
+                            <td>
+                                @Html.DisplayFor(modelItem => poItem.Balance)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => poItem.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => poItem.DrNo)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

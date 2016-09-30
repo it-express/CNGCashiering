@@ -1,0 +1,144 @@
+﻿@model CNG.Models.PurchaseOrder
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Purchase Order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.No)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.No)
+        </dd>
+
+        <dt>
+            Vendor
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vendor.Name)
+        </dd>
+        
+
+        <dt>
+            Ship To
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShipToCompany.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Terms)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Terms)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatusDescription)
+        </dd>
+
+        <dt>
+            Approved By:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApprovedByObj.Username)
+        </dd>
+
+        <dt>
+            Prepared By:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PreparedByObj.Username)
+        </dd>
+    </dl>
+    <div class="form-group">
+        <label class="col-md-1"></label>
+        <div class="col-md-9">
+            <table class="table table-hover table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            Item Code
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Brand
+                        </th>
+                        <th>
+                            Unit Cost
+                        </th>
+                        <th>
+                            Item Type
+                        </th>
+                        <th>
+                            Remarks
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var poItem in Model.PurchaseOrderItems)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => poItem.Item.Code)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => poItem.Item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => poItem.Item.Brand)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => poItem.UnitCost)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => poItem.Item.Type.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => poItem.Remarks)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => poItem.Quantity)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -24,6 +24,12 @@ namespace CNG.Controllers
             return View(lstReceivedPo);
         }
 
+        public ActionResult Details(string poNo) {
+            PurchaseOrder po = poRepo.GetByNo(poNo);
+
+            return View(po);
+        }
+
         public ActionResult Create()
         {
             ViewBag.PurchaseOrders = new SelectList(poRepo.ListForReceiving(), "No", "No");

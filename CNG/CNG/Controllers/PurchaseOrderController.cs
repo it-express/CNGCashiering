@@ -45,6 +45,12 @@ namespace CNG.Controllers
             return View("Create", po);
         }
 
+        public ActionResult Details(string poNo) {
+            PurchaseOrder po = poRepo.GetByNo(poNo);
+
+            return View(po);
+        }
+
         public ActionResult Delete(string poNo) {
             poRepo.Delete(poNo);
 
