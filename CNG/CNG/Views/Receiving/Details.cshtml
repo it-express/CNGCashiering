@@ -5,100 +5,145 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.No)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.No)
-        </dd>
-    </dl>
-
-    <div class="form-group">
-        <label class="col-md-1"></label>
-        <div class="col-md-9">
-            <table class="table table-hover table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>
-                            Item
-                        </th>
-                        <th>
-                            Quantity
-                        </th>
-                        <th>
-                            Unit Cost
-                        </th>
-                        <th>
-                            Description
-                        </th>
-                        <th>
-                            Amount
-                        </th>
-                        <th>
-                            Serial No.
-                        </th>
-                        <th>
-                            Received Quantity
-                        </th>
-                        <th>
-                            Balance
-                        </th>
-                        <th>
-                            Inv/Dr No.
-                        </th>
-                        <th>
-                            Date
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var poItem in Model.PurchaseOrderItems)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => poItem.Item.Code)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => poItem.Quantity)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => poItem.UnitCost)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => poItem.Item.Description)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => poItem.Amount)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => poItem.SerialNo)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => poItem.ReceivedQuantity)
-                            </td>
-                            
-                            <td>
-                                @Html.DisplayFor(modelItem => poItem.Balance)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => poItem.Date)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => poItem.DrNo)
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+<!-- start: TOOLBAR -->
+<div class="toolbar row">
+    <div class="col-sm-6 hidden-xs">
+        <div class="page-header">
+            <h1>Receiving </h1>
         </div>
     </div>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<!-- end: TOOLBAR -->
+<!-- end: PAGE HEADER -->
+<!-- start: BREADCRUMB -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="breadcrumb"></div>
+    </div>
+</div>
+<!-- end: BREADCRUMB -->
+<!-- start: PAGE CONTENT -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- start: BASIC TABLE PANEL -->
+        <div class="panel panel-white">
+
+            <div class="panel-body">
+
+                <div class="form-horizontal">
+                    <h4>Receiving</h4>
+                    <hr />
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.No)</label>
+                        <div class="col-md-5">
+                            <label class="form-control">@Html.DisplayFor(model => model.No)</label>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label col-md-1"></label>
+                        <div class="col-md-10">
+                            <table class="table table-hover table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Item
+                                        </th>
+                                        <th>
+                                            Quantity
+                                        </th>
+                                        <th>
+                                            Unit Cost
+                                        </th>
+                                        <th>
+                                            Description
+                                        </th>
+                                        <th>
+                                            Amount
+                                        </th>
+                                        <th>
+                                            Serial No.
+                                        </th>
+                                        <th>
+                                            Received Quantity
+                                        </th>
+                                        <th>
+                                            Balance
+                                        </th>
+                                        <th>
+                                            Inv/Dr No.
+                                        </th>
+                                        <th>
+                                            Date
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var poItem in Model.PurchaseOrderItems)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => poItem.Item.Code)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => poItem.Quantity)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => poItem.UnitCost)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => poItem.Item.Description)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => poItem.Amount)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => poItem.SerialNo)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => poItem.ReceivedQuantity)
+                                            </td>
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => poItem.Balance)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => poItem.Date)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => poItem.DrNo)
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <a href="@Url.Action("Index")" class="btn btn-dark-beige">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- end: BASIC TABLE PANEL -->
+    </div>
+</div>
+
+<script>
+
+$(document).ready(function() {
+    $('ul.main-navigation-menu > li:nth-child(3)').addClass('active open');
+});
+
+</script>
+
