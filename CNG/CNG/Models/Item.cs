@@ -29,11 +29,13 @@ namespace CNG.Models
         public decimal UnitCost { get; set; }
 
         [Required]
+        [DisplayName("Type")]
         public int TypeId { get; set; }
 
         [Required]
         public bool Active { get; set; }
 
+        [DisplayName("Quantity on Hand")]
         public int QuantityOnHand { get; set; }
 
         public virtual ItemType Type { get; set; }

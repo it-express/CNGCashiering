@@ -36,9 +36,11 @@ namespace CNG.Models
         public int Terms { get; set; }
 
         [Required]
+        [DisplayName("Prepared By")]
         public int PreparedBy { get; set; }
 
         [Required]
+        [DisplayName("Approved By")]
         public int ApprovedBy { get; set; }
 
         public int Status { get; set; }

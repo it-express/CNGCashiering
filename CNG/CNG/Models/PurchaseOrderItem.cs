@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -27,8 +28,10 @@ namespace CNG.Models
         public string Remarks { get; set; }
 
         [StringLength(200)]
+        [DisplayName("Serial No")]
         public string SerialNo { get; set; }
 
+        [DisplayName("Received Quantity")]
         public int ReceivedQuantity { get; set; }
 
         public string DrNo { get; set; }

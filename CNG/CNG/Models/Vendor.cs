@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace CNG.Models
 {
@@ -21,10 +22,12 @@ namespace CNG.Models
 
         [Required]
         [StringLength(250)]
+        [DisplayName("Contact Person")]
         public string ContactPerson { get; set; }
 
         [Required]
         [StringLength(250)]
+        [DisplayName("Contact No")]
         public string ContactNo { get; set; }
 
         [Required]

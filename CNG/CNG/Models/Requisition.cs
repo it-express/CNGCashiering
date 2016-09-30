@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
 namespace CNG.Models
 {
@@ -22,28 +23,36 @@ namespace CNG.Models
         public DateTime Date { get; set; }
 
         [Required]
+        [DisplayName("Job Order No")]
         public string JobOrderNo { get; set; }
 
         [Required]
+        [DisplayName("Job Order Date")]
         public DateTime JobOrderDate { get; set; }
 
         [Required]
         [StringLength(100)]
+        [DisplayName("Unit Plate No")]
         public string UnitPlateNo { get; set; }
 
         [Required]
         [StringLength(100)]
+        [DisplayName("Odometer Reading")]
         public string OdometerReading { get; set; }
 
         [Required]
         [StringLength(100)]
+        [DisplayName("Driver Name")]
         public string DriverName { get; set; }
 
         [Required]
+        [DisplayName("Reporteed By")]
         public string ReportedBy { get; set; }
 
+        [DisplayName("Checked By")]
         public string CheckedBy { get; set; }
 
+        [DisplayName("Approved By")]
         public int ApprovedBy { get; set; }
 
         public virtual List<RequisitionItem> RequisitionItems { get; set; }

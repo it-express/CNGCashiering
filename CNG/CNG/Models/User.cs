@@ -23,10 +23,12 @@ namespace CNG.Models
 
         [Required]
         [StringLength(150)]
+        [DisplayName("First Name")]
         public string FirstName { get; set; }
 
         [Required]
         [StringLength(150)]
+        [DisplayName("Last Name")]
         public string LastName { get; set; }
 
         [Required]

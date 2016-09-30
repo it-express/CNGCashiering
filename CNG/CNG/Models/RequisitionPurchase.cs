@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -13,7 +14,11 @@ namespace CNG.Models
         public int Id { get; set; }
         public string No { get; set; }
         public DateTime Date { get; set; }
+
+        [DisplayName("Prepared By")]
         public int PreparedBy { get; set; }
+
+        [DisplayName("Approved By")]
         public int ApprovedBy { get; set; }
 
         [ForeignKey("PreparedBy")]
