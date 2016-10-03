@@ -110,7 +110,7 @@
                 result += "<td>" + item.Description + "</td>";
                 result += "<td> <input type='text' class='txtSerialNo form-control' /></td>";
 
-                result += "<td> <select id='selType' class='form-control'><option value='1'>scrap</option><option value='2'>junk</option></select> </td>";
+                result += "<td> <select class='selType' class='form-control'><option value='1'>scrap</option><option value='2'>junk</option></select> </td>";
 
                 result += "<td> <a href='#!' data-original-title='Remove' data-placement='top' class='btn btn-xs btn-red tooltips btnRemoveItem'><i class='fa fa-times fa fa-white'></i></a></td>";
                 result += "</tr>";

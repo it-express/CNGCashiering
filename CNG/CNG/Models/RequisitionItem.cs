@@ -19,5 +19,17 @@ namespace CNG.Models
 
         [ForeignKey("ItemId")]
         public virtual Item Item { get; set; }
+
+        public string TypeDescription {
+            get {
+                if (Type == 1)
+                {
+                    return "scrap";
+                }
+                else {
+                    return "junk";
+                }
+            }
+        }
     }
 }
