@@ -61,7 +61,7 @@
                         <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.PreparedBy)</label>
                         <div class="col-md-5">
                             <label class="form-control">
-                                @Html.DisplayFor(model => model.PreparedBy)
+                                @Html.DisplayFor(model => model.ApprovedByObj.FullName)
                             </label>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                         <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.ApprovedBy)</label>
                         <div class="col-md-5">
                             <label class="form-control">
-                                @Html.DisplayFor(model => model.ApprovedBy)
+                                @Html.DisplayFor(model => model.ApprovedByObj.FullName)
                             </label>
                         </div>
                     </div>
