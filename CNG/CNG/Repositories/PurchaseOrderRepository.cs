@@ -60,13 +60,13 @@ namespace CNG.Models
                 {
                     context.PurchaseOrderItems.Remove(poItem);
                 }
-            }
 
-            foreach (PurchaseOrderItem poItem in po.PurchaseOrderItems.ToList())
-            {
-                poItem.PurchaseOrderId = id;
+                foreach (PurchaseOrderItem poItem in po.PurchaseOrderItems.ToList())
+                {
+                    poItem.PurchaseOrderId = id;
 
-                context.PurchaseOrderItems.Add(poItem);
+                    context.PurchaseOrderItems.Add(poItem);
+                }
             }
 
             context.SaveChanges();
