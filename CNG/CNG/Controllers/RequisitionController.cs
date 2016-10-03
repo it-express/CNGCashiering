@@ -119,6 +119,7 @@ namespace CNG.Controllers
 
                 Item _item = itemRepo.GetById(item.ItemId);
 
+                reqItem.ItemId = item.ItemId;
                 reqItem.Quantity = item.Quantity;
                 reqItem.SerialNo = item.SerialNo;
                 reqItem.Type = item.Type;
