@@ -1,10 +1,11 @@
-﻿@model IEnumerable<CNG.Models.TransactionLog>
+﻿@model IPagedList<CNG.Models.TransactionLog>
+@using PagedList.Mvc;
+@using PagedList;
 
 @{
     ViewBag.Title = "TransactionHistory";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 <!-- start: TOOLBAR -->
 <div class="toolbar row">
@@ -32,6 +33,14 @@
                 <h4 class="panel-title pull-left"><span class="text-bold">Transaction History</span></h4>
 
                 <div class="clearfix"></div>
+
+                @using (Html.BeginForm())
+                {
+                    <p>
+                        Find: @Html.TextBox("SearchString", (string)ViewBag.CurrentFilter)
+                        <input type="submit" value="Search" />
+                    </p>
+                }
             </div>
             <div class="panel-body">
 
@@ -39,16 +48,16 @@
                     <thead>
                         <tr>
                             <th>
-                                Module
+                                @Html.ActionLink("Module", "TransactionHistory", new { sortColumn = "transactionMethod.description", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Quantity)
+                                @Html.ActionLink("Quantity", "TransactionHistory", new { sortColumn = "quantity", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Date)
+                                @Html.ActionLink("Date", "TransactionHistory", new { sortColumn = "date", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                User
+                                @Html.ActionLink("User", "TransactionHistory", new { sortColumn = "user.username", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th></th>
                         </tr>
@@ -77,6 +86,12 @@
         </div>
         <!-- end: BASIC TABLE PANEL -->
     </div>
+
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    <br />
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 </div>
 
 <script>

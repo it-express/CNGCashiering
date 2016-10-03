@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CNG.Models;
+using PagedList;
+using System.Linq.Dynamic;
 
 namespace CNG.Controllers
 {
@@ -12,11 +14,47 @@ namespace CNG.Controllers
         UserRepository userRepo = new UserRepository();
         UserTypeRepository userTypeRepo = new UserTypeRepository();
 
-        public ActionResult Index()
+        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
         {
-            List<User> lstUser = userRepo.List().ToList();
+            ViewBag.CurrentSort = sortColumn;
+            ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
 
-            return View(lstUser);
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            IQueryable<User> lstUser = userRepo.List();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                lstUser = lstUser.Where(s => s.Username.Contains(searchString)
+                                       || s.Password.Contains(searchString)
+                                       || s.FirstName.Contains(searchString)
+                                       || s.LastName.Contains(searchString)
+                                       || s.UserType.Description.Contains(searchString)
+                                       || s.GeneralManager.FirstName.Contains(searchString)
+                                       || s.GeneralManager.LastName.Contains(searchString));
+            }
+
+            if (String.IsNullOrEmpty(sortColumn))
+            {
+                lstUser = lstUser.OrderByDescending(p => p.Id);
+            }
+            else
+            {
+                lstUser = lstUser.OrderBy(sortColumn + " " + sortOrder);
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(lstUser.ToPagedList(pageNumber, pageSize));
         }
 
         [HttpGet]

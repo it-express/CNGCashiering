@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CNG.Models;
+using PagedList;
+using System.Linq.Dynamic;
 
 namespace CNG.Controllers
 {
@@ -11,11 +13,48 @@ namespace CNG.Controllers
     {
         VehicleRepository vehicleRepo = new VehicleRepository();
 
-        public ActionResult Index()
+        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
         {
-            List<Vehicle> lstVehicle = vehicleRepo.List().ToList();
+            ViewBag.CurrentSort = sortColumn;
+            ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
 
-            return View(lstVehicle);
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            IQueryable<Vehicle> lstVehicle = vehicleRepo.List();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                lstVehicle = lstVehicle.Where(s => s.Make.Contains(searchString)
+                                       || s.Year.ToString().Contains(searchString)
+                                       || s.Model.ToString().Contains(searchString)
+                                       || s.CnNo.Contains(searchString)
+                                       || s.LicenseNo.ToString().Contains(searchString)
+                                       || s.EngineNo.ToString().Contains(searchString)
+                                       || s.ChasisNo.ToString().Contains(searchString)
+                                       || s.Color.ToString().Contains(searchString));
+            }
+
+            if (String.IsNullOrEmpty(sortColumn))
+            {
+                lstVehicle = lstVehicle.OrderByDescending(p => p.Id);
+            }
+            else
+            {
+                lstVehicle = lstVehicle.OrderBy(sortColumn + " " + sortOrder);
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(lstVehicle.ToPagedList(pageNumber, pageSize));
         }
 
         [HttpGet]

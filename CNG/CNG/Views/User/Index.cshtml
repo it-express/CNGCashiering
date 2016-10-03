@@ -1,4 +1,6 @@
-﻿@model IEnumerable<CNG.Models.User>
+﻿@model IPagedList<CNG.Models.User>
+@using PagedList.Mvc;
+@using PagedList;
 
 @{
     ViewBag.Title = "Index";
@@ -34,28 +36,36 @@
                 </div>
 
                 <div class="clearfix"></div>
+
+                @using (Html.BeginForm())
+                {
+                    <p>
+                        Find: @Html.TextBox("SearchString", (string)ViewBag.CurrentFilter)
+                        <input type="submit" value="Search" />
+                    </p>
+                }
             </div>
             <div class="panel-body">
                 <table class="table table-hover table-striped">
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.Username)
+                                @Html.ActionLink("Username", "Index", new { sortColumn = "username", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Password)
+                                @Html.ActionLink("Password", "Index", new { sortColumn = "password", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.FirstName)
+                                @Html.ActionLink("First Name", "Index", new { sortColumn = "firstName", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.LastName)
+                                @Html.ActionLink("Last Name", "Index", new { sortColumn = "lastName", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.UserTypeId)
+                                @Html.ActionLink("User Type", "Index", new { sortColumn = "userTypeId", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.GeneralManagerId)
+                                @Html.ActionLink("General Manager", "Index", new { sortColumn = "generalManagerId", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th></th>
                         </tr>
@@ -96,6 +106,12 @@
         </div>
         <!-- end: BASIC TABLE PANEL -->
     </div>
+
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    <br />
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 </div>
 <script>
 

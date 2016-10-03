@@ -1,4 +1,6 @@
-﻿@model IEnumerable<CNG.Models.PurchaseOrder>
+﻿@model IPagedList<CNG.Models.PurchaseOrder>
+@using PagedList.Mvc;
+@using PagedList;
 
 @{
     ViewBag.Title = "List";
@@ -34,6 +36,14 @@
                 </div>
 
                 <div class="clearfix"></div>
+
+                @using (Html.BeginForm())
+                {
+                    <p>
+                        Find: @Html.TextBox("SearchString", (string)ViewBag.CurrentFilter)
+                        <input type="submit" value="Search" />
+                    </p>
+                }
             </div>
             <div class="panel-body">
 
@@ -41,29 +51,29 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.No)
+                                @Html.ActionLink("No", "Index", new { sortColumn = "no", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Date)
+                                @Html.ActionLink("Date", "Index", new { sortColumn = "date", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.VendorId)
+                                @Html.ActionLink("Vendor", "Index", new { sortColumn = "vendorId", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.ShipTo)
+                                @Html.ActionLink("Ship To", "Index", new { sortColumn = "shipTo", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Terms)
+                                @Html.ActionLink("Terms", "Index", new { sortColumn = "terms", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.PreparedBy)
+                                @Html.ActionLink("Prepared By", "Index", new { sortColumn = "preparedBy", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.ApprovedBy)
+                                @Html.ActionLink("Approved By", "Index", new { sortColumn = "approvedBy", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             @*<th>
-            @Html.DisplayNameFor(model => model.ReceivingStatus)
-        </th>*@
+                                @Html.DisplayNameFor(model => model.ReceivingStatus)
+                            </th>*@
                             <th></th>
                         </tr>
                     </thead>
@@ -99,10 +109,10 @@
                                 <td>
                                     <div class="visible-md visible-lg hidden-sm hidden-xs">
                                         <a href="@Url.Action("Details", new { poNo = item.No })" data-original-title="Details" data-placement="top" class="btn btn-xs btn-green tooltips"><i class="fa fa-list"></i></a>
-                                        <a href="@Url.Action("Edit", new { poNo = item.No })" data-original-title="Edit" data-placement="top" class="btn btn-xs btn-blue tooltips"><i class="fa fa-edit"></i></a>
 
                                         @if (item.Status != (int)CNG.Models.EPurchaseOrderStatus.Submitted)
                                         {
+                                            <a href="@Url.Action("Edit", new { poNo = item.No })" data-original-title="Edit" data-placement="top" class="btn btn-xs btn-blue tooltips"><i class="fa fa-edit"></i></a>
                                             <a href="@Url.Action("Delete", new { poNo = item.No })" data-original-title="Remove" data-placement="top" class="btn btn-xs btn-red tooltips"><i class="fa fa-times fa fa-white"></i></a>
                                         }
                                     </div>
@@ -116,6 +126,13 @@
         </div>
         <!-- end: BASIC TABLE PANEL -->
     </div>
+
+    <div class="clearfix"></div>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    <br />
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 </div>
 <script>
 

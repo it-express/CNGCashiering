@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CNG.Models;
+using PagedList;
+using System.Linq.Dynamic;
 
 namespace CNG.Controllers
 {
@@ -17,11 +19,49 @@ namespace CNG.Controllers
             poItemRepo = new PurchaseOrderItemRepository(context);
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
         {
-            List<PurchaseOrder> lstReceivedPo = poRepo.ListReceived();
+            ViewBag.CurrentSort = sortColumn;
+            ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
 
-            return View(lstReceivedPo);
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            IQueryable<PurchaseOrder> lstReceivedPo = poRepo.ListReceived();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                lstReceivedPo = lstReceivedPo.Where(s => s.No.Contains(searchString)
+                                       || s.Date.ToString().Contains(searchString)
+                                       || s.Vendor.Name.ToString().Contains(searchString)
+                                       || s.ShipToCompany.Name.Contains(searchString)
+                                       || s.Terms.ToString().Contains(searchString)
+                                       || s.PreparedByObj.FirstName.Contains(searchString)
+                                       || s.PreparedByObj.LastName.Contains(searchString)
+                                       || s.ApprovedByObj.FirstName.Contains(searchString)
+                                       || s.ApprovedByObj.LastName.Contains(searchString));
+            }
+
+            if (String.IsNullOrEmpty(sortColumn))
+            {
+                lstReceivedPo = lstReceivedPo.OrderByDescending(p => p.Id);
+            }
+            else
+            {
+                lstReceivedPo = lstReceivedPo.OrderBy(sortColumn + " " + sortOrder);
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(lstReceivedPo.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult Details(string poNo) {

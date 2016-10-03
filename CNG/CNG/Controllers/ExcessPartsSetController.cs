@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+using System.Linq.Dynamic;
 
 namespace CNG.Controllers
 {
@@ -19,11 +21,46 @@ namespace CNG.Controllers
         }
 
         // GET: RequisitionPurchase
-        public ActionResult Index()
+        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
         {
-            List<ExcessPartsSet> lst = epsRepo.List().ToList();
+            ViewBag.CurrentSort = sortColumn;
+            ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
 
-            return View(lst);
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            IQueryable<ExcessPartsSet> lstEps = epsRepo.List();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                lstEps = lstEps.Where(s => s.No.Contains(searchString)
+                                       || s.Date.ToString().Contains(searchString)
+                                       || s.PreparedByObj.LastName.Contains(searchString)
+                                       || s.PreparedByObj.FirstName.Contains(searchString)
+                                       || s.ApprovedByObj.LastName.Contains(searchString)
+                                       || s.ApprovedByObj.FirstName.Contains(searchString));
+            }
+
+            if (String.IsNullOrEmpty(sortColumn))
+            {
+                lstEps = lstEps.OrderByDescending(p => p.Id);
+            }
+            else
+            {
+                lstEps = lstEps.OrderBy(sortColumn + " " + sortOrder);
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(lstEps.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult Create()

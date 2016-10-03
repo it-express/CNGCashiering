@@ -86,11 +86,11 @@ namespace CNG.Models
             return poNumber;
         }
 
-        public List<PurchaseOrder> ListReceived() {
+        public IQueryable<PurchaseOrder> ListReceived() {
             IQueryable<PurchaseOrder> lst = List().Where(p =>
             p.Status != (int) EPurchaseOrderStatus.Open);
 
-            return lst.ToList();
+            return lst;
         }
 
         public void ChangeStatus(string poNo, int status) {

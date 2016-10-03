@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CNG.Models;
+using PagedList;
+using System.Linq.Dynamic;
 
 namespace CNG.Controllers
 {
@@ -18,11 +20,45 @@ namespace CNG.Controllers
         }
 
         // GET: RequisitionPurchase
-        public ActionResult Index()
+        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
         {
-            List<RequisitionPurchase> lst = rpRepo.List().ToList();
+            ViewBag.CurrentSort = sortColumn;
+            ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
 
-            return View(lst);
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            IQueryable<RequisitionPurchase> lstRp = rpRepo.List();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                lstRp = lstRp.Where(s => s.Date.ToString().Contains(searchString)
+                                       || s.PreparedByObj.FirstName.Contains(searchString)
+                                       || s.PreparedByObj.LastName.Contains(searchString)
+                                       || s.ApprovedByObj.FirstName.Contains(searchString)
+                                       || s.ApprovedByObj.LastName.Contains(searchString));
+            }
+
+            if (String.IsNullOrEmpty(sortColumn))
+            {
+                lstRp = lstRp.OrderByDescending(p => p.Id);
+            }
+            else
+            {
+                lstRp = lstRp.OrderBy(sortColumn + " " + sortOrder);
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(lstRp.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult Create()

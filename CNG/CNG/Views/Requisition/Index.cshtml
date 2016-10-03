@@ -1,4 +1,6 @@
-﻿@model IEnumerable<CNG.Models.Requisition>
+﻿@model IPagedList<CNG.Models.Requisition>
+@using PagedList.Mvc;
+@using PagedList;
 
 @{
     ViewBag.Title = "Index";
@@ -34,6 +36,14 @@
                 </div>
 
                 <div class="clearfix"></div>
+
+                @using (Html.BeginForm())
+                {
+                    <p>
+                        Find: @Html.TextBox("SearchString", (string)ViewBag.CurrentFilter)
+                        <input type="submit" value="Search" />
+                    </p>
+                }
             </div>
             <div class="panel-body">
 
@@ -41,31 +51,31 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.No)
+                                @Html.ActionLink("No", "Index", new { sortColumn = "no", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Date)
+                                @Html.ActionLink("Date", "Index", new { sortColumn = "date", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.JobOrderNo)
+                                @Html.ActionLink("Job Order No", "Index", new { sortColumn = "jobOrderNo", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.UnitPlateNo)
+                                @Html.ActionLink("Plate No", "Index", new { sortColumn = "unitPlateNo", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.OdometerReading)
+                                @Html.ActionLink("Odometer Reading", "Index", new { sortColumn = "odometerReading", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.DriverName)
+                                @Html.ActionLink("Driver Name", "Index", new { sortColumn = "driverName", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.ReportedBy)
+                                @Html.ActionLink("Reported By", "Index", new { sortColumn = "reportedBy", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CheckedBy)
+                                @Html.ActionLink("Checked By", "Index", new { sortColumn = "checkedBy", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.ApprovedBy)
+                                @Html.ActionLink("Approved By", "Index", new { sortColumn = "approvedBy", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th></th>
                         </tr>
@@ -117,6 +127,13 @@
         </div>
         <!-- end: BASIC TABLE PANEL -->
     </div>
+
+    <div class="clearfix"></div>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    <br />
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 </div>
 
 <script>

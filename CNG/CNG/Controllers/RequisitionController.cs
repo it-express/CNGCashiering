@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CNG.Models;
+using PagedList;
+using System.Linq.Dynamic;
 
 namespace CNG.Controllers
 {
@@ -19,11 +21,50 @@ namespace CNG.Controllers
             reqItemRepo = new RequisitionItemRepository(context);
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
         {
-            List<Requisition> lstReq = reqRepo.List().ToList();
+            ViewBag.CurrentSort = sortColumn;
+            ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
 
-            return View(lstReq);
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            IQueryable<Requisition> lstReq = reqRepo.List();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                lstReq = lstReq.Where(s => s.No.Contains(searchString)
+                                       || s.Date.ToString().Contains(searchString)
+                                       || s.JobOrderNo.Contains(searchString)
+                                       || s.UnitPlateNo.Contains(searchString)
+                                       || s.OdometerReading.ToString().Contains(searchString)
+                                       || s.DriverName.Contains(searchString)
+                                       || s.ReportedBy.Contains(searchString)
+                                       || s.CheckedBy.Contains(searchString)
+                                       || s.ApprovedByObj.FirstName.Contains(searchString)
+                                       || s.ApprovedByObj.LastName.Contains(searchString));
+            }
+
+            if (String.IsNullOrEmpty(sortColumn))
+            {
+                lstReq = lstReq.OrderByDescending(p => p.Id);
+            }
+            else
+            {
+                lstReq = lstReq.OrderBy(sortColumn + " " + sortOrder);
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(lstReq.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult Create() {
