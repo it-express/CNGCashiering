@@ -23,6 +23,23 @@
         else if (req.Items.length == 0) {
             err = "Please select item/s.";
         }
+        else {
+            $.each(req.Items, function (key, value) {
+                a = value;
+
+                if (parseInt(a.Quantity) > parseInt(a.QuantityOnHand)) {
+                    allow = false;
+                }
+                else {
+                    allow = true;
+                }
+
+                if (allow == false) {
+                    err = "Insufficient quantity on hand : " + a.Code;
+                    return false;
+                }
+            });
+        }
 
         return err;
     }
@@ -58,6 +75,9 @@
             item.Quantity = $this.find(".txtQuantity").val();
             item.SerialNo = $this.find(".txtSerialNo").val();
             item.Type = $this.find(".selType").val();
+
+            item.QuantityOnHand = $this.data("quantity-on-hand");
+            item.Code = $this.find('.lblCode').text();;
 
             lstItem.push(item);
         });
@@ -99,8 +119,8 @@
                 //$('#tblItems tbody').empty();
 
                 var result = "";
-                result += "<tr class='item-row' data-item-id=" + item.Id + ">";
-                result += "<td>" + item.Code + "</td>";
+                result += "<tr class='item-row' data-item-id=" + item.Id + " data-quantity-on-hand=" + item.QuantityOnHand + ">";
+                result += "<td><label class='lblCode'>" + item.Code + "</label></td>";
                 result += "<td> <input type='text' class='txtQuantity form-control' /></td>";
                 result += "<td>" + item.Description + "</td>";
                 result += "<td> <input type='text' class='txtSerialNo form-control' /></td>";
