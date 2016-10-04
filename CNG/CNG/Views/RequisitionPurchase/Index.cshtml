@@ -43,16 +43,18 @@
                 </div>
 
                 <div class="clearfix"></div>
+                
+            </div>
+            <div class="panel-body">
+
 
                 @using (Html.BeginForm())
                 {
-                    <p>
-                        Find: @Html.TextBox("SearchString", (string)ViewBag.CurrentFilter)
-                        <input type="submit" value="Search" />
-                    </p>
+                    <div class="col-md-4 col-sm-12 no-padding pull-right" style="margin-bottom:16px; text-align:right;">
+                        @Html.TextBox("SearchString", (string)ViewBag.CurrentFilter, new { @class = "form-control", @placeholder = "Find", @style = "display:inline; width:74%;" })
+                        <input type="submit" value="Search" class="btn btn-dark-beige" />
+                    </div>
                 }
-            </div>
-            <div class="panel-body">
 
                 <table class="table table-hover table-striped">
                     <thead>
@@ -93,16 +95,27 @@
                     </tbody>
 
                 </table>
+
+                <div class="clearfix"></div>
+
+                <div class="col-md-4 col-sm-12 no-padding pull-left" style="margin:20px 0px;">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                </div>
+
+                <div class="col-md-8 col-sm-12 no-padding pull-left" style="text-align:right;">
+                    @Html.PagedListPager(Model, page => Url.Action("Index",
+                    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                </div>
+
+
+                <div class="clearfix"></div>
+
             </div>
         </div>
         <!-- end: BASIC TABLE PANEL -->
     </div>
 
-    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-    <br />
-
-    @Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    
 </div>
 <script>
 

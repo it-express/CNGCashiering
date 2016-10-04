@@ -8079,4 +8079,13 @@ border-radius:unset;
 .toolbar .navbar-right > li > a.active{
 background:#ddd;
 }
+
+.table thead tr th a{
+color:#707070;
+}
+
+.table thead tr th a:hover{
+color:#8b91a0;
+
+}
 /*additional*/
