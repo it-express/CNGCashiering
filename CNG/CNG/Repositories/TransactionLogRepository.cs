@@ -19,7 +19,7 @@ namespace CNG.Models
         public void Add(TransactionLog transactionLog)
         {
             transactionLog.Date = DateTime.Now;
-            transactionLog.UserId = 0; //get from current session
+            transactionLog.UserId = Convert.ToInt32(HttpContext.Current.Session["uid"]); //get from current session
 
             context.TransactionLogs.Add(transactionLog);
            
