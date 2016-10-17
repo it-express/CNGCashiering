@@ -90,6 +90,7 @@ namespace CNG.Controllers
 
             eps.PreparedBy = Common.GetCurrentUser.Id;
             eps.ApprovedBy = Common.GetCurrentUser.GeneralManagerId;
+            eps.CheckedBy = epsDTO.CheckedBy;
 
             context.ExcessPartsSets.Add(eps);
             context.SaveChanges();

@@ -18,6 +18,8 @@ namespace CNG.Models
         public int VendorId { get; set; }
         public int ShipTo { get; set; }
 
+        public string CheckedBy { get; set; }
+
         public List<Item> Items { get; set; }
     }
 }

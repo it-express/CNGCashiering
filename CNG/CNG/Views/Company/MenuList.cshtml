@@ -1,0 +1,10 @@
+﻿@model IEnumerable<CNG.Models.Company>
+
+<ul class="sub-menu">
+    @foreach (var item in Model)
+    {
+        <li>
+            <a href="@Url.Action("Index", "PurchaseOrder", new { companyId = item.Id })"><i class="fa fa-shopping-cart"></i> <span class="title">@item.Name</span> </a>
+        </li>
+    }
+</ul>

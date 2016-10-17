@@ -40,7 +40,6 @@ namespace CNG.Models
         [DisplayName("Odometer Reading")]
         public string OdometerReading { get; set; }
 
-        [Required]
         [StringLength(100)]
         [DisplayName("Driver Name")]
         public string DriverName { get; set; }

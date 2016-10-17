@@ -51,6 +51,7 @@ namespace CNG.Models
 
                     dbEntry.PreparedBy = Common.GetCurrentUser.Id;
                     dbEntry.ApprovedBy = Common.GetCurrentUser.GeneralManagerId;
+                    dbEntry.CheckedBy = po.CheckedBy;
                 }
 
                 id = dbEntry.Id;

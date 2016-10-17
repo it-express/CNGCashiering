@@ -288,6 +288,7 @@
     <Content Include="Views\Inventory\TransactionHistory.cshtml" />
     <Content Include="Views\PurchaseOrder\Details.cshtml" />
     <Content Include="Views\Receiving\Details.cshtml" />
+    <Content Include="Views\Company\MenuList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

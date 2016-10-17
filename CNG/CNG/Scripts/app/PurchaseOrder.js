@@ -25,6 +25,7 @@
         //purchaseOrder.Terms = (backen generated)
         //purchaseOrder.PreparedBy = (backend generated);
         //purchaseOrder.ApprovedBy = (backend generated);
+        purchaseOrder.CheckedBy = $('#CheckedBy').val();
 
         purchaseOrder.Items = GetSelectedItems();
 
@@ -116,10 +117,10 @@
                 result += "<tr class='item-row' data-item-id=" + item.Id + ">";
                 result += "<td>" + item.Code + "</td>";
                 result += "<td>" + item.Description + "</td>";
-                result += "<td>" + item.Brand + "</td>";
                 result += "<td>" + item.Type.Description + "</td>";
-                result += "<td>" + item.UnitCost + "</td>";
+                result += "<td>" + item.Brand + "</td>";
                 result += "<td> <input type='number' class='txtQuantity form-control'> </td>";
+                result += "<td>" + item.UnitCost + "</td>";
                 result += "<td> <textarea class='txtRemarks' class='form-control'> </textarea></td>";
                 result += "<td> <a href='#!' data-original-title='Remove' data-placement='top' class='btn btn-xs btn-red tooltips btnRemoveItem'><i class='fa fa-times fa fa-white'></i></a> </td>";
                 result += "</tr>";

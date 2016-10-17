@@ -18,6 +18,12 @@ namespace CNG.Models
         public int Quantity { get; set; }
         public string Remarks { get; set; }
 
+        public decimal Amount {
+            get {
+                return UnitCost * Quantity;
+            }
+        }
+
         public virtual RequisitionPurchase RequisitionPurchase { get; set; }
         public virtual Item Item { get; set; }
     }

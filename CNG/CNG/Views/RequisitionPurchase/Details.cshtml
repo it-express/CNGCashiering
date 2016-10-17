@@ -86,19 +86,22 @@
                                             Description
                                         </th>
                                         <th>
+                                            Item Type
+                                        </th>
+                                        <th>
                                             Brand
+                                        </th>
+                                        <th>
+                                            Quantity
                                         </th>
                                         <th>
                                             Unit Cost
                                         </th>
                                         <th>
-                                            Item Type
-                                        </th>
-                                        <th>
                                             Remarks
                                         </th>
                                         <th>
-                                            Quantity
+                                            Total Amount
                                         </th>
                                     </tr>
                                 </thead>
@@ -127,8 +130,21 @@
                                             <td>
                                                 @Html.DisplayFor(modelItem => rpItem.Quantity)
                                             </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => rpItem.Amount)
+                                            </td>
                                         </tr>
                                     }
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>@Html.DisplayFor(p => p.TotalAmountItems)</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

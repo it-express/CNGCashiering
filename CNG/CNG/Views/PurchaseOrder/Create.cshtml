@@ -156,10 +156,10 @@
                                         <tr>
                                             <th>Code</th>
                                             <th>Description</th>
-                                            <th>Brand</th>
                                             <th>Type</th>
-                                            <th>Unit Cost</th>
+                                            <th>Brand</th>
                                             <th>Quantity</th>
+                                            <th>Unit Cost</th>
                                             <th>Remarks</th>
                                             <th>Action</th>
                                         </tr>
@@ -176,16 +176,16 @@
                                                     @poItem.Item.Description
                                                 </td>
                                                 <td>
-                                                    @poItem.Item.Brand
-                                                </td>
-                                                <td>
                                                     @poItem.Item.Type.Description
                                                 </td>
                                                 <td>
-                                                    @poItem.UnitCost
+                                                    @poItem.Item.Brand
                                                 </td>
                                                 <td>
                                                     <input type='text' class='txtQuantity form-control' value="@poItem.Quantity" />
+                                                </td>
+                                                <td>
+                                                    @poItem.UnitCost
                                                 </td>
                                                 <td>
                                                     <textarea id='txtRemarks' class="form-control"> @poItem.Remarks </textarea>
@@ -213,6 +213,13 @@
                             <label class="control-label col-md-2">Approved By</label>
                             <div class="col-md-5">
                                 <label id="lblApprovedBy" class="form-control">@ViewBag.GeneralManager</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Checked By</label>
+                            <div class="col-md-5">
+                                <input type="text" id="CheckedBy" value="@Model.CheckedBy" />
                             </div>
                         </div>
                         

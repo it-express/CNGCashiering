@@ -28,7 +28,7 @@ namespace CNG.Models
         public string CnNo { get; set; }
 
         [StringLength(100)]
-        [DisplayName("License No")]
+        [DisplayName("Plate No")]
         public string LicenseNo { get; set; }
 
         [Required]

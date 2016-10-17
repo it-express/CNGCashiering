@@ -98,5 +98,7 @@ namespace CNG.Controllers
 
             return Json(vendor);
         }
+
+        
     }
 }

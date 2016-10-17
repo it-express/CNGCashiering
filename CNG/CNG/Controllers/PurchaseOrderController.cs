@@ -22,8 +22,9 @@ namespace CNG.Controllers
         }
 
         // GET: PurchaseOrder
-        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
+        public ActionResult Index(int companyId, string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CompanyId = companyId;
             ViewBag.CurrentSort = sortColumn;
             ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
 
@@ -38,7 +39,7 @@ namespace CNG.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            IQueryable<PurchaseOrder> lstPo = poRepo.List();
+            IQueryable<PurchaseOrder> lstPo = poRepo.List().Where(p => p.ShipTo == companyId);
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -131,6 +132,7 @@ namespace CNG.Controllers
 
             po.PreparedBy = Common.GetCurrentUser.Id;
             po.ApprovedBy = Common.GetCurrentUser.GeneralManagerId;
+            po.CheckedBy = entry.CheckedBy;
 
             po.PurchaseOrderItems = new List<PurchaseOrderItem>();
             foreach (PurchaseOrderDTO.Item item in entry.Items)
@@ -155,7 +157,7 @@ namespace CNG.Controllers
         {
             ViewBag.Vendors = new SelectList(context.Vendors.Where(p => p.Active), "Id", "Name");
             ViewBag.Companies = new SelectList(context.Companies.Where(p => p.Active), "Id", "Name");
-            ViewBag.Items = new SelectList(context.Items.Where(p => p.Active), "Id", "Code");
+            ViewBag.Items = new SelectList(context.Items.Where(p => p.Active), "Id", "Description");
             ViewBag.User = Common.GetCurrentUser.FullName;
             ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
         }

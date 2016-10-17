@@ -30,7 +30,7 @@
 
             <div class="panel-body">
 
-                <div class="form-horizontal">
+                <div class="form-horizontal" id="divPrintHere">
                     <h4>Purchase Order</h4>
                     <hr />
 
@@ -91,6 +91,13 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="control-label col-md-2">Checked By</label>
+                        <div class="col-md-5">
+                            <label class="form-control">@Html.DisplayFor(model => model.CheckedBy)</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label class="control-label col-md-1"></label>
                         <div class="col-md-10">
                             <table class="table table-hover table-striped table-bordered">
@@ -103,19 +110,22 @@
                                             Description
                                         </th>
                                         <th>
+                                            Item Type
+                                        </th>
+                                        <th>
                                             Brand
+                                        </th>
+                                        <th>
+                                            Quantity
                                         </th>
                                         <th>
                                             Unit Cost
                                         </th>
                                         <th>
-                                            Item Type
-                                        </th>
-                                        <th>
                                             Remarks
                                         </th>
                                         <th>
-                                            Quantity
+                                            Total Amount
                                         </th>
                                     </tr>
                                 </thead>
@@ -130,22 +140,35 @@
                                                 @Html.DisplayFor(modelItem => poItem.Item.Description)
                                             </td>
                                             <td>
+                                                @Html.DisplayFor(modelItem => poItem.Item.Type.Description)
+                                            </td>
+                                            <td>
                                                 @Html.DisplayFor(modelItem => poItem.Item.Brand)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => poItem.Quantity)
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => poItem.UnitCost)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => poItem.Item.Type.Description)
-                                            </td>
-                                            <td>
                                                 @Html.DisplayFor(modelItem => poItem.Remarks)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => poItem.Quantity)
+                                                @Html.DisplayFor(modelItem => poItem.Amount)
                                             </td>
                                         </tr>
                                     }
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>@Html.DisplayFor(modelItem => modelItem.ItemsTotalAmount)</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -157,6 +180,12 @@
                             <a href="@Url.Action("Index")" class="btn btn-dark-beige">
                                 Back to List
                             </a>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input id="btnPrint" type="button" value="Print" class="btn btn-dark-beige" />
                         </div>
                     </div>
 
@@ -172,6 +201,31 @@
 
 $(document).ready(function() {
     $('ul.main-navigation-menu > li:nth-child(2)').addClass('active open');
+
+    function PrintElem(elem) {
+        Popup($(elem).html());
+    }
+
+    function Popup(data) {
+        var mywindow = window.open('', 'my div', 'height=400,width=600');
+        mywindow.document.write('<html><head><title>my div</title>');
+        /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+        mywindow.document.write('</head><body >');
+        mywindow.document.write(data);
+        mywindow.document.write('</body></html>');
+
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10
+
+        mywindow.print();
+        mywindow.close();
+
+        return true;
+    }
+
+    $('#btnPrint').click(function () {
+        PrintElem('#divPrintHere')
+    });
 });
 
 </script>

@@ -43,6 +43,8 @@ namespace CNG.Models
         [DisplayName("Approved By")]
         public int ApprovedBy { get; set; }
 
+        public string CheckedBy { get; set; }
+
         public int Status { get; set; }
 
         public virtual Vendor Vendor { get; set; }
@@ -73,6 +75,12 @@ namespace CNG.Models
                 }
 
                 return description;
+            }
+        }
+
+        public decimal ItemsTotalAmount {
+            get {
+                return PurchaseOrderItems.Sum(p => p.Amount);
             }
         }
     }

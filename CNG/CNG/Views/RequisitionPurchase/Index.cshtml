@@ -14,13 +14,6 @@
             <h1>Requisition to Purchase </h1>
         </div>
     </div>
-
-    <div class="col-sm-6 col-xs-12">
-        <div class="toolbar-tools pull-right">
-            <!-- start: TOP NAVIGATION MENU -->
-            @{ Html.RenderPartial("_ReceivingMenu"); }
-        </div>
-    </div>
 </div>
 <!-- end: TOOLBAR -->
 <!-- end: PAGE HEADER -->
@@ -66,7 +59,7 @@
                                 @Html.ActionLink("Prepared By", "Index", new { sortColumn = "preparedBy", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.ActionLink("ApprovedBy", "Index", new { sortColumn = "approvedBy", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                                @Html.ActionLink("Approved By", "Index", new { sortColumn = "approvedBy", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th></th>
                         </tr>
@@ -120,10 +113,7 @@
 <script>
 
     $(document).ready(function () {
-
-    $('ul.main-navigation-menu li:nth-child(3)').addClass('active open');
-
-    $('.toolbar .navbar-right > li:nth-child(2) > a').addClass('active');
+    $('.toolbar .navbar-right > li:nth-child(3) > a').addClass('active');
 });
 
 </script>

@@ -72,6 +72,9 @@
                             <th>
                                 @Html.ActionLink("Approved By", "Index", new { sortColumn = "approvedBy", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
+                            <th>
+                                @Html.ActionLink("Checked By", "Index", new { sortColumn = "checkedBy", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                            </th>
                             <th></th>
                         </tr>
                     </thead>
@@ -90,6 +93,9 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.ApprovedByObj.FullName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CheckedBy)
                             </td>
                             <td>
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
@@ -132,7 +138,7 @@
 
         $('ul.main-navigation-menu li:nth-child(3)').addClass('active open');
 
-        $('.toolbar .navbar-right > li:nth-child(3) > a').addClass('active');
+        $('.toolbar .navbar-right > li:nth-child(2) > a').addClass('active');
     });
 
 </script>

@@ -137,7 +137,13 @@
                             <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> <span class="title">Home</span> </a>
                         </li>
                         <li>
-                            <a href="@Url.Action("Index", "PurchaseOrder")"><i class="fa fa-list"></i> <span class="title">Purchase Order</span> </a>
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-list"></i> <span class="title"> Purchase Order </span><i class="icon-arrow"></i>
+                            </a>
+                            @Html.Action("MenuList", "Company")
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "RequisitionPurchase")"><i class="fa fa-list"></i> <span class="title">Requisition to Purchase</span> </a>
                         </li>
                         <li>
                             <a href="@Url.Action("Index", "Receiving")"><i class="fa fa-download"></i> <span class="title">Receiving</span> </a>

@@ -32,7 +32,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title pull-left"><span class="text-bold">Purchase Order List</span></h4>
                 <div class="pull-right">
-                    <a href="@Url.Action("Create")" class="btn btn-dark-blue">Create</a>
+                    <a href="@Url.Action("Create", new { companyId = ViewBag.CompanyId })" class="btn btn-dark-blue">Create</a>
                 </div>
 
                 <div class="clearfix"></div>

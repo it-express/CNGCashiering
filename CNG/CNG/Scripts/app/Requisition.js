@@ -17,9 +17,6 @@
         else if (req.OdometerReading == "") {
             err = "Odometer reading is required.";
         }
-        else if (req.DriverName == "") {
-            err = "Driver name is required.";
-        }
         else if (req.Items.length == 0) {
             err = "Please select item/s.";
         }
@@ -126,7 +123,7 @@
                 result += "<td> <input type='text' class='txtSerialNo form-control' /></td>";
 
                 result += "<td>" + item.Code + "</td>";
-                result += "<td><label class='lblQuantity'></label> </td>";
+                result += "<td><input type='text' class='txtQuantityReturn form-control' /></td>";
                 result += "<td>" + item.Description + "</td>";
                 result += "<td> <input type='text' class='txtSerialNo form-control' /></td>";
 
@@ -149,8 +146,8 @@
 
     $(document).on('keyup', '.txtQuantity', function () {
         var $row = $(this).closest("tr");
-        var lblQuantity = $row.find('.lblQuantity');
+        var txtQuantityReturn = $row.find('.txtQuantityReturn');
 
-        lblQuantity.text($(this).val());
+        txtQuantityReturn.val($(this).val());
     });
 });

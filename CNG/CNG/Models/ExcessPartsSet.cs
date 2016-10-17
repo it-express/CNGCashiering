@@ -22,7 +22,7 @@ namespace CNG.Models
         [DisplayName("Prepared By")]
         public int PreparedBy { get; set; }
 
-        [DisplayName("ApprovedBy")]
+        [DisplayName("Approved By")]
         public int ApprovedBy { get; set; }
 
         public virtual List<ExcessPartsSetItem> ExcessPartsSetItems { get; set; }
@@ -32,5 +32,8 @@ namespace CNG.Models
 
         [ForeignKey("ApprovedBy")]
         public virtual User ApprovedByObj { get; set; }
+
+        [DisplayName("Checked By")]
+        public string CheckedBy { get; set; }
     }
 }
