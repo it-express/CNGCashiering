@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using CNG.Models;
 using PagedList;
 using System.Linq.Dynamic;
+using System.Data.Entity;
 
 namespace CNG.Controllers
 {
@@ -57,9 +58,21 @@ namespace CNG.Controllers
             return View(lstItem.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult TransactionHistory(int id, string sortColumn, string sortOrder, string currentFilter, string searchString, int? page) {
+        public ActionResult TransactionHistory(int id, string sortColumn, string sortOrder, string currentFilter, string searchString, string dateFrom, string dateTo, int? page) {
             ViewBag.CurrentSort = sortColumn;
             ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
+
+            DateTime dtDateFrom = DateTime.Now;
+            DateTime dtDateTo = DateTime.Now;
+
+            if (!String.IsNullOrEmpty(dateFrom) && !String.IsNullOrEmpty(dateTo))
+            {
+                dtDateFrom = Convert.ToDateTime(dateFrom);
+                dtDateTo = Convert.ToDateTime(dateTo);
+            }
+
+            ViewBag.DateFrom = dtDateFrom.ToShortDateString();
+            ViewBag.DateTo = dtDateFrom.ToShortDateString();
 
             if (searchString != null)
             {
@@ -73,6 +86,10 @@ namespace CNG.Controllers
             ViewBag.CurrentFilter = searchString;
 
             IQueryable<TransactionLog> lstTransactionLog = transactionLogRepo.List().Where(p => p.ItemId == id);
+            lstTransactionLog = from p in lstTransactionLog
+                            where DbFunctions.TruncateTime(p.Date) >= DbFunctions.TruncateTime(dtDateFrom) &&
+                                                          DbFunctions.TruncateTime(p.Date) <= DbFunctions.TruncateTime(dtDateTo)
+                                                          select p;
 
             if (!String.IsNullOrEmpty(searchString))
             {

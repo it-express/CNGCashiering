@@ -40,6 +40,12 @@
                         Find: @Html.TextBox("SearchString", (string)ViewBag.CurrentFilter)
                         <input type="submit" value="Search" />
                     </p>
+
+                    <p>
+                        Date From:<input type="text" id="dateFrom" name="dateFrom" class="date-picker" value="@ViewBag.DateFrom" /> <br/>
+                        Date To: <input type="text" id="dateTo" name="dateTo" class="date-picker" value="@ViewBag.DateTo" />
+                        <input type="submit" value="Filter" />
+                    </p>
                 }
             </div>
             <div class="panel-body">

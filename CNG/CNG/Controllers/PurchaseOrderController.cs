@@ -22,7 +22,7 @@ namespace CNG.Controllers
         }
 
         // GET: PurchaseOrder
-        public ActionResult Index(int companyId, string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
+        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page, int companyId = 1)
         {
             ViewBag.CompanyId = companyId;
             ViewBag.CurrentSort = sortColumn;
@@ -90,6 +90,7 @@ namespace CNG.Controllers
         }
 
         public ActionResult Details(string poNo) {
+            InitViewBags();
             PurchaseOrder po = poRepo.GetByNo(poNo);
 
             return View(po);
@@ -160,6 +161,8 @@ namespace CNG.Controllers
             ViewBag.Items = new SelectList(context.Items.Where(p => p.Active), "Id", "Description");
             ViewBag.User = Common.GetCurrentUser.FullName;
             ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
+
+            ViewBag.CompanyId = Request.QueryString["companyId"];
         }
     }
 }
