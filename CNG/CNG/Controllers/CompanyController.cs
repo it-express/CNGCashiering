@@ -102,9 +102,11 @@ namespace CNG.Controllers
             return Json(company);
         }
 
-        public PartialViewResult MenuList()
+        public PartialViewResult MenuList(string controllerName)
         {
             List<Company> lstCompany = companyRepo.List().ToList();
+
+            ViewBag.ControllerName = controllerName; 
 
             return PartialView(lstCompany);
         }

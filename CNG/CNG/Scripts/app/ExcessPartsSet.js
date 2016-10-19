@@ -13,6 +13,7 @@
         event.preventDefault();
 
         var eps = new Object();
+        eps.CheckedBy = $('#CheckedBy').val();
 
         var lstItem = new Array();
 

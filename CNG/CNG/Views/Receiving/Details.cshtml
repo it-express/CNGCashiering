@@ -30,7 +30,7 @@
 
             <div class="panel-body">
 
-                <div class="form-horizontal">
+                <div class="form-horizontal" id="divPrintHere">
                     <h4>Receiving</h4>
                     <hr />
 
@@ -121,18 +121,24 @@
                             </table>
                         </div>
                     </div>
-
-
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <a href="@Url.Action("Index")" class="btn btn-dark-beige">
-                                Back to List
-                            </a>
-                        </div>
-                    </div>
-
+                    
                 </div>
 
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <a href="@Url.Action("Index")" class="btn btn-dark-beige">
+                            Back to List
+                        </a>
+                    </div>
+                </div>
+
+                <br/><br />
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input id="btnPrint" type="button" value="Print" class="btn btn-dark-beige" />
+                    </div>
+                </div>
             </div>
         </div>
         <!-- end: BASIC TABLE PANEL -->
@@ -142,7 +148,36 @@
 <script>
 
 $(document).ready(function() {
-    $('ul.main-navigation-menu > li:nth-child(3)').addClass('active open');
+    //$('ul.main-navigation-menu > li:nth-child(3)').addClass('active open');
+
+    $('ul.main-navigation-menu li:nth-child(4)').addClass('active open');
+
+    $('.toolbar .navbar-right > li:nth-child(1) > a').addClass('active');
+
+    function PrintElem(elem) {
+        Popup($(elem).html());
+    }
+
+    function Popup(data) {
+        var mywindow = window.open('', 'my div', 'height=400,width=600');
+        mywindow.document.write('<html><head><title>my div</title>');
+        /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+        mywindow.document.write('</head><body >');
+        mywindow.document.write(data);
+        mywindow.document.write('</body></html>');
+
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10
+
+        mywindow.print();
+        mywindow.close();
+
+        return true;
+    }
+
+    $('#btnPrint').click(function () {
+        PrintElem('#divPrintHere')
+    });
 });
 
 </script>

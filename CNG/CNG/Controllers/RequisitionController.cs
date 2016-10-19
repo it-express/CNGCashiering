@@ -21,8 +21,9 @@ namespace CNG.Controllers
             reqItemRepo = new RequisitionItemRepository(context);
         }
 
-        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
+        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page, int companyId = 1)
         {
+            ViewBag.CompanyId = companyId;
             ViewBag.CurrentSort = sortColumn;
             ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
 
@@ -78,6 +79,8 @@ namespace CNG.Controllers
 
             ViewBag.ApprovedBy = Common.GetCurrentUser.FullName;
 
+            ViewBag.CompanyId = Request.QueryString["companyId"];
+
             return View(new Requisition());
         }
 
@@ -90,6 +93,8 @@ namespace CNG.Controllers
         public ActionResult Details(string reqNo) {
             Requisition req = reqRepo.GetByNo(reqNo);
             req.RequisitionItems = new List<RequisitionItem>();
+
+            ViewBag.CompanyId = Request.QueryString["companyId"];
 
             return View(req);
         }

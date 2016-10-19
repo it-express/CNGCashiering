@@ -4,7 +4,7 @@
     @foreach (var item in Model)
     {
         <li>
-            <a href="@Url.Action("Index", "PurchaseOrder", new { companyId = item.Id })"><i class="fa fa-shopping-cart"></i> <span class="title">@item.Name</span> </a>
+            <a href="@Url.Action("Index", ViewBag.ControllerName, new { companyId = item.Id })"><i class="fa fa-shopping-cart"></i> <span class="title">@item.Name</span> </a>
         </li>
     }
 </ul>

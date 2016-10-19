@@ -71,7 +71,7 @@ namespace CNG.Controllers
             ViewBag.User = Common.GetCurrentUser.FullName;
             ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
 
-            return View();
+            return View(new ExcessPartsSet());
         }
 
         [HttpGet]

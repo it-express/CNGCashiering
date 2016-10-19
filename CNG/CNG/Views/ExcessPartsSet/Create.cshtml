@@ -1,4 +1,5 @@
-﻿
+﻿@model CNG.Models.ExcessPartsSet
+
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -38,97 +39,103 @@
 
             <div class="panel-body">
 
-                <div class="form-horizontal">
-                    <h4>Excess Parts from Set</h4>
-                    <hr />
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
 
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Eps #</label>
-                        <div class="col-md-5">
-                            <label id="lblEpsNo" class="form-control">@ViewBag.EpsNo</label>
+                    <div class="form-horizontal">
+                        <h4>Excess Parts from Set</h4>
+                        <hr />
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Eps #</label>
+                            <div class="col-md-5">
+                                <label id="lblEpsNo" class="form-control">@ViewBag.EpsNo</label>
+                            </div>
                         </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Date</label>
+                            <div class="col-md-5">
+                                <input type="text" id="txtDate" value="@ViewBag.Date" class="form-control date-picker" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Select Item</label>
+                            <div class="col-md-5">
+                                @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items, new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-5">
+                                <input id="btnAddItem" type="button" value="Ok" class="btn btn-dark-blue" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-1"></label>
+                            <div class="col-md-9">
+                                <table id="tblItems" class="table table-hover table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Item Code</th>
+                                            <th>Description</th>
+                                            <th>Brand</th>
+                                            <th>Unit Cost</th>
+                                            <th>Quantity</th>
+                                            <th>Item Type</th>
+                                            <th>Remarks</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Prepared By</label>
+                            <div class="col-md-5">
+                                <label id="lblPreparedBy" class="form-control">@ViewBag.User</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Approved By</label>
+                            <div class="col-md-5">
+                                <label id="lblApprovedBy" class="form-control">@ViewBag.GeneralManager</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Checked By</label>
+                            <div class="col-md-5">
+                                <input type="text" id="CheckedBy" value="@Model.CheckedBy" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="button" id="btnSubmit" value="Submit" class="btn btn-dark-blue" />
+                            </div>
+                        </div>
+
                     </div>
+                }
 
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Date</label>
-                        <div class="col-md-5">
-                            <input type="text" id="txtDate" value="@ViewBag.Date" class="form-control date-picker" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Select Item</label>
-                        <div class="col-md-5">
-                            @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items, new { @class = "form-control" })
-                        </div>
-                        <div class="col-md-5">
-                            <input id="btnAddItem" type="button" value="Ok" class="btn btn-dark-blue" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-md-1"></label>
-                        <div class="col-md-9">
-                            <table id="tblItems" class="table table-hover table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Item Code</th>
-                                        <th>Description</th>
-                                        <th>Brand</th>
-                                        <th>Unit Cost</th>
-                                        <th>Quantity</th>
-                                        <th>Item Type</th>
-                                        <th>Remarks</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Prepared By</label>
-                        <div class="col-md-5">
-                            <label id="lblPreparedBy" class="form-control">@ViewBag.User</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Approved By</label>
-                        <div class="col-md-5">
-                            <label id="lblApprovedBy" class="form-control">@ViewBag.GeneralManager</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Checked By</label>
-                        <div class="col-md-5">
-                            <input type="text" id="CheckedBy" value="@Model.CheckedBy" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="button" id="btnSubmit" value="Submit" class="btn btn-dark-blue" />
-                        </div>
-                    </div>
-
-                </div>
             </div>
-            <!-- end: BASIC TABLE PANEL -->
         </div>
+        <!-- end: BASIC TABLE PANEL -->
     </div>
 </div>
+
 <script>
 
-    $(document).ready(function () {
-
-    $('ul.main-navigation-menu li:nth-child(3)').addClass('active open');
-
-    $('.toolbar .navbar-right > li:nth-child(3) > a').addClass('active');
+$(document).ready(function() {
+    $('ul.main-navigation-menu > li:nth-child(3)').addClass('active open');
 });
 
 </script>
 
 
-
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
