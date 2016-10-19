@@ -107,10 +107,10 @@ namespace CNG.Controllers
             return View(po);
         }
 
-        public ActionResult Delete(string poNo) {
+        public ActionResult Delete(string poNo, int companyId) {
             poRepo.Delete(poNo);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { companyId = companyId });
         }
 
         public string GeneratePoNumber() {
