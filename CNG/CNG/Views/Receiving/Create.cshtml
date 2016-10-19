@@ -74,6 +74,7 @@
                                         <th>Balance</th>
                                         <th>Inv/DR #</th>
                                         <th>Date</th>
+                                        <th>Remaining Bal. Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -109,6 +110,9 @@
                                         </td>
                                         <td>
                                             <input type='text' class='txtDate form-control date-picker' value='@poItem.Date.ToShortDateString()' />
+                                        </td>
+                                        <td>
+                                            <label>@poItem.Date.ToShortDateString()</label>
                                         </td>
                                     </tr>
                                     }
