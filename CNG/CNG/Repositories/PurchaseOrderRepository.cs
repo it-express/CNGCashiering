@@ -31,6 +31,8 @@ namespace CNG.Models
 
             if (!poExist)
             {
+                po.ShipToCompany = null;
+                po.Vendor = null;
                 context.PurchaseOrders.Add(po);
 
                 context.SaveChanges();

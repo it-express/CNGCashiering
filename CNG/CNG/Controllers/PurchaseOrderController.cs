@@ -16,6 +16,7 @@ namespace CNG.Controllers
         PurchaseOrderItemRepository poItemRepo;
         VendorRepository vendorRepo = new VendorRepository();
         ItemRepository itemRepo = new ItemRepository();
+        CompanyRepository companyRepo = new CompanyRepository();
 
         public PurchaseOrderController() {
             poItemRepo = new PurchaseOrderItemRepository(context);
@@ -71,22 +72,32 @@ namespace CNG.Controllers
         public ActionResult Create()
         {
             ViewBag.PoNumber = poRepo.GeneratePoNumber();
+            ViewBag.Vendors = new SelectList(context.Vendors.Where(p => p.Active), "Id", "Name");
             InitViewBags();
 
             PurchaseOrder po = new PurchaseOrder();
             po.Vendor = new Vendor();
             po.ShipToCompany = new Company();
 
-            return View(po);
+            PurchaseOrderVM poVM = new PurchaseOrderVM();
+            poVM.PurchaseOrder = po;
+            int companyId = Convert.ToInt32(Request.QueryString["companyId"]);
+            poVM.SelectedCompany = companyRepo.GetById(companyId);
+
+            return View(poVM);
         }
 
         public ActionResult Edit(string poNo) {
-            PurchaseOrder po = poRepo.GetByNo(poNo);
+            PurchaseOrderVM poVM = new PurchaseOrderVM();
+            poVM.PurchaseOrder = poRepo.GetByNo(poNo);
+            int companyId = Convert.ToInt32(Request.QueryString["companyId"]);
+            poVM.SelectedCompany = companyRepo.GetById(companyId);
 
             ViewBag.PoNumber = poNo;
+            ViewBag.Vendors = new SelectList(context.Vendors.Where(p => p.Active), "Id", "Name", poVM.PurchaseOrder.VendorId.ToString());
             InitViewBags();
 
-            return View("Create", po);
+            return View("Create", poVM);
         }
 
         public ActionResult Details(string poNo) {
@@ -156,13 +167,16 @@ namespace CNG.Controllers
 
         private void InitViewBags()
         {
-            ViewBag.Vendors = new SelectList(context.Vendors.Where(p => p.Active), "Id", "Name");
-            ViewBag.Companies = new SelectList(context.Companies.Where(p => p.Active), "Id", "Name");
+            
+            
             ViewBag.Items = new SelectList(context.Items.Where(p => p.Active), "Id", "Description");
             ViewBag.User = Common.GetCurrentUser.FullName;
             ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
 
-            ViewBag.CompanyId = Request.QueryString["companyId"];
+            int companyId = Convert.ToInt32(Request.QueryString["companyId"]);
+            ViewBag.Companies = new SelectList(context.Companies.Where(p => p.Active), "Id", "Name", companyId);
+
+            ViewBag.CompanyId = companyId.ToString();
         }
     }
 }

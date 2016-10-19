@@ -1,4 +1,4 @@
-﻿@model CNG.Models.PurchaseOrder
+﻿@model CNG.Models.PurchaseOrderVM
 
 @{
     ViewBag.Title = "Create";
@@ -56,25 +56,25 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-5" style="text-align:left;">Name</label>
                                         <div class="col-md-7">
-                                            <label id="lblVendorName" class="form-control">@Model.Vendor.Name</label>
+                                            <label id="lblVendorName" class="form-control">@Model.PurchaseOrder.Vendor.Name</label>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-5" style="text-align:left;">Address</label>
                                         <div class="col-md-7">
-                                            <label id="lblVendorAddress" class="form-control">@Model.Vendor.Address</label>
+                                            <label id="lblVendorAddress" class="form-control">@Model.PurchaseOrder.Vendor.Address</label>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-5" style="text-align:left;">Contact Person</label>
                                         <div class="col-md-7">
-                                            <label id="lblVendorContactPerson" class="form-control">@Model.Vendor.ContactPerson</label>
+                                            <label id="lblVendorContactPerson" class="form-control">@Model.PurchaseOrder.Vendor.ContactPerson</label>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-5" style="text-align:left;">Contact No</label>
                                         <div class="col-md-7">
-                                            <label id="lblVendorContactNo" class="form-control">@Model.Vendor.ContactNo</label>
+                                            <label id="lblVendorContactNo" class="form-control">@Model.PurchaseOrder.Vendor.ContactNo</label>
                                         </div>
                                     </div>
                                 </div>
@@ -85,7 +85,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-2">Ship To</label>
                                 <div class="col-md-8">
-                                    @Html.DropDownList("ShipTo", (IEnumerable<SelectListItem>)ViewBag.Companies, "", new { @class = "form-control" })
+                                    @Html.DropDownList("ShipTo", (IEnumerable<SelectListItem>)ViewBag.Companies, "", new { @class = "form-control", disabled = "disabled" })
                                 </div>
                             </div>
                             <div class="form-group">
@@ -94,25 +94,25 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-5" style="text-align:left;">Name</label>
                                         <div class="col-md-7">
-                                            <label id="lblCompanyname" class="form-control">@Model.ShipToCompany.Name</label>
+                                            <label id="lblCompanyname" class="form-control">@Model.SelectedCompany.Name</label>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-5" style="text-align:left;">Address</label>
                                         <div class="col-md-7">
-                                            <label id="lblShippingAddress" class="form-control">@Model.ShipToCompany.Address</label>
+                                            <label id="lblShippingAddress" class="form-control">@Model.SelectedCompany.Address</label>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-5" style="text-align:left;">Contact Person</label>
                                         <div class="col-md-7">
-                                            <label id="lblShippingContactPerson" class="form-control">@Model.ShipToCompany.ContactPerson</label>
+                                            <label id="lblShippingContactPerson" class="form-control">@Model.SelectedCompany.ContactPerson</label>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-5" style="text-align:left;">Contact No</label>
                                         <div class="col-md-7">
-                                            <label id="lblShippingContactNo" class="form-control">@Model.ShipToCompany.ContactNo</label>
+                                            <label id="lblShippingContactNo" class="form-control">@Model.SelectedCompany.ContactNo</label>
                                         </div>
                                     </div>
                                 </div>
@@ -125,13 +125,13 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">Terms</label>
                             <div class="col-md-5">
-                                <label id="lblTerms" class="form-control">@Model.Terms</label>
+                                <label id="lblTerms" class="form-control">@Model.PurchaseOrder.Terms</label>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-2">Due Date</label>
                             <div class="col-md-5">
-                                <label id="lblDueDate" class="form-control">@Model.Date.ToShortDateString()</label>
+                                <label id="lblDueDate" class="form-control">@Model.PurchaseOrder.Date.ToShortDateString()</label>
                             </div>
                         </div>
 
@@ -166,7 +166,7 @@
                                     </thead>
 
                                     <tbody>
-                                        @foreach (var poItem in Model.PurchaseOrderItems)
+                                        @foreach (var poItem in Model.PurchaseOrder.PurchaseOrderItems)
                                         {
                                             <tr data-item-id="@poItem.ItemId" class="item-row">
                                                 <td>
@@ -219,7 +219,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">Checked By</label>
                             <div class="col-md-5">
-                                <input type="text" id="CheckedBy" value="@Model.CheckedBy" />
+                                <input type="text" id="CheckedBy" value="@Model.PurchaseOrder.CheckedBy" />
                             </div>
                         </div>
                         
