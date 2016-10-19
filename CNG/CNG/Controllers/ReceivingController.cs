@@ -111,8 +111,11 @@ namespace CNG.Controllers
 
                 poRepo.ChangeStatus(receivingDTO.PoNo, receivingDTO.Status);
 
-                if (receivingDTO.Status == (int)EPurchaseOrderStatus.Submitted)
+                if (poItem.ReceivedQuantity > 0)
                 {
+                    //delete last log first
+                    DeleteLastLog(poItem.ItemId);
+
                     InsertLogs(poItem.ItemId, poItem.ReceivedQuantity);
                 }
             }
@@ -129,6 +132,21 @@ namespace CNG.Controllers
             };
 
             transactionLogRepo.Add(transactionLog);
+        }
+
+        public void DeleteLastLog(int itemId) {
+            TransactionLog log = context.TransactionLogs.FirstOrDefault(p => 
+            p.ItemId == itemId &&
+            p.TransactionMethodId == (int)ETransactionMethod.Receiving);
+
+            if (log != null) {
+                context.TransactionLogs.Remove(log);
+
+                context.SaveChanges();
+
+                ItemRepository itemRepo = new ItemRepository();
+                itemRepo.AdjustQuantity(log.ItemId, -1 * log.Quantity);
+            }
         }
 
         private void InitViewBags()
