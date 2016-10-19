@@ -26,6 +26,7 @@ namespace CNG.Models
 
         [Required]
         [DisplayName("Unit Cost")]
+        [DataType(DataType.Text)]
         public decimal UnitCost { get; set; }
 
         [Required]
