@@ -14,6 +14,8 @@ namespace CNG.Models
             public int ReceivedQuantity { get; set; }
             public string DrNo { get; set; }
             public DateTime Date { get; set; }
+
+            public DateTime RemainingBalanceDate { get; set; }
         }
 
         public string PoNo { get; set; }

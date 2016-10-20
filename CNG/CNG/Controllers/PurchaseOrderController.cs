@@ -158,6 +158,7 @@ namespace CNG.Controllers
                 poItem.Quantity = item.Quantity;
                 poItem.Remarks = item.Remarks;
                 poItem.Date = DateTime.Now;
+                poItem.RemainingBalanceDate = DateTime.Now;
 
                 po.PurchaseOrderItems.Add(poItem);
             }

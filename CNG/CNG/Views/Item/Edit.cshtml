@@ -67,10 +67,8 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.UnitCost, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-5">
-                                @Html.EditorFor(model => model.UnitCost, new { htmlAttributes = new { @class = "form-control atm" } })
+                                <input type="text" id="UnitCost" name="UnitCost" value="@String.Format("{0:#,##0.00}", Model.UnitCost)" class="form-control atm" />
                                 @Html.ValidationMessageFor(model => model.UnitCost, "", new { @class = "text-danger" })
-
-                                @*<input type="text" id="UnitCost" value="@Model.UnitCost" />*@
                             </div>
                         </div>
 

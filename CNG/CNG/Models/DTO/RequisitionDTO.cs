@@ -13,6 +13,8 @@ namespace CNG.Models
             public int Quantity { get; set; }
             public string SerialNo { get; set; }
             public int Type { get; set; }
+
+            public int QuantityReturn { get; set; }
         }
 
         public DateTime RequisitionDate { get; set; }

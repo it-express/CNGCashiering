@@ -25,6 +25,7 @@
             item.ReceivedQuantity = $this.find(".txtReceivedQuantity").val();
             item.DrNo = $this.find(".txtDrNo").val();
             item.Date = $this.find(".txtDate").val();
+            item.RemainingBalanceDate = $this.find(".txtRemainingBalanceDate").val();
 
             lstItem.push(item);
         });
@@ -90,8 +91,10 @@
 
                     var formattedDate = moment(v.Date).format('MM/DD/YYYY');
 
+                    var fomattedRemainingBalanceDate = moment(v.RemainingBalanceDate).format('MM/DD/YYYY');
+
                     result += "<td><input type='text' class='txtDate form-control date-picker' value ='" + formattedDate + "' /></td>";
-                    result += "<td><label>" + formattedDate + "</label></td>";
+                    result += "<td><input type='text' class='txtRemainingBalanceDate form-control date-picker' value ='" + fomattedRemainingBalanceDate + "' /></td>";
                     result += "</tr>";
                     result += "</tr>";
                 });

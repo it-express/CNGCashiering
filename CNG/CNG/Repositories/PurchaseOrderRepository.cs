@@ -83,8 +83,10 @@ namespace CNG.Models
                 lastId = List().Max(p => p.Id);
             }
 
+            string prefix = HttpContext.Current.Request.QueryString["companyId"];
+
             //MMyy-series
-            string poNumber = DateTime.Now.ToString("MMyy") + "-" + (lastId + 1).ToString().PadLeft(4, '0');
+            string poNumber = prefix + "-" + DateTime.Now.ToString("MMyy") + "-" + (lastId + 1).ToString().PadLeft(4, '0');
 
             return poNumber;
         }

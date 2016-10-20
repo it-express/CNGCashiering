@@ -128,7 +128,8 @@ namespace CNG.Controllers
                 reqItem.Quantity = item.Quantity;
                 reqItem.SerialNo = item.SerialNo;
                 reqItem.Type = item.Type;
-
+                reqItem.QuantityReturn = item.QuantityReturn;
+                
                 reqItemRepo.Save(reqItem);
 
                 InsertLogs(item.ItemId, reqItem.Quantity);

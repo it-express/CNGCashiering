@@ -17,6 +17,8 @@ namespace CNG.Models
         public string SerialNo { get; set; }
         public int Type { get; set; }
 
+        public int QuantityReturn { get; set; }
+
         [ForeignKey("ItemId")]
         public virtual Item Item { get; set; }
 

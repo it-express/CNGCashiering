@@ -106,6 +106,7 @@ namespace CNG.Controllers
                 poItem.ReceivedQuantity = item.ReceivedQuantity;
                 poItem.DrNo = item.DrNo;
                 poItem.Date = item.Date;
+                poItem.RemainingBalanceDate = item.RemainingBalanceDate;
 
                 context.SaveChanges();
 
