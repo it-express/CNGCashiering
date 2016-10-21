@@ -37,6 +37,7 @@ namespace CNG.Models
                     dbEntry.Address = company.Address;
                     dbEntry.ContactPerson = company.ContactPerson;
                     dbEntry.ContactNo = company.ContactNo;
+                    dbEntry.Prefix = company.Prefix;
                     dbEntry.Active = company.Active;
                 }
             }

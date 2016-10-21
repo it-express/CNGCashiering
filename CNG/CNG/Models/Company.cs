@@ -32,5 +32,9 @@ namespace CNG.Models
 
         [Required]
         public bool Active { get; set; }
+
+
+        [Required]
+        public string Prefix { get; set; }
     }
 }

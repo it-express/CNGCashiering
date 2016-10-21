@@ -83,7 +83,7 @@
                     result += "<td class='lblQuantity'>" + v.Quantity + "</td>";
                     result += "<td>" + v.UnitCost + "</td>";
                     result += "<td>" + v.Item.Description + "</td>";
-                    result += "<td>" + v.Amount + "</td>";
+                    result += "<td>" + FormatNumber(item.Amount) + "</td>";
                     result += "<td><input type='text' class='txtSerialNo form-control' /></td>";
                     result += "<td><input type='text' class='txtReceivedQuantity form-control' value='" + v.ReceivedQuantity + "' /></td>";
                     result += "<td class='lblBalance'>" + v.Balance + "</td>";
@@ -114,6 +114,16 @@
         var balance = quantity - receivedQuantity;
 
         $currRow.find('.lblBalance').text(balance);
+
+        var $txtRemainingBalanceDate = $currRow.find('.txtRemainingBalanceDate');
+        if (balance == 0) {
+            $txtRemainingBalanceDate.val('');
+            $txtRemainingBalanceDate.attr('disabled', 'disabled');
+        }
+        else {
+            $txtRemainingBalanceDate.val(moment().format('MM/DD/YYYY'));
+            $txtRemainingBalanceDate.removeAttr('disabled');
+        }
 
         RefreshSubmitButtonState();
     });

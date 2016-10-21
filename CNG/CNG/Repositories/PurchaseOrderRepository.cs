@@ -9,6 +9,7 @@ namespace CNG.Models
     {
         private CNGDBContext context = new CNGDBContext();
         VendorRepository vendorRepo = new VendorRepository();
+        CompanyRepository companyRepo = new CompanyRepository();
 
         public IQueryable<PurchaseOrder> List() {
             return context.PurchaseOrders;
@@ -77,16 +78,18 @@ namespace CNG.Models
 
         public string GeneratePoNumber()
         {
+            int companyId = Convert.ToInt32(HttpContext.Current.Request.QueryString["companyId"]);
             //get last id
-            int lastId = 0;
-            if (List().Count() > 0) {
-                lastId = List().Max(p => p.Id);
+            int lastId = 1;
+            int cnt = List().Where(p => p.ShipTo == companyId).Count();
+            if (cnt > 0) {
+                lastId = cnt + 1;
             }
 
-            string prefix = HttpContext.Current.Request.QueryString["companyId"];
+            string prefix = companyRepo.GetById(companyId).Prefix;
 
             //MMyy-series
-            string poNumber = prefix + "-" + DateTime.Now.ToString("MMyy") + "-" + (lastId + 1).ToString().PadLeft(4, '0');
+            string poNumber = prefix + "-" + DateTime.Now.ToString("MMyy") + "-" + lastId.ToString().PadLeft(4, '0');
 
             return poNumber;
         }

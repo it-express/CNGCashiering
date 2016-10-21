@@ -14,6 +14,18 @@ namespace CNG.Models
         public DateTime Date { get; set; }
         public int UserId { get; set; }
 
+        public string Method {
+            get {
+                if (Quantity >= 0)
+                {
+                    return "In";
+                }
+                else {
+                    return "Out";
+                }
+            }
+        }
+
         public virtual TransactionMethod TransactionMethod { get; set; }
         public virtual User User { get; set; }
     }

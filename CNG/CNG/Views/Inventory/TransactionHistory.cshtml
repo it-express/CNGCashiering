@@ -57,6 +57,9 @@
                                 @Html.ActionLink("Module", "TransactionHistory", new { sortColumn = "transactionMethod.description", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
+                                Method
+                            </th>
+                            <th>
                                 @Html.ActionLink("Quantity", "TransactionHistory", new { sortColumn = "quantity", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
@@ -74,6 +77,9 @@
                             <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.TransactionMethod.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Method)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Quantity)

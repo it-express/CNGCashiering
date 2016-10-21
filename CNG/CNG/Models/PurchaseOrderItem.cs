@@ -38,7 +38,7 @@ namespace CNG.Models
 
         public DateTime Date { get; set; }
 
-        public DateTime RemainingBalanceDate { get; set; }
+        public DateTime? RemainingBalanceDate { get; set; }
 
         public virtual Item Item { get; set; }
 

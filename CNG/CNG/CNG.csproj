@@ -226,6 +226,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\app\Common.js" />
     <Content Include="Scripts\app\ExcessPartsSet.js" />
     <Content Include="Scripts\app\PurchaseOrder.js" />
     <Content Include="Scripts\app\Receiving.js" />
