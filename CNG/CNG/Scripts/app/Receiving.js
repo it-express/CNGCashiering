@@ -83,7 +83,7 @@
                     result += "<td class='lblQuantity'>" + v.Quantity + "</td>";
                     result += "<td>" + v.UnitCost + "</td>";
                     result += "<td>" + v.Item.Description + "</td>";
-                    result += "<td>" + FormatNumber(item.Amount) + "</td>";
+                    result += "<td>" + FormatNumber(v.Item.Amount) + "</td>";
                     result += "<td><input type='text' class='txtSerialNo form-control' /></td>";
                     result += "<td><input type='text' class='txtReceivedQuantity form-control' value='" + v.ReceivedQuantity + "' /></td>";
                     result += "<td class='lblBalance'>" + v.Balance + "</td>";

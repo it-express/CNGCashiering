@@ -39,6 +39,9 @@ namespace CNG.Models
                     dbEntry.ContactNo = company.ContactNo;
                     dbEntry.Prefix = company.Prefix;
                     dbEntry.Active = company.Active;
+
+                    //update identity seed
+                    //Company dbEntry = context.Companies.Find(company.Id);
                 }
             }
 

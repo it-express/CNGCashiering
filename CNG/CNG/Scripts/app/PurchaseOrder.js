@@ -149,7 +149,6 @@
             item.Id = $this.data("item-id");
             item.Quantity = $this.find(".txtQuantity").val();
             item.Remarks = $this.find(".txtRemarks").val();
-
             lstItem.push(item);
         });
 
