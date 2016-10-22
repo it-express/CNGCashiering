@@ -175,6 +175,7 @@
     <Compile Include="Helper\Common.cs" />
     <Compile Include="Helper\DecimalModelBinder.cs" />
     <Compile Include="Helper\SelectListHelper.cs" />
+    <Compile Include="Helper\Sessions.cs" />
     <Compile Include="Models\CNGDBContext.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\DTO\ExcessPartsSetDTO.cs" />

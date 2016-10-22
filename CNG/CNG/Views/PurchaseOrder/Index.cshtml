@@ -118,8 +118,8 @@
 
                                         @if (item.Status != (int)CNG.Models.EPurchaseOrderStatus.Submitted)
                                         {
-                                            <a href="@Url.Action("Edit", new { poNo = item.No, companyId = ViewBag.CompanyId })" data-original-title="Edit" data-placement="top" class="btn btn-xs btn-blue tooltips"><i class="fa fa-edit"></i></a>
-                                            <a href="@Url.Action("Delete", new { poNo = item.No, companyId = ViewBag.CompanyId })" data-original-title="Remove" data-placement="top" class="btn btn-xs btn-red tooltips"><i class="fa fa-times fa fa-white"></i></a>
+                                            <a href="@Url.Action("Edit", new { poNo = item.No })" data-original-title="Edit" data-placement="top" class="btn btn-xs btn-blue tooltips"><i class="fa fa-edit"></i></a>
+                                            <a href="@Url.Action("Delete", new { poNo = item.No })" data-original-title="Remove" data-placement="top" class="btn btn-xs btn-red tooltips"><i class="fa fa-times fa fa-white"></i></a>
                                         }
                                     </div>
                                 </td>
@@ -137,7 +137,7 @@
 
                 <div class="col-md-8 col-sm-12 no-padding pull-left" style="text-align:right;">
                     @Html.PagedListPager(Model, page => Url.Action("Index",
-                   new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
                 </div>
 
                 <div class="clearfix"></div>

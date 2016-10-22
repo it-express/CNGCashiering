@@ -21,8 +21,12 @@ namespace CNG.Controllers
             reqItemRepo = new RequisitionItemRepository(context);
         }
 
-        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page, int companyId = 1)
+        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page, int? companyId)
         {
+            if (companyId.HasValue) {
+                Sessions.CompanyId = companyId;
+            }
+
             ViewBag.CompanyId = companyId;
             ViewBag.CurrentSort = sortColumn;
             ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
@@ -38,7 +42,7 @@ namespace CNG.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            IQueryable<Requisition> lstReq = reqRepo.List();
+            IQueryable<Requisition> lstReq = reqRepo.List().Where(p => p.CompanyId == Sessions.CompanyId);
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -113,6 +117,8 @@ namespace CNG.Controllers
             req.ReportedBy = entry.ReportedBy; //Get from session
             req.CheckedBy = entry.CheckedBy; //Get from session
             req.ApprovedBy = Common.GetCurrentUser.Id; //Get from session
+
+            req.CompanyId = Convert.ToInt32(Session["companyId"]);
 
             context.Requisitions.Add(req);
             context.SaveChanges();

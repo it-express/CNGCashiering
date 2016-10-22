@@ -19,12 +19,16 @@ namespace CNG.Controllers
             poItemRepo = new PurchaseOrderItemRepository(context);
         }
 
-        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page, int companyId = 1)
+        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page, int? companyId)
         {
+            if (companyId.HasValue) {
+                Sessions.CompanyId = companyId;
+            }
+
             ViewBag.CompanyId = companyId;
             ViewBag.CurrentSort = sortColumn;
             ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
-
+            
             if (searchString != null)
             {
                 page = 1;
@@ -36,7 +40,7 @@ namespace CNG.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            IQueryable<PurchaseOrder> lstReceivedPo = poRepo.ListReceived().Where(p => p.ShipTo == companyId);
+            IQueryable<PurchaseOrder> lstReceivedPo = poRepo.ListReceived().Where(p => p.ShipTo == Sessions.CompanyId);
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -74,7 +78,10 @@ namespace CNG.Controllers
         public ActionResult Create()
         {
             InitViewBags();
-            ViewBag.PurchaseOrders = new SelectList(poRepo.ListForReceiving(), "No", "No");
+
+            int companyId = Convert.ToInt32(Session["companyId"]);
+
+            ViewBag.PurchaseOrders = new SelectList(poRepo.ListForReceiving().Where(p => p.ShipTo == companyId), "No", "No");
 
             return View(new PurchaseOrder());
         }

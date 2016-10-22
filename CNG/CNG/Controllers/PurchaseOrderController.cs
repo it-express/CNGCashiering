@@ -23,8 +23,12 @@ namespace CNG.Controllers
         }
 
         // GET: PurchaseOrder
-        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page, int companyId = 1)
+        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page, int? companyId)
         {
+            if (companyId.HasValue) {
+                Sessions.CompanyId = companyId;
+            }
+
             ViewBag.CompanyId = companyId;
             ViewBag.CurrentSort = sortColumn;
             ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
@@ -40,7 +44,7 @@ namespace CNG.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            IQueryable<PurchaseOrder> lstPo = poRepo.List().Where(p => p.ShipTo == companyId);
+            IQueryable<PurchaseOrder> lstPo = poRepo.List().Where(p => p.ShipTo == Sessions.CompanyId);
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -107,10 +111,10 @@ namespace CNG.Controllers
             return View(po);
         }
 
-        public ActionResult Delete(string poNo, int companyId) {
+        public ActionResult Delete(string poNo) {
             poRepo.Delete(poNo);
 
-            return RedirectToAction("Index", new { companyId = companyId });
+            return RedirectToAction("Index");
         }
 
         public string GeneratePoNumber() {
@@ -168,8 +172,6 @@ namespace CNG.Controllers
 
         private void InitViewBags()
         {
-            
-            
             ViewBag.Items = new SelectList(context.Items.Where(p => p.Active), "Id", "Description");
             ViewBag.User = Common.GetCurrentUser.FullName;
             ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;

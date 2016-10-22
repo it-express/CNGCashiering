@@ -54,6 +54,8 @@ namespace CNG.Models
         [DisplayName("Approved By")]
         public int ApprovedBy { get; set; }
 
+        public int CompanyId { get; set; }
+
         public virtual List<RequisitionItem> RequisitionItems { get; set; }
 
         [ForeignKey("ApprovedBy")]

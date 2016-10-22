@@ -12,7 +12,7 @@ namespace CNG.Controllers
     public class VendorController : Controller
     {
         VendorRepository vendorRepo = new VendorRepository();
-
+        
         public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortColumn;
