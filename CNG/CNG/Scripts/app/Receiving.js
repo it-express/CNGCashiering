@@ -105,6 +105,8 @@
                 $('#tblItems').append(result);
 
                 RefreshSubmitButtonState();
+
+                $('.date-picker').datepicker();
             }
         });
     });
@@ -124,7 +126,7 @@
             $txtRemainingBalanceDate.attr('disabled', 'disabled');
         }
         else {
-            $txtRemainingBalanceDate.val(moment().format('MM/DD/YYYY'));
+            //$txtRemainingBalanceDate.val(moment().format('MM/DD/YYYY'));
             $txtRemainingBalanceDate.removeAttr('disabled');
         }
 

@@ -30,18 +30,14 @@
         <!-- start: BASIC TABLE PANEL -->
         <div class="panel panel-white">
             <div class="panel-heading">
-                <h4 class="panel-title pull-left"><span class="text-bold">Purchase Order List</span></h4>
+                <h4 class="panel-title pull-left"><span class="text-bold">Purchase Order List - <b>@ViewBag.CompanyName</b></span></h4>
                 <div class="pull-right">
                     <a href="@Url.Action("Create", new { companyId = ViewBag.CompanyId })" class="btn btn-dark-blue">Create</a>
                 </div>
 
                 <div class="clearfix"></div>
-
-
             </div>
             <div class="panel-body">
-
-
                 @using (Html.BeginForm())
                 {
                     <div class="col-md-4 col-sm-12 no-padding pull-right" style="margin-bottom:16px; text-align:right;">
@@ -49,7 +45,6 @@
                         <input type="submit" value="Search" class="btn btn-dark-beige" />
                     </div>
                 }
-
 
                 <div class="clearfix"></div>
 
@@ -85,7 +80,6 @@
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
-
                         {
                             <tr>
                                 <td>
@@ -122,7 +116,7 @@
                                             <a href="@Url.Action("Delete", new { poNo = item.No })" data-original-title="Remove" data-placement="top" class="btn btn-xs btn-red tooltips"><i class="fa fa-times fa fa-white"></i></a>
                                         }
                                     </div>
-                                </td>
+                                    </td>
                             </tr>
                         }
                     </tbody>

@@ -30,6 +30,7 @@ namespace CNG.Controllers
             }
 
             ViewBag.CompanyId = companyId;
+            ViewBag.CompanyName = companyRepo.GetById(Sessions.CompanyId.Value).Name;
             ViewBag.CurrentSort = sortColumn;
             ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
 
