@@ -91,7 +91,10 @@
 
                     var formattedDate = moment(v.Date).format('MM/DD/YYYY');
 
-                    var fomattedRemainingBalanceDate = moment(v.RemainingBalanceDate).format('MM/DD/YYYY');
+                    var fomattedRemainingBalanceDate = "";
+                    if (v.remainingBalanceDate != null) {
+                        fomattedRemainingBalanceDate = moment(v.RemainingBalanceDate).format('MM/DD/YYYY');
+                    }
 
                     result += "<td><input type='text' class='txtDate form-control date-picker' value ='" + formattedDate + "' /></td>";
                     result += "<td><input type='text' class='txtRemainingBalanceDate form-control date-picker' value ='" + fomattedRemainingBalanceDate + "' /></td>";

@@ -85,7 +85,7 @@ namespace CNG.Controllers
 
             PurchaseOrderVM poVM = new PurchaseOrderVM();
             poVM.PurchaseOrder = po;
-            int companyId = Convert.ToInt32(Request.QueryString["companyId"]);
+            int companyId = Convert.ToInt32(Sessions.CompanyId);
             poVM.SelectedCompany = companyRepo.GetById(companyId);
 
             return View(poVM);
@@ -94,7 +94,7 @@ namespace CNG.Controllers
         public ActionResult Edit(string poNo) {
             PurchaseOrderVM poVM = new PurchaseOrderVM();
             poVM.PurchaseOrder = poRepo.GetByNo(poNo);
-            int companyId = Convert.ToInt32(Request.QueryString["companyId"]);
+            int companyId = poVM.PurchaseOrder.VendorId;
             poVM.SelectedCompany = companyRepo.GetById(companyId);
 
             ViewBag.PoNumber = poNo;
@@ -162,7 +162,7 @@ namespace CNG.Controllers
                 poItem.Quantity = item.Quantity;
                 poItem.Remarks = item.Remarks;
                 poItem.Date = DateTime.Now;
-                poItem.RemainingBalanceDate = DateTime.Now;
+                poItem.RemainingBalanceDate = null;
 
                 po.PurchaseOrderItems.Add(poItem);
             }
@@ -176,7 +176,7 @@ namespace CNG.Controllers
             ViewBag.User = Common.GetCurrentUser.FullName;
             ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
 
-            int companyId = Convert.ToInt32(Request.QueryString["companyId"]);
+            int companyId = Convert.ToInt32(Sessions.CompanyId);
             ViewBag.Companies = new SelectList(context.Companies.Where(p => p.Active), "Id", "Name", companyId);
 
             ViewBag.CompanyId = companyId.ToString();
