@@ -25,7 +25,18 @@ namespace CNG.Models
            
             context.SaveChanges();
 
-            itemRepo.AdjustQuantity(transactionLog.ItemId, transactionLog.Quantity);
+            //itemRepo.AdjustQuantity(transactionLog.ItemId, transactionLog.Quantity);
+        }
+
+        public int SumByItemId(int itemId)
+        {
+            IQueryable<TransactionLog> lstTransactionLog = context.TransactionLogs.Where(p => p.ItemId == itemId);
+            int quantity = 0;
+            if (lstTransactionLog.Count() > 0) {
+                quantity = lstTransactionLog.Sum(p => p.Quantity);
+            }
+
+            return quantity;   
         }
     }
 }

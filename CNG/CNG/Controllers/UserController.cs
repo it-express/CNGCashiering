@@ -9,6 +9,7 @@ using System.Linq.Dynamic;
 
 namespace CNG.Controllers
 {
+    [AuthorizationFilter]
     public class UserController : Controller
     {
         UserRepository userRepo = new UserRepository();

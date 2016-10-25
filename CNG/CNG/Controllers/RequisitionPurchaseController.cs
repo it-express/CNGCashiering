@@ -9,11 +9,13 @@ using System.Linq.Dynamic;
 
 namespace CNG.Controllers
 {
+    [AuthorizationFilter]
     public class RequisitionPurchaseController : Controller
     {
         CNGDBContext context = new CNGDBContext();
         RequisitionPurchaseRepository rpRepo = new RequisitionPurchaseRepository();
         RequisitionPurchaseItemRepository rpItemRepo;
+        CompanyRepository companyRepo = new CompanyRepository();
 
         public RequisitionPurchaseController() {
             rpItemRepo = new RequisitionPurchaseItemRepository(context);

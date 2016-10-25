@@ -10,6 +10,7 @@ using System.Data.Entity;
 
 namespace CNG.Controllers
 {
+    [AuthorizationFilter]
     public class InventoryController : Controller
     {
         ItemRepository itemRepo = new ItemRepository();

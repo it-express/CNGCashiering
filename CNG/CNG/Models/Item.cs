@@ -9,6 +9,8 @@ namespace CNG.Models
 {
     public class Item
     {
+        TransactionLogRepository transLogRepo = new TransactionLogRepository();
+
         [Key]
         public int Id { get; set; }
 
@@ -37,7 +39,11 @@ namespace CNG.Models
         public bool Active { get; set; }
 
         [DisplayName("Quantity on Hand")]
-        public int QuantityOnHand { get; set; }
+        public int QuantityOnHand {
+            get {
+                 return transLogRepo.SumByItemId(Id);
+            }
+        }
 
         public virtual ItemType Type { get; set; }
     }

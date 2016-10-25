@@ -14,6 +14,8 @@ namespace CNG.Models
         public DateTime Date { get; set; }
         public int UserId { get; set; }
 
+        public int CumulativeQuantity { get; set; }
+
         public string Method {
             get {
                 if (Quantity >= 0)

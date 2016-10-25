@@ -9,6 +9,7 @@ using System.Linq.Dynamic;
 
 namespace CNG.Controllers
 {
+    [AuthorizationFilter]
     public class PurchaseOrderController : Controller
     {
         CNGDBContext context = new CNGDBContext();
@@ -95,7 +96,7 @@ namespace CNG.Controllers
         public ActionResult Edit(string poNo) {
             PurchaseOrderVM poVM = new PurchaseOrderVM();
             poVM.PurchaseOrder = poRepo.GetByNo(poNo);
-            int companyId = poVM.PurchaseOrder.VendorId;
+            int companyId = poVM.PurchaseOrder.ShipTo;
             poVM.SelectedCompany = companyRepo.GetById(companyId);
 
             ViewBag.PoNumber = poNo;

@@ -9,6 +9,7 @@ using System.Linq.Dynamic;
 
 namespace CNG.Controllers
 {
+    [AuthorizationFilter]
     public class VendorController : Controller
     {
         VendorRepository vendorRepo = new VendorRepository();
@@ -98,7 +99,5 @@ namespace CNG.Controllers
 
             return Json(vendor);
         }
-
-        
     }
 }

@@ -25,5 +25,11 @@ namespace CNG.Models
 
             context.SaveChanges();
         }
+
+        public PurchaseOrderItem GetByTransactionLogId(int transLogId) {
+            PurchaseOrderItem poItem = context.PurchaseOrderItems.FirstOrDefault(p => p.TransactionLogId == transLogId);
+
+            return poItem;
+        }
     }
 }

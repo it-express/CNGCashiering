@@ -9,6 +9,7 @@ using System.Linq.Dynamic;
 
 namespace CNG.Controllers
 {
+    [AuthorizationFilter]
     public class RequisitionController : Controller
     {
         private CNGDBContext context = new CNGDBContext();
@@ -16,6 +17,7 @@ namespace CNG.Controllers
         RequisitionItemRepository reqItemRepo;
         VehicleRepository vehicleRepo = new VehicleRepository();
         ItemRepository itemRepo = new ItemRepository();
+        CompanyRepository companyRepo = new CompanyRepository();
 
         public RequisitionController() {
             reqItemRepo = new RequisitionItemRepository(context);
@@ -28,6 +30,7 @@ namespace CNG.Controllers
             }
 
             ViewBag.CompanyId = companyId;
+            ViewBag.CompanyName = companyRepo.GetById(Sessions.CompanyId.Value).Name;
             ViewBag.CurrentSort = sortColumn;
             ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
 

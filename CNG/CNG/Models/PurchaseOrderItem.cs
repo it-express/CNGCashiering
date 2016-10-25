@@ -40,7 +40,11 @@ namespace CNG.Models
 
         public DateTime? RemainingBalanceDate { get; set; }
 
+        public int? TransactionLogId { get; set; }
+
         public virtual Item Item { get; set; }
+
+        public virtual TransactionLog TransactionLog { get; set; }
 
         public decimal Amount {
             get {

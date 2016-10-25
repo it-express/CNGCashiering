@@ -9,12 +9,14 @@ using System.Linq.Dynamic;
 
 namespace CNG.Controllers
 {
+    [AuthorizationFilter]
     public class ReceivingController : Controller
     {
         CNGDBContext context = new CNGDBContext();
         PurchaseOrderRepository poRepo = new PurchaseOrderRepository();
         PurchaseOrderItemRepository poItemRepo;
-        
+        CompanyRepository companyRepo = new CompanyRepository();
+
         public ReceivingController() {
             poItemRepo = new PurchaseOrderItemRepository(context);
         }
@@ -26,6 +28,7 @@ namespace CNG.Controllers
             }
 
             ViewBag.CompanyId = companyId;
+            ViewBag.CompanyName = companyRepo.GetById(Sessions.CompanyId.Value).Name;
             ViewBag.CurrentSort = sortColumn;
             ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
             
@@ -115,46 +118,39 @@ namespace CNG.Controllers
                 poItem.Date = item.Date;
                 poItem.RemainingBalanceDate = item.RemainingBalanceDate;
 
-                context.SaveChanges();
-
-                poRepo.ChangeStatus(receivingDTO.PoNo, receivingDTO.Status);
-
-                if (poItem.ReceivedQuantity > 0)
+                int quantity = 0;
+                if (poItem.TransactionLogId.HasValue == false)
                 {
-                    //delete last log first
-                    DeleteLastLog(poItem.ItemId);
-
-                    InsertLogs(poItem.ItemId, poItem.ReceivedQuantity);
+                    quantity = poItem.ReceivedQuantity;
                 }
+                else {
+                    TransactionLog transLog = poItem.TransactionLog;
+
+                    quantity = poItem.ReceivedQuantity - transLog.CumulativeQuantity;
+                }
+
+                poItem.TransactionLogId = InsertLogs(poItem.ItemId, quantity, poItem.ReceivedQuantity);
+
+                context.SaveChanges();
             }
+
+            poRepo.ChangeStatus(receivingDTO.PoNo, receivingDTO.Status);
         }
 
-        public void InsertLogs(int itemId, int quantiy) {
+        public int InsertLogs(int itemId, int quantiy, int cumulativeQuantity) {
             TransactionLogRepository transactionLogRepo = new TransactionLogRepository();
 
             TransactionLog transactionLog = new TransactionLog
             {
                 ItemId = itemId,
                 Quantity = quantiy,
+                CumulativeQuantity = cumulativeQuantity,
                 TransactionMethodId = (int)ETransactionMethod.Receiving
             };
 
             transactionLogRepo.Add(transactionLog);
-        }
 
-        public void DeleteLastLog(int itemId) {
-            TransactionLog log = context.TransactionLogs.FirstOrDefault(p => 
-            p.ItemId == itemId &&
-            p.TransactionMethodId == (int)ETransactionMethod.Receiving);
-
-            if (log != null) {
-                context.TransactionLogs.Remove(log);
-
-                context.SaveChanges();
-
-                ItemRepository itemRepo = new ItemRepository();
-                itemRepo.AdjustQuantity(log.ItemId, -1 * log.Quantity);
-            }
+            return transactionLog.Id;
         }
 
         private void InitViewBags()
