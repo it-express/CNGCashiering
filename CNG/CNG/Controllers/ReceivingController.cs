@@ -145,7 +145,8 @@ namespace CNG.Controllers
                 ItemId = itemId,
                 Quantity = quantiy,
                 CumulativeQuantity = cumulativeQuantity,
-                TransactionMethodId = (int)ETransactionMethod.Receiving
+                TransactionMethodId = (int)ETransactionMethod.Receiving,
+                CompanyId = Sessions.CompanyId.Value
             };
 
             transactionLogRepo.Add(transactionLog);

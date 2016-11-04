@@ -122,10 +122,10 @@
                                             Unit Cost
                                         </th>
                                         <th>
-                                            Remarks
+                                            Total Amount
                                         </th>
                                         <th>
-                                            Total Amount
+                                            Remarks
                                         </th>
                                     </tr>
                                 </thead>
@@ -152,10 +152,10 @@
                                                 @Html.DisplayFor(modelItem => poItem.UnitCost)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => poItem.Remarks)
+                                                @Html.DisplayFor(modelItem => poItem.Amount)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => poItem.Amount)
+                                                @Html.DisplayFor(modelItem => poItem.Remarks)
                                             </td>
                                         </tr>
                                     }
@@ -166,8 +166,8 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td></td>
                                         <td>@Html.DisplayFor(modelItem => modelItem.ItemsTotalAmount)</td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
                             </table>

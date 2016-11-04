@@ -15,6 +15,7 @@ namespace CNG.Models
         }
 
         public string No { get; set; }
+        public string Date { get; set; }
         public int VendorId { get; set; }
         public int ShipTo { get; set; }
 

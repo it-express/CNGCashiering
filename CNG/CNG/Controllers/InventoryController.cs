@@ -15,10 +15,17 @@ namespace CNG.Controllers
     {
         ItemRepository itemRepo = new ItemRepository();
         TransactionLogRepository transactionLogRepo = new TransactionLogRepository();
+        CompanyRepository companyRepo = new CompanyRepository();
 
         // GET: Inventory
-        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
+        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page, int? companyId)
         {
+            if (companyId.HasValue)
+            {
+                Sessions.CompanyId = companyId;
+            }
+
+            ViewBag.CompanyName = companyRepo.GetById(Sessions.CompanyId.Value).Name;
             ViewBag.CurrentSort = sortColumn;
             ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
 
@@ -33,7 +40,15 @@ namespace CNG.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            IQueryable<Item> lstItem = itemRepo.List();
+
+            //IQueryable<Inventory> lstInventory = from p in itemRepo.List()
+            //                                     select new Inventory
+            //                                     {
+            //                                         ItemId = p.Id,
+            //                                         CompanyId = Sessions.CompanyId.Value
+            //                                     };
+
+            IQueryable<Item> lstItem = from p in itemRepo.List() select p;
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -41,8 +56,7 @@ namespace CNG.Controllers
                                        || s.Description.Contains(searchString)
                                        || s.Brand.Contains(searchString)
                                        || s.UnitCost.ToString().Contains(searchString)
-                                       || s.Type.Description.ToString().Contains(searchString)
-                                       || s.QuantityOnHand.ToString().Contains(searchString));
+                                       || s.Type.Description.ToString().Contains(searchString));
             }
 
             if (String.IsNullOrEmpty(sortColumn))
@@ -90,6 +104,7 @@ namespace CNG.Controllers
             lstTransactionLog = from p in lstTransactionLog
                             where DbFunctions.TruncateTime(p.Date) >= DbFunctions.TruncateTime(dtDateFrom) &&
                                                           DbFunctions.TruncateTime(p.Date) <= DbFunctions.TruncateTime(dtDateTo)
+                                                          && p.CompanyId == Sessions.CompanyId.Value
                                                           select p;
 
             if (!String.IsNullOrEmpty(searchString))

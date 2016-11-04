@@ -38,11 +38,17 @@ namespace CNG.Models
         [Required]
         public bool Active { get; set; }
 
+        //[DisplayName("Quantity on Hand")]
+        //public int QuantityOnHand {
+        //    get {
+        //         return transLogRepo.SumByItemId(Id);
+        //    }
+        //}
+
         [DisplayName("Quantity on Hand")]
-        public int QuantityOnHand {
-            get {
-                 return transLogRepo.SumByItemId(Id);
-            }
+        public int QuantityOnHand(int companyId)
+        {
+            return transLogRepo.SumByItemId(Id, companyId);
         }
 
         public virtual ItemType Type { get; set; }

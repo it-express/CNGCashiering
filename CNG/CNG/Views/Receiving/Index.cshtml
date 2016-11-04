@@ -112,9 +112,10 @@
                                     <div class="visible-md visible-lg hidden-sm hidden-xs">
                                         <a href="@Url.Action("Details", new { poNo = item.No })" data-original-title="Details" data-placement="top" class="btn btn-xs btn-green tooltips"><i class="fa fa-list"></i></a>
 
+                                        <a href="@Url.Action("Edit", new { poNo = item.No })" data-original-title="Edit" data-placement="top" class="btn btn-xs btn-blue tooltips"><i class="fa fa-edit"></i></a>
+
                                         @if (item.Status != (int)CNG.Models.EPurchaseOrderStatus.Submitted)
                                         {
-                                            <a href="@Url.Action("Edit", new { poNo = item.No })" data-original-title="Edit" data-placement="top" class="btn btn-xs btn-blue tooltips"><i class="fa fa-edit"></i></a>
                                         }
                                     </div>
                                 </td>

@@ -43,8 +43,21 @@
                         <h4>PO Number <label id="lblPoNumber">@ViewBag.PoNumber</label></h4>
                         <hr />
 
-                        <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Date</label>
+                            <div class="col-md-8">
+                                @if (Model.PurchaseOrder.Id != 0)
+                                {
+                                    <input type="text" id="txtDate" value="@Model.PurchaseOrder.Date.ToString("MM/dd/yyyy")" class="date-picker" />
+                                }
+                                else
+                                {
+                                    <input type="text" id="txtDate" value="@DateTime.Now.ToString("MM/dd/yyyy")" class="date-picker" />
+                                }
+                            </div>
+                        </div>
 
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label col-md-2">Vendor</label>
                                 <div class="col-md-8">
@@ -161,6 +174,7 @@
                                             <th>Brand</th>
                                             <th>Quantity</th>
                                             <th>Unit Cost</th>
+                                            <th>Amount</th>
                                             <th>Remarks</th>
                                             <th>Action</th>
                                         </tr>
@@ -189,6 +203,9 @@
                                                     @poItem.UnitCost
                                                 </td>
                                                 <td>
+                                                    <span class='txtAmount'>@poItem.Amount</span>
+                                                </td>
+                                                <td>
                                                     <textarea class='txtRemarks' class="form-control"> @poItem.Remarks </textarea>
                                                 </td>
                                                 <td>
@@ -200,9 +217,9 @@
                                         }
                                     </tbody>
                                 </table>
+                                Total Amount: <label id="lblTotalAmount">@Model.PurchaseOrder.ItemsTotalAmount</label>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label class="control-label col-md-2">Prepared By</label>
                             <div class="col-md-5">
@@ -211,16 +228,16 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-2">Approved By</label>
+                            <label class="control-label col-md-2">Checked By</label>
                             <div class="col-md-5">
-                                <label id="lblApprovedBy" class="form-control">@ViewBag.GeneralManager</label>
+                                <input type="text" id="CheckedBy" value="@Model.PurchaseOrder.CheckedBy" />
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-2">Checked By</label>
+                            <label class="control-label col-md-2">Approved By</label>
                             <div class="col-md-5">
-                                <input type="text" id="CheckedBy" value="@Model.PurchaseOrder.CheckedBy" />
+                                <label id="lblApprovedBy" class="form-control">@ViewBag.GeneralManager</label>
                             </div>
                         </div>
                         

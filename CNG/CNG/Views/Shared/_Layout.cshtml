@@ -161,7 +161,12 @@
                             @Html.Action("MenuList", "Company", new { ControllerName = "Requisition" })
                         </li>
                         <li>
-                            <a href="@Url.Action("Index", "Inventory")"><i class="fa fa-list"></i> <span class="title">Inventory</span> </a>
+                            @*<a href="@Url.Action("Index", "Inventory")"><i class="fa fa-list"></i> <span class="title">Inventory</span> </a>*@
+                        
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-download"></i> <span class="title"> Inventory </span><i class="icon-arrow"></i>
+                            </a>
+                            @Html.Action("MenuList", "Company", new { ControllerName = "Inventory" })
                         </li>
                         <li>
                             <a href="javascript:void(0)">

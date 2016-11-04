@@ -20,6 +20,7 @@ namespace CNG.Models
         {
             transactionLog.Date = DateTime.Now;
             transactionLog.UserId = Convert.ToInt32(HttpContext.Current.Session["uid"]); //get from current session
+            transactionLog.CompanyId = transactionLog.CompanyId;
 
             context.TransactionLogs.Add(transactionLog);
            
@@ -28,9 +29,9 @@ namespace CNG.Models
             //itemRepo.AdjustQuantity(transactionLog.ItemId, transactionLog.Quantity);
         }
 
-        public int SumByItemId(int itemId)
+        public int SumByItemId(int itemId, int companyId)
         {
-            IQueryable<TransactionLog> lstTransactionLog = context.TransactionLogs.Where(p => p.ItemId == itemId);
+            IQueryable<TransactionLog> lstTransactionLog = context.TransactionLogs.Where(p => p.ItemId == itemId && p.CompanyId == companyId);
             int quantity = 0;
             if (lstTransactionLog.Count() > 0) {
                 quantity = lstTransactionLog.Sum(p => p.Quantity);

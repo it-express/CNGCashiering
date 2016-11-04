@@ -46,14 +46,14 @@
                     <div class="form-group">
                         <label class="control-label col-md-2">Requisition Date</label>
                         <div class="col-md-5">
-                            <input type="text" id="lblReqDate" class="form-control date-picker" />
+                            <input type="text" id="lblReqDate" class="form-control date-picker" value="@Model.Date" />
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-2">Job Order No</label>
                         <div class="col-md-5">
-                            <input type="text" id="txtJobOrderNo" class="form-control" />
+                            <input type="text" id="txtJobOrderNo" class="form-control" value="@Model.JobOrderNo" />
                         </div>
                     </div>
 
@@ -67,21 +67,21 @@
                     <div class="form-group">
                         <label class="control-label col-md-2">JO Date</label>
                         <div class="col-md-5">
-                            <input type="text" id="txtJobOrderDate" class="form-control date-picker" />
+                            <input type="text" id="txtJobOrderDate" class="form-control date-picker" value="@Model.JobOrderDate" />
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-2">Odometer Reading</label>
                         <div class="col-md-5">
-                            <input type="text" id="txtOdometerReading" class="form-control" />
+                            <input type="text" id="txtOdometerReading" class="form-control" value="@Model.OdometerReading" />
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-2">Drivers Name</label>
                         <div class="col-md-5">
-                            <input type="text" id="txtDriverName" class="form-control" />
+                            <input type="text" id="txtDriverName" class="form-control" value="@Model.DriverName" />
                         </div>
                     </div>
 
@@ -142,22 +142,34 @@
                                                 @poItem.Item.Code
                                             </td>
                                             <td>
+                                                <input type='text' class='txtQuantity form-control' value="@poItem.Quantity" />
+                                            </td>
+                                            <td>
                                                 @poItem.Item.Description
                                             </td>
                                             <td>
-                                                @poItem.Item.Brand
+                                                @*@poItem.Item.SerialNo*@
+                                            </td>
+                                            <td>
+                                                @poItem.Item.Code
+                                            </td>
+                                            <td>
+                                                @*Quantity*@
+                                            </td>
+                                            <td>
+                                                @poItem.Item.Description
+                                            </td>
+                                            <td>
+                                                @*@poItem.Item.SerialNo*@
                                             </td>
                                             <td>
                                                 @poItem.Item.Type.Description
                                             </td>
+                                            
                                             <td>
-                                                @poItem.Item.UnitCost
-                                            </td>
-                                            <td>
-                                                <input type='text' class='txtQuantity form-control' value="@poItem.Quantity" />
-                                            </td>
-                                            <td>
-                                                <input type='button' class='btnRemoveItem form-control' value='Remove'>
+                                                <a class="btn btn-xs btn-red tooltips btnRemoveItem" href="#!" data-original-title="Remove" data-placement="top">
+                                                    <i class="fa fa-times fa fa-white"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     }
@@ -169,14 +181,14 @@
                     <div class="form-group">
                         <label class="control-label col-md-2">Reported/Requested By:</label>
                         <div class="col-md-5">
-                            <input type="text" id="txtReportedBy" class="form-control" />
+                            <input type="text" id="txtReportedBy" class="form-control" value="@Model.ReportedBy" />
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-2">Checked By:</label>
                         <div class="col-md-5">
-                            <input type="text" id="txtCheckedBy" class="form-control" />
+                            <input type="text" id="txtCheckedBy" class="form-control" value="@Model.CheckedBy" />
                         </div>
                     </div>
 

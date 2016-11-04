@@ -128,7 +128,8 @@ namespace CNG.Controllers
             {
                 ItemId = itemId,
                 Quantity = quantiy,
-                TransactionMethodId = (int)ETransactionMethod.RequisitionToPurchase
+                TransactionMethodId = (int)ETransactionMethod.RequisitionToPurchase,
+                CompanyId = Sessions.CompanyId.Value
             };
 
             transactionLogRepo.Add(transactionLog);

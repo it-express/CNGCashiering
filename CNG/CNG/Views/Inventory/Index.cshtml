@@ -94,7 +94,14 @@
                                     @Html.DisplayFor(modelItem => item.Type.Description)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.QuantityOnHand)
+
+                                    @{ 
+                                        int companyId = CNG.Models.Sessions.CompanyId.Value;
+                                        int quantityOnHand = item.QuantityOnHand(companyId);
+
+                                        <span>@quantityOnHand.ToString()</span>
+                                    }
+                                    @*@Html.DisplayFor(modelItem => item.QuantityOnHand)*@
                                 </td>
                                 <td>
                                     <div class="visible-md visible-lg hidden-sm hidden-xs">

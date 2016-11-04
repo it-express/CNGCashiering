@@ -125,7 +125,8 @@ namespace CNG.Controllers
             {
                 ItemId = itemId,
                 Quantity = quantiy,
-                TransactionMethodId = (int)ETransactionMethod.ExcessPartsFromSet
+                TransactionMethodId = (int)ETransactionMethod.ExcessPartsFromSet,
+                CompanyId = Sessions.CompanyId.Value
             };
 
             transactionLogRepo.Add(transactionLog);

@@ -16,6 +16,7 @@ namespace CNG.Models
 
         public int CumulativeQuantity { get; set; }
 
+        public int CompanyId { get; set; }
         public string Method {
             get {
                 if (Quantity >= 0)
@@ -30,5 +31,7 @@ namespace CNG.Models
 
         public virtual TransactionMethod TransactionMethod { get; set; }
         public virtual User User { get; set; }
+
+        public virtual Company Company { get; set; }
     }
 }

@@ -1,25 +1,33 @@
 ﻿$(document).ready(function () {
-    function Validate(po) {
-        var err = "";
+    $(document).on('click', '.btnRemoveItem', function () {
+        var $row = $(this).closest("tr");
+        $row.fadeOut("fast", function () {
+            $row.remove();
 
-        if (po.VendorId == "") {
-            err = "Vendor is required.";
-        }
-        else if (po.ShipTo == "") {
-            err = "Ship To is required.";
-        }
-        else if (po.Items.length == 0) {
-            err = "Please select item/s.";
-        }
+            GetTotalAmount();
+        })
+    });
 
-        return err;
-    }
+    $(document).on('keyup change', '.txtQuantity', function () {
+        $tr = $(this).closest('tr');
+
+        var itemId = $tr.data('item-id');
+        var unitCost = RemoveCommas($tr.find('.txtUnitCost').text());
+        var quantity = $tr.find('.txtQuantity').val();
+        var amount = parseFloat(unitCost) * parseFloat(quantity);
+
+        $txtAmount = $tr.find(".txtAmount");
+        $txtAmount.text(FormatNumber(amount));
+
+        GetTotalAmount();
+    });
 
     $('#btnSubmit').click(function (event) {
         event.preventDefault();
         
         var purchaseOrder = new Object();
         purchaseOrder.No = $('#lblPoNumber').text();
+        purchaseOrder.Date = $('#txtDate').val();
         purchaseOrder.VendorId = $('#VendorId').val();
         purchaseOrder.ShipTo = $('#ShipTo').val();
         //purchaseOrder.Terms = (backen generated)
@@ -76,12 +84,6 @@
         });
     });
 
-    function addDays(date, days) {
-        var result = new Date(date);
-        result.setDate(result.getDate() + days);
-        return result;
-    }
-
     $('#ShipTo').change(function () {
         var companyId = $(this).val();
 
@@ -121,47 +123,77 @@
                 result += "<td>" + item.Description + "</td>";
                 result += "<td>" + item.Type.Description + "</td>";
                 result += "<td>" + item.Brand + "</td>";
-                result += "<td> <input type='number' class='txtQuantity form-control'> </td>";
-                result += "<td>" + FormatNumber(item.UnitCost) + "</td>";
+                result += "<td> <input type='number' class='txtQuantity form-control' value='1' /> </td>";
+                result += "<td class='txtUnitCost'>" + FormatNumber(item.UnitCost) + "</td>";
+                result += "<td><span class='txtAmount'>" + FormatNumber(item.UnitCost) + "</span></td>";
                 result += "<td> <textarea class='txtRemarks' class='form-control'> </textarea></td>";
                 result += "<td> <a href='#!' data-original-title='Remove' data-placement='top' class='btn btn-xs btn-red tooltips btnRemoveItem'><i class='fa fa-times fa fa-white'></i></a> </td>";
                 result += "</tr>";
 
                 $('#tblItems').append(result);
+
+                GetTotalAmount();
             }
         });
     });
+});
 
-    $(document).on('click', '.btnRemoveItem', function () {
-        var $row = $(this).closest("tr");
-        $row.fadeOut("fast", function () {
-            $row.remove();
-        })
+function addDays(date, days) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+}
+
+function GetSelectedItems() {
+    var lstItem = new Array();
+
+    $("tr.item-row").each(function () {
+        $this = $(this);
+
+        var item = new Object();
+        item.Id = $this.data("item-id");
+        item.Quantity = $this.find(".txtQuantity").val();
+        item.Remarks = $this.find(".txtRemarks").val();
+        lstItem.push(item);
     });
 
-    function GetSelectedItems() {
-        var lstItem = new Array();
+    return lstItem;
+}
 
-        $("tr.item-row").each(function () {
-            $this = $(this);
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
 
-            var item = new Object();
-            item.Id = $this.data("item-id");
-            item.Quantity = $this.find(".txtQuantity").val();
-            item.Remarks = $this.find(".txtRemarks").val();
-            lstItem.push(item);
-        });
+function Validate(po) {
+    var err = "";
 
-        return lstItem;
+    if (po.VendorId == "") {
+        err = "Vendor is required.";
+    }
+    else if (po.ShipTo == "") {
+        err = "Ship To is required.";
+    }
+    else if (po.Items.length == 0) {
+        err = "Please select item/s.";
     }
 
-    function getParameterByName(name, url) {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, "\\$&");
-        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-            results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
-    }
-});
+    return err;
+}
+
+function GetTotalAmount() {
+    var totalAmount = 0;
+    $('#tblItems tr.item-row').each(function (i,tr) {
+        var $txtAmount = $(tr).find('.txtAmount');
+        var amount = parseFloat(RemoveCommas($txtAmount.text()));
+
+        totalAmount += amount;
+    });
+
+    $('#lblTotalAmount').text(FormatNumber(totalAmount));
+}

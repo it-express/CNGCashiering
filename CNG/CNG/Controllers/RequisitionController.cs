@@ -76,19 +76,22 @@ namespace CNG.Controllers
         }
 
         public ActionResult Create() {
-            ViewBag.reqNumber = reqRepo.GenerateReqNo();
+            ViewBag.ReqNumber = reqRepo.GenerateReqNo();
 
-            var lstPlateNos = from  p in vehicleRepo.List()
-                              select new { No = p.LicenseNo };
-
-            ViewBag.PlateNos = new SelectList(lstPlateNos, "No", "No");
-            ViewBag.Items = new SelectList(itemRepo.List(), "Id", "Code");
-
-            ViewBag.ApprovedBy = Common.GetCurrentUser.FullName;
-
-            ViewBag.CompanyId = Request.QueryString["companyId"];
+            InitViewBags();            
 
             return View(new Requisition());
+        }
+
+        public ActionResult Edit(string reqNo)
+        {
+            ViewBag.ReqNumber = reqNo;
+            ViewBag.PurchaseOrders = new SelectList(reqRepo.List(), "No", "No");
+            InitViewBags();
+
+            Requisition req = reqRepo.GetByNo(reqNo);
+            
+            return View("Create", req);
         }
 
         public ActionResult Delete(string reqNo) {
@@ -123,40 +126,36 @@ namespace CNG.Controllers
 
             req.CompanyId = Convert.ToInt32(Session["companyId"]);
 
-            context.Requisitions.Add(req);
-            context.SaveChanges();
+            List<RequisitionItem> lstReqItem = new List<RequisitionItem>();
+            foreach (RequisitionDTO.Item item in entry.Items) {
+                RequisitionItem reqItem = new RequisitionItem
+                {
+                    RequisitionId = req.Id,
+                    ItemId = item.ItemId,
+                    Quantity = item.Quantity,
+                    SerialNo = item.SerialNo,
+                    Type = item.Type,
+                    QuantityReturn = item.QuantityReturn
+                };
 
-            foreach (RequisitionDTO.Item item in entry.Items)
-            {
-                RequisitionItem reqItem = new RequisitionItem();
-                reqItem.RequisitionId = req.Id;
-
-                Item _item = itemRepo.GetById(item.ItemId);
-
-                reqItem.ItemId = item.ItemId;
-                reqItem.Quantity = item.Quantity;
-                reqItem.SerialNo = item.SerialNo;
-                reqItem.Type = item.Type;
-                reqItem.QuantityReturn = item.QuantityReturn;
-                
-                reqItemRepo.Save(reqItem);
-
-                InsertLogs(item.ItemId, reqItem.Quantity);
+                lstReqItem.Add(reqItem);
             }
+
+            req.RequisitionItems = lstReqItem;
+
+            reqRepo.Save(req);
         }
         
-        public void InsertLogs(int itemId, int quantiy)
+        private void InitViewBags()
         {
-            TransactionLogRepository transactionLogRepo = new TransactionLogRepository();
+            var lstPlateNos = from p in vehicleRepo.List()
+                              select new { No = p.LicenseNo };
+            ViewBag.PlateNos = new SelectList(lstPlateNos, "No", "No");
+            ViewBag.Items = new SelectList(itemRepo.List(), "Id", "Description");
 
-            TransactionLog transactionLog = new TransactionLog
-            {
-                ItemId = itemId,
-                Quantity = -quantiy,
-                TransactionMethodId = (int)ETransactionMethod.Requisition
-            };
+            ViewBag.ApprovedBy = Common.GetCurrentUser.FullName;
 
-            transactionLogRepo.Add(transactionLog);
+            ViewBag.CompanyId = Request.QueryString["companyId"];
         }
     }
 }

@@ -143,7 +143,7 @@ namespace CNG.Controllers
             //po.No = poRepo.GeneratePoNumber();
             po.No = entry.No;
 
-            po.Date = DateTime.Now;
+            po.Date = Convert.ToDateTime(entry.Date);
             po.VendorId = entry.VendorId;
             po.ShipTo = entry.ShipTo;
             po.Terms = vendorRepo.GetById(entry.VendorId).Terms;
