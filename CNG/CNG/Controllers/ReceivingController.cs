@@ -154,7 +154,7 @@ namespace CNG.Controllers
             return transactionLog.Id;
         }
 
-        private void InitViewBags()
+        private void InitViewB`ags()
         {
             ViewBag.CompanyId = Request.QueryString["companyId"];
         }
