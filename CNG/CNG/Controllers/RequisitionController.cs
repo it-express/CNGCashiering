@@ -18,6 +18,7 @@ namespace CNG.Controllers
         VehicleRepository vehicleRepo = new VehicleRepository();
         ItemRepository itemRepo = new ItemRepository();
         CompanyRepository companyRepo = new CompanyRepository();
+        ItemTypeRepository itemTypeRepo = new ItemTypeRepository();
 
         public RequisitionController() {
             reqItemRepo = new RequisitionItemRepository(context);
@@ -78,20 +79,30 @@ namespace CNG.Controllers
         public ActionResult Create() {
             ViewBag.ReqNumber = reqRepo.GenerateReqNo();
 
-            InitViewBags();            
+            InitViewBags();
 
-            return View(new Requisition());
+            RequisitionVM reqVM = new RequisitionVM
+            {
+                Requisition = new Requisition(),
+                ItemTypes = new SelectList(itemTypeRepo.List().ToList(), "Id", "Description")
+            };
+
+            return View(reqVM);
         }
-
+        
         public ActionResult Edit(string reqNo)
         {
             ViewBag.ReqNumber = reqNo;
             ViewBag.PurchaseOrders = new SelectList(reqRepo.List(), "No", "No");
             InitViewBags();
 
-            Requisition req = reqRepo.GetByNo(reqNo);
-            
-            return View("Create", req);
+            RequisitionVM reqVM = new RequisitionVM
+            {
+                Requisition = reqRepo.GetByNo(reqNo),
+                ItemTypes = new SelectList(itemTypeRepo.List().ToList(), "Id", "Description")
+            };
+
+            return View("Create", reqVM);
         }
 
         public ActionResult Delete(string reqNo) {
@@ -113,7 +124,7 @@ namespace CNG.Controllers
         {
             Requisition req = new Requisition();
 
-            req.No = reqRepo.GenerateReqNo();
+            req.No = entry.No;
             req.Date = entry.JobOrderDate;
             req.JobOrderNo = entry.JobOrderNo;
             req.UnitPlateNo = entry.UnitPlateNo;

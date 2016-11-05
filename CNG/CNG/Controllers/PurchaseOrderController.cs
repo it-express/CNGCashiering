@@ -119,6 +119,14 @@ namespace CNG.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult RenderEditorRow(int itemId) {
+
+            PurchaseOrderItem poItem = new PurchaseOrderItem();
+            poItem.Item = itemRepo.GetById(itemId);
+
+            return PartialView("_PoItemEditorRow", poItem);
+        }
+
         public string GeneratePoNumber() {
             string poNumber = poRepo.GeneratePoNumber();
 
@@ -171,6 +179,7 @@ namespace CNG.Controllers
 
             poRepo.Save(po);
         }
+
 
         private void InitViewBags()
         {

@@ -17,6 +17,8 @@ namespace CNG.Models
             public int QuantityReturn { get; set; }
         }
 
+        public string No { get; set; }
+
         public DateTime RequisitionDate { get; set; }
         public string JobOrderNo { get; set; }
         public string UnitPlateNo { get; set; }
