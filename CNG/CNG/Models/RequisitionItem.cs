@@ -20,8 +20,12 @@ namespace CNG.Models
         public int QuantityReturn { get; set; }
         public string SerialNoReturn { get; set; }
 
+        public int? TransactionLogId { get; set; }
+
         [ForeignKey("ItemId")]
         public virtual Item Item { get; set; }
+
+        public virtual TransactionLog TransactionLog { get; set; }
 
         public string TypeDescription {
             get {

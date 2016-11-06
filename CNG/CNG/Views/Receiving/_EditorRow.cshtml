@@ -10,13 +10,13 @@
             @poItem.Quantity
         </td>
         <td>
-            @poItem.UnitCost
+            @poItem.UnitCost.ToString("F")
         </td>
         <td>
             @poItem.Item.Description
         </td>
         <td>
-            @poItem.Amount
+            @poItem.Amount.ToString("F")
         </td>
         <td>
             <input type='text' class='txtSerialNo form-control' value='@poItem.SerialNo' />

@@ -16,16 +16,16 @@ namespace CNG.Models
             return context.TransactionLogs;
         }
 
-        public void Add(TransactionLog transactionLog)
+        public int Add(TransactionLog transactionLog)
         {
-            if (transactionLog.Quantity != 0) {
-                transactionLog.Date = DateTime.Now;
-                transactionLog.UserId = Convert.ToInt32(HttpContext.Current.Session["uid"]); //get from current session
-                transactionLog.CompanyId = transactionLog.CompanyId;
+            transactionLog.Date = DateTime.Now;
+            transactionLog.UserId = Convert.ToInt32(HttpContext.Current.Session["uid"]); //get from current session
+            transactionLog.CompanyId = transactionLog.CompanyId;
 
-                context.TransactionLogs.Add(transactionLog);
-                context.SaveChanges();
-            }
+            context.TransactionLogs.Add(transactionLog);
+            context.SaveChanges();
+
+            return transactionLog.Id;
         }
 
         public int SumByItemId(int itemId, int companyId)
@@ -37,6 +37,14 @@ namespace CNG.Models
             }
 
             return quantity;   
+        }
+
+        public void Remove(int id) {
+            TransactionLog transLog = List().FirstOrDefault(p => p.Id == id);
+
+            context.TransactionLogs.Remove(transLog);
+
+            context.SaveChanges();
         }
     }
 }

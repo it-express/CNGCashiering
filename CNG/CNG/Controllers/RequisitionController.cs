@@ -14,15 +14,11 @@ namespace CNG.Controllers
     {
         private CNGDBContext context = new CNGDBContext();
         RequisitionRepository reqRepo = new RequisitionRepository();
-        RequisitionItemRepository reqItemRepo;
+        RequisitionItemRepository reqItemRepo = new RequisitionItemRepository();
         VehicleRepository vehicleRepo = new VehicleRepository();
         ItemRepository itemRepo = new ItemRepository();
         CompanyRepository companyRepo = new CompanyRepository();
         ItemTypeRepository itemTypeRepo = new ItemTypeRepository();
-
-        public RequisitionController() {
-            reqItemRepo = new RequisitionItemRepository(context);
-        }
 
         public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page, int? companyId)
         {

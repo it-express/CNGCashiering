@@ -7,11 +7,10 @@ namespace CNG.Models
 {
     public class RequisitionItemRepository
     {
-        private CNGDBContext context;
+        private CNGDBContext context = new CNGDBContext();
 
-        public RequisitionItemRepository(CNGDBContext _context)
+        public RequisitionItemRepository()
         {
-            this.context = _context;
         }
 
         public RequisitionItem Find(int reqItemId)
@@ -19,6 +18,14 @@ namespace CNG.Models
             RequisitionItem item = context.RequisitionItems.Find(reqItemId);
 
             return item;
+        }
+
+        public void Remove(int reqItemId) {
+            RequisitionItem item = context.RequisitionItems.Find(reqItemId);
+
+            context.RequisitionItems.Remove(item);
+
+            context.SaveChanges();
         }
 
         public void Save(RequisitionItem reqItem)
