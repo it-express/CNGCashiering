@@ -1,6 +1,7 @@
 ﻿using CNG.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 
@@ -23,7 +24,7 @@ namespace CNG.Models
         }
 
         public void Save(Requisition req) {
-            bool reqExists = context.PurchaseOrders.Count(p => p.No == req.No) > 0;
+            bool reqExists = context.Requisitions.Any(p => p.No == req.No);
 
             int id;
 
@@ -32,7 +33,7 @@ namespace CNG.Models
                 context.Requisitions.Add(req);
 
                 context.SaveChanges();
-
+                
                 id = req.Id;
             }
             else
@@ -40,16 +41,16 @@ namespace CNG.Models
                 Requisition dbEntry = context.Requisitions.FirstOrDefault(p => p.No == req.No);
                 if (dbEntry != null)
                 {
-                    req.Date = dbEntry.JobOrderDate;
-                    req.JobOrderNo = dbEntry.JobOrderNo;
-                    req.UnitPlateNo = dbEntry.UnitPlateNo;
-                    req.JobOrderDate = dbEntry.JobOrderDate;
-                    req.OdometerReading = dbEntry.OdometerReading;
-                    req.DriverName = dbEntry.DriverName;
-                    req.ReportedBy = dbEntry.ReportedBy;
-                    req.CheckedBy = dbEntry.CheckedBy;
-                    req.ApprovedBy = dbEntry.ApprovedBy;
-                    req.CompanyId = dbEntry.CompanyId;
+                    dbEntry.JobOrderDate = req.Date;
+                    dbEntry.JobOrderNo = req.JobOrderNo;
+                    dbEntry.UnitPlateNo = req.UnitPlateNo;
+                    dbEntry.JobOrderDate = req.JobOrderDate;
+                    dbEntry.OdometerReading = req.OdometerReading;
+                    dbEntry.DriverName = req.DriverName;
+                    dbEntry.ReportedBy = req.ReportedBy;
+                    dbEntry.CheckedBy = req.CheckedBy;
+                    dbEntry.ApprovedBy = req.ApprovedBy;
+                    dbEntry.CompanyId = req.CompanyId;
                 }
 
                 id = dbEntry.Id;

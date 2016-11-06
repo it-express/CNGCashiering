@@ -40,14 +40,6 @@ namespace CNG.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-
-            //IQueryable<Inventory> lstInventory = from p in itemRepo.List()
-            //                                     select new Inventory
-            //                                     {
-            //                                         ItemId = p.Id,
-            //                                         CompanyId = Sessions.CompanyId.Value
-            //                                     };
-
             IQueryable<Item> lstItem = from p in itemRepo.List() select p;
 
             if (!String.IsNullOrEmpty(searchString))

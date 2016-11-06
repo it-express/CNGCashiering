@@ -1,4 +1,5 @@
-﻿
+﻿@model CNG.Models.RequisitionPurchase
+
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -39,14 +40,14 @@
                     <div class="form-group">
                         <label class="control-label col-md-2">RP#</label>
                         <div class="col-md-5">
-                            <label id="lblRpNo" class="form-control">@ViewBag.RpNo</label>
+                            <label id="lblRpNo" class="form-control">@Model.No</label>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-2">Date</label>
                         <div class="col-md-5">
-                            <input type="text" id="txtDate" value="@ViewBag.Date" class="form-control date-picker" />
+                            <input type="text" id="txtDate" value="@Model.Date.ToString("MM/dd/yyyy")" class="form-control date-picker" />
                         </div>
                     </div>
 
@@ -56,7 +57,7 @@
                             @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items, new { @class = "form-control" })
                         </div>
                         <div class="col-md-5">
-                            <input id="btnAddItem" type="button" value="Ok" class="btn btn-dark-blue" />
+                            <input id="btnAddItem" type="button" value="Ok" class="btn btn-dark-blue" data-url="@Url.Action("RenderEditorRow")" />
                         </div>
                     </div>
 
@@ -76,6 +77,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach (var item in Model.RequisitionPurchaseItems)
+                                    {
+                                        Html.RenderPartial("_EditorRow", item);
+                                    }
                                 </tbody>
                             </table>
                         </div>

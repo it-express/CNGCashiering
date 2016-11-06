@@ -1,0 +1,32 @@
+﻿@model CNG.Models.ExcessPartsSetItem
+
+<tr data-item-id="@Model.Item.Id" class="item-row">
+    <td>
+        @Model.Item.Code
+    </td>
+    <td>
+        @Model.Item.Description
+    </td>
+    <td>
+        @Model.Item.Brand
+    </td>
+    <td>
+        <label class="lblUnitCost">
+            @Model.Item.UnitCost.ToString("F")
+        </label>
+    </td>
+    <td>
+        <input type='text' class='txtQuantity form-control' value="@Model.Quantity" />
+    </td>
+    <td>
+        @Model.Item.Type.Description
+    </td>
+    <td>
+        <textarea class='txtRemarks' class="form-control"> @Model.Remarks </textarea>
+    </td>
+    <td>
+        <div class="visible-md visible-lg hidden-sm hidden-xs">
+            <a href="#!" data-original-title="Remove" data-placement="top" class="btn btn-xs btn-red tooltips btnRemoveItem"><i class="fa fa-times fa fa-white"></i></a>
+        </div>
+    </td>
+</tr>

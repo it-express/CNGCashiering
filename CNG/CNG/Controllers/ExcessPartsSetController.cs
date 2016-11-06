@@ -15,13 +15,13 @@ namespace CNG.Controllers
         CNGDBContext context = new CNGDBContext();
         ExcessPartsSetRepository epsRepo = new ExcessPartsSetRepository();
         ExcessPartsSetItemRepository epsItemRepo;
+        ItemRepository itemRepo = new ItemRepository();
 
         public ExcessPartsSetController()
         {
             epsItemRepo = new ExcessPartsSetItemRepository(context);
         }
 
-        // GET: RequisitionPurchase
         public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortColumn;
@@ -66,13 +66,17 @@ namespace CNG.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.EpsNo = epsRepo.GenerateEpsNo();
-            ViewBag.Date = DateTime.Now.ToShortDateString();
-            ViewBag.Items = new SelectList(context.Items, "Id", "Code");
+            ViewBag.Items = new SelectList(context.Items, "Id", "Description");
             ViewBag.User = Common.GetCurrentUser.FullName;
             ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
 
-            return View(new ExcessPartsSet());
+            ExcessPartsSet eps = new ExcessPartsSet
+            {
+                No = epsRepo.GenerateEpsNo(),
+                Date = DateTime.Now
+            };
+
+            return View(eps);
         }
 
         [HttpGet]
@@ -81,6 +85,16 @@ namespace CNG.Controllers
             ExcessPartsSet eps = epsRepo.GetById(id);
 
             return View(eps);
+        }
+
+        public ActionResult RenderEditorRow(int itemId)
+        {
+            ExcessPartsSetItem epsItem = new ExcessPartsSetItem
+            {
+                Item = itemRepo.GetById(itemId)
+            };
+
+            return PartialView("_EditorRow", epsItem);
         }
 
         public void Save(ExcessPartsSetDTO epsDTO)
@@ -99,10 +113,6 @@ namespace CNG.Controllers
             foreach (ExcessPartsSetDTO.Item dtoItem in epsDTO.Items)
             {
                 ExcessPartsSetItem epsItem = new ExcessPartsSetItem();
-
-                //public decimal UnitCost { get; set; }
-                //public int Quantity { get; set; }
-                //public string Remarks { get; set; }
 
                 epsItem.ExcessPartsSetId = eps.Id;
                 epsItem.ItemId = dtoItem.ItemId;

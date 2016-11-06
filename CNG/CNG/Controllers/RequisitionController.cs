@@ -77,13 +77,18 @@ namespace CNG.Controllers
         }
 
         public ActionResult Create() {
-            ViewBag.ReqNumber = reqRepo.GenerateReqNo();
-
             InitViewBags();
+            var lstPlateNos = from p in vehicleRepo.List()
+                              select new { No = p.LicenseNo };
+            ViewBag.PlateNos = new SelectList(lstPlateNos, "No", "No");
 
             RequisitionVM reqVM = new RequisitionVM
             {
-                Requisition = new Requisition(),
+                Requisition = new Requisition {
+                    No = reqRepo.GenerateReqNo(),
+                    Date = DateTime.Now,
+                    JobOrderDate = DateTime.Now
+                },
                 ItemTypes = new SelectList(itemTypeRepo.List().ToList(), "Id", "Description")
             };
 
@@ -92,15 +97,18 @@ namespace CNG.Controllers
         
         public ActionResult Edit(string reqNo)
         {
-            ViewBag.ReqNumber = reqNo;
-            ViewBag.PurchaseOrders = new SelectList(reqRepo.List(), "No", "No");
             InitViewBags();
-
+            ViewBag.PurchaseOrders = new SelectList(reqRepo.List(), "No", "No");
+            
             RequisitionVM reqVM = new RequisitionVM
             {
                 Requisition = reqRepo.GetByNo(reqNo),
                 ItemTypes = new SelectList(itemTypeRepo.List().ToList(), "Id", "Description")
             };
+
+            var lstPlateNos = from p in vehicleRepo.List()
+                              select new { No = p.LicenseNo };
+            ViewBag.PlateNos = new SelectList(lstPlateNos, "No", "No", reqVM.Requisition.UnitPlateNo);
 
             return View("Create", reqVM);
         }
@@ -120,6 +128,21 @@ namespace CNG.Controllers
             return View(req);
         }
 
+        public ActionResult RenderEditorRow(int itemId) {
+            RequisitionItem reqItem = new RequisitionItem
+            {
+                Item = itemRepo.GetById(itemId),
+                ItemId = itemId
+            };
+
+            RequisitionItemVM vm = new RequisitionItemVM
+            {
+                RequisitionItem = reqItem
+            };
+
+            return PartialView("_EditorRow", vm);
+        }
+
         public void Save(RequisitionDTO entry)
         {
             Requisition req = new Requisition();
@@ -135,7 +158,7 @@ namespace CNG.Controllers
             req.CheckedBy = entry.CheckedBy; //Get from session
             req.ApprovedBy = Common.GetCurrentUser.Id; //Get from session
 
-            req.CompanyId = Convert.ToInt32(Session["companyId"]);
+            req.CompanyId = Sessions.CompanyId.Value;
 
             List<RequisitionItem> lstReqItem = new List<RequisitionItem>();
             foreach (RequisitionDTO.Item item in entry.Items) {
@@ -159,9 +182,7 @@ namespace CNG.Controllers
         
         private void InitViewBags()
         {
-            var lstPlateNos = from p in vehicleRepo.List()
-                              select new { No = p.LicenseNo };
-            ViewBag.PlateNos = new SelectList(lstPlateNos, "No", "No");
+            
             ViewBag.Items = new SelectList(itemRepo.List(), "Id", "Description");
 
             ViewBag.ApprovedBy = Common.GetCurrentUser.FullName;

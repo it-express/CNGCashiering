@@ -108,6 +108,12 @@ namespace CNG.Controllers
             return Json(lstItem);
         }
 
+        public ActionResult RenderEditorRow(string poNo) {
+            PurchaseOrder po = poRepo.GetByNo(poNo);
+
+            return PartialView("_EditorRow", po.PurchaseOrderItems.ToList());
+        }
+
         public void Save(ReceivingDTO receivingDTO) {
             foreach (ReceivingDTO.Item item in receivingDTO.Items) {
                 PurchaseOrderItem poItem = poItemRepo.Find(item.PoItemId);

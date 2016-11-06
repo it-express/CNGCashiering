@@ -17,9 +17,11 @@ namespace CNG.Models
         [Key]
         public int Id { get; set; }
 
+        [Required]
         public string No { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
         [Required]
@@ -28,6 +30,7 @@ namespace CNG.Models
 
         [Required]
         [DisplayName("Job Order Date")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyy}", ApplyFormatInEditMode = true)]
         public DateTime JobOrderDate { get; set; }
 
         [Required]
@@ -45,7 +48,7 @@ namespace CNG.Models
         public string DriverName { get; set; }
 
         [Required]
-        [DisplayName("Reporteed By")]
+        [DisplayName("Reported By")]
         public string ReportedBy { get; set; }
 
         [DisplayName("Checked By")]

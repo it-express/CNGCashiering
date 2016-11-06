@@ -16,14 +16,20 @@ namespace CNG.Controllers
         RequisitionPurchaseRepository rpRepo = new RequisitionPurchaseRepository();
         RequisitionPurchaseItemRepository rpItemRepo;
         CompanyRepository companyRepo = new CompanyRepository();
+        ItemRepository itemRepo = new ItemRepository();
 
         public RequisitionPurchaseController() {
             rpItemRepo = new RequisitionPurchaseItemRepository(context);
         }
 
         // GET: RequisitionPurchase
-        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
+        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page, int? companyId)
         {
+            if (companyId.HasValue)
+            {
+                Sessions.CompanyId = companyId;
+            }
+
             ViewBag.CurrentSort = sortColumn;
             ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
 
@@ -65,13 +71,17 @@ namespace CNG.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.RpNo = rpRepo.GenerateRpNo();
-            ViewBag.Date = DateTime.Now.ToShortDateString();
             ViewBag.Items = new SelectList(context.Items, "Id", "Code");
             ViewBag.User = Common.GetCurrentUser.FullName;
             ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
 
-            return View();
+            RequisitionPurchase reqPurchase = new RequisitionPurchase
+            {
+                No = rpRepo.GenerateRpNo(),
+                Date = DateTime.Now
+            };
+
+            return View(reqPurchase);
         }
 
         public ActionResult Remove(string rpNo) {
@@ -85,6 +95,16 @@ namespace CNG.Controllers
             rp.RequisitionPurchaseItems = new List<RequisitionPurchaseItem>();
 
             return View(rp);
+        }
+
+        public ActionResult RenderEditorRow(int itemId)
+        {
+            RequisitionPurchaseItem reqPurchaseItem = new RequisitionPurchaseItem
+            {
+                Item = itemRepo.GetById(itemId)
+            };
+
+            return PartialView("_EditorRow", reqPurchaseItem);
         }
 
         public void Save(RequisitionPurchaseDTO rpDTO)
@@ -102,10 +122,6 @@ namespace CNG.Controllers
             foreach (RequisitionPurchaseDTO.Item dtoItem in rpDTO.Items)
             {
                 RequisitionPurchaseItem rpItem = new RequisitionPurchaseItem();
-
-                //public decimal UnitCost { get; set; }
-                //public int Quantity { get; set; }
-                //public string Remarks { get; set; }
 
                 rpItem.RequisitionPurchaseId = rp.Id;
                 rpItem.ItemId = dtoItem.ItemId;

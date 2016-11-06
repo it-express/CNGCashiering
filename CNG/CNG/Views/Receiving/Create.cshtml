@@ -50,7 +50,7 @@
                         <div class="col-md-5">
                             @if (Model.Id == 0)
                             {
-                                @Html.DropDownList("No", (IEnumerable<SelectListItem>)ViewBag.PurchaseOrders, "", new { @class = "form-control" })
+                                @Html.DropDownList("No", (IEnumerable<SelectListItem>)ViewBag.PurchaseOrders, "", new { @class = "form-control", data_url = Url.Action("RenderEditorRow") })
                             }
                             else
                             {
@@ -79,44 +79,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var poItem in Model.PurchaseOrderItems)
+                                    @{Html.RenderPartial("_EditorRow", Model.PurchaseOrderItems.ToList());}
+                                    
+                                    @*@foreach (var poItem in Model.PurchaseOrderItems)
                                     {
-                                    <tr class='item-row' data-poitem-id="@poItem.Id">
-                                        <td>
-                                            @poItem.Item.Code
-                                        </td>
-                                        <td class="lblQuantity">
-                                            @poItem.Quantity
-                                        </td>
-                                        <td>
-                                            @poItem.UnitCost
-                                        </td>
-                                        <td>
-                                            @poItem.Item.Description
-                                        </td>
-                                        <td>
-                                            @poItem.Amount
-                                        </td>
-                                        <td>
-                                            <input type='text' class='txtSerialNo form-control' value='@poItem.SerialNo' />
-                                        </td>
-                                        <td>
-                                            <input type='text' class='txtReceivedQuantity form-control' value='@poItem.ReceivedQuantity' />
-                                        </td>
-                                        <td class='lblBalance'>
-                                            @poItem.Balance
-                                        </td>
-                                        <td>
-                                            <input type='text' class='txtDrNo form-control' value='@poItem.DrNo' />
-                                        </td>
-                                        <td>
-                                            <input type='text' class='txtDate form-control date-picker' value='@poItem.Date.ToShortDateString()' />
-                                        </td>
-                                        <td>
-                                            <input type='text' class='txtRemainingBalanceDate form-control date-picker' value='@poItem.RemainingBalanceDate' />
-                                        </td>
-                                    </tr>
-                                    }
+                                    }*@
                                 </tbody>
                             </table>
                         </div>

@@ -56,29 +56,9 @@
 
         var itemId = $('#Items').val();
 
-        $.ajax({
-            url: "/Item/GetById",
-            type: "POST",
-            data: "{'id' : '" + itemId + "'}",
-            contentType: "application/json; charset=utf-8",
-            success: function (r) {
-                var item = r;
-                //$('#tblItems tbody').empty();
-
-                var result = "";
-                result += "<tr class='item-row' data-item-id=" + item.Id + ">";
-                result += "<td>" + item.Code + "</td>";
-                result += "<td>" + item.Description + "</td>";
-                result += "<td>" + item.Brand + "</td>";
-                result += "<td> <input type='text' disabled='disabled' class='txtUnitCost' value='0'/></td>";
-                result += "<td> <input type='text' class='txtQuantity'> </td>";
-                result += "<td>" + item.Type.Description + "</td>";
-                result += "<td> <textarea class='txtRemarks'> </textarea></td>";
-                result += "<td> <input type='button' class='btnRemoveItem' value='Remove'> </td>";
-                result += "</tr>";
-
-                $('#tblItems').append(result);
-            }
+        var url = $(this).data('url') + '?itemId=' + itemId;
+        $.get(url, function (data) {
+            $('#tblItems').append(data);
         });
     });
 

@@ -124,7 +124,7 @@ namespace CNG.Controllers
             PurchaseOrderItem poItem = new PurchaseOrderItem();
             poItem.Item = itemRepo.GetById(itemId);
 
-            return PartialView("_PoItemEditorRow", poItem);
+            return PartialView("_EditorRow", poItem);
         }
 
         public string GeneratePoNumber() {

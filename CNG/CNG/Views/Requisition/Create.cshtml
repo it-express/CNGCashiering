@@ -32,185 +32,154 @@
 
             <div class="panel-body">
 
-                <div class="form-horizontal">
-                    <h4>Manage Requsition</h4>
-                    <hr />
+                @using (Html.BeginForm("Edit", "Requisition"))
+                {
+                    <div class="form-horizontal">
+                        <h4>Manage Requsition</h4>
+                        <hr />
 
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Requisition Number</label>
-                        <div class="col-md-5">
-                            <label id="lblReqNo" class="form-control">@ViewBag.ReqNumber</label>
-                        </div>
-                    </div>
+                        @Html.ValidationSummary()
 
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Requisition Date</label>
-                        <div class="col-md-5">
-                            <input type="text" id="lblReqDate" class="form-control date-picker" value="@Model.Requisition.Date.ToString("dd/MM/yyyy")" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Job Order No</label>
-                        <div class="col-md-5">
-                            <input type="text" id="txtJobOrderNo" class="form-control" value="@Model.Requisition.JobOrderNo" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Search unit plate no</label>
-                        <div class="col-md-5">
-                            @Html.DropDownList("UnitPlateNo", (IEnumerable<SelectListItem>)ViewBag.PlateNos, "", new { @class = "form-control" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">JO Date</label>
-                        <div class="col-md-5">
-                            <input type="text" id="txtJobOrderDate" class="form-control date-picker" value="@Model.Requisition.JobOrderDate.ToString("dd/MM/yyyy")" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Odometer Reading</label>
-                        <div class="col-md-5">
-                            <input type="text" id="txtOdometerReading" class="form-control" value="@Model.Requisition.OdometerReading" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Drivers Name</label>
-                        <div class="col-md-5">
-                            <input type="text" id="txtDriverName" class="form-control" value="@Model.Requisition.DriverName" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <h4 class="control-label col-md-2">Add Items</h4>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Search item</label>
-                        <div class="col-md-5">
-                            @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items, "", new { @class = "form-control" })
-                        </div>
-                        <div class="col-md-1">
-                            <input type="button" id="btnAddItem" value="Ok" class="btn btn-dark-blue" />
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <h4 class="control-label col-md-5">
-                                    Requested Items
-                                </h4>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Requisition Number</label>
+                            <div class="col-md-5">
+                                <label id="lblReqNo" class="form-control">@Model.Requisition.No</label>
                             </div>
                         </div>
-                        <div class="col-md-7">
-                            <div class="form-group">
-                                <h4 class="control-label col-md-3">
-                                    Return Items
-                                </h4>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Requisition Date</label>
+                            <div class="col-md-5">
+                                <input type="text" id="lblReqDate" class="form-control date-picker" value="@Model.Requisition.Date.ToString("dd/MM/yyyy")" />
                             </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        @*<label class="control-label col-md-1"></label>*@
-                        <div class="col-md-12">
-                            <table id="tblItems" class="table table-hover table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Item/Part Required</th>
-                                        <th>Quantity</th>
-                                        <th>Description</th>
-                                        <th>Serial No</th>
-                                        <th>Item/Part Required</th>
-                                        <th>Quantity</th>
-                                        <th>Description</th>
-                                        <th>Serial No</th>
-                                        <th>Type</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var poItem in Model.Requisition.RequisitionItems)
-                                    {
-                                        <tr data-item-id="@poItem.ItemId" class="item-row">
-                                            <td>
-                                                @poItem.Item.Code
-                                            </td>
-                                            <td>
-                                                <input type='text' class='txtQuantity form-control' value="@poItem.Quantity" />
-                                            </td>
-                                            <td>
-                                                @poItem.Item.Description
-                                            </td>
-                                            <td>
-                                                <input type='text' class='txtSerialNo form-control' value="@poItem.SerialNo" />
-                                            </td>
-                                            <td>
-                                                @poItem.Item.Code
-                                            </td>
-                                            <td>
-                                                @*Quantity*@
-                                                <input type="text" class="txtQuantityReturn form-control" />
-                                            </td>
-                                            <td>
-                                                @poItem.Item.Description
-                                            </td>
-                                            <td>
-                                                <input type='text' class='form-control' value="@poItem.SerialNo" />
-                                            </td>
-                                            <td>
-                                                @Html.DropDownListFor(p => p.ItemTypes, @Model.ItemTypes, poItem.Item.TypeId);
-                                            </td>
-                                            
-                                            <td>
-                                                <a class="btn btn-xs btn-red tooltips btnRemoveItem" href="#!" data-original-title="Remove" data-placement="top">
-                                                    <i class="fa fa-times fa fa-white"></i>
-                                                </a>
-                                            </td>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Job Order No</label>
+                            <div class="col-md-5">
+                                <input type="text" id="txtJobOrderNo" class="form-control" value="@Model.Requisition.JobOrderNo" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Search unit plate no</label>
+                            <div class="col-md-5">
+                                @Html.DropDownList("UnitPlateNo", (IEnumerable<SelectListItem>)ViewBag.PlateNos, "", new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">JO Date</label>
+                            <div class="col-md-5">
+                                 <input type="text" id="txtJobOrderDate" class="form-control date-picker" value="@Model.Requisition.JobOrderDate.ToString("dd/MM/yyyy")" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Odometer Reading</label>
+                            <div class="col-md-5">
+                                <input type="text" id="txtOdometerReading" class="form-control" value="@Model.Requisition.OdometerReading" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Drivers Name</label>
+                            <div class="col-md-5">
+                                <input type="text" id="txtDriverName" class="form-control" value="@Model.Requisition.DriverName" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <h4 class="control-label col-md-2">Add Items</h4>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Search item</label>
+                            <div class="col-md-5">
+                                @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items, "", new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-1">
+                                <input type="button" id="btnAddItem" value="Ok" data-url="@Url.Action("RenderEditorRow", "Requisition")" class="btn btn-dark-blue" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <h4 class="control-label col-md-5">
+                                        Requested Items
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="form-group">
+                                    <h4 class="control-label col-md-3">
+                                        Return Items
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @*<label class="control-label col-md-1"></label>*@
+                            <div class="col-md-12">
+                                <table id="tblItems" class="table table-hover table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Item/Part Required</th>
+                                            <th>Quantity</th>
+                                            <th>Description</th>
+                                            <th>Serial No</th>
+                                            <th>Item/Part Required</th>
+                                            <th>Quantity</th>
+                                            <th>Description</th>
+                                            <th>Serial No</th>
+                                            <th>Type</th>
+                                            <th>Action</th>
                                         </tr>
-                                    }
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var poItem in Model.Requisition.RequisitionItems)
+                                        {
+                                            Html.RenderPartial("_EditorRow", new CNG.Models.RequisitionItemVM { RequisitionItem = poItem });
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Reported/Requested By:</label>
-                        <div class="col-md-5">
-                            <input type="text" id="txtReportedBy" class="form-control" value="@Model.Requisition.ReportedBy" />
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Reported/Requested By:</label>
+                            <div class="col-md-5">
+                                <input type="text" id="txtReportedBy" class="form-control" value="@Model.Requisition.ReportedBy" />
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Checked By:</label>
-                        <div class="col-md-5">
-                            <input type="text" id="txtCheckedBy" class="form-control" value="@Model.Requisition.CheckedBy" />
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Checked By:</label>
+                            <div class="col-md-5">
+                                <input type="text" id="txtCheckedBy" class="form-control" value="@Model.Requisition.CheckedBy" />
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Approved By:</label>
-                        <div class="col-md-5">
-                            <label id="lblApprovedBy" class="form-control">@ViewBag.ApprovedBy</label>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Approved By:</label>
+                            <div class="col-md-5">
+                                <label id="lblApprovedBy" class="form-control">@ViewBag.ApprovedBy</label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input id="btnSubmit" value="Submit" class="btn btn-dark-blue" type="submit">
-                            <a href="@Url.Action("Index")" class="btn btn-dark-beige">
-                                Back to List
-                            </a>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input id="btnSubmit" value="Submit" class="btn btn-dark-blue" type="submit">
+                                <a href="@Url.Action("Index")" class="btn btn-dark-beige">
+                                    Back to List
+                                </a>
+                            </div>
                         </div>
+
                     </div>
-
-                </div>
-
+                }
             </div>
         </div>
         <!-- end: BASIC TABLE PANEL -->

@@ -183,38 +183,7 @@
                                     <tbody>
                                         @foreach (var poItem in Model.PurchaseOrder.PurchaseOrderItems)
                                         {
-                                            Html.RenderPartial("_PoItemEditorRow", poItem);
-                                            @*@*<tr data-item-id="@poItem.ItemId" class="item-row">
-                                                <td>
-                                                    @poItem.Item.Code
-                                                </td>
-                                                <td>
-                                                    @poItem.Item.Description
-                                                </td>
-                                                <td>
-                                                    @poItem.Item.Type.Description
-                                                </td>
-                                                <td>
-                                                    @poItem.Item.Brand
-                                                </td>
-                                                <td>
-                                                    <input type='text' class='txtQuantity form-control' value="@poItem.Quantity" />
-                                                </td>
-                                                <td>
-                                                    @poItem.UnitCost
-                                                </td>
-                                                <td>
-                                                    <span class='txtAmount'>@poItem.Amount</span>
-                                                </td>
-                                                <td>
-                                                    <textarea class='txtRemarks' class="form-control"> @poItem.Remarks </textarea>
-                                                </td>
-                                                <td>
-                                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                                        <a href="#!" data-original-title="Remove" data-placement="top" class="btn btn-xs btn-red tooltips btnRemoveItem"><i class="fa fa-times fa fa-white"></i></a>
-                                                    </div>
-                                                </td>
-                                            </tr>*@
+                                            Html.RenderPartial("_EditorRow", poItem);
                                         }
                                     </tbody>
                                 </table>

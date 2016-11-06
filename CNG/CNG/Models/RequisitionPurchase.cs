@@ -10,6 +10,10 @@ namespace CNG.Models
 {
     public class RequisitionPurchase
     {
+        public RequisitionPurchase() {
+            RequisitionPurchaseItems = new List<RequisitionPurchaseItem>();
+        }
+
         [Key]
         public int Id { get; set; }
         public string No { get; set; }

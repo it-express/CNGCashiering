@@ -65,50 +65,61 @@
     });
 
     $('#No').change(function (event) {
-        $('#tblItems tbody').empty();
+        
 
         var poNo = $('#No').val();
 
-        $.ajax({
-            url: "/Receiving/ListItemByPoNo",
-            type: "POST",
-            data: "{'poNo' : '" + poNo + "'}",
-            contentType: "application/json; charset=utf-8",
-            success: function (r) {
-
-                var result = "";
-                $.each(r, function (i, v) {
-                    result += "<tr class='item-row' data-poitem-id=" + v.Id + ">";
-                    result += "<td>" + v.Item.Code + "</td>";
-                    result += "<td class='lblQuantity'>" + v.Quantity + "</td>";
-                    result += "<td>" + v.UnitCost + "</td>";
-                    result += "<td>" + v.Item.Description + "</td>";
-                    result += "<td>" + FormatNumber(v.Amount) + "</td>";
-                    result += "<td><input type='text' class='txtSerialNo form-control' /></td>";
-                    result += "<td><input type='text' class='txtReceivedQuantity form-control' value='" + v.ReceivedQuantity + "' /></td>";
-                    result += "<td class='lblBalance'>" + v.Balance + "</td>";
-                    result += "<td><input type='text' class='txtDrNo form-control' /></td>";
-
-                    var formattedDate = moment(v.Date).format('MM/DD/YYYY');
-
-                    var fomattedRemainingBalanceDate = "";
-                    if (v.remainingBalanceDate != null) {
-                        fomattedRemainingBalanceDate = moment(v.RemainingBalanceDate).format('MM/DD/YYYY');
-                    }
-
-                    result += "<td><input type='text' class='txtDate form-control date-picker' value ='" + formattedDate + "' /></td>";
-                    result += "<td><input type='text' class='txtRemainingBalanceDate form-control date-picker' value ='" + fomattedRemainingBalanceDate + "' /></td>";
-                    result += "</tr>";
-                    result += "</tr>";
-                });
-
-                $('#tblItems').append(result);
+        if (poNo != null) {
+            var url = $(this).data('url') + '?poNo=' + poNo;
+            $.get(url, function (data) {
+                $('#tblItems tbody').empty().append(data);
 
                 RefreshSubmitButtonState();
 
                 $('.date-picker').datepicker();
-            }
-        });
+            });
+        }
+
+        //$.ajax({
+        //    url: "/Receiving/ListItemByPoNo",
+        //    type: "POST",
+        //    data: "{'poNo' : '" + poNo + "'}",
+        //    contentType: "application/json; charset=utf-8",
+        //    success: function (r) {
+
+        //        var result = "";
+        //        $.each(r, function (i, v) {
+        //            result += "<tr class='item-row' data-poitem-id=" + v.Id + ">";
+        //            result += "<td>" + v.Item.Code + "</td>";
+        //            result += "<td class='lblQuantity'>" + v.Quantity + "</td>";
+        //            result += "<td>" + v.UnitCost + "</td>";
+        //            result += "<td>" + v.Item.Description + "</td>";
+        //            result += "<td>" + FormatNumber(v.Amount) + "</td>";
+        //            result += "<td><input type='text' class='txtSerialNo form-control' /></td>";
+        //            result += "<td><input type='text' class='txtReceivedQuantity form-control' value='" + v.ReceivedQuantity + "' /></td>";
+        //            result += "<td class='lblBalance'>" + v.Balance + "</td>";
+        //            result += "<td><input type='text' class='txtDrNo form-control' /></td>";
+
+        //            var formattedDate = moment(v.Date).format('MM/DD/YYYY');
+
+        //            var fomattedRemainingBalanceDate = "";
+        //            if (v.remainingBalanceDate != null) {
+        //                fomattedRemainingBalanceDate = moment(v.RemainingBalanceDate).format('MM/DD/YYYY');
+        //            }
+
+        //            result += "<td><input type='text' class='txtDate form-control date-picker' value ='" + formattedDate + "' /></td>";
+        //            result += "<td><input type='text' class='txtRemainingBalanceDate form-control date-picker' value ='" + fomattedRemainingBalanceDate + "' /></td>";
+        //            result += "</tr>";
+        //            result += "</tr>";
+        //        });
+
+        //        $('#tblItems').append(result);
+
+        //        RefreshSubmitButtonState();
+
+        //        $('.date-picker').datepicker();
+        //    }
+        //});
     });
 
     $(document).on('keyup', '.txtReceivedQuantity', function () {

@@ -16,10 +16,6 @@ namespace CNG.Controllers
 
         public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
         {
-            //List<Company> lstCompany = companyRepo.List().ToList();
-
-            //return View(lstCompany);
-
             ViewBag.CurrentSort = sortColumn;
             ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
 
