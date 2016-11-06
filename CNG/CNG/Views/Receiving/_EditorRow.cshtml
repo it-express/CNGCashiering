@@ -31,10 +31,18 @@
             <input type='text' class='txtDrNo form-control' value='@poItem.DrNo' />
         </td>
         <td>
-            <input type='text' class='txtDate form-control date-picker' value='@poItem.Date.ToShortDateString()' />
+            <input type='text' class='txtDate form-control date-picker' value='@poItem.Date.ToString("MM/dd/yyyy")' />
         </td>
         <td>
-            <input type='text' class='txtRemainingBalanceDate form-control date-picker' value='@poItem.RemainingBalanceDate' />
+            @if (poItem.RemainingBalanceDate.HasValue)
+            {
+                <input type='text' class='txtRemainingBalanceDate form-control date-picker' value='@poItem.RemainingBalanceDate.Value.ToString("MM/dd/yyyy")' />
+            }
+            else
+            {
+                <input type='text' class='txtRemainingBalanceDate form-control date-picker' />
+            }
+
         </td>
     </tr>    
 }

@@ -18,15 +18,14 @@ namespace CNG.Models
 
         public void Add(TransactionLog transactionLog)
         {
-            transactionLog.Date = DateTime.Now;
-            transactionLog.UserId = Convert.ToInt32(HttpContext.Current.Session["uid"]); //get from current session
-            transactionLog.CompanyId = transactionLog.CompanyId;
+            if (transactionLog.Quantity != 0) {
+                transactionLog.Date = DateTime.Now;
+                transactionLog.UserId = Convert.ToInt32(HttpContext.Current.Session["uid"]); //get from current session
+                transactionLog.CompanyId = transactionLog.CompanyId;
 
-            context.TransactionLogs.Add(transactionLog);
-           
-            context.SaveChanges();
-
-            //itemRepo.AdjustQuantity(transactionLog.ItemId, transactionLog.Quantity);
+                context.TransactionLogs.Add(transactionLog);
+                context.SaveChanges();
+            }
         }
 
         public int SumByItemId(int itemId, int companyId)

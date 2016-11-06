@@ -169,7 +169,8 @@ namespace CNG.Controllers
                     Quantity = item.Quantity,
                     SerialNo = item.SerialNo,
                     Type = item.Type,
-                    QuantityReturn = item.QuantityReturn
+                    QuantityReturn = item.QuantityReturn,
+                    SerialNoReturn = item.SerialNoReturn
                 };
 
                 lstReqItem.Add(reqItem);

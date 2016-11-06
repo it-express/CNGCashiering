@@ -15,6 +15,7 @@ namespace CNG.Models
             public int Type { get; set; }
 
             public int QuantityReturn { get; set; }
+            public string SerialNoReturn { get; set; }
         }
 
         public string No { get; set; }

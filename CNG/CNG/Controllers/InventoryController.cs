@@ -109,7 +109,7 @@ namespace CNG.Controllers
 
             if (String.IsNullOrEmpty(sortColumn))
             {
-                lstTransactionLog = lstTransactionLog.OrderBy(p => p.Id);
+                lstTransactionLog = lstTransactionLog.OrderByDescending(p => p.Id);
             }
             else
             {
@@ -118,7 +118,14 @@ namespace CNG.Controllers
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            return View(lstTransactionLog.ToPagedList(pageNumber, pageSize));
+
+            var transHistoryVM = new TransactionHistoryVM {
+                Item = itemRepo.GetById(id),
+                Company = companyRepo.GetById(Sessions.CompanyId.Value),
+                TransactionLogs = lstTransactionLog.ToPagedList(pageNumber, pageSize)
+            };
+
+            return View(transHistoryVM);
         }
     }
 }

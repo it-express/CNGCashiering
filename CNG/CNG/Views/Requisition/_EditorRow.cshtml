@@ -3,42 +3,33 @@
 <tr data-item-id="@Model.RequisitionItem.Item.Id" class="item-row">
         
     <td>
-        @*<input type="text" name="RequisitionItem.Item.Id" value="@Model.RequisitionItem.Item.Id" />*@
         @Html.HiddenFor(model => model.RequisitionItem.ItemId)
 
         @Model.RequisitionItem.Item.Code
     </td>
     <td>
-        @*<input type='text' class='txtQuantity form-control' value="@Model.RequisitionItem.Quantity" />*@
-
         @Html.TextBoxFor(model => model.RequisitionItem.Quantity, new { @class = "txtQuantity form-control" })
     </td>
     <td>
         @Model.RequisitionItem.Item.Description
     </td>
     <td>
-        @*<input type='text' class='txtSerialNo form-control' value="@Model.RequisitionItem.SerialNo" />*@
-
         @Html.TextBoxFor(model => model.RequisitionItem.SerialNo, new { @class = "txtSerialNo form-control" })
     </td>
     <td>
         @Model.RequisitionItem.Item.Code
     </td>
     <td>
-        @*<input type="text" class="txtQuantityReturn form-control" />*@
-
-        @Html.TextBoxFor(model => model.RequisitionItem.Quantity, new { @class = "txtQuantityReturn form-control" })
+        @Html.TextBoxFor(model => model.RequisitionItem.QuantityReturn, new { @class = "txtQuantityReturn form-control" })
     </td>
     <td>
         @Model.RequisitionItem.Item.Description
     </td>
     <td>
-        @*<input type='text' class='form-control' value="@Model.RequisitionItem.SerialNo" />*@
-
-        @Html.TextBoxFor(model => model.RequisitionItem.SerialNo, new { @class = "form-control" })
+        @Html.TextBoxFor(model => model.RequisitionItem.SerialNoReturn, new { @class = "txtSerialNoReturn form-control" })
     </td>
     <td>
-        @Html.DropDownListFor(p => p.RequisitionItem.Item.TypeId, Model.ItemTypes, Model.RequisitionItem.Type);
+        @Html.DropDownListFor(p => p.RequisitionItem.Type, Model.ItemTypes, new { @class="selType" });
     </td>
 
     <td>

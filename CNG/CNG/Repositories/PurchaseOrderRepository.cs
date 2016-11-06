@@ -47,7 +47,7 @@ namespace CNG.Models
                 {
                     dbEntry.No = po.No;
 
-                    dbEntry.Date = DateTime.Now;
+                    dbEntry.Date = po.Date;
                     dbEntry.VendorId = po.VendorId;
                     dbEntry.ShipTo = po.ShipTo;
                     dbEntry.Terms = vendorRepo.GetById(po.VendorId).Terms;

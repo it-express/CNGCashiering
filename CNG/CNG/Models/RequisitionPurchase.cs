@@ -19,6 +19,8 @@ namespace CNG.Models
         public string No { get; set; }
         public DateTime Date { get; set; }
 
+        public int CompanyId { get; set; }
+
         [DisplayName("Prepared By")]
         public int PreparedBy { get; set; }
 

@@ -67,6 +67,7 @@
             item.SerialNo = $this.find(".txtSerialNo").val();
             item.Type = $this.find(".selType").val();
             item.QuantityReturn = $this.find(".txtQuantityReturn ").val();
+            item.SerialNoReturn = $this.find('.txtSerialNoReturn').val();
 
             item.QuantityOnHand = $this.data("quantity-on-hand");
             item.Code = $this.find('.lblCode').text();;

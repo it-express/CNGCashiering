@@ -1,4 +1,4 @@
-﻿@model IPagedList<CNG.Models.TransactionLog>
+﻿@model CNG.Models.TransactionHistoryVM
 @using PagedList.Mvc;
 @using PagedList;
 
@@ -30,9 +30,16 @@
         <!-- start: BASIC TABLE PANEL -->
         <div class="panel panel-white">
             <div class="panel-heading">
-                <h4 class="panel-title pull-left"><span class="text-bold">Transaction History</span></h4>
+                <h4 class="panel-title pull-left"><span class="text-bold">Transaction History - @Model.Company.Name</span></h4>
 
                 <div class="clearfix"></div>
+                
+                <br/>
+                <div>
+                    Item Code: @Model.Item.Code <br />
+                    Desciption: @Model.Item.Description <br />
+                </div>
+                <br />
 
                 @using (Html.BeginForm())
                 {
@@ -72,7 +79,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.TransactionLogs)
                         {
                             <tr>
                                 <td>
@@ -94,16 +101,24 @@
                         }
                     </tbody>
                 </table>
+
+                Page @(Model.TransactionLogs.PageCount < Model.TransactionLogs.PageNumber ? 0 : Model.TransactionLogs.PageNumber) of @Model.TransactionLogs.PageCount
+                <br />
+
+                @Html.PagedListPager(Model.TransactionLogs, page => Url.Action("Index",
+                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <a href="@Url.Action("Index")" class="btn btn-dark-beige">
+                            Back to List
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- end: BASIC TABLE PANEL -->
     </div>
-
-    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-    <br />
-
-    @Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 </div>
 
 <script>

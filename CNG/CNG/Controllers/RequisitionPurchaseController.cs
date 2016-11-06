@@ -30,6 +30,7 @@ namespace CNG.Controllers
                 Sessions.CompanyId = companyId;
             }
 
+            ViewBag.CompanyName = companyRepo.GetById(Sessions.CompanyId.Value).Name;
             ViewBag.CurrentSort = sortColumn;
             ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
 
@@ -44,7 +45,7 @@ namespace CNG.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            IQueryable<RequisitionPurchase> lstRp = rpRepo.List();
+            IQueryable<RequisitionPurchase> lstRp = rpRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value);
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -71,7 +72,7 @@ namespace CNG.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.Items = new SelectList(context.Items, "Id", "Code");
+            ViewBag.Items = new SelectList(context.Items, "Id", "Description");
             ViewBag.User = Common.GetCurrentUser.FullName;
             ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
 
@@ -112,6 +113,7 @@ namespace CNG.Controllers
             RequisitionPurchase rp = new RequisitionPurchase();
             rp.No = rpRepo.GenerateRpNo();
             rp.Date = DateTime.Now;
+            rp.CompanyId = Sessions.CompanyId.Value;
 
             rp.PreparedBy = Common.GetCurrentUser.Id;
             rp.ApprovedBy = Common.GetCurrentUser.GeneralManagerId;
