@@ -135,7 +135,9 @@ namespace CNG.Controllers
                     quantity = poItem.ReceivedQuantity - transLog.CumulativeQuantity;
                 }
 
-                poItem.TransactionLogId = InsertLogs(poItem.ItemId, quantity, poItem.ReceivedQuantity);
+                if (quantity != 0) {
+                    poItem.TransactionLogId = InsertLogs(poItem.ItemId, quantity, poItem.ReceivedQuantity);
+                }
 
                 context.SaveChanges();
             }
