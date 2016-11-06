@@ -7,6 +7,7 @@ using CNG.Models;
 using PagedList;
 using System.Linq.Dynamic;
 using System.Data.Entity;
+using Microsoft.Reporting.WebForms;
 
 namespace CNG.Controllers
 {
@@ -126,6 +127,52 @@ namespace CNG.Controllers
             };
 
             return View(transHistoryVM);
+        }
+
+        public ActionResult InventoryReport() {
+            List<TransactionLog> lstInventory2 = (from p in transactionLogRepo.List().ToList()
+                                group p by p.ItemId into g
+                                select new TransactionLog
+                                {
+                                    ItemId = g.Key,
+                                    Quantity = g.Count()
+                                }).ToList();
+
+            var lstInventory = from item in itemRepo.List().ToList()
+                       join inv in lstInventory2
+                       on item.Id equals inv.ItemId into itemInv
+                       from i in itemInv.DefaultIfEmpty()
+                       select new
+                       {
+                           Code = item.Code,
+                           Description = item.Description,
+                           UnitCost = item.UnitCost.ToString("F"),
+                           Quantity = i != null ? i.Quantity : 0,
+                       };
+
+            ReportViewer reportViewer = new ReportViewer();
+            reportViewer.ProcessingMode = ProcessingMode.Local;
+
+            ReportDataSource _rds = new ReportDataSource();
+            _rds.Name = "DataSet1";
+            _rds.Value = lstInventory;
+
+            reportViewer.KeepSessionAlive = false;
+            reportViewer.LocalReport.DataSources.Clear();
+            reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Views\Inventory\Report\rptInventory.rdlc";
+
+            List<ReportParameter> _parameter = new List<ReportParameter>();
+            _parameter.Add(new ReportParameter("PrintDate", DateTime.Now.ToShortDateString()));
+            
+            reportViewer.LocalReport.DataSources.Add(_rds);
+            reportViewer.LocalReport.Refresh();
+            reportViewer.LocalReport.SetParameters(_parameter);
+
+            ViewBag.ReportViewer = reportViewer;
+
+            //ViewBag.Something = ;
+
+            return View();
         }
     }
 }
