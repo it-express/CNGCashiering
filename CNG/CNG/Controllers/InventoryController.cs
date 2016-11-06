@@ -135,7 +135,7 @@ namespace CNG.Controllers
                                 select new TransactionLog
                                 {
                                     ItemId = g.Key,
-                                    Quantity = g.Count()
+                                    Quantity = g.Sum(p => p.Quantity)
                                 }).ToList();
 
             var lstInventory = from item in itemRepo.List().ToList()
