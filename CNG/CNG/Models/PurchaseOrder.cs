@@ -21,6 +21,7 @@ namespace CNG.Models
         public string No { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
         [Required]
