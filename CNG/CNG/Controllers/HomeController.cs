@@ -35,6 +35,7 @@ namespace CNG.Controllers
             {
                 Session["uid"] = user.Id;
                 Session["uname"] = user.Username;
+                Session["utype"] = user.UserTypeId;
 
                 return RedirectToAction("Index");
             }

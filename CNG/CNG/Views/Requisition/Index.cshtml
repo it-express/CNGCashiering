@@ -117,7 +117,12 @@
                                 </td>
                                 <td>
                                     <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                        <a href="@Url.Action("Edit", new { reqNo = item.No })" data-original-title="Edit" data-placement="top" class="btn btn-xs btn-blue tooltips"><i class="fa fa-edit"></i></a>
+                                        @if (Convert.ToInt32(Session["uaccess"]) != 1)
+                                            //1 - user
+                                        {
+                                            <a href="@Url.Action("Edit", new { reqNo = item.No })" data-original-title="Edit" data-placement="top" class="btn btn-xs btn-blue tooltips"><i class="fa fa-edit"></i></a>
+                                        }
+                                        
                                         <a href="@Url.Action("Details", new { reqNo = item.No })" data-original-title="Details" data-placement="top" class="btn btn-xs btn-green tooltips"><i class="fa fa-list"></i></a>
                                         <a href="@Url.Action("Delete", new { reqNo = item.No })" data-original-title="Remove" data-placement="top" class="btn btn-xs btn-red tooltips"><i class="fa fa-times fa fa-white"></i></a>
                                     </div>

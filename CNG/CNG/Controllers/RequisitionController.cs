@@ -152,7 +152,7 @@ namespace CNG.Controllers
             req.DriverName = entry.DriverName; //Get from session
             req.ReportedBy = entry.ReportedBy; //Get from session
             req.CheckedBy = entry.CheckedBy; //Get from session
-            req.ApprovedBy = Common.GetCurrentUser.Id; //Get from session
+            req.ApprovedBy = Common.GetCurrentUser.GeneralManagerId; //Get from session
 
             req.CompanyId = Sessions.CompanyId.Value;
 
@@ -182,7 +182,7 @@ namespace CNG.Controllers
             
             ViewBag.Items = new SelectList(itemRepo.List(), "Id", "Description");
 
-            ViewBag.ApprovedBy = Common.GetCurrentUser.FullName;
+            ViewBag.ApprovedBy = Common.GetCurrentUser.GeneralManager.FullName;
 
             ViewBag.CompanyId = Request.QueryString["companyId"];
         }
