@@ -130,12 +130,22 @@ namespace CNG.Controllers
         }
 
         public ActionResult InventoryReport() {
-            List<TransactionLog> lstInventory2 = (from p in transactionLogRepo.List().ToList()
+            //List<TransactionLog> lstInventory2 = (from p in transactionLogRepo.List().ToList()
+            //                    group p by p.ItemId into g
+            //                    select new TransactionLog
+            //                    {
+            //                        ItemId = g.Key,
+            //                        Quantity = g.Sum(p => p.Quantity)
+            //                    }).ToList();
+
+            var lstInventory2 = (from p in transactionLogRepo.List().ToList()
                                 group p by p.ItemId into g
-                                select new TransactionLog
+                                select new
                                 {
                                     ItemId = g.Key,
-                                    Quantity = g.Sum(p => p.Quantity)
+                                    Quantity = g.Sum(p => p.Quantity),
+                                    In = g.Where(p => p.Quantity > 0).Sum(p => p.Quantity),
+
                                 }).ToList();
 
             var lstInventory = from item in itemRepo.List().ToList()

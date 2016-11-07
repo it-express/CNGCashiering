@@ -170,6 +170,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\DevelopmentController.cs" />
     <Compile Include="Controllers\ExcessPartsSetController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
@@ -325,6 +326,7 @@
       <DependentUpon>dsInventory.xsd</DependentUpon>
     </Content>
     <Content Include="Views\Inventory\InventoryReport.cshtml" />
+    <Content Include="Views\Development\Index.cshtml" />
     <None Include="Views\Inventory\Report\dsInventory.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>

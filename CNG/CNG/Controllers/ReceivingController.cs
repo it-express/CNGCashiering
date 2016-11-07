@@ -20,7 +20,6 @@ namespace CNG.Controllers
         public ReceivingController() {
             poItemRepo = new PurchaseOrderItemRepository(context);
         }
-
         public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page, int? companyId)
         {
             if (companyId.HasValue) {

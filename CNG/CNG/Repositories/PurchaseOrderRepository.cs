@@ -78,7 +78,7 @@ namespace CNG.Models
 
         public string GeneratePoNumber()
         {
-            int companyId = Convert.ToInt32(HttpContext.Current.Request.QueryString["companyId"]);
+            int companyId = Sessions.CompanyId.Value;
             //get last id
             int lastId = 1;
             int cnt = List().Where(p => p.ShipTo == companyId).Count();
