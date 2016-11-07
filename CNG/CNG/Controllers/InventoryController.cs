@@ -129,23 +129,27 @@ namespace CNG.Controllers
             return View(transHistoryVM);
         }
 
-        public ActionResult InventoryReport() {
-            //List<TransactionLog> lstInventory2 = (from p in transactionLogRepo.List().ToList()
-            //                    group p by p.ItemId into g
-            //                    select new TransactionLog
-            //                    {
-            //                        ItemId = g.Key,
-            //                        Quantity = g.Sum(p => p.Quantity)
-            //                    }).ToList();
+        public ActionResult InventoryReport(string dateFrom, string dateTo) {
+            DateTime dtDateFrom = DateTime.Now.Date;
+            DateTime dtDateTo = DateTime.Now;
+
+            if (!String.IsNullOrEmpty(dateFrom)) {
+                dtDateFrom = Convert.ToDateTime(dateFrom);
+            }
+
+            if (!String.IsNullOrEmpty(dateTo)) {
+                dtDateTo = Convert.ToDateTime(dateTo);
+            }
 
             var lstInventory2 = (from p in transactionLogRepo.List().ToList()
                                 group p by p.ItemId into g
                                 select new
                                 {
                                     ItemId = g.Key,
-                                    Quantity = g.Sum(p => p.Quantity),
+                                    Quantity = g.Where(p => p.Date <= dtDateTo).Sum(p => p.Quantity),
                                     In = g.Where(p => p.Quantity > 0).Sum(p => p.Quantity),
-
+                                    Out = g.Where(p => p.Quantity < 0).Sum(p => p.Quantity),
+                                    StartQuantity = g.Where(p => p.Date <= dtDateFrom).Sum(p => p.Quantity)
                                 }).ToList();
 
             var lstInventory = from item in itemRepo.List().ToList()
@@ -158,8 +162,10 @@ namespace CNG.Controllers
                            Description = item.Description,
                            UnitCost = item.UnitCost.ToString("F"),
                            Quantity = i != null ? i.Quantity : 0,
+                           In = i != null ? i.In : 0,
+                           Out = i != null ? i.Out : 0
                        };
-
+            
             ReportViewer reportViewer = new ReportViewer();
             reportViewer.ProcessingMode = ProcessingMode.Local;
 
@@ -180,7 +186,8 @@ namespace CNG.Controllers
 
             ViewBag.ReportViewer = reportViewer;
 
-            //ViewBag.Something = ;
+            ViewBag.DateFrom = dtDateFrom.ToString("MM/dd/yyyy");
+            ViewBag.DateTo = dtDateTo.ToString("MM/dd/yyyy");
 
             return View();
         }

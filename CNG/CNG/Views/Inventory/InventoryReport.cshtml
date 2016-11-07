@@ -41,12 +41,22 @@
                 <div class="clearfix"></div>
             </div>
             <div class="panel-body">
-
+                
                 <div class="clearfix"></div>
+                
+                @using (Html.BeginForm())
+                {
+                    <label>Date From:</label>  <input type="text" name="DateFrom" class="date-picker" value="@ViewBag.DateFrom" /> <br />
+                    <label>Date To:</label> <input type="text" name="DateTo" class="date-picker" value="@ViewBag.DateTo" /> <br /> <br />
+                    
+                    <input type="submit" value="Submit" />
+                }
+                
                 <!--#ReportViewer1-->
                 <div class="report-viewer">
                     @Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer, new { @style = "border: none; width:100% !important;" })
                 </div>
+                
             </div>
         </div>
         <!-- end: BASIC TABLE PANEL -->

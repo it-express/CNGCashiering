@@ -287,6 +287,10 @@ namespace CNG.Views.Inventory.Report {
             
             private global::System.Data.DataColumn columnUnitCost;
             
+            private global::System.Data.DataColumn columnIn;
+            
+            private global::System.Data.DataColumn columnOut;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public dtInventoryDataTable() {
@@ -354,6 +358,22 @@ namespace CNG.Views.Inventory.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn InColumn {
+                get {
+                    return this.columnIn;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn OutColumn {
+                get {
+                    return this.columnOut;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -389,13 +409,15 @@ namespace CNG.Views.Inventory.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public dtInventoryRow AdddtInventoryRow(string Code, string Description, string Quantity, string UnitCost) {
+            public dtInventoryRow AdddtInventoryRow(string Code, string Description, string Quantity, string UnitCost, string In, string Out) {
                 dtInventoryRow rowdtInventoryRow = ((dtInventoryRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Code,
                         Description,
                         Quantity,
-                        UnitCost};
+                        UnitCost,
+                        In,
+                        Out};
                 rowdtInventoryRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowdtInventoryRow);
                 return rowdtInventoryRow;
@@ -422,6 +444,8 @@ namespace CNG.Views.Inventory.Report {
                 this.columnDescription = base.Columns["Description"];
                 this.columnQuantity = base.Columns["Quantity"];
                 this.columnUnitCost = base.Columns["UnitCost"];
+                this.columnIn = base.Columns["In"];
+                this.columnOut = base.Columns["Out"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -435,6 +459,10 @@ namespace CNG.Views.Inventory.Report {
                 base.Columns.Add(this.columnQuantity);
                 this.columnUnitCost = new global::System.Data.DataColumn("UnitCost", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUnitCost);
+                this.columnIn = new global::System.Data.DataColumn("In", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIn);
+                this.columnOut = new global::System.Data.DataColumn("Out", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOut);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -641,6 +669,38 @@ namespace CNG.Views.Inventory.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string In {
+                get {
+                    try {
+                        return ((string)(this[this.tabledtInventory.InColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'In\' in table \'dtInventory\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtInventory.InColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Out {
+                get {
+                    try {
+                        return ((string)(this[this.tabledtInventory.OutColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Out\' in table \'dtInventory\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtInventory.OutColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsCodeNull() {
                 return this.IsNull(this.tabledtInventory.CodeColumn);
             }
@@ -685,6 +745,30 @@ namespace CNG.Views.Inventory.Report {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetUnitCostNull() {
                 this[this.tabledtInventory.UnitCostColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsInNull() {
+                return this.IsNull(this.tabledtInventory.InColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetInNull() {
+                this[this.tabledtInventory.InColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsOutNull() {
+                return this.IsNull(this.tabledtInventory.OutColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetOutNull() {
+                this[this.tabledtInventory.OutColumn] = global::System.Convert.DBNull;
             }
         }
         
