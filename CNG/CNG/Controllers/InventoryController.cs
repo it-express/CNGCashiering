@@ -141,7 +141,7 @@ namespace CNG.Controllers
                 dtDateTo = Convert.ToDateTime(dateTo);
             }
 
-            var lstInventory2 = (from p in transactionLogRepo.List().ToList()
+            var lstInventory2 = (from p in transactionLogRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value).ToList()
                                 group p by p.ItemId into g
                                 select new
                                 {
@@ -180,7 +180,8 @@ namespace CNG.Controllers
 
             List<ReportParameter> _parameter = new List<ReportParameter>();
             _parameter.Add(new ReportParameter("DateRange", dtDateFrom.ToString("MMMM dd, yyyy") + " - " + dtDateTo.ToString("MMMM dd, yyyy")));
-            
+            _parameter.Add(new ReportParameter("CompanyName", companyRepo.GetById(Sessions.CompanyId.Value).Name));
+
             reportViewer.LocalReport.DataSources.Add(_rds);
             reportViewer.LocalReport.Refresh();
             reportViewer.LocalReport.SetParameters(_parameter);
@@ -189,6 +190,8 @@ namespace CNG.Controllers
 
             ViewBag.DateFrom = dtDateFrom.ToString("MM/dd/yyyy");
             ViewBag.DateTo = dtDateTo.ToString("MM/dd/yyyy");
+
+            ViewBag.CompanyName = companyRepo.GetById(Sessions.CompanyId.Value).Name;
 
             return View();
         }
