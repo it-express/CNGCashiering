@@ -18,11 +18,11 @@
     </td>
     <td>
         <label class="lblUnitCost">
-            @Model.Item.UnitCost.ToString("F")
+            @Model.Item.UnitCost.ToString("N")
         </label>
     </td>
     <td>
-        <span class='txtAmount'>@Model.Amount.ToString("F")</span>
+        <span class='txtAmount'>@Model.Amount.ToString("N")</span>
     </td>
     <td>
         <textarea class='txtRemarks' class="form-control"> @Model.Remarks </textarea>

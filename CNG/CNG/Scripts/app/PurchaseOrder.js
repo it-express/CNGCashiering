@@ -110,7 +110,7 @@
 
         var url = $(this).data('url') + '?itemId=' + itemId;
         $.get(url, function (data) {
-            $('#tblItems').append(data);
+            $('#tblItems').prepend(data);
         });
     });
 });

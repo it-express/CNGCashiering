@@ -185,9 +185,21 @@
                                         {
                                             Html.RenderPartial("_EditorRow", poItem);
                                         }
+
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td> <label id="lblTotalAmount">@Model.PurchaseOrder.ItemsTotalAmount.ToString("N")</label></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
                                     </tbody>
                                 </table>
-                                Total Amount: <label id="lblTotalAmount">@Model.PurchaseOrder.ItemsTotalAmount.ToString("F")</label>
+                                
                             </div>
                         </div>
                         <div class="form-group">

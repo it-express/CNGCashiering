@@ -112,7 +112,7 @@
                                     <div class="visible-md visible-lg hidden-sm hidden-xs">
                                         <a href="@Url.Action("Details", new { poNo = item.No })" data-original-title="Details" data-placement="top" class="btn btn-xs btn-green tooltips"><i class="fa fa-list"></i></a>
 
-                                        @if (item.Status == (int)CNG.Models.EPurchaseOrderStatus.Submitted && Convert.ToInt32(Session["uaccess"]) == 1)
+                                        @if (item.Status == (int)CNG.Models.EPurchaseOrderStatus.Submitted && Convert.ToInt32(Session["utype"]) == 1)
                                         {
                                             //Do not show edit
                                         }

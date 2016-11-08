@@ -117,7 +117,7 @@
                                 </td>
                                 <td>
                                     <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                        @if (Convert.ToInt32(Session["uaccess"]) != 1)
+                                        @if (Convert.ToInt32(Session["utype"]) != 1)
                                             //1 - user
                                         {
                                             <a href="@Url.Action("Edit", new { reqNo = item.No })" data-original-title="Edit" data-placement="top" class="btn btn-xs btn-blue tooltips"><i class="fa fa-edit"></i></a>
