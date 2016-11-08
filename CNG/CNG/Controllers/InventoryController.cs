@@ -146,10 +146,10 @@ namespace CNG.Controllers
                                 select new
                                 {
                                     ItemId = g.Key,
-                                    Quantity = g.Where(p => p.Date <= dtDateTo).Sum(p => p.Quantity),
+                                    EndingQuantity = g.Where(p => p.Date <= dtDateTo).Sum(p => p.Quantity),
                                     In = g.Where(p => p.Quantity > 0).Sum(p => p.Quantity),
                                     Out = g.Where(p => p.Quantity < 0).Sum(p => p.Quantity),
-                                    StartQuantity = g.Where(p => p.Date <= dtDateFrom).Sum(p => p.Quantity)
+                                    StartingQuantity = g.Where(p => p.Date <= dtDateFrom).Sum(p => p.Quantity)
                                 }).ToList();
 
             var lstInventory = from item in itemRepo.List().ToList()
@@ -161,7 +161,8 @@ namespace CNG.Controllers
                            Code = item.Code,
                            Description = item.Description,
                            UnitCost = item.UnitCost.ToString("F"),
-                           Quantity = i != null ? i.Quantity : 0,
+                           StartingQuantity = i != null ? i.StartingQuantity : 0,
+                           EndingQuantity = i != null ? i.EndingQuantity : 0,
                            In = i != null ? i.In : 0,
                            Out = i != null ? i.Out : 0
                        };
@@ -178,7 +179,7 @@ namespace CNG.Controllers
             reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Views\Inventory\Report\rptInventory.rdlc";
 
             List<ReportParameter> _parameter = new List<ReportParameter>();
-            _parameter.Add(new ReportParameter("PrintDate", DateTime.Now.ToShortDateString()));
+            _parameter.Add(new ReportParameter("DateRange", dtDateFrom.ToString("MMMM dd, yyyy") + " - " + dtDateTo.ToString("MMMM dd, yyyy")));
             
             reportViewer.LocalReport.DataSources.Add(_rds);
             reportViewer.LocalReport.Refresh();

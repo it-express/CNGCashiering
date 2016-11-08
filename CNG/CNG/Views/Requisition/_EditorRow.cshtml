@@ -1,11 +1,12 @@
 ﻿@model CNG.Models.RequisitionItemVM
 
-<tr data-item-id="@Model.RequisitionItem.Item.Id" class="item-row">
+@*data-quantity-on-hand="@Model.RequisitionItem."*@
+<tr data-item-id="@Model.RequisitionItem.Item.Id" data-quantity-on-hand="@Model.RequisitionItem.Item.QuantityOnHand(Model.CompanyId)" class="item-row">
         
     <td>
         @Html.HiddenFor(model => model.RequisitionItem.ItemId)
 
-        @Model.RequisitionItem.Item.Code
+        <label class="lblCode">@Model.RequisitionItem.Item.Code</label>
     </td>
     <td>
         @Html.TextBoxFor(model => model.RequisitionItem.Quantity, new { @class = "txtQuantity form-control" })

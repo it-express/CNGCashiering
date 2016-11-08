@@ -133,7 +133,8 @@ namespace CNG.Controllers
 
             RequisitionItemVM vm = new RequisitionItemVM
             {
-                RequisitionItem = reqItem
+                RequisitionItem = reqItem,
+                CompanyId = Sessions.CompanyId.Value
             };
 
             return PartialView("_EditorRow", vm);
