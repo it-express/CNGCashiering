@@ -5,6 +5,23 @@
         if (po.PoNo == "") {
             err = "Please select PO number.";
         }
+        else {
+            $.each(po.Items, function (key, value) {
+                a = value;
+                if (parseInt(a.Balance) < 0) {
+                    allow = false;
+                }
+                else {
+                    allow = true;
+                }
+
+                if (allow == false) {
+                    err = "Invalid quantity received.";
+                    return false;
+                }
+            });
+        }
+
 
         return err;
     }
@@ -25,6 +42,7 @@
             item.ReceivedQuantity = $this.find(".txtReceivedQuantity").val();
             item.DrNo = $this.find(".txtDrNo").val();
             item.Date = $this.find(".txtDate").val();
+            item.Balance = $this.find('.lblBalance').text();
             item.RemainingBalanceDate = $this.find(".txtRemainingBalanceDate").val();
 
             lstItem.push(item);
