@@ -19,6 +19,12 @@ namespace CNG.Models
             return context.PurchaseOrders.Where(p => p.Status == (int) EPurchaseOrderStatus.Open);
         }
 
+        public PurchaseOrder Find(int poId) {
+            PurchaseOrder po = List().FirstOrDefault(p => p.Id == poId);
+
+            return po;
+        }
+
         public PurchaseOrder GetByNo(string poNo) {
             PurchaseOrder po = context.PurchaseOrders.FirstOrDefault(p => p.No == poNo);
 

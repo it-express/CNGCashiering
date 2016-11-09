@@ -56,7 +56,7 @@ function RefreshItems() {
     var poNo = $('#No').val();
 
     if (poNo != null) {
-        var url = $('#No').data('url') + '?poNo=' + poNo;
+        var url = 'RenderEditorRow?poNo=' + poNo;
         $.get(url, function (data) {
             $('#tblItems tbody').empty().append(data);
 

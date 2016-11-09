@@ -135,37 +135,44 @@ namespace CNG.Controllers
         }
 
         public void Save(ReceivingDTO receivingDTO) {
-            foreach (ReceivingDTO.Item item in receivingDTO.Items) {
-                PurchaseOrderItem poItem = poItemRepo.Find(item.PoItemId);
-
-                poItem.SerialNo = item.SerialNo;
-                //poItem.ReceivedQuantity = item.ReceivedQuantity;
-                poItem.DrNo = item.DrNo;
-                poItem.Date = item.Date;
-                poItem.RemainingBalanceDate = item.RemainingBalanceDate;
-
-                int quantity = 0;
-                if (poItem.TransactionLogId.HasValue == false)
-                {
-                    quantity = poItem.ReceivedQuantity;
-                }
-                else {
-                    TransactionLog transLog = poItem.TransactionLog;
-
-                    quantity = poItem.ReceivedQuantity - transLog.CumulativeQuantity;
-                }
-
-                if (quantity != 0) {
-                    poItem.TransactionLogId = InsertLogs(poItem.ItemId, quantity, poItem.ReceivedQuantity);
-                }
-
-                context.SaveChanges();
-            }
-
             poRepo.ChangeStatus(receivingDTO.PoNo, receivingDTO.Status);
+
+            //foreach (ReceivingDTO.Item item in receivingDTO.Items) {
+            //    PurchaseOrderItem poItem = poItemRepo.Find(item.PoItemId);
+
+            //    poItem.SerialNo = item.SerialNo;
+            //    //poItem.ReceivedQuantity = item.ReceivedQuantity;
+            //    poItem.DrNo = item.DrNo;
+            //    poItem.Date = item.Date;
+            //    poItem.RemainingBalanceDate = item.RemainingBalanceDate;
+
+            //    int quantity = 0;
+            //    if (poItem.TransactionLogId.HasValue == false)
+            //    {
+            //        quantity = poItem.ReceivedQuantity;
+            //    }
+            //    else {
+            //        TransactionLog transLog = poItem.TransactionLog;
+
+            //        quantity = poItem.ReceivedQuantity - transLog.CumulativeQuantity;
+            //    }
+
+            //    if (quantity != 0) {
+            //        poItem.TransactionLogId = InsertLogs(poItem.ItemId, quantity, poItem.ReceivedQuantity);
+            //    }
+
+            //    context.SaveChanges();
+            //}
         }
 
         public void ReceivingLogsSave(ReceivingLogsDTO receivingLogsDTO) {
+            PurchaseOrderItem poItem = poItemRepo.Find(receivingLogsDTO.PurchaseOrderItemId);
+            PurchaseOrder po = context.PurchaseOrders.Find(poItem.PurchaseOrderId);
+
+            po.Status = (int) EPurchaseOrderStatus.Saved;
+
+            context.SaveChanges();
+
             foreach (ReceivingLogsDTO.Item item in receivingLogsDTO.Items)
             {
                 Receiving receiving = new Receiving();
