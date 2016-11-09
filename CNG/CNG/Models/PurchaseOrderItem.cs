@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -9,6 +10,8 @@ namespace CNG.Models
 {
     public class PurchaseOrderItem
     {
+        private ReceivingRepository receivingRepo = new ReceivingRepository();
+
         [Key]
         public int Id { get; set; }
 
@@ -32,7 +35,13 @@ namespace CNG.Models
         public string SerialNo { get; set; }
 
         [DisplayName("Received Quantity")]
-        public int ReceivedQuantity { get; set; }
+        public int ReceivedQuantity {
+            get {
+                int total = receivingRepo.ListByPurchaseOrderItemId(Id).Sum(p => p.Quantity);
+
+                return total;
+            }
+        }
 
         public string DrNo { get; set; }
 

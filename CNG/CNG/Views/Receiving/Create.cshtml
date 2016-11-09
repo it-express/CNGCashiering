@@ -5,9 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="~/Scripts/moment.js"></script>
 <script src="~/Scripts/app/Common.js"></script>
 <script src="~/Scripts/app/Receiving.js"></script>
-<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/app/ReceivingModal.js"></script>
 
 <!-- start: TOOLBAR -->
 <div class="toolbar row">
@@ -70,30 +71,20 @@
                                         <th>Unit Cost</th>
                                         <th>Description</th>
                                         <th>Amount</th>
-                                        <th>SN/PN#</th>
                                         <th>Received Quantity</th>
                                         <th>Balance</th>
-                                        <th>Inv/DR #</th>
-                                        <th>Date</th>
-                                        <th>Remaining Bal. Date</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @{Html.RenderPartial("_EditorRow", Model.PurchaseOrderItems.ToList());}
-                                    
-                                    @*@foreach (var poItem in Model.PurchaseOrderItems)
-                                    {
-                                    }*@
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
-
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="button" id="btnSave" value="Save" class="btn btn-dark-blue" />
                             <input type="button" id="btnSubmit" value="Submit" class="btn btn-blue" disabled="disabled" />
                             <a href="@Url.Action("Index")" class="btn btn-dark-beige">
                                 Back to List
@@ -106,6 +97,26 @@
         </div>
     </div>
 </div>
+
+<div id="divReceivingLog" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Receiving Logs</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <script>
     $(document).ready(function () {
         $('ul.main-navigation-menu li:nth-child(4)').addClass('active open');

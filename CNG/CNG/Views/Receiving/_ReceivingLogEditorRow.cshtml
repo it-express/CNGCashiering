@@ -1,0 +1,24 @@
+﻿@model CNG.Models.Receiving
+
+<tr class='item-row' data-item-id="@Model.Id">
+    <td>
+        @Html.TextBoxFor(model => model.Quantity, new { @class = "txtQuantity" })
+    </td>
+    <td class="lblQuantity">
+        @Html.TextBoxFor(model => model.SerialNo, new { @class = "txtSerialNo" })
+    </td>
+    <td>
+        @Html.TextBoxFor(model => model.DrNo, new { @class = "txtDrNo" })
+    </td>
+    <td>
+        @*@Html.TextBoxFor(model => model.DateReceived, new { @class = "txtDateReceived date-picker" })*@
+        @if (Model.Id != 0)
+        {
+            <input type="text" value="@Model.DateReceived.Value.ToString("MM/dd/yyyy")" class="txtDateReceived date-picker" />
+        }
+        else
+        {
+            <input type="text" value="" class="txtDateReceived date-picker" />
+        }
+    </td>
+</tr>

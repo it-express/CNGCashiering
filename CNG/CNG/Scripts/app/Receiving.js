@@ -1,75 +1,4 @@
 ﻿$(document).ready(function () {
-    function Validate(po) {
-        var err = "";
-
-        if (po.PoNo == "") {
-            err = "Please select PO number.";
-        }
-        else {
-            $.each(po.Items, function (key, value) {
-                a = value;
-                if (parseInt(a.Balance) < 0) {
-                    allow = false;
-                }
-                else {
-                    allow = true;
-                }
-
-                if (allow == false) {
-                    err = "Invalid quantity received.";
-                    return false;
-                }
-            });
-        }
-
-
-        return err;
-    }
-
-    function Save(status) {
-        var receiving = new Object();
-        receiving.PoNo = $('#No').val();
-        receiving.Status = status;
-
-        var lstItem = new Array();
-
-        $("tr.item-row").each(function () {
-            $this = $(this);
-
-            var item = new Object();
-            item.PoItemId = $this.data("poitem-id");
-            item.SerialNo = $this.find(".txtSerialNo").val();
-            item.ReceivedQuantity = $this.find(".txtReceivedQuantity").val();
-            item.DrNo = $this.find(".txtDrNo").val();
-            item.Date = $this.find(".txtDate").val();
-            item.Balance = $this.find('.lblBalance').text();
-            item.RemainingBalanceDate = $this.find(".txtRemainingBalanceDate").val();
-
-            lstItem.push(item);
-        });
-
-        receiving.Items = lstItem;
-
-        var err = Validate(receiving);
-        if (err != "") {
-            alert(err);
-
-            return;
-        }
-
-        $.ajax({
-            url: "/Receiving/Save",
-            type: "POST",
-            data: JSON.stringify(receiving),
-            contentType: "application/json; charset=utf-8",
-            success: function (r) {
-
-                alert("Saved");
-                window.location.href = "/Receiving/Index";
-            }
-        });
-    }
-
     $('#btnSave').click(function (event) {
         event.preventDefault();
 
@@ -83,61 +12,21 @@
     });
 
     $('#No').change(function (event) {
-        
+        RefreshItems();
+    });
 
-        var poNo = $('#No').val();
+    $(document).on('click', '.btnEdit', function () {
+        var poItemId = $(this).data('po-item-id');
 
-        if (poNo != null) {
-            var url = $(this).data('url') + '?poNo=' + poNo;
-            $.get(url, function (data) {
-                $('#tblItems tbody').empty().append(data);
+        var url = 'RenderReceivingLogEditor?poItemId=' + poItemId;
 
-                RefreshSubmitButtonState();
+        $.get(url, function (data) {
+            $('#divReceivingLog .modal-body').html(data);
 
-                $('.date-picker').datepicker();
-            });
-        }
+            $("#divReceivingLog").modal();
 
-        //$.ajax({
-        //    url: "/Receiving/ListItemByPoNo",
-        //    type: "POST",
-        //    data: "{'poNo' : '" + poNo + "'}",
-        //    contentType: "application/json; charset=utf-8",
-        //    success: function (r) {
-
-        //        var result = "";
-        //        $.each(r, function (i, v) {
-        //            result += "<tr class='item-row' data-poitem-id=" + v.Id + ">";
-        //            result += "<td>" + v.Item.Code + "</td>";
-        //            result += "<td class='lblQuantity'>" + v.Quantity + "</td>";
-        //            result += "<td>" + v.UnitCost + "</td>";
-        //            result += "<td>" + v.Item.Description + "</td>";
-        //            result += "<td>" + FormatNumber(v.Amount) + "</td>";
-        //            result += "<td><input type='text' class='txtSerialNo form-control' /></td>";
-        //            result += "<td><input type='text' class='txtReceivedQuantity form-control' value='" + v.ReceivedQuantity + "' /></td>";
-        //            result += "<td class='lblBalance'>" + v.Balance + "</td>";
-        //            result += "<td><input type='text' class='txtDrNo form-control' /></td>";
-
-        //            var formattedDate = moment(v.Date).format('MM/DD/YYYY');
-
-        //            var fomattedRemainingBalanceDate = "";
-        //            if (v.remainingBalanceDate != null) {
-        //                fomattedRemainingBalanceDate = moment(v.RemainingBalanceDate).format('MM/DD/YYYY');
-        //            }
-
-        //            result += "<td><input type='text' class='txtDate form-control date-picker' value ='" + formattedDate + "' /></td>";
-        //            result += "<td><input type='text' class='txtRemainingBalanceDate form-control date-picker' value ='" + fomattedRemainingBalanceDate + "' /></td>";
-        //            result += "</tr>";
-        //            result += "</tr>";
-        //        });
-
-        //        $('#tblItems').append(result);
-
-        //        RefreshSubmitButtonState();
-
-        //        $('.date-picker').datepicker();
-        //    }
-        //});
+            $('.date-picker').datepicker();
+        });
     });
 
     $(document).on('keyup', '.txtReceivedQuantity', function () {
@@ -161,33 +50,85 @@
 
         RefreshSubmitButtonState();
     });
-
-    function RefreshSubmitButtonState() {
-        //Enable/disable submit button
-        if (HasNoRemainingBalance()) {
-            $('#btnSubmit').prop('disabled', false);
-        }
-        else {
-            $('#btnSubmit').prop('disabled', true);
-        }
-    }
-
-    function HasNoRemainingBalance() {
-        var totalBalance = 0;
-
-        $("tr.item-row").each(function () {
-            $this = $(this);
-
-            balance = $this.find(".lblBalance").text();
-
-            totalBalance += parseInt(balance);
-        });
-
-        if (totalBalance == 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
 });
+
+function RefreshItems() {
+    var poNo = $('#No').val();
+
+    if (poNo != null) {
+        var url = $('#No').data('url') + '?poNo=' + poNo;
+        $.get(url, function (data) {
+            $('#tblItems tbody').empty().append(data);
+
+            RefreshSubmitButtonState();
+
+            $('.date-picker').datepicker();
+        });
+    }
+}
+
+function RefreshSubmitButtonState() {
+    //Enable/disable submit button
+    if (HasNoRemainingBalance()) {
+        $('#btnSubmit').prop('disabled', false);
+    }
+    else {
+        $('#btnSubmit').prop('disabled', true);
+    }
+}
+
+function HasNoRemainingBalance() {
+    var totalBalance = 0;
+
+    $("#tblItems tr.item-row").each(function () {
+        $this = $(this);
+
+        balance = $this.find(".lblBalance").text();
+
+        totalBalance += parseInt(balance);
+    });
+
+    if (totalBalance == 0) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+function Save(status) {
+    var receiving = new Object();
+    receiving.PoNo = $('#No').val();
+    receiving.Status = status;
+
+    var lstItem = new Array();
+
+    $("tr.item-row").each(function () {
+        $this = $(this);
+
+        var item = new Object();
+        item.PoItemId = $this.data("poitem-id");
+        item.SerialNo = $this.find(".txtSerialNo").val();
+        item.ReceivedQuantity = $this.find(".txtReceivedQuantity").val();
+        item.DrNo = $this.find(".txtDrNo").val();
+        item.Date = $this.find(".txtDate").val();
+        item.Balance = $this.find('.lblBalance').text();
+        item.RemainingBalanceDate = $this.find(".txtRemainingBalanceDate").val();
+
+        lstItem.push(item);
+    });
+
+    receiving.Items = lstItem;
+
+    $.ajax({
+        url: "/Receiving/Save",
+        type: "POST",
+        data: JSON.stringify(receiving),
+        contentType: "application/json; charset=utf-8",
+        success: function (r) {
+
+            alert("Saved");
+            window.location.href = "/Receiving/Index";
+        }
+    });
+}

@@ -19,30 +19,13 @@
             @poItem.Amount.ToString("F")
         </td>
         <td>
-            <input type='text' class='txtSerialNo form-control' value='@poItem.SerialNo' />
-        </td>
-        <td>
-            <input type='text' class='txtReceivedQuantity form-control' value='@poItem.ReceivedQuantity' />
+            @poItem.ReceivedQuantity
         </td>
         <td class='lblBalance'>
             @poItem.Balance
         </td>
         <td>
-            <input type='text' class='txtDrNo form-control' value='@poItem.DrNo' />
-        </td>
-        <td>
-            <input type='text' class='txtDate form-control date-picker' value='@poItem.Date.ToString("MM/dd/yyyy")' />
-        </td>
-        <td>
-            @if (poItem.RemainingBalanceDate.HasValue)
-            {
-                <input type='text' class='txtRemainingBalanceDate form-control date-picker' value='@poItem.RemainingBalanceDate.Value.ToString("MM/dd/yyyy")' />
-            }
-            else
-            {
-                <input type='text' class='txtRemainingBalanceDate form-control date-picker' />
-            }
-
+            <input type="button" class="btnEdit" value="Edit" data-po-item-id="@poItem.Id" />
         </td>
     </tr>    
 }

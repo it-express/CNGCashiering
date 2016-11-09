@@ -16,6 +16,7 @@ namespace CNG.Controllers
         PurchaseOrderRepository poRepo = new PurchaseOrderRepository();
         PurchaseOrderItemRepository poItemRepo;
         CompanyRepository companyRepo = new CompanyRepository();
+        ReceivingRepository receivingRepo = new ReceivingRepository();
 
         public ReceivingController() {
             poItemRepo = new PurchaseOrderItemRepository(context);
@@ -113,12 +114,32 @@ namespace CNG.Controllers
             return PartialView("_EditorRow", po.PurchaseOrderItems.ToList());
         }
 
+        public ActionResult RenderReceivingLogEditor(int poItemId)
+        {
+            PurchaseOrderItem poItem = poItemRepo.Find(poItemId);
+
+            ViewBag.POItemId = poItemId;
+            ViewBag.ItemDescription = poItem.Item.Description;
+            IEnumerable<Receiving> lstReceiving = receivingRepo.ListByPurchaseOrderItemId(poItemId);
+
+            return PartialView("_ReceivingLogEditor", lstReceiving);
+        }
+
+        public ActionResult RenderReceivingLogEditorRow(int receivingId) {
+            Receiving receiving = new Receiving();
+            if (receivingId != 0) {
+                receivingRepo.GetById(receivingId);
+            }
+
+            return PartialView("_ReceivingLogEditorRow", receiving);
+        }
+
         public void Save(ReceivingDTO receivingDTO) {
             foreach (ReceivingDTO.Item item in receivingDTO.Items) {
                 PurchaseOrderItem poItem = poItemRepo.Find(item.PoItemId);
 
                 poItem.SerialNo = item.SerialNo;
-                poItem.ReceivedQuantity = item.ReceivedQuantity;
+                //poItem.ReceivedQuantity = item.ReceivedQuantity;
                 poItem.DrNo = item.DrNo;
                 poItem.Date = item.Date;
                 poItem.RemainingBalanceDate = item.RemainingBalanceDate;
@@ -142,6 +163,24 @@ namespace CNG.Controllers
             }
 
             poRepo.ChangeStatus(receivingDTO.PoNo, receivingDTO.Status);
+        }
+
+        public void ReceivingLogsSave(ReceivingLogsDTO receivingLogsDTO) {
+            foreach (ReceivingLogsDTO.Item item in receivingLogsDTO.Items)
+            {
+                Receiving receiving = new Receiving();
+
+                if (item.Id != 0) {
+                    receiving.Id = item.Id;
+                }
+                receiving.PurchaseOrderItemId = receivingLogsDTO.PurchaseOrderItemId;
+                receiving.Quantity = item.Quantity;
+                receiving.SerialNo = item.SerialNo;
+                receiving.DrNo = item.DrNo;
+                receiving.DateReceived = item.DateReceived;
+
+                receivingRepo.Save(receiving);
+            }
         }
 
         public int InsertLogs(int itemId, int quantiy, int cumulativeQuantity) {

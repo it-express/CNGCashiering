@@ -1,0 +1,25 @@
+﻿@model IEnumerable<CNG.Models.Receiving>
+
+<input type="hidden" id="lblPOItemId" value="@ViewBag.POItemId" />
+Item: @ViewBag.ItemDescription
+<br/>
+
+<input type="button" id="btnReceivingAdd" value="Add" />
+<br/>
+
+<table id="tblReceivingLog">
+    <tr>
+        <th>Quantity</th>
+        <th>Serial No</th>
+        <th>DR No</th>
+        <th>Date Received</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        Html.RenderPartial("_ReceivingLogEditorRow", item);
+    }
+</table>
+
+<br/>
+<input type="button" id="btnReceivingSave" value="Save" />
+    
