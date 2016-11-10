@@ -14,7 +14,7 @@
         @*@Html.TextBoxFor(model => model.DateReceived, new { @class = "txtDateReceived date-picker" })*@
         @if (Model.Id != 0)
         {
-            <input type="text" value="@Model.DateReceived.Value.ToString("MM/dd/yyyy")" class="txtDateReceived date-picker" />
+            <input type="text" value="@Model.DateReceived.Value.ToString("MM/dd/yyyy")" class="txtDateReceived date-picker" style="width:100px;" />
         }
         else
         {

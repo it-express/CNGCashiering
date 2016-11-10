@@ -75,6 +75,9 @@
                                 @Html.ActionLink("Terms", "Index", new { sortColumn = "terms", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
+                                Status
+                            </th>
+                            <th>
                                 @Html.ActionLink("Prepared By", "Index", new { sortColumn = "preparedBy", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
@@ -101,6 +104,9 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Terms)
+                                </td>
+                                <td>
+                                    @item.StatusDescription
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.PreparedByObj.FullName)

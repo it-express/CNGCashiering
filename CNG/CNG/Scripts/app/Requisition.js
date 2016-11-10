@@ -31,10 +31,10 @@
                     allow = true;
                 }
 
-                if (allow == false) {
-                    err = "Insufficient quantity on hand : " + a.Code;
-                    return false;
-                }
+                //if (allow == false) {
+                //    err = "Insufficient quantity on hand : " + a.Code;
+                //    return false;
+                //}
             });
         }
 
