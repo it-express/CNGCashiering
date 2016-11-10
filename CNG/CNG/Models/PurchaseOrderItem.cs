@@ -12,6 +12,11 @@ namespace CNG.Models
     {
         private ReceivingRepository receivingRepo = new ReceivingRepository();
 
+        public PurchaseOrderItem()
+        {
+            Receivings = new List<Receiving>();
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -55,13 +60,15 @@ namespace CNG.Models
 
         public virtual TransactionLog TransactionLog { get; set; }
 
+        public virtual List<Receiving> Receivings { get; set; }
+
         public decimal Amount {
             get {
                 return UnitCost * Quantity;
             }
         }
 
-        public decimal Balance {
+        public int Balance {
             get {
                 return Quantity - ReceivedQuantity;
             }

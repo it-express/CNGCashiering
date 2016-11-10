@@ -78,9 +78,9 @@
                                         <th>
                                             Date
                                         </th>
-                                        <th>
+                                        @*<th>
                                             Remaining Balance Date
-                                        </th>
+                                        </th>*@
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -115,13 +115,39 @@
                                             <td>
                                                 @Html.DisplayFor(modelItem => poItem.DrNo)
                                             </td>
-                                            <td>
+                                            @*<td>
                                                 @Html.DisplayFor(modelItem => poItem.Date)
-                                            </td>
-                                            <td>
+                                            </td>*@
+                                            @*<td>
                                                 @Html.DisplayFor(modelItem => poItem.RemainingBalanceDate)
-                                            </td>
+                                            </td>*@
                                         </tr>
+
+                                        foreach (var logs in poItem.Receivings)
+                                        {
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                    @logs.SerialNo
+                                                </td>
+                                                <td>
+                                                    @logs.Quantity
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    @logs.SerialNo
+                                                </td>
+                                                <td>
+                                                    @logs.DateReceived.Value.ToString("MM/dd/yyyy")
+                                                </td>
+                                            </tr>
+                                        }
+
                                     }
                                 </tbody>
                             </table>
