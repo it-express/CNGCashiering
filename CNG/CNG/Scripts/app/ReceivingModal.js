@@ -47,3 +47,26 @@ $(document).on('click', '#btnReceivingSave', function () {
         }
     });
 });
+
+function Validate(receiving) {
+    var err = "";
+
+    var total = 0;
+    $.each(receiving.Items, function (key, value) {
+        total += value;
+
+        if (parseInt(a.Quantity) > parseInt(a.QuantityOnHand)) {
+            allow = false;
+        }
+        else {
+            allow = true;
+        }
+
+        //if (allow == false) {
+        //    err = "Insufficient quantity on hand : " + a.Code;
+        //    return false;
+        //}
+    });
+
+    return err;
+}

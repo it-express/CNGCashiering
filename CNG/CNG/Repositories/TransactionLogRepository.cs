@@ -28,12 +28,13 @@ namespace CNG.Models
             return transactionLog.Id;
         }
 
-        public void Update(int transactionLogId, DateTime date) {
+        public void Update(int transactionLogId, int quantity, DateTime date) {
             bool doesExists = context.TransactionLogs.Any(p => p.Id == transactionLogId);
 
             TransactionLog transLog = context.TransactionLogs.Find(transactionLogId);
 
             transLog.Date = date;
+            transLog.Quantity = quantity;
             transLog.UserId = Convert.ToInt32(HttpContext.Current.Session["uid"]); //get from current session
             transLog.CompanyId = Sessions.CompanyId.Value;
 

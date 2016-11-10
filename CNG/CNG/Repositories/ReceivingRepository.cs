@@ -47,7 +47,7 @@ namespace CNG
                     //dbEntry.TransactionLogId = receiving.TransactionLogId;
 
                     TransactionLogRepository transLogRepo = new TransactionLogRepository();
-                    transLogRepo.Update(dbEntry.TransactionLogId.Value, receiving.DateReceived.Value);
+                    transLogRepo.Update(dbEntry.TransactionLogId.Value, receiving.Quantity, receiving.DateReceived.Value);
                 }
             }
 
