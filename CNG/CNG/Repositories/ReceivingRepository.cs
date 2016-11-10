@@ -44,6 +44,10 @@ namespace CNG
                     dbEntry.SerialNo = receiving.SerialNo;
                     dbEntry.DrNo = receiving.DrNo;
                     dbEntry.DateReceived = receiving.DateReceived;
+                    //dbEntry.TransactionLogId = receiving.TransactionLogId;
+
+                    TransactionLogRepository transLogRepo = new TransactionLogRepository();
+                    transLogRepo.Update(dbEntry.TransactionLogId.Value, receiving.DateReceived.Value);
                 }
             }
 

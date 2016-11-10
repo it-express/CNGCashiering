@@ -28,6 +28,18 @@ namespace CNG.Models
             return transactionLog.Id;
         }
 
+        public void Update(int transactionLogId, DateTime date) {
+            bool doesExists = context.TransactionLogs.Any(p => p.Id == transactionLogId);
+
+            TransactionLog transLog = context.TransactionLogs.Find(transactionLogId);
+
+            transLog.Date = date;
+            transLog.UserId = Convert.ToInt32(HttpContext.Current.Session["uid"]); //get from current session
+            transLog.CompanyId = Sessions.CompanyId.Value;
+
+            context.SaveChanges();
+        }
+
         public int SumByItemId(int itemId, int companyId)
         {
             IQueryable<TransactionLog> lstTransactionLog = context.TransactionLogs.Where(p => p.ItemId == itemId && p.CompanyId == companyId);

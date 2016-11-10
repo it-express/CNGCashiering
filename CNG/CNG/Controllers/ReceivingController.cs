@@ -17,6 +17,7 @@ namespace CNG.Controllers
         PurchaseOrderItemRepository poItemRepo;
         CompanyRepository companyRepo = new CompanyRepository();
         ReceivingRepository receivingRepo = new ReceivingRepository();
+        TransactionLogRepository transLogRepo = new TransactionLogRepository();
 
         public ReceivingController() {
             poItemRepo = new PurchaseOrderItemRepository(context);
@@ -177,9 +178,14 @@ namespace CNG.Controllers
             {
                 Receiving receiving = new Receiving();
 
-                if (item.Id != 0) {
+                if (item.Id != 0)
+                {
                     receiving.Id = item.Id;
                 }
+                else {
+                    receiving.TransactionLogId = InsertLogs(poItem.ItemId, item.Quantity);
+                }
+
                 receiving.PurchaseOrderItemId = receivingLogsDTO.PurchaseOrderItemId;
                 receiving.Quantity = item.Quantity;
                 receiving.SerialNo = item.SerialNo;
@@ -190,14 +196,13 @@ namespace CNG.Controllers
             }
         }
 
-        public int InsertLogs(int itemId, int quantiy, int cumulativeQuantity) {
+        public int InsertLogs(int itemId, int quantiy) {
             TransactionLogRepository transactionLogRepo = new TransactionLogRepository();
 
             TransactionLog transactionLog = new TransactionLog
             {
                 ItemId = itemId,
                 Quantity = quantiy,
-                CumulativeQuantity = cumulativeQuantity,
                 TransactionMethodId = (int)ETransactionMethod.Receiving,
                 CompanyId = Sessions.CompanyId.Value
             };

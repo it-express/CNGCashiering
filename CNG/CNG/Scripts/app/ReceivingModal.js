@@ -3,6 +3,8 @@
 
     $.get(url, function (data) {
         $('#divReceivingLog table').append(data);
+
+        $('.date-picker').datepicker();
     });
 });
 

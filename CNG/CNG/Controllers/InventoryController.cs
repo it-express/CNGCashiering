@@ -80,7 +80,7 @@ namespace CNG.Controllers
             }
 
             ViewBag.DateFrom = dtDateFrom.ToShortDateString();
-            ViewBag.DateTo = dtDateFrom.ToShortDateString();
+            ViewBag.DateTo = dtDateTo.ToShortDateString();
 
             if (searchString != null)
             {
