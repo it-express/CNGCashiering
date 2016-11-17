@@ -1,13 +1,12 @@
 ﻿@{
     ViewBag.Title = "Home Page";
-    Layout = null;
 }
 
- <!-- start: TOOLBAR -->
+<!-- start: TOOLBAR -->
 <div class="toolbar row">
     <div class="col-sm-6 hidden-xs">
         <div class="page-header">
-            <h1>Home </h1>
+            <h1>Select Company </h1>
         </div>
     </div>
 </div>
@@ -29,7 +28,7 @@
                 <h4 class="panel-title"><span class="text-bold">Welcome</span></h4>
             </div>
             <div class="panel-body">
-                @Html.Action("MenuList", "Company")
+                @*@Html.Action("MenuList", "Company", new { ControllerName = "Home" })*@
             </div>
         </div>
         <!-- end: BASIC TABLE PANEL -->

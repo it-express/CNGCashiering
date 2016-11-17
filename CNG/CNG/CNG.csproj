@@ -331,6 +331,7 @@
     </Content>
     <Content Include="Views\Inventory\InventoryReport.cshtml" />
     <Content Include="Views\Development\Index.cshtml" />
+    <Content Include="Views\Home\Dashboard.cshtml" />
     <None Include="Views\Inventory\Report\dsInventory.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>

@@ -134,39 +134,22 @@
                     <!-- start: MAIN NAVIGATION MENU -->
                     <ul class="main-navigation-menu">
                         <li>
-                            <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> <span class="title">Home</span> </a>
+                            <a href="@Url.Action("Dashboard", "Home")"><i class="fa fa-home"></i> <span class="title">Home</span> </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)">
-                                <i class="fa fa-list"></i> <span class="title"> Purchase Order </span><i class="icon-arrow"></i>
-                            </a>
-                            @Html.Action("MenuList", "Company", new { ControllerName = "PurchaseOrder" })
+                            <a href="@Url.Action("Index", "PurchaseOrder")"><i class="fa fa-list"></i> <span class="title">Purchase Order</span> </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)">
-                                <i class="fa fa-list"></i> <span class="title"> Requisition to Purchase </span><i class="icon-arrow"></i>
-                            </a>
-                            @Html.Action("MenuList", "Company", new { ControllerName = "RequisitionPurchase" })
+                            <a href="@Url.Action("Index", "RequisitionPurchase")"><i class="fa fa-list"></i> <span class="title">Requisition to Purchase</span> </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)">
-                                <i class="fa fa-download"></i> <span class="title"> Receiving </span><i class="icon-arrow"></i>
-                            </a>
-                            @Html.Action("MenuList", "Company", new { ControllerName = "Receiving" })
+                            <a href="@Url.Action("Index", "Receiving")"><i class="fa fa-download"></i> <span class="title">Receiving</span> </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)">
-                                <i class="fa fa-download"></i> <span class="title"> Requisition </span><i class="icon-arrow"></i>
-                            </a>
-                            @Html.Action("MenuList", "Company", new { ControllerName = "Requisition" })
+                            <a href="@Url.Action("Index", "Requisition")"><i class="fa fa-download"></i> <span class="title">Requisition</span> </a>
                         </li>
                         <li>
-                            @*<a href="@Url.Action("Index", "Inventory")"><i class="fa fa-list"></i> <span class="title">Inventory</span> </a>*@
-                        
-                            <a href="javascript:void(0)">
-                                <i class="fa fa-list"></i> <span class="title"> Inventory </span><i class="icon-arrow"></i>
-                            </a>
-                            @Html.Action("MenuList", "Company", new { ControllerName = "Inventory" })
+                            <a href="@Url.Action("Index", "Inventory")"><i class="fa fa-list"></i> <span class="title">Inventory</span> </a>
                         </li>
                         @if (Convert.ToInt32(Session["utype"]) != 1)
                         { //1 = User

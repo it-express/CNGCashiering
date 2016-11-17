@@ -9,6 +9,13 @@ namespace CNG.Controllers
 {
     public class HomeController : Controller
     {
+        public ActionResult Dashboard(int companyId)
+        {
+            Sessions.CompanyId = companyId;
+
+            return View();
+        }
+
         public ActionResult Index()
         {
             return View();

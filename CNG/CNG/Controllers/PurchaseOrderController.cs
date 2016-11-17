@@ -24,13 +24,9 @@ namespace CNG.Controllers
         }
 
         // GET: PurchaseOrder
-        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page, int? companyId)
+        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
         {
-            if (companyId.HasValue) {
-                Sessions.CompanyId = companyId;
-            }
-
-            ViewBag.CompanyId = companyId;
+            ViewBag.CompanyId = Sessions.CompanyId;
             ViewBag.CompanyName = companyRepo.GetById(Sessions.CompanyId.Value).Name;
             ViewBag.CurrentSort = sortColumn;
             ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";

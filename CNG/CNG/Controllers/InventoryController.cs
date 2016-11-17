@@ -8,6 +8,7 @@ using PagedList;
 using System.Linq.Dynamic;
 using System.Data.Entity;
 using Microsoft.Reporting.WebForms;
+using System.Data.Entity.Core.Objects;
 
 namespace CNG.Controllers
 {
@@ -146,10 +147,10 @@ namespace CNG.Controllers
                                 select new
                                 {
                                     ItemId = g.Key,
-                                    EndingQuantity = g.Where(p => p.Date <= dtDateTo).Sum(p => p.Quantity),
+                                    EndingQuantity = g.Where(p => p.Date.Date <= dtDateTo).Sum(p => p.Quantity),
                                     In = g.Where(p => p.Quantity > 0).Sum(p => p.Quantity),
                                     Out = g.Where(p => p.Quantity < 0).Sum(p => p.Quantity),
-                                    StartingQuantity = g.Where(p => p.Date <= dtDateFrom).Sum(p => p.Quantity)
+                                    StartingQuantity = g.Where(p => p.Date.Date <= dtDateFrom).Sum(p => p.Quantity)
                                 }).ToList();
 
             var lstInventory = from item in itemRepo.List().ToList()
