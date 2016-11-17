@@ -151,8 +151,7 @@
                         <li>
                             <a href="@Url.Action("Index", "Inventory")"><i class="fa fa-list"></i> <span class="title">Inventory</span> </a>
                         </li>
-                        @if (Convert.ToInt32(Session["utype"]) != 1)
-                        { //1 = User
+                        
                             <li>
                                 <a href="javascript:void(0)">
                                     <i class="fa fa-cog"></i> <span class="title"> Management </span><i class="icon-arrow"></i>
@@ -164,22 +163,24 @@
                                     <li>
                                         <a href="@Url.Action("Index", "Company")"><i class="fa fa-building"></i> <span class="title">Company</span> </a>
                                     </li>
-                                    <li>
-                                        <a href="@Url.Action("Index", "Vendor")"><i class="fa fa-users"></i> <span class="title">Vendor</span> </a>
-                                    </li>
-                                    <li>
-                                        <a href="@Url.Action("Index", "Vehicle")"><i class="fa fa-car"></i> <span class="title">Vehicle</span> </a>
-                                    </li>
-                                    @if (Convert.ToInt32(Session["utype"]) == 3)
-                                    {
-                                        //3 - sysadmin
+                                    @if (Convert.ToInt32(Session["utype"]) != 1)
+                                    { //1 = User
                                         <li>
-                                            <a href="@Url.Action("Index", "User")"><i class="fa fa-user"></i> <span class="title">User</span> </a>
+                                            <a href="@Url.Action("Index", "Vendor")"><i class="fa fa-users"></i> <span class="title">Vendor</span> </a>
                                         </li>
-                                     }
+                                        <li>
+                                            <a href="@Url.Action("Index", "Vehicle")"><i class="fa fa-car"></i> <span class="title">Vehicle</span> </a>
+                                        </li>
+                                        if (Convert.ToInt32(Session["utype"]) == 3)
+                                        {
+                                            //3 - sysadmin
+                                            <li>
+                                                <a href="@Url.Action("Index", "User")"><i class="fa fa-user"></i> <span class="title">User</span> </a>
+                                            </li>
+                                        }
+                                    }
                                 </ul>
                             </li>
-                        } 
                     </ul>
                     <!-- end: MAIN NAVIGATION MENU -->
                 </div>

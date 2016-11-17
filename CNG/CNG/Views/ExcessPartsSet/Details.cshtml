@@ -90,16 +90,16 @@
                                             Description
                                         </th>
                                         <th>
-                                            Item Type
+                                            Brand
                                         </th>
                                         <th>
-                                            Brand
+                                            Unit Cost
                                         </th>
                                         <th>
                                             Quantity
                                         </th>
                                         <th>
-                                            Unit Cost
+                                            Item Type
                                         </th>
                                         <th>
                                             Remarks
@@ -123,13 +123,13 @@
                                                 @Html.DisplayFor(modelItem => rpItem.UnitCost)
                                             </td>
                                             <td>
+                                                @Html.DisplayFor(modelItem => rpItem.Quantity)
+                                            </td>
+                                            <td>
                                                 @Html.DisplayFor(modelItem => rpItem.Item.Type.Description)
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => rpItem.Remarks)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => rpItem.Quantity)
                                             </td>
                                         </tr>
                                     }

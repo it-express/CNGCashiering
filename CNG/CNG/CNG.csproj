@@ -200,6 +200,7 @@
     <Compile Include="Models\ExcessPartsSet.cs" />
     <Compile Include="Models\ExcessPartsSetItems.cs" />
     <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\ItemClassification.cs" />
     <Compile Include="Models\ItemType.cs" />
     <Compile Include="Models\PurchaseOrder.cs" />
     <Compile Include="Models\PurchaseOrderItem.cs" />
@@ -223,6 +224,7 @@
     <Compile Include="Repositories\CompanyRepository.cs" />
     <Compile Include="Repositories\ExcessPartsSetItemRepository.cs" />
     <Compile Include="Repositories\ExcessPartsSetRepository.cs" />
+    <Compile Include="Repositories\ItemClassificationRepository.cs" />
     <Compile Include="Repositories\ItemRepository.cs" />
     <Compile Include="Repositories\ItemTypeRepository.cs" />
     <Compile Include="Repositories\PurchaseOrderItemRepository.cs" />

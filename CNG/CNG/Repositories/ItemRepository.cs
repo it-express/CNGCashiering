@@ -38,6 +38,7 @@ namespace CNG.Models
                     dbEntry.Brand = item.Brand;
                     dbEntry.UnitCost = item.UnitCost;
                     dbEntry.TypeId = item.TypeId;
+                    dbEntry.ClassificationId = item.ClassificationId;
                     dbEntry.Active = item.Active;
                 }
             }

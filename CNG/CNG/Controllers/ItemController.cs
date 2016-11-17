@@ -14,6 +14,7 @@ namespace CNG.Controllers
     {
         ItemRepository itemRepo = new ItemRepository();
         ItemTypeRepository itemTypeRepo = new ItemTypeRepository();
+        ItemClassificationRepository itemClassificationRepo = new ItemClassificationRepository();
 
         public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
         {
@@ -108,7 +109,7 @@ namespace CNG.Controllers
 
         private void InitViewBags() {
             ViewBag.ItemTypes = new SelectList(itemTypeRepo.List(), "Id", "Description");
-
+            ViewBag.ItemClassifications = new SelectList(itemClassificationRepo.List(), "Id", "Description");
         }
     }
 }

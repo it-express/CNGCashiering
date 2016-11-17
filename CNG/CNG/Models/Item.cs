@@ -36,6 +36,10 @@ namespace CNG.Models
         public int TypeId { get; set; }
 
         [Required]
+        [DisplayName("Classification")]
+        public int ClassificationId { get; set; }
+
+        [Required]
         public bool Active { get; set; }
 
         //[DisplayName("Quantity on Hand")]
@@ -52,5 +56,7 @@ namespace CNG.Models
         }
 
         public virtual ItemType Type { get; set; }
+
+        public virtual ItemClassification Classification { get; set; }
     }
 }
