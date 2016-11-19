@@ -198,8 +198,8 @@ namespace CNG.Controllers
                        select new
                        {
                            No = po.No,
-                           Vendor = po.Vendor,
-                           ShipTo = po.ShipToCompany,
+                           Vendor = po.Vendor.Name,
+                           ShipTo = po.ShipToCompany.Name,
                            Date = po.Date.ToShortDateString(),
                            Terms = po.Terms,
                            Status = po.StatusDescription,
@@ -211,8 +211,8 @@ namespace CNG.Controllers
                            ItemType = p.Item.Type.Description,
                            Band = p.Item.Brand,
                            Quantity = p.Quantity,
-                           UnitCost = p.UnitCost,
-                           TotalAmount = p.Amount,
+                           UnitCost = p.UnitCost.ToString("F"),
+                           TotalAmount = p.Amount.ToString("F"),
                            Remarks = p.Remarks
                        };
 

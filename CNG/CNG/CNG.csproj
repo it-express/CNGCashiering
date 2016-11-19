@@ -251,6 +251,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsPurchaseOrder.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Views\Receiving\Report\dsReceiving.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsReceiving.xsd</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -367,6 +372,18 @@
     <Content Include="Views\StockTransfer\Index.cshtml" />
     <Content Include="Views\StockTransfer\Create.cshtml" />
     <Content Include="Views\StockTransfer\_EditorRow.cshtml" />
+    <Content Include="Views\Receiving\Report\dsReceiving.xsc">
+      <DependentUpon>dsReceiving.xsd</DependentUpon>
+    </Content>
+    <Content Include="Views\Receiving\Report.cshtml" />
+    <None Include="Views\Receiving\Report\dsReceiving.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsReceiving.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Views\Receiving\Report\dsReceiving.xss">
+      <DependentUpon>dsReceiving.xsd</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -383,6 +400,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Views\Inventory\Report\rptInventory.rdlc" />
     <EmbeddedResource Include="Views\PurchaseOrder\Report\rptPurchaseOrder.rdlc" />
+    <EmbeddedResource Include="Views\Receiving\Report\rptReceiving.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

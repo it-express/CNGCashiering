@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using CNG.Models;
 using PagedList;
 using System.Linq.Dynamic;
+using Microsoft.Reporting.WebForms;
 
 namespace CNG.Controllers
 {
@@ -194,6 +195,44 @@ namespace CNG.Controllers
 
                 receivingRepo.Save(receiving);
             }
+        }
+
+        public ActionResult Report(string poNo) {
+            PurchaseOrder po = poRepo.GetByNo(poNo);
+
+            List<PurchaseOrderItem> lstReceiving = po.PurchaseOrderItems;
+
+            var lstPurchaseOrder = from p in lstReceiving
+                                   select new
+                                   {
+                                       No = po.No,
+                                       CompanyName = po.ShipToCompany.Name,
+                                       ItemCode = p.Item.Code,
+                                       Description = p.Item.Description,
+                                       Quantity = p.Quantity,
+                                       UnitCost = p.UnitCost.ToString("F"),
+                                       TotalAmount = p.Amount.ToString("F"),
+                                       Balance = p.Balance,
+                                       DateReceived = p.Date.ToShortDateString()
+                                   };
+
+            ReportViewer reportViewer = new ReportViewer();
+            reportViewer.ProcessingMode = ProcessingMode.Local;
+
+            ReportDataSource _rds = new ReportDataSource();
+            _rds.Name = "DataSet1";
+            _rds.Value = lstPurchaseOrder;
+
+            reportViewer.KeepSessionAlive = false;
+            reportViewer.LocalReport.DataSources.Clear();
+            reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Views\Receiving\Report\rptReceiving.rdlc";
+
+            reportViewer.LocalReport.DataSources.Add(_rds);
+            reportViewer.LocalReport.Refresh();
+
+            ViewBag.ReportViewer = reportViewer;
+
+            return View();
         }
 
         public int InsertLogs(int itemId, int quantiy) {
