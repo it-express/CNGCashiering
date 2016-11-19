@@ -167,7 +167,12 @@ namespace CNG.Controllers
                            In = i != null ? i.In : 0,
                            Out = i != null ? i.Out : 0
                        };
-            
+
+            int currCompanyId = Sessions.CompanyId.Value;
+            int totalMaterials = itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Materials).ToList().Sum(p => p.QuantityOnHand(currCompanyId));
+            int totalTires = itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Tires).ToList().Sum(p => p.QuantityOnHand(currCompanyId));
+            int totalBatteries = itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Batteries).ToList().Sum(p => p.QuantityOnHand(currCompanyId));
+
             ReportViewer reportViewer = new ReportViewer();
             reportViewer.ProcessingMode = ProcessingMode.Local;
 
@@ -182,6 +187,9 @@ namespace CNG.Controllers
             List<ReportParameter> _parameter = new List<ReportParameter>();
             _parameter.Add(new ReportParameter("DateRange", dtDateFrom.ToString("MMMM dd, yyyy") + " - " + dtDateTo.ToString("MMMM dd, yyyy")));
             _parameter.Add(new ReportParameter("CompanyName", companyRepo.GetById(Sessions.CompanyId.Value).Name));
+            _parameter.Add(new ReportParameter("TotalMaterials", totalMaterials.ToString()));
+            _parameter.Add(new ReportParameter("TotalTires", totalTires.ToString()));
+            _parameter.Add(new ReportParameter("TotalBatteries", totalBatteries.ToString()));
 
             reportViewer.LocalReport.DataSources.Add(_rds);
             reportViewer.LocalReport.Refresh();

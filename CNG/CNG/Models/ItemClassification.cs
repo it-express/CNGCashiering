@@ -15,4 +15,11 @@ namespace CNG.Models
         [StringLength(50)]
         public string Description { get; set; }
     }
+
+    public enum EItemClassification
+    {
+        Materials = 1,
+        Tires = 2, 
+        Batteries = 3
+    }
 }
