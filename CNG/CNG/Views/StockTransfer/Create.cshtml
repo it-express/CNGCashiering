@@ -1,0 +1,123 @@
+﻿@model CNG.Models.StockTransfer
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/app/StockTransfer.js"></script>
+
+<!-- start: TOOLBAR -->
+<div class="toolbar row">
+    <div class="col-sm-6 hidden-xs">
+        <div class="page-header">
+            <h1>Stock Transfer</h1>
+        </div>
+    </div>
+</div>
+<!-- end: TOOLBAR -->
+<!-- end: PAGE HEADER -->
+<!-- start: BREADCRUMB -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="breadcrumb"></div>
+    </div>
+</div>
+<!-- end: BREADCRUMB -->
+<!-- start: PAGE CONTENT -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- start: BASIC TABLE PANEL -->
+        <div class="panel panel-white">
+
+            <div class="panel-body">
+
+                <div class="form-horizontal">
+                    <h4>Stock Transfer (Company to Company)</h4>
+                    <hr />
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Stock Transfer No</label>
+                        <div class="col-md-5">
+                            <label id="lblRpNo" class="form-control">@Model.No</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Date</label>
+                        <div class="col-md-5">
+                            <input type="text" id="txtDate" value="@Model.Date.ToString("MM/dd/yyyy")" class="form-control date-picker" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Select Item</label>
+                        <div class="col-md-5">
+                            @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-5">
+                            <input id="btnAddItem" type="button" value="Ok" class="btn btn-dark-blue" data-url="@Url.Action("RenderEditorRow")" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-1"></label>
+                        <div class="col-md-9">
+                            <table id="tblItems" class="table table-hover table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Item Code</th>
+                                        <th>Description</th>
+                                        <th>Brand</th>
+                                        <th>Unit Cost</th>
+                                        <th>Quantity</th>
+                                        <th>Item Type</th>
+                                        <th>Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.StockTransferItems)
+                                    {
+                                        Html.RenderPartial("_EditorRow", item);
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Prepared By</label>
+                        <div class="col-md-5">
+                            <label id="lblPreparedBy" class="form-control">@ViewBag.User</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Approved By</label>
+                        <div class="col-md-5">
+                            <label id="lblApprovedBy" class="form-control">@ViewBag.GeneralManager</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="button" id="btnSubmit" value="Submit" class="btn btn-dark-blue" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end: BASIC TABLE PANEL -->
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $('ul.main-navigation-menu li:nth-child(3)').addClass('active open');
+
+        $('.toolbar .navbar-right > li:nth-child(2) > a').addClass('active');
+    });
+
+</script>

@@ -41,5 +41,9 @@ namespace CNG.Models
         public System.Data.Entity.DbSet<CNG.Models.Receiving> Receivings { get; set; }
 
         public DbSet<CNG.Models.ItemClassification> ItemClassifications { get; set; }
+
+        public System.Data.Entity.DbSet<CNG.Models.StockTransfer> StockTransfers { get; set; }
+
+        public System.Data.Entity.DbSet<CNG.Models.StockTransferItem> StockTransferItems { get; set; }
     }
 }

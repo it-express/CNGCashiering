@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using CNG.Models;
 using PagedList;
 using System.Linq.Dynamic;
+using Microsoft.Reporting.WebForms;
 
 namespace CNG.Controllers
 {
@@ -187,6 +188,51 @@ namespace CNG.Controllers
             ViewBag.Companies = new SelectList(context.Companies.Where(p => p.Active), "Id", "Name", companyId);
 
             ViewBag.CompanyId = companyId.ToString();
+        }
+
+        public ActionResult Report(string poNo) {
+            PurchaseOrder po = poRepo.GetByNo(poNo);
+            List<PurchaseOrderItem> lstPoItem = po.PurchaseOrderItems;
+
+            var lstPurchaseOrder = from p in lstPoItem
+                       select new
+                       {
+                           No = po.No,
+                           Vendor = po.Vendor,
+                           ShipTo = po.ShipToCompany,
+                           Date = po.Date.ToShortDateString(),
+                           Terms = po.Terms,
+                           Status = po.StatusDescription,
+                           ApprovedBy = po.ApprovedByObj.FullName,
+                           PreparedBy = po.PreparedByObj.FullName,
+                           CheckedBy = po.CheckedBy,
+                           ItemCode = p.Item.Code,
+                           Description = p.Item.Description,
+                           ItemType = p.Item.Type.Description,
+                           Band = p.Item.Brand,
+                           Quantity = p.Quantity,
+                           UnitCost = p.UnitCost,
+                           TotalAmount = p.Amount,
+                           Remarks = p.Remarks
+                       };
+
+            ReportViewer reportViewer = new ReportViewer();
+            reportViewer.ProcessingMode = ProcessingMode.Local;
+
+            ReportDataSource _rds = new ReportDataSource();
+            _rds.Name = "DataSet1";
+            _rds.Value = lstPurchaseOrder;
+
+            reportViewer.KeepSessionAlive = false;
+            reportViewer.LocalReport.DataSources.Clear();
+            reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Views\PurchaseOrder\Report\rptPurchaseOrder.rdlc";
+
+            reportViewer.LocalReport.DataSources.Add(_rds);
+            reportViewer.LocalReport.Refresh();
+
+            ViewBag.ReportViewer = reportViewer;
+
+            return View();
         }
     }
 }

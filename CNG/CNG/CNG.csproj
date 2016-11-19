@@ -44,10 +44,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BeginCollectionItem, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BeginCollectionItem.1.2.1.0\lib\net35\BeginCollectionItem.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -179,6 +175,7 @@
     <Compile Include="Controllers\ReceivingController.cs" />
     <Compile Include="Controllers\RequisitionController.cs" />
     <Compile Include="Controllers\RequisitionPurchaseController.cs" />
+    <Compile Include="Controllers\StockTransferController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\VehicleController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
@@ -209,8 +206,11 @@
     <Compile Include="Models\RequisitionItem.cs" />
     <Compile Include="Models\RequisitionPurchase.cs" />
     <Compile Include="Models\RequisitionPurchaseItems.cs" />
+    <Compile Include="Models\StockTransfer.cs" />
+    <Compile Include="Models\StockTransferItem.cs" />
     <Compile Include="Models\TransactionLog.cs" />
     <Compile Include="Models\TransactionMethod.cs" />
+    <Compile Include="Models\UnitStockTransfer.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserType.cs" />
     <Compile Include="Models\Vehicle.cs" />
@@ -234,6 +234,8 @@
     <Compile Include="Repositories\RequisitionPurchaseItemRepository.cs" />
     <Compile Include="Repositories\RequisitionPurchaseRepository.cs" />
     <Compile Include="Repositories\RequisitionRepository.cs" />
+    <Compile Include="Repositories\StockTransferItemRepository.cs" />
+    <Compile Include="Repositories\StockTransferRepository.cs" />
     <Compile Include="Repositories\TransactionLogRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\UserTypeRepository.cs" />
@@ -243,6 +245,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsInventory.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PurchaseOrder\Report\dsPurchaseOrder.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsPurchaseOrder.xsd</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -261,6 +268,7 @@
     <Content Include="Scripts\app\ReceivingModal.js" />
     <Content Include="Scripts\app\Requisition.js" />
     <Content Include="Scripts\app\RequisitionPurchase.js" />
+    <Content Include="Scripts\app\StockTransfer.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\testProfile.pubxml" />
@@ -324,7 +332,6 @@
     <Content Include="Views\PurchaseOrder\_EditorRow.cshtml" />
     <Content Include="Views\RequisitionPurchase\View.cshtml" />
     <Content Include="Views\Requisition\_EditorRow.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
     <Content Include="Views\Receiving\_EditorRow.cshtml" />
     <Content Include="Views\RequisitionPurchase\_EditorRow.cshtml" />
     <Content Include="Views\ExcessPartsSet\_EditorRow.cshtml" />
@@ -345,9 +352,25 @@
     <Content Include="Views\Shared\_InventoryMenu.cshtml" />
     <Content Include="Views\Receiving\_ReceivingLogEditor.cshtml" />
     <Content Include="Views\Receiving\_ReceivingLogEditorRow.cshtml" />
+    <Content Include="Views\PurchaseOrder\Report\dsPurchaseOrder.xsc">
+      <DependentUpon>dsPurchaseOrder.xsd</DependentUpon>
+    </Content>
+    <Content Include="Views\PurchaseOrder\Report.cshtml" />
+    <None Include="Views\PurchaseOrder\Report\dsPurchaseOrder.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsPurchaseOrder.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Views\PurchaseOrder\Report\dsPurchaseOrder.xss">
+      <DependentUpon>dsPurchaseOrder.xsd</DependentUpon>
+    </Content>
+    <Content Include="Views\StockTransfer\Index.cshtml" />
+    <Content Include="Views\StockTransfer\Create.cshtml" />
+    <Content Include="Views\StockTransfer\_EditorRow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\StockTransferCompany\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -359,6 +382,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Inventory\Report\rptInventory.rdlc" />
+    <EmbeddedResource Include="Views\PurchaseOrder\Report\rptPurchaseOrder.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
