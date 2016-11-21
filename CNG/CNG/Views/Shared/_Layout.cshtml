@@ -174,15 +174,15 @@
                                     <a href="@Url.Action("Index", "Item")"><i class="fa fa-shopping-cart"></i> <span class="title">Item</span> </a>
                                 </li>
                                 <li>
-                                    <a href="@Url.Action("Index", "Company")"><i class="fa fa-building"></i> <span class="title">Company</span> </a>
+                                    <a href="@Url.Action("Index", "Vehicle")"><i class="fa fa-car"></i> <span class="title">Vehicle</span> </a>
                                 </li>
                                 @if (Convert.ToInt32(Session["utype"]) != 1)
                                 { //1 = User
                                     <li>
-                                        <a href="@Url.Action("Index", "Vendor")"><i class="fa fa-users"></i> <span class="title">Vendor</span> </a>
+                                        <a href="@Url.Action("Index", "Company")"><i class="fa fa-building"></i> <span class="title">Company</span> </a>
                                     </li>
                                     <li>
-                                        <a href="@Url.Action("Index", "Vehicle")"><i class="fa fa-car"></i> <span class="title">Vehicle</span> </a>
+                                        <a href="@Url.Action("Index", "Vendor")"><i class="fa fa-users"></i> <span class="title">Vendor</span> </a>
                                     </li>
                                     if (Convert.ToInt32(Session["utype"]) == 3)
                                     {
