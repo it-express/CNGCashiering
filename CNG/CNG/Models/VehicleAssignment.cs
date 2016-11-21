@@ -10,5 +10,8 @@ namespace CNG.Models
         public int Id { get; set; }
         public int VehicleId { get; set; }
         public int CompanyId { get; set; }
+
+        public virtual Vehicle Vehicle { get; set; }
+        public virtual Company Company { get; set; }
     }
 }

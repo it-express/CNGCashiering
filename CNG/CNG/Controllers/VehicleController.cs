@@ -13,6 +13,7 @@ namespace CNG.Controllers
     public class VehicleController : Controller
     {
         VehicleRepository vehicleRepo = new VehicleRepository();
+        VehicleAssignmentRepository vehicleAssignmentRepo = new VehicleAssignmentRepository();
 
         public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
         {
@@ -30,7 +31,10 @@ namespace CNG.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            IQueryable<Vehicle> lstVehicle = vehicleRepo.List();
+            //IQueryable<Vehicle> lstVehicle = vehicleRepo.List();
+            IQueryable<Vehicle> lstVehicle = vehicleAssignmentRepo.List()
+                                            .Where(p => p.CompanyId == Sessions.CompanyId.Value)
+                                            .Select(q => q.Vehicle);
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -93,6 +97,44 @@ namespace CNG.Controllers
         public ActionResult Delete(int id)
         {
             vehicleRepo.Delete(id);
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Assignment()
+        {
+            VehicleAssignmentRepository vehicleAssignmentRepo = new VehicleAssignmentRepository();
+
+            List<VehicleAssignmentVM> lstItemAssignmentVM = (from p in vehicleRepo.List().ToList()
+                                                          join q in vehicleAssignmentRepo.List().ToList()
+                                                          on p.Id equals q.VehicleId into pq
+                                                          from r in pq.DefaultIfEmpty()
+                                                          select new VehicleAssignmentVM
+                                                          {
+                                                              VehicleId = p.Id,
+                                                              Vehicle = p,
+                                                              IsAssigned = r == null ? false : true
+                                                          }).ToList();
+
+            return View(lstItemAssignmentVM);
+        }
+
+        [HttpPost]
+        public ActionResult AssignmentSave(int[] VehicleId)
+        {
+            List<VehicleAssignment> lstVechicleAssignment = new List<VehicleAssignment>();
+            foreach (int vehicleId in VehicleId)
+            {
+                VehicleAssignment vehicleAssign = new VehicleAssignment
+                {
+                    VehicleId = vehicleId,
+                    CompanyId = Sessions.CompanyId.Value
+                };
+
+                lstVechicleAssignment.Add(vehicleAssign);
+            }
+
+            vehicleAssignmentRepo.Save(lstVechicleAssignment);
 
             return RedirectToAction("Index");
         }

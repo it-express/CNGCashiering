@@ -1,0 +1,33 @@
+﻿@model List<CNG.Models.VehicleAssignmentVM>
+
+@{
+    ViewBag.Title = "Assignment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Vehicle Assignment</h2>
+
+@using (Html.BeginForm("AssignmentSave", "Vehicle"))
+{
+    foreach (var vehicle in Model)
+    {
+        if (vehicle.IsAssigned)
+        {
+            <input type="checkbox" name="VehicleId" value="@vehicle.VehicleId" checked="checked" />
+        }
+        else
+        {
+            <input type="checkbox" name="VehicleId" value="@vehicle.VehicleId" />
+        }
+
+        @:&nbsp;
+
+        @Html.LabelFor(model => vehicle.Vehicle.LicenseNo, vehicle.Vehicle.LicenseNo)
+
+        <br />
+    }
+
+    <button type="submit" class="btn btn-dark-blue">
+        Save
+    </button>
+}
