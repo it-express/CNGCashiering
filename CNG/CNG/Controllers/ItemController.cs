@@ -15,6 +15,7 @@ namespace CNG.Controllers
         ItemRepository itemRepo = new ItemRepository();
         ItemTypeRepository itemTypeRepo = new ItemTypeRepository();
         ItemClassificationRepository itemClassificationRepo = new ItemClassificationRepository();
+        ItemAssignmentRepository itemAssignmentRepo = new ItemAssignmentRepository();
 
         public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
         {
@@ -32,7 +33,9 @@ namespace CNG.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            IQueryable<Item> lstItem = itemRepo.List();
+            //IQueryable<Item> lstItem = itemRepo.List();
+
+            IQueryable<Item> lstItem = itemAssignmentRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value).Select(p => p.Item);
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -96,6 +99,43 @@ namespace CNG.Controllers
         public ActionResult Delete(int id)
         {
             itemRepo.Delete(id);
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Assignment() {
+            ItemAssignmentRepository itemAssignmentRepo = new ItemAssignmentRepository();
+
+            List<ItemAssignmentVM> lstItemAssignmentVM = (from p in itemRepo.List().ToList()
+                                                               join q in itemAssignmentRepo.List().ToList() 
+                                                               on p.Id equals q.ItemId into pq
+                                                               from r in pq.DefaultIfEmpty()
+                                                               select new ItemAssignmentVM
+                                                         {
+                                                             ItemId = p.Id,
+                                                             Item = p,
+                                                             IsAssigned = r == null ? false : true
+                                                         }).ToList();
+
+            return View(lstItemAssignmentVM);
+        }
+
+        [HttpPost]
+        public ActionResult AssignmentSave(int[] ItemId) {
+            ItemAssignmentRepository itemAssignmentRepo = new ItemAssignmentRepository();
+
+            List<ItemAssignment> lstItemAssignment = new List<ItemAssignment>();
+            foreach (int itemId in ItemId) {
+                ItemAssignment itemAssign = new ItemAssignment
+                {
+                    ItemId = itemId,
+                    CompanyId = Sessions.CompanyId.Value
+                };
+
+                lstItemAssignment.Add(itemAssign);
+            }
+
+            itemAssignmentRepo.Save(lstItemAssignment);
 
             return RedirectToAction("Index");
         }

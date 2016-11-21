@@ -45,5 +45,8 @@ namespace CNG.Models
         public System.Data.Entity.DbSet<CNG.Models.StockTransfer> StockTransfers { get; set; }
 
         public System.Data.Entity.DbSet<CNG.Models.StockTransferItem> StockTransferItems { get; set; }
+
+        public System.Data.Entity.DbSet<CNG.Models.ItemAssignment> ItemAssignments { get; set; }
+        public System.Data.Entity.DbSet<CNG.Models.VehicleAssignment> VehicleAssignments { get; set; }
     }
 }

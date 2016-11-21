@@ -9,9 +9,11 @@ namespace CNG.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Dashboard(int companyId)
+        public ActionResult Dashboard(int? companyId)
         {
-            Sessions.CompanyId = companyId;
+            if (companyId.HasValue) {
+                Sessions.CompanyId = companyId;
+            }
 
             return View();
         }
