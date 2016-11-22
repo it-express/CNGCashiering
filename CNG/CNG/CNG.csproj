@@ -178,6 +178,7 @@
     <Compile Include="Controllers\StockTransferController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\VehicleController.cs" />
+    <Compile Include="Controllers\VehicleStockTransferController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -194,6 +195,7 @@
     <Compile Include="Models\DTO\ReceivingLogsDTO.cs" />
     <Compile Include="Models\DTO\RequisitionDTO.cs" />
     <Compile Include="Models\DTO\RequisitionPurchaseDTO.cs" />
+    <Compile Include="Models\DTO\VehicleStockTransferDTO.cs" />
     <Compile Include="Models\ExcessPartsSet.cs" />
     <Compile Include="Models\ExcessPartsSetItems.cs" />
     <Compile Include="Models\Item.cs" />
@@ -211,16 +213,18 @@
     <Compile Include="Models\StockTransferItem.cs" />
     <Compile Include="Models\TransactionLog.cs" />
     <Compile Include="Models\TransactionMethod.cs" />
-    <Compile Include="Models\UnitStockTransfer.cs" />
+    <Compile Include="Models\VehicleStockTransfer.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserType.cs" />
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Models\VehicleAssignment.cs" />
+    <Compile Include="Models\VehicleStockTransferItem.cs" />
     <Compile Include="Models\Vendor.cs" />
     <Compile Include="Models\ViewModels\ItemAssignmentVM.cs" />
     <Compile Include="Models\ViewModels\PurchaseOrderVM.cs" />
     <Compile Include="Models\ViewModels\RequisitionItemVM.cs" />
     <Compile Include="Models\ViewModels\RequisitionVM.cs" />
+    <Compile Include="Models\ViewModels\VehicleStockTransferItemVM.cs" />
     <Compile Include="Models\ViewModels\TransactionHistoryVM.cs" />
     <Compile Include="Models\ViewModels\UserAccount.cs" />
     <Compile Include="Models\ViewModels\VehicleAssignmentVM.cs" />
@@ -246,6 +250,8 @@
     <Compile Include="Repositories\UserTypeRepository.cs" />
     <Compile Include="Repositories\VehicleAssignmentRepository.cs" />
     <Compile Include="Repositories\VehicleRepository.cs" />
+    <Compile Include="Repositories\VehicleStockTransferItemRepository.cs" />
+    <Compile Include="Repositories\VehicleStockTransferRepository.cs" />
     <Compile Include="Repositories\VendorRepository.cs" />
     <Compile Include="Views\Inventory\Report\dsInventory.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -280,6 +286,7 @@
     <Content Include="Scripts\app\Requisition.js" />
     <Content Include="Scripts\app\RequisitionPurchase.js" />
     <Content Include="Scripts\app\StockTransfer.js" />
+    <Content Include="Scripts\app\VehicleStockTransfer.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\testProfile.pubxml" />
@@ -392,6 +399,9 @@
       <DependentUpon>dsReceiving.xsd</DependentUpon>
     </Content>
     <Content Include="Views\Vehicle\Assignment.cshtml" />
+    <Content Include="Views\VehicleStockTransfer\Index.cshtml" />
+    <Content Include="Views\VehicleStockTransfer\Create.cshtml" />
+    <Content Include="Views\VehicleStockTransfer\_EditorRow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

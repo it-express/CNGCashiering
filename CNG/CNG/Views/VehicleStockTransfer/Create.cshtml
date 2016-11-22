@@ -1,0 +1,113 @@
+﻿@model CNG.Models.VehicleStockTransfer
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/app/VehicleStockTransfer.js"></script>
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>VehicleStockTransfer</h4>
+        <hr />
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.No, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.No, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.No, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        Search Item:
+         @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items, "", new { @class = "form-control" })
+        
+        <br/>
+        Plate Number From:
+        @Html.DropDownList("PlateNoFrom", (IEnumerable<SelectListItem>)ViewBag.PlateNos, "", new { @class = "form-control" })
+        To: @Html.DropDownList("PlateNoTo", (IEnumerable<SelectListItem>)ViewBag.PlateNos, "", new { @class = "form-control" })
+        
+        <br/>
+        Remarks:
+        <input type="text" id="Remarks" />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" id="btnAddItem" value="Ok" data-url="@Url.Action("RenderEditorRow", "VehicleStockTransfer")" class="btn btn-dark-blue" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-1"></label>
+            <div class="col-md-10">
+                <table id="tblItems" class="table table-hover table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Plate No (from)</th>
+                            <th>Plate No (to)</th>
+                            <th>Remarks</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var vstItem in Model.VehicleStockTransferItems)
+                        {
+                            Html.RenderPartial("_EditorRow", vstItem);
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Requested By</label>
+            <div class="col-md-5">
+                <input type="text" id="RequestedBy" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Checked By</label>
+            <div class="col-md-5">
+                <label id="lblCheckedBy" class="form-control">@ViewBag.User</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Approved By</label>
+            <div class="col-md-5">
+                <label id="lblApprovedBy" class="form-control">@ViewBag.GeneralManager</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="btnSubmit" type="submit" value="Submit" class="btn btn-dark-blue" />
+                <a href="@Url.Action("Index")" class="btn btn-dark-beige">
+                    Back to List
+                </a>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

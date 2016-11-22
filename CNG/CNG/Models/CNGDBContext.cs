@@ -48,5 +48,8 @@ namespace CNG.Models
 
         public System.Data.Entity.DbSet<CNG.Models.ItemAssignment> ItemAssignments { get; set; }
         public System.Data.Entity.DbSet<CNG.Models.VehicleAssignment> VehicleAssignments { get; set; }
+        public System.Data.Entity.DbSet<CNG.Models.VehicleStockTransfer> VehicleStockTransfers { get; set; }
+        public System.Data.Entity.DbSet<CNG.Models.VehicleStockTransferItem> VehicleStockTransferItems { get; set; }
+
     }
 }

@@ -1,0 +1,121 @@
+﻿@model IPagedList<CNG.Models.VehicleStockTransfer>
+
+@using PagedList.Mvc;
+@using PagedList;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- start: TOOLBAR -->
+<div class="toolbar row">
+    <div class="col-sm-6 hidden-xs">
+        <div class="page-header">
+            <h1>Vehicle Stock Transfer </h1>
+        </div>
+    </div>
+</div>
+<!-- end: TOOLBAR -->
+<!-- end: PAGE HEADER -->
+<!-- start: BREADCRUMB -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="breadcrumb"></div>
+    </div>
+</div>
+<!-- end: BREADCRUMB -->
+<!-- start: PAGE CONTENT -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- start: BASIC TABLE PANEL -->
+        <div class="ptanel panel-white">
+            <div class="panel-heading">
+                <h4 class="panel-title pull-left"><span class="text-bold">Stock Transfer List - @ViewBag.CompanyName</span></h4>
+                <div class="pull-right">
+                    <a href="@Url.Action("Create")" class="btn btn-dark-blue">Create</a>
+                </div>
+
+                <div class="clearfix"></div>
+
+            </div>
+            <div class="panel-body">
+
+
+                @using (Html.BeginForm())
+                {
+                    <div class="col-md-4 col-sm-12 no-padding pull-right" style="margin-bottom:16px; text-align:right;">
+                        @Html.TextBox("SearchString", (string)ViewBag.CurrentFilter, new { @class = "form-control", @placeholder = "Find", @style = "display:inline; width:74%;" })
+                        <input type="submit" value="Search" class="btn btn-dark-beige" />
+                    </div>
+                }
+
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.ActionLink("Date", "Index", new { sortColumn = "date", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+                            <th>
+                                @Html.ActionLink("Prepared By", "Index", new { sortColumn = "preparedBy", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+                            <th>
+                                @Html.ActionLink("Approved By", "Index", new { sortColumn = "approvedBy", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Date)
+                                </td>
+                                <td>
+                                    @*@Html.DisplayFor(modelItem => item.PreparedByObj.FullName)*@
+                                </td>
+                                <td>
+                                    @*@Html.DisplayFor(modelItem => item.ApprovedByObj.FullName)*@
+                                </td>
+                                <td>
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="@Url.Action("Details", new { rpNo = item.Id })" data-original-title="Details" data-placement="top" class="btn btn-xs btn-green tooltips"><i class="fa fa-list"></i></a>
+                                        <a href="@Url.Action("Remove", new { rpNo = item.No })" data-original-title="Delete" data-placement="top" class="btn btn-xs btn-red tooltips"><i class="fa fa-times"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+
+                <div class="clearfix"></div>
+
+                <div class="col-md-4 col-sm-12 no-padding pull-left" style="margin:20px 0px;">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                </div>
+
+                <div class="col-md-8 col-sm-12 no-padding pull-left" style="text-align:right;">
+                    @Html.PagedListPager(Model, page => Url.Action("Index",
+                    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                </div>
+
+
+                <div class="clearfix"></div>
+
+            </div>
+        </div>
+        <!-- end: BASIC TABLE PANEL -->
+    </div>
+
+
+</div>
+<script>
+
+    $(document).ready(function () {
+        //$('.toolbar .navbar-right > li:nth-child(3) > a').addClass('active');
+        $('ul.main-navigation-menu > li:nth-child(3)').addClass('active open');
+    });
+
+</script>

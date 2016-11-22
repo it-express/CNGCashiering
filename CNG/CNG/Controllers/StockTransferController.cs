@@ -63,8 +63,10 @@ namespace CNG.Controllers
         public ActionResult Create()
         {
             ViewBag.Items = new SelectList(context.Items, "Id", "Description");
+            ViewBag.Companies = new SelectList(context.Companies, "Id", "Name");
             ViewBag.User = Common.GetCurrentUser.FullName;
             ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
+            
 
             StockTransfer stockTransfer = new StockTransfer
             {
@@ -77,7 +79,6 @@ namespace CNG.Controllers
 
         public ActionResult RenderEditorRow(int itemId)
         {
-
             StockTransferItem stockTransferItem = new StockTransferItem
             {
                 Item = itemRepo.GetById(itemId)

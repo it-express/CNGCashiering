@@ -1,0 +1,28 @@
+﻿@model CNG.Models.VehicleStockTransferItemVM
+
+<tr data-item-id="@Model.ItemId" 
+    data-vehicle-from-id="@Model.VehicleFromId" 
+    data-vehicle-to-id="@Model.VehicleToId"
+    data-remarks="@Model.Remarks"
+    class="item-row">
+    <td>
+        @Model.ItemCode
+    </td>
+    <td>
+        @Model.ItemDescription
+    </td>
+    <td>
+        @Model.VehicleFromPlateNo
+    </td>
+    <td>
+        @Model.VehicleToPlateNo
+    </td>
+    <td>
+        @Model.Remarks
+    </td>
+    <td>
+        <div class="visible-md visible-lg hidden-sm hidden-xs">
+            <a href="#!" data-original-title="Remove" data-placement="top" class="btn btn-xs btn-red tooltips btnRemoveItem"><i class="fa fa-times fa fa-white"></i></a>
+        </div>
+    </td>
+</tr>
