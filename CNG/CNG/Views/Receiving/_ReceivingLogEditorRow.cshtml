@@ -2,23 +2,23 @@
 
 <tr class='item-row' data-item-id="@Model.Id">
     <td>
-        @Html.TextBoxFor(model => model.Quantity, new { @class = "txtQuantity" })
+        @Html.TextBoxFor(model => model.Quantity, new { @class = "txtQuantity form-control" })
     </td>
     <td class="lblQuantity">
-        @Html.TextBoxFor(model => model.SerialNo, new { @class = "txtSerialNo" })
+        @Html.TextBoxFor(model => model.SerialNo, new { @class = "txtSerialNo form-control" })
     </td>
     <td>
-        @Html.TextBoxFor(model => model.DrNo, new { @class = "txtDrNo" })
+        @Html.TextBoxFor(model => model.DrNo, new { @class = "txtDrNo form-control" })
     </td>
     <td>
         @*@Html.TextBoxFor(model => model.DateReceived, new { @class = "txtDateReceived date-picker" })*@
         @if (Model.Id != 0)
         {
-            <input type="text" value="@Model.DateReceived.Value.ToString("MM/dd/yyyy")" class="txtDateReceived date-picker" style="width:100px;" />
+            <input type="text" value="@Model.DateReceived.Value.ToString("MM/dd/yyyy")" class="txtDateReceived date-picker form-control" />
         }
         else
         {
-            <input type="text" value="" class="txtDateReceived date-picker" />
+            <input type="text" value="" class="txtDateReceived date-picker form-control" />
         }
     </td>
 </tr>

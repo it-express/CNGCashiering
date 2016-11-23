@@ -43,19 +43,24 @@
                         <h4>PO Number <label id="lblPoNumber">@ViewBag.PoNumber</label></h4>
                         <hr />
 
-                        <div class="form-group">
-                            <label class="control-label col-md-2">Date</label>
-                            <div class="col-md-8">
-                                @if (Model.PurchaseOrder.Id != 0)
-                                {
-                                    <input type="text" id="txtDate" value="@Model.PurchaseOrder.Date.ToString("MM/dd/yyyy")" class="date-picker" />
-                                }
-                                else
-                                {
-                                    <input type="text" id="txtDate" value="@DateTime.Now.ToString("MM/dd/yyyy")" class="date-picker" />
-                                }
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Date</label>
+                                <div class="col-md-8">
+                                    @if (Model.PurchaseOrder.Id != 0)
+                                    {
+                                        <input type="text" id="txtDate" value="@Model.PurchaseOrder.Date.ToString("MM/dd/yyyy")" class="date-picker form-control" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" id="txtDate" value="@DateTime.Now.ToString("MM/dd/yyyy")" class="date-picker form-control" />
+                                    }
+                                </div>
                             </div>
                         </div>
+
+                        <div class="clearfix"></div>
 
                         <div class="col-md-6">
                             <div class="form-group">

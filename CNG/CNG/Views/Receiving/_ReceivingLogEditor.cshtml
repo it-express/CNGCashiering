@@ -1,13 +1,19 @@
 ﻿@model IEnumerable<CNG.Models.Receiving>
 
 <input type="hidden" id="lblPOItemId" value="@ViewBag.POItemId" />
-Item: @ViewBag.ItemDescription
-<br/>
 
-<input type="button" id="btnReceivingAdd" value="Add" />
-<br/>
+<div class="panel-heading">
+    <h4 class="panel-title pull-left"><span class="text-bold">Item: <b>@ViewBag.ItemDescription</b></span></h4>
+    <div class="pull-right">
+        <input type="button" id="btnReceivingAdd" value="Add" class="btn btn-dark-blue" />
+    </div>
 
-<table id="tblReceivingLog">
+    <div class="clearfix"></div>
+</div>
+
+
+
+<table id="tblReceivingLog" class="table table-hover table-striped">
     <tr>
         <th>Quantity</th>
         <th>Serial No</th>
@@ -21,5 +27,5 @@ Item: @ViewBag.ItemDescription
 </table>
 
 <br/>
-<input type="button" id="btnReceivingSave" value="Save" />
+<input type="button" id="btnReceivingSave" value="Save" class="btn btn-dark-beige" />
     

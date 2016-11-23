@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Home Page";
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutNoColumn.cshtml";
 }
 
  <!-- start: TOOLBAR -->
@@ -25,9 +25,9 @@
     <div class="col-md-12">
         <!-- start: BASIC TABLE PANEL -->
         <div class="panel panel-white">
-            <div class="panel-heading">
+            @*<div class="panel-heading">
                 <h4 class="panel-title"><span class="text-bold">Welcome</span></h4>
-            </div>
+            </div>*@
             <div class="panel-body">
                 @Html.Action("MenuList", "Company")
             </div>

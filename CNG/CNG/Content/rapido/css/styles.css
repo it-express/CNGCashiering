@@ -8088,4 +8088,57 @@ color:#707070;
 color:#8b91a0;
 
 }
+
+.CompanyList {
+/*border:1px solid #000;*/
+margin-top:64px;
+}
+
+.CompanyList li{
+list-style:none;
+padding:8px;
+}
+
+.CompanyList li a{
+width:100%;
+display:block;
+/*border:3px solid #364150;*/
+border-radius:4px;
+height:168px;
+text-align:center;
+padding:8px;
+font-family:"Raleway",sans-serif;
+/*background:#364150;*/
+/*background:#364150;*/
+}
+
+.CompanyList li a:hover{
+/*background:#323c4a;*/
+
+}
+
+.CompanyList li a i{
+font-size:64px !important;
+}
+
+.CompanyList li a span,
+.CompanyList li a i {
+color:#fff;
+font-size:14px;
+margin-top:16px;
+display:block;
+}
+
+.CompanyList li a:hover span,
+.CompanyList li a:hover i {
+color:#eee;
+
+
+-moz-transition: all 0.3s ease 0s 1s ease-in-out;
+-o-transition: all 0.3s ease 0s 1s ease-in-out;
+-webkit-transition: all 0.3s ease 0s 1s ease-in-out;
+-ms-transition: all 0.3s ease 0s 1s ease-in-out;
+transition: all 0.3s ease 0s 1s ease-in-out;
+}
+
 /*additional*/
