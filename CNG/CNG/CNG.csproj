@@ -195,6 +195,7 @@
     <Compile Include="Models\DTO\ReceivingLogsDTO.cs" />
     <Compile Include="Models\DTO\RequisitionDTO.cs" />
     <Compile Include="Models\DTO\RequisitionPurchaseDTO.cs" />
+    <Compile Include="Models\DTO\StockTransferDTO.cs" />
     <Compile Include="Models\DTO\VehicleStockTransferDTO.cs" />
     <Compile Include="Models\ExcessPartsSet.cs" />
     <Compile Include="Models\ExcessPartsSetItems.cs" />

@@ -20,7 +20,7 @@ namespace CNG.Models
         public string No { get; set; }
         public DateTime Date { get; set; }
 
-        public int CompanyId { get; set; }
+        public int TransferFrom { get; set; }
 
         [DisplayName("Prepared By")]
         public int PreparedBy { get; set; }
@@ -33,14 +33,6 @@ namespace CNG.Models
 
         [ForeignKey("ApprovedBy")]
         public virtual User ApprovedByObj { get; set; }
-
-        public decimal TotalAmountItems
-        {
-            get
-            {
-                return StockTransferItems.Sum(p => p.Amount);
-            }
-        }
 
         public virtual List<StockTransferItem> StockTransferItems { get; set; }
     }

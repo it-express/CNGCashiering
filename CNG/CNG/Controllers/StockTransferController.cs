@@ -34,7 +34,7 @@ namespace CNG.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            IQueryable<StockTransfer> lstSt = stRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value);
+            IQueryable<StockTransfer> lstSt = stRepo.List();
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -77,14 +77,43 @@ namespace CNG.Controllers
             return View(stockTransfer);
         }
 
-        public ActionResult RenderEditorRow(int itemId)
+        public ActionResult RenderEditorRow(int itemId, int transferFrom)
         {
             StockTransferItem stockTransferItem = new StockTransferItem
             {
                 Item = itemRepo.GetById(itemId)
             };
 
+            ViewBag.TransferFrom = transferFrom;
             return PartialView("_EditorRow", stockTransferItem);
+        }
+
+        public void Save(StockTransferDTO entry)
+        {
+            StockTransfer st = new StockTransfer();
+
+            st.No = entry.No;
+            st.Date = Convert.ToDateTime(entry.Date);
+            st.TransferFrom = entry.TransferFrom;
+
+            st.PreparedBy = Common.GetCurrentUser.Id;
+            st.ApprovedBy = Common.GetCurrentUser.GeneralManagerId;
+            //st.CheckedBy = entry.CheckedBy;
+
+            st.StockTransferItems = new List<StockTransferItem>();
+            foreach (StockTransferDTO.Item item in entry.Items)
+            {
+                StockTransferItem stItem = new StockTransferItem();
+
+                stItem.StockTransferId = st.Id;
+                stItem.ItemId = item.Id;
+                stItem.Quantity = item.Quantity;
+                stItem.Remarks = item.Remarks;
+
+                st.StockTransferItems.Add(stItem);
+            }
+
+            stRepo.Save(st);
         }
     }
 }

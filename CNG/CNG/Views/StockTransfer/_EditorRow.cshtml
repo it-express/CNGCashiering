@@ -12,7 +12,15 @@
         @Model.Item.Brand
     </td>
     <td>
-        <input type='text' class='txtUnitCost form-control' value='@Model.UnitCost.ToString("F")' />
+        @Model.Item.UnitCost.ToString("F")
+    </td>
+    <td>
+        @{
+            int companyId = ViewBag.TransferFrom;
+            int quantityOnHand = Model.Item.QuantityOnHand(companyId);
+
+            <span>@quantityOnHand.ToString()</span>
+        }
     </td>
     <td>
         <input type='text' class='txtQuantity form-control' value="@Model.Quantity" />

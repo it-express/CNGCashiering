@@ -12,7 +12,10 @@
     $('#btnSubmit').click(function (event) {
         event.preventDefault();
 
-        var rp = new Object();
+        var st = new Object();
+
+        st.No = $('#lblStNo').text();
+        st.Date = $('#txtDate').val();
 
         var lstItem = new Array();
 
@@ -21,16 +24,15 @@
 
             var item = new Object();
             item.ItemId = $this.data("item-id");
-            item.UnitCost = $this.find(".txtUnitCost").val();
             item.Quantity = $this.find(".txtQuantity").val();
             item.Remarks = $this.find(".txtRemarks").val();
 
             lstItem.push(item);
         });
 
-        rp.Items = lstItem;
+        st.Items = lstItem;
 
-        var err = Validate(rp);
+        var err = Validate(st);
         if (err != "") {
             alert(err);
 
@@ -38,14 +40,14 @@
         }
 
         $.ajax({
-            url: "/RequisitionPurchase/Save",
+            url: "/StockTransfer/Save",
             type: "POST",
-            data: JSON.stringify(rp),
+            data: JSON.stringify(st),
             contentType: "application/json; charset=utf-8",
             success: function (r) {
 
                 alert("Saved");
-                window.location.href = "/RequisitionPurchase/Index";
+                window.location.href = "/StockTransfer/Index";
             }
         });
     });
@@ -54,8 +56,9 @@
         event.preventDefault();
 
         var itemId = $('#Items').val();
+        var transferFrom = $('#Companies').val();
 
-        var url = $(this).data('url') + '?itemId=' + itemId;
+        var url = $(this).data('url') + '?itemId=' + itemId + '&transferFrom=' + transferFrom;
         $.get(url, function (data) {
             $('#tblItems').append(data);
         });
