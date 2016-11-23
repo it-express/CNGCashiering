@@ -5,29 +5,84 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Vehicle Assignment</h2>
+<!-- start: TOOLBAR -->
+<div class="toolbar row">
+    <div class="col-sm-6 hidden-xs">
+        <div class="page-header">
+            <h1>Vehicle Assignment</h1>
+        </div>
+    </div>
+</div>
+<!-- end: TOOLBAR -->
+<!-- end: PAGE HEADER -->
+<!-- start: BREADCRUMB -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="breadcrumb"></div>
+    </div>
+</div>
+<!-- end: BREADCRUMB -->
+<!-- start: PAGE CONTENT -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- start: BASIC TABLE PANEL -->
+        <div class="panel panel-white">
 
-@using (Html.BeginForm("AssignmentSave", "Vehicle"))
-{
-    foreach (var vehicle in Model)
-    {
-        if (vehicle.IsAssigned)
-        {
-            <input type="checkbox" name="VehicleId" value="@vehicle.VehicleId" checked="checked" />
-        }
-        else
-        {
-            <input type="checkbox" name="VehicleId" value="@vehicle.VehicleId" />
-        }
+            <div class="panel-body">
 
-        @:&nbsp;
+                @using (Html.BeginForm("AssignmentSave", "Vehicle"))
+                {
+                    <div class="row">
 
-        @Html.LabelFor(model => vehicle.Vehicle.LicenseNo, vehicle.Vehicle.LicenseNo)
+                        @foreach (var vehicle in Model)
+                        {
+                            <div class="col-sm-4">
 
-        <br />
-    }
+                                <div class="checkbox">
+                                    <label>
+                                        @if (vehicle.IsAssigned)
+                                        {
+                                            <input type="checkbox" name="VehicleId" value="@vehicle.VehicleId" checked="checked" />
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" name="VehicleId" value="@vehicle.VehicleId" />
+                                        }
 
-    <button type="submit" class="btn btn-dark-blue">
-        Save
-    </button>
-}
+                                        @*@:&nbsp;*@
+
+                                        @Html.LabelFor(model => vehicle.Vehicle.LicenseNo, vehicle.Vehicle.LicenseNo)
+
+                                    </label>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="clearfix"></div>
+
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-dark-blue">
+                                Save
+                            </button>
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+            <!-- end: BASIC TABLE PANEL -->
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    $(document).ready(function () {
+        $('ul.main-navigation-menu > li:nth-child(8)').addClass('active open');
+
+        $('ul.main-navigation-menu > li:nth-child(8) ul.sub-menu> li:nth-child(2)').addClass('active');
+    });
+
+</script>
