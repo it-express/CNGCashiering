@@ -19,5 +19,8 @@ namespace CNG.Models
 
         public virtual VehicleStockTransfer VehicleStockTransfer { get; set; }
         public virtual Item Item { get; set; }
+
+        public virtual Vehicle VehicleFrom { get; set; }
+        public virtual Vehicle VehicleTo { get; set; }
     }
 }

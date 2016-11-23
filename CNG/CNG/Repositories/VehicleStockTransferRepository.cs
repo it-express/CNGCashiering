@@ -77,8 +77,8 @@ namespace CNG.Models
                     
 
                     dbEntry.RequestedBy = vst.RequestedBy;
+                    dbEntry.CheckedBy = Common.GetCurrentUser.Id;
                     dbEntry.ApprovedBy = Common.GetCurrentUser.GeneralManagerId;
-                    dbEntry.CheckedBy = vst.CheckedBy;
                 }
                 
                 id = dbEntry.Id;

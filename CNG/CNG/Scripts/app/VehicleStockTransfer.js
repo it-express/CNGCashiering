@@ -70,7 +70,7 @@ function GetSelectedItems() {
         $this = $(this);
 
         var item = {
-            'ItemId': $this.data('item-id'),
+            'Id': $this.data('item-id'),
             'VehicleFromId' : $this.data('vehicle-from-id'),
             'VehicleToid': $this.data('vehicle-to-id'),
             'Remarks': $this.data('remarks')

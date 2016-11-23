@@ -1,0 +1,144 @@
+﻿@model CNG.Models.VehicleStockTransfer
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- start: TOOLBAR -->
+<div class="toolbar row">
+    <div class="col-sm-6 hidden-xs">
+        <div class="page-header">
+            <h1>Vehicle Stock Transfer</h1>
+        </div>
+    </div>
+</div>
+<!-- end: TOOLBAR -->
+<!-- end: PAGE HEADER -->
+<!-- start: BREADCRUMB -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="breadcrumb"></div>
+    </div>
+</div>
+<!-- end: BREADCRUMB -->
+<!-- start: PAGE CONTENT -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- start: BASIC TABLE PANEL -->
+        <div class="panel panel-white">
+
+            <div class="panel-body">
+
+                <div class="form-horizontal" id="divPrintHere">
+                    <h4>Vehicle Stock Transfer</h4>
+                    <hr />
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.No)</label>
+                        <div class="col-md-5">
+                            <label class="form-control">@Html.DisplayFor(model => model.No)</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.Date)</label>
+                        <div class="col-md-5">
+                            <label class="form-control">@Html.DisplayFor(model => model.Date)</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Requested By</label>
+                        <div class="col-md-5">
+                            <label class="form-control">@Html.DisplayFor(model => model.RequestedBy)</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Checked By</label>
+                        <div class="col-md-5">
+                            <label class="form-control">@Html.DisplayFor(model => model.CheckedByObj.Username)</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Approved By</label>
+                        <div class="col-md-5">
+                            <label class="form-control">@Html.DisplayFor(model => model.ApprovedByObj.Username)</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-1"></label>
+                        <div class="col-md-10">
+                            <table class="table table-hover table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Item Code
+                                        </th>
+                                        <th>
+                                            Description
+                                        </th>
+                                        <th>
+                                            Plate No. From
+                                        </th>
+                                        <th>
+                                            Plate No. To
+                                        </th>
+                                        <th>
+                                            Remarks
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var stItem in Model.VehicleStockTransferItems)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => stItem.Item.Code)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => stItem.Item.Description)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => stItem.VehicleFrom.LicenseNo)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => stItem.VehicleTo.LicenseNo)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => stItem.Remarks)
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <a href="@Url.Action("Index")" class="btn btn-dark-beige">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- end: BASIC TABLE PANEL -->
+    </div>
+</div>
+
+<script>
+
+$(document).ready(function() {
+    $('ul.main-navigation-menu > li:nth-child(2)').addClass('active open');
+});
+
+</script>

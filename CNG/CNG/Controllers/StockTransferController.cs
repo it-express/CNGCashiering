@@ -9,6 +9,7 @@ using System.Linq.Dynamic;
 
 namespace CNG.Controllers
 {
+    [AuthorizationFilter]
     public class StockTransferController : Controller
     {
         CNGDBContext context = new CNGDBContext();

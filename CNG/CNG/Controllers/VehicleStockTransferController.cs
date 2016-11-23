@@ -9,6 +9,7 @@ using System.Linq.Dynamic;
 
 namespace CNG.Controllers
 {
+    [AuthorizationFilter]
     public class VehicleStockTransferController : Controller
     {
         CNGDBContext context = new CNGDBContext();
@@ -124,5 +125,13 @@ namespace CNG.Controllers
 
             vstRepo.Save(vst);
         }
+
+        public ActionResult Details(string vstNo)
+        {
+            VehicleStockTransfer vst = vstRepo.GetByNo(vstNo);
+
+            return View(vst);
+        }
+
     }
 }
