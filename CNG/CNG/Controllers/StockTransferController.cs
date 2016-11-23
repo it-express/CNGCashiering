@@ -77,10 +77,18 @@ namespace CNG.Controllers
             return View(stockTransfer);
         }
 
+        public ActionResult Details(string stNo)
+        {
+            StockTransfer st = stRepo.GetByNo(stNo);
+
+            return View(st);
+        }
+
         public ActionResult RenderEditorRow(int itemId, int transferFrom)
         {
             StockTransferItem stockTransferItem = new StockTransferItem
             {
+                ItemId = itemId,
                 Item = itemRepo.GetById(itemId)
             };
 
@@ -114,6 +122,13 @@ namespace CNG.Controllers
             }
 
             stRepo.Save(st);
+        }
+
+        public ActionResult Delete(string stNo)
+        {
+            stRepo.Delete(stNo);
+
+            return RedirectToAction("Index");
         }
     }
 }

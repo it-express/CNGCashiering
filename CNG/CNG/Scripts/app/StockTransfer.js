@@ -16,6 +16,7 @@
 
         st.No = $('#lblStNo').text();
         st.Date = $('#txtDate').val();
+        st.TransferFrom = $('#Companies').val();
 
         var lstItem = new Array();
 
@@ -23,7 +24,7 @@
             $this = $(this);
 
             var item = new Object();
-            item.ItemId = $this.data("item-id");
+            item.Id = $this.data("item-id");
             item.Quantity = $this.find(".txtQuantity").val();
             item.Remarks = $this.find(".txtRemarks").val();
 

@@ -403,6 +403,7 @@
     <Content Include="Views\VehicleStockTransfer\Index.cshtml" />
     <Content Include="Views\VehicleStockTransfer\Create.cshtml" />
     <Content Include="Views\VehicleStockTransfer\_EditorRow.cshtml" />
+    <Content Include="Views\StockTransfer\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
