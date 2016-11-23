@@ -119,6 +119,9 @@ namespace CNG.Controllers
                 stItem.Remarks = item.Remarks;
 
                 st.StockTransferItems.Add(stItem);
+
+                InsertLogs(stItem.ItemId, stItem.Quantity * -1, st.TransferFrom);
+                InsertLogs(stItem.ItemId, stItem.Quantity, Sessions.CompanyId.Value);
             }
 
             stRepo.Save(st);
@@ -129,6 +132,21 @@ namespace CNG.Controllers
             stRepo.Delete(stNo);
 
             return RedirectToAction("Index");
+        }
+
+        public void InsertLogs(int itemId, int quantiy, int companyId)
+        {
+            TransactionLogRepository transactionLogRepo = new TransactionLogRepository();
+
+            TransactionLog transactionLog = new TransactionLog
+            {
+                ItemId = itemId,
+                Quantity = quantiy,
+                TransactionMethodId = (int)ETransactionMethod.StockTransfer,
+                CompanyId = companyId
+            };
+
+            transactionLogRepo.Add(transactionLog);
         }
     }
 }

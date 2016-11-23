@@ -16,6 +16,7 @@ namespace CNG.Models
         Receiving = 1,
         RequisitionToPurchase = 2,
         ExcessPartsFromSet = 3,
-        Requisition = 4
+        Requisition = 4,
+        StockTransfer = 5
     }
 }
