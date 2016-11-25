@@ -180,7 +180,6 @@ namespace CNG.Controllers
         
         private void InitViewBags()
         {
-            
             ViewBag.Items = new SelectList(itemRepo.List(), "Id", "Description");
 
             ViewBag.ApprovedBy = Common.GetCurrentUser.GeneralManager.FullName;

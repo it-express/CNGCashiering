@@ -79,6 +79,7 @@ namespace CNG.Models
             }
         }
 
+        [DisplayFormat(DataFormatString = "{0:N}")]
         public decimal ItemsTotalAmount {
             get {
                 return PurchaseOrderItems.Sum(p => p.Amount);

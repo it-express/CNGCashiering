@@ -16,16 +16,20 @@ namespace CNG.Models
             get {
                 List<SelectListItem> lstSelItem = new List<SelectListItem>();
 
-                List<ItemType> itemTypes = itemTypeRepo.List().ToList();
-                foreach (ItemType type in itemTypes) {
-                    SelectListItem selList = new SelectListItem
-                    {
-                        Text = type.Description,
-                        Value = type.Id.ToString()
-                    };
+                SelectListItem selList1 = new SelectListItem
+                {
+                    Text = "Scrap",
+                    Value = "1"
+                };
 
-                    lstSelItem.Add(selList);
-                }
+                SelectListItem selList2 = new SelectListItem
+                {
+                    Text = "Junk",
+                    Value = "2"
+                };
+
+                lstSelItem.Add(selList1);
+                lstSelItem.Add(selList2);
 
                 return lstSelItem;
             }

@@ -27,6 +27,7 @@ namespace CNG.Models
         public int ItemId { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
         public decimal UnitCost { get; set; }
 
         [Required]
@@ -62,6 +63,7 @@ namespace CNG.Models
 
         public virtual List<Receiving> Receivings { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
         public decimal Amount {
             get {
                 return UnitCost * Quantity;

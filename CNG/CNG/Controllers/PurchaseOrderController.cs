@@ -209,10 +209,10 @@ namespace CNG.Controllers
                            ItemCode = p.Item.Code,
                            Description = p.Item.Description,
                            ItemType = p.Item.Type.Description,
-                           Band = p.Item.Brand,
+                           Brand = p.Item.Brand,
                            Quantity = p.Quantity,
-                           UnitCost = p.UnitCost.ToString("F"),
-                           TotalAmount = p.Amount.ToString("F"),
+                           UnitCost = p.UnitCost.ToString("N"),
+                           TotalAmount = p.Amount.ToString("N"),
                            Remarks = p.Remarks
                        };
 

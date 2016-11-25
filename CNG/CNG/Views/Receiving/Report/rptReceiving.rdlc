@@ -10,7 +10,9 @@
             <TextRuns>
               <TextRun>
                 <Value>RECEIVING REPORT</Value>
-                <Style />
+                <Style>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style>
@@ -20,7 +22,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
         <Top>0.19667in</Top>
-        <Left>3.12375in</Left>
+        <Left>2.63417in</Left>
         <Height>0.25in</Height>
         <Width>2.02084in</Width>
         <Style>
@@ -70,19 +72,19 @@
               <Width>1in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.97916in</Width>
+              <Width>1.70833in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.52083in</Width>
+              <Width>0.4375in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.95833in</Width>
+              <Width>0.63543in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1in</Width>
+              <Width>0.84375in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.75in</Width>
+              <Width>0.63542in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1in</Width>
@@ -546,7 +548,7 @@
         <Top>1.72792in</Top>
         <Left>0.32167in</Left>
         <Height>0.5in</Height>
-        <Width>7.20833in</Width>
+        <Width>6.26042in</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -572,7 +574,7 @@
         </Paragraphs>
         <rd:DefaultName>CompanyName</rd:DefaultName>
         <Top>0.5925in</Top>
-        <Left>3.12375in</Left>
+        <Left>2.63417in</Left>
         <Height>0.25in</Height>
         <Width>2.02084in</Width>
         <ZIndex>3</ZIndex>
@@ -622,10 +624,10 @@
   </Body>
   <Width>8.01958in</Width>
   <Page>
-    <LeftMargin>1in</LeftMargin>
-    <RightMargin>1in</RightMargin>
-    <TopMargin>1in</TopMargin>
-    <BottomMargin>1in</BottomMargin>
+    <LeftMargin>0.5in</LeftMargin>
+    <RightMargin>0.5in</RightMargin>
+    <TopMargin>0.5in</TopMargin>
+    <BottomMargin>0.5in</BottomMargin>
     <Style />
   </Page>
   <AutoRefresh>0</AutoRefresh>

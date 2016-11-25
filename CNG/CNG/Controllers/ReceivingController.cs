@@ -210,8 +210,8 @@ namespace CNG.Controllers
                                        ItemCode = p.Item.Code,
                                        Description = p.Item.Description,
                                        Quantity = p.Quantity,
-                                       UnitCost = p.UnitCost.ToString("F"),
-                                       TotalAmount = p.Amount.ToString("F"),
+                                       UnitCost = p.UnitCost.ToString("N"),
+                                       TotalAmount = p.Amount.ToString("N"),
                                        Balance = p.Balance,
                                        DateReceived = p.Date.ToShortDateString()
                                    };

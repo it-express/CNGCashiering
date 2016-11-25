@@ -107,7 +107,7 @@ namespace CNG.Controllers
             ItemAssignmentRepository itemAssignmentRepo = new ItemAssignmentRepository();
 
             List<ItemAssignmentVM> lstItemAssignmentVM = (from p in itemRepo.List().ToList()
-                                                               join q in itemAssignmentRepo.List().ToList() 
+                                                               join q in itemAssignmentRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value).ToList() 
                                                                on p.Id equals q.ItemId into pq
                                                                from r in pq.DefaultIfEmpty()
                                                                select new ItemAssignmentVM
