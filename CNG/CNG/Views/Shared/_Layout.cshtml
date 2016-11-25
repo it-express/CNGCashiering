@@ -89,8 +89,9 @@
                     </a>
                     <!-- start: LOGO -->
                     <a class="navbar-brand" href="#">
-                        FIRST CNG INC.
-                        @*<img src="@Url.Content("~/Content/rapido/images/logo.png")" alt="Rapido" />*@
+                        @{ 
+                            @(CNG.Models.Sessions.CompanyName.ToUpper())
+                        }
                     </a>
                     <!-- end: LOGO -->
                 </div>
@@ -104,9 +105,9 @@
                             </a>
                             <ul class="dropdown-menu dropdown-dark">
                                 <li>
-                                    @*<a href="#">
-                                        Log Out
-                                    </a>*@
+                                    <a href="@Url.Action("Index", "Home")">
+                                        Select Company
+                                    </a>
                                     <a href="@Url.Action("Logout", "Home")">
                                         Log Out
                                     </a>

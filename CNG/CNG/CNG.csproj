@@ -405,6 +405,7 @@
     <Content Include="Views\VehicleStockTransfer\_EditorRow.cshtml" />
     <Content Include="Views\StockTransfer\Details.cshtml" />
     <Content Include="Views\VehicleStockTransfer\Details.cshtml" />
+    <Content Include="Views\Shared\_LayoutNoColumn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -24,6 +24,18 @@ namespace CNG.Models
                 HttpContext.Current.Session["companyId"] = value;
             }
         }
+
+        public static string CompanyName
+        {
+            get
+            {
+                CompanyRepository companyRepo = new CompanyRepository();
+
+                Company company = companyRepo.List().FirstOrDefault(p => p.Id == CompanyId.Value);
+
+                return company.Name;
+            }
+        }
     }
 
     public class AuthorizationFilter : System.Web.Mvc.ActionFilterAttribute
