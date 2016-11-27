@@ -184,7 +184,7 @@ namespace CNG.Controllers
                     receiving.Id = item.Id;
                 }
                 else {
-                    receiving.TransactionLogId = InsertLogs(poItem.ItemId, item.Quantity);
+                    receiving.TransactionLogId = InsertLogs(poItem.ItemId, item.Quantity, item.DateReceived);
                 }
 
                 receiving.PurchaseOrderItemId = receivingLogsDTO.PurchaseOrderItemId;
@@ -235,7 +235,7 @@ namespace CNG.Controllers
             return View();
         }
 
-        public int InsertLogs(int itemId, int quantiy) {
+        public int InsertLogs(int itemId, int quantiy, DateTime dateReceived) {
             TransactionLogRepository transactionLogRepo = new TransactionLogRepository();
 
             TransactionLog transactionLog = new TransactionLog
@@ -243,7 +243,8 @@ namespace CNG.Controllers
                 ItemId = itemId,
                 Quantity = quantiy,
                 TransactionMethodId = (int)ETransactionMethod.Receiving,
-                CompanyId = Sessions.CompanyId.Value
+                CompanyId = Sessions.CompanyId.Value,
+                Date = dateReceived
             };
 
             transactionLogRepo.Add(transactionLog);

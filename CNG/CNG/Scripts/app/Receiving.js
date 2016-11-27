@@ -20,6 +20,9 @@
 
         var url = 'RenderReceivingLogEditor?poItemId=' + poItemId;
 
+        $currRow = $(this).closest('tr');
+        $('#txtPoQuantity').val($currRow.data('po-quantity'));
+
         $.get(url, function (data) {
             $('#divReceivingLog .modal-body').html(data);
 

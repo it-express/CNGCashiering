@@ -31,42 +31,40 @@ $(document).on('click', '#btnReceivingSave', function () {
 
     receiving.Items = lstItem;
 
-    var url = 'ReceivingLogsSave';
+    var err = Validate(receiving);
+    if (err == "") {
+        var url = 'ReceivingLogsSave';
 
-    $.ajax({
-        url: url,
-        type: "POST",
-        data: JSON.stringify(receiving),
-        contentType: "application/json; charset=utf-8",
-        success: function (r) {
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: JSON.stringify(receiving),
+            contentType: "application/json; charset=utf-8",
+            success: function (r) {
 
-            alert("Saved");
-            $('#divReceivingLog').modal('hide')
+                alert("Saved");
+                $('#divReceivingLog').modal('hide')
 
-            RefreshItems();
-        }
-    });
+                RefreshItems();
+            }
+        });
+    }
+    else {
+        alert(err);
+    }
 });
 
 function Validate(receiving) {
     var err = "";
 
     var total = 0;
-    $.each(receiving.Items, function (key, value) {
-        total += value;
-
-        if (parseInt(a.Quantity) > parseInt(a.QuantityOnHand)) {
-            allow = false;
-        }
-        else {
-            allow = true;
-        }
-
-        //if (allow == false) {
-        //    err = "Insufficient quantity on hand : " + a.Code;
-        //    return false;
-        //}
+    $.each(receiving.Items, function (key, item) {
+        total += parseInt(item.Quantity);
     });
+    var PoQuantity = parseInt($('#txtPoQuantity').val());
+    if (total > PoQuantity) {
+        err = "Received quantity must be less than the PO quantity.";
+    }
 
     return err;
 }

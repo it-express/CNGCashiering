@@ -18,7 +18,9 @@ namespace CNG.Models
 
         public int Add(TransactionLog transactionLog)
         {
-            transactionLog.Date = DateTime.Now;
+            if (transactionLog.Date == DateTime.MinValue) {
+                transactionLog.Date = DateTime.Now;
+            }
             transactionLog.UserId = Convert.ToInt32(HttpContext.Current.Session["uid"]); //get from current session
             transactionLog.CompanyId = transactionLog.CompanyId;
 

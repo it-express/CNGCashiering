@@ -2,7 +2,7 @@
 
 @foreach (var poItem in Model)
 {
-    <tr class='item-row' data-poitem-id="@poItem.Id">
+    <tr class='item-row' data-poitem-id="@poItem.Id" data-po-quantity="@poItem.Quantity">
         <td>
             @poItem.Item.Code
         </td>
