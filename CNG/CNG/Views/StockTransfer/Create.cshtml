@@ -1,4 +1,4 @@
-﻿@model CNG.Models.StockTransfer
+﻿@model CNG.Models.StockTransferVM
 
 @{
     ViewBag.Title = "Create";
@@ -11,7 +11,7 @@
 <div class="toolbar row">
     <div class="col-sm-6 hidden-xs">
         <div class="page-header">
-            <h1>Stock Transfer</h1>
+            <h1>Company Stock Transfer </h1>
         </div>
     </div>
 </div>
@@ -32,91 +32,164 @@
 
             <div class="panel-body">
 
-                <div class="form-horizontal">
-                    <h4>Stock Transfer (Company to Company)</h4>
-                    <hr />
+                @using (Html.BeginForm("Edit", "StockTransfer"))
+                {
+                    <div class="form-horizontal">
+                        <h4>Manage Stock Transfer</h4>
+                        <hr />
 
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Stock Transfer No</label>
-                        <div class="col-md-5">
-                            <label id="lblStNo" class="form-control">@Model.No</label>
+                        @Html.ValidationSummary()
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Stock Transfer Number</label>
+                            <div class="col-md-5">
+                                <label id="lblStNo" class="form-control">@Model.StockTransfer.No</label>
+                            </div>
                         </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Stock Transfer Date</label>
+                            <div class="col-md-5">
+                                <input type="text" id="lblStDate" class="form-control date-picker" value="@Model.StockTransfer.Date.ToString("MM/dd/yyyy")" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Company To</label>
+                            <div class="col-md-5">
+                                @Html.DropDownList("StockTransfer.CompanyTo", (IEnumerable<SelectListItem>)ViewBag.Companies, "", new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Job Order No</label>
+                            <div class="col-md-5">
+                                <input type="text" id="txtJobOrderNo" class="form-control" value="@Model.StockTransfer.JobOrderNo" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Search unit plate no</label>
+                            <div class="col-md-5">
+                                @Html.DropDownList("UnitPlateNo", (IEnumerable<SelectListItem>)ViewBag.PlateNos, "", new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">JO Date</label>
+                            <div class="col-md-5">
+                                <input type="text" id="txtJobOrderDate" class="form-control date-picker" value="@Model.StockTransfer.JobOrderDate.ToString("MM/dd/yyyy")" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Odometer Reading</label>
+                            <div class="col-md-5">
+                                <input type="text" id="txtOdometerReading" class="form-control" value="@Model.StockTransfer.OdometerReading" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Drivers Name</label>
+                            <div class="col-md-5">
+                                <input type="text" id="txtDriverName" class="form-control" value="@Model.StockTransfer.DriverName" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <h4 class="control-label col-md-2">Add Items</h4>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Search item</label>
+                            <div class="col-md-5">
+                                @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items, "", new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-1">
+                                <input type="button" id="btnAddItem" value="Ok" data-url="@Url.Action("RenderEditorRow", "StockTransfer")" class="btn btn-dark-blue" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <h4 class="control-label col-md-5">
+                                        Requested Items
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="form-group">
+                                    <h4 class="control-label col-md-3">
+                                        Return Items
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @*<label class="control-label col-md-1"></label>*@
+                            <div class="col-md-12">
+                                <table id="tblItems" class="table table-hover table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Item/Part Required</th>
+                                            <th>Quantity</th>
+                                            <th>Description</th>
+                                            <th>Serial No</th>
+                                            <th>Item/Part Required</th>
+                                            <th>Quantity</th>
+                                            <th>Description</th>
+                                            <th>Serial No</th>
+                                            <th>Type</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var poItem in Model.StockTransfer.StockTransferItems)
+                                        {
+                                            Html.RenderPartial("_EditorRow", new CNG.Models.StockTransferItemVM { StockTransferItem = poItem });
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Reported/Requested By:</label>
+                            <div class="col-md-5">
+                                <input type="text" id="txtReportedBy" class="form-control" value="@Model.StockTransfer.ReportedBy" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Checked By:</label>
+                            <div class="col-md-5">
+                                <input type="text" id="txtCheckedBy" class="form-control" value="@Model.StockTransfer.CheckedBy" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Approved By:</label>
+                            <div class="col-md-5">
+                                <label id="lblApprovedBy" class="form-control">@ViewBag.ApprovedBy</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input id="btnSubmit" value="Submit" class="btn btn-dark-blue" type="submit">
+                                <a href="@Url.Action("Index")" class="btn btn-dark-beige">
+                                    Back to List
+                                </a>
+                            </div>
+                        </div>
+
                     </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Date</label>
-                        <div class="col-md-5">
-                            <input type="text" id="txtDate" value="@Model.Date.ToString("MM/dd/yyyy")" class="form-control date-picker" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Company From</label>
-                        <div class="col-md-5">
-                            @Html.DropDownList("Companies", (IEnumerable<SelectListItem>)ViewBag.Companies, new { @class = "form-control" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Select Item</label>
-                        <div class="col-md-5">
-                            @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items, new { @class = "form-control" })
-                        </div>
-                        <div class="col-md-5">
-                            <input id="btnAddItem" type="button" value="Ok" class="btn btn-dark-blue" data-url="@Url.Action("RenderEditorRow")" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-md-1"></label>
-                        <div class="col-md-9">
-                            <table id="tblItems" class="table table-hover table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Item Code</th>
-                                        <th>Description</th>
-                                        <th>Brand</th>
-                                        <th>Unit Cost</th>
-                                        <th>Qty on Hand</th>
-                                        <th>Qty Requested</th>
-                                        <th>Item Type</th>
-                                        <th>Remarks</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model.StockTransferItems)
-                                    {
-                                        Html.RenderPartial("_EditorRow", item);
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Prepared By</label>
-                        <div class="col-md-5">
-                            <label id="lblPreparedBy" class="form-control">@ViewBag.User</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Approved By</label>
-                        <div class="col-md-5">
-                            <label id="lblApprovedBy" class="form-control">@ViewBag.GeneralManager</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="button" id="btnSubmit" value="Submit" class="btn btn-dark-blue" />
-                        </div>
-                    </div>
-
-                </div>
+                }
             </div>
-            <!-- end: BASIC TABLE PANEL -->
         </div>
+        <!-- end: BASIC TABLE PANEL -->
     </div>
 </div>
 

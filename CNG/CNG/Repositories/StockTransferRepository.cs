@@ -9,6 +9,7 @@ namespace CNG.Models
     public class StockTransferRepository
     {
         private CNGDBContext context = new CNGDBContext();
+        StockTransferItemRepository stItemRepo = new StockTransferItemRepository();
 
         public IQueryable<StockTransfer> List()
         {
@@ -55,7 +56,7 @@ namespace CNG.Models
 
         public void Save(StockTransfer st)
         {
-            bool exists = context.StockTransfers.Count(p => p.No == st.No) > 0;
+            bool exists = context.StockTransfers.Any(p => p.No == st.No);
 
             int id;
 
@@ -66,38 +67,76 @@ namespace CNG.Models
                 context.SaveChanges();
 
                 id = st.Id;
+
+                foreach (StockTransferItem stItem in st.StockTransferItems)
+                {
+                    stItem.StockTransferId = id;
+
+                    if (stItem.Quantity != 0)
+                    {
+                        stItem.TransactionLogId = InsertLogs(stItem.ItemId, stItem.Quantity);
+                    }
+                }
             }
             else
             {
                 StockTransfer dbEntry = context.StockTransfers.FirstOrDefault(p => p.No == st.No);
                 if (dbEntry != null)
                 {
-                    dbEntry.No = st.No;
-
-                    dbEntry.Date = st.Date;
-                    dbEntry.TransferFrom = st.TransferFrom;
-
-                    dbEntry.PreparedBy = Common.GetCurrentUser.Id;
-                    dbEntry.ApprovedBy = Common.GetCurrentUser.GeneralManagerId;
+                    dbEntry.JobOrderDate = st.Date;
+                    dbEntry.JobOrderNo = st.JobOrderNo;
+                    dbEntry.UnitPlateNo = st.UnitPlateNo;
+                    dbEntry.JobOrderDate = st.JobOrderDate;
+                    dbEntry.OdometerReading = st.OdometerReading;
+                    dbEntry.DriverName = st.DriverName;
+                    dbEntry.ReportedBy = st.ReportedBy;
+                    dbEntry.CheckedBy = st.CheckedBy;
+                    dbEntry.ApprovedBy = st.ApprovedBy;
+                    dbEntry.CompanyId = st.CompanyId;
                 }
+
+                context.SaveChanges();
 
                 id = dbEntry.Id;
 
                 //Delete previous items
                 foreach (StockTransferItem stItem in dbEntry.StockTransferItems.ToList())
                 {
-                    context.StockTransferItems.Remove(stItem);
+                    //Delete previous logs
+                    TransactionLogRepository transLogRepo = new TransactionLogRepository();
+                    transLogRepo.Remove(stItem.TransactionLogId.Value);
+
+                    stItemRepo.Remove(stItem.Id);
                 }
 
-                foreach (StockTransferItem stItem in st.StockTransferItems.ToList())
+                foreach (StockTransferItem stItem in st.StockTransferItems)
                 {
                     stItem.StockTransferId = id;
+                    if (stItem.Quantity != 0)
+                    {
+                        stItem.TransactionLogId = InsertLogs(stItem.ItemId, stItem.Quantity);
+                    }
 
                     context.StockTransferItems.Add(stItem);
                 }
             }
 
             context.SaveChanges();
+        }
+
+        public int InsertLogs(int itemId, int quantiy)
+        {
+            TransactionLogRepository transactionLogRepo = new TransactionLogRepository();
+
+            TransactionLog transactionLog = new TransactionLog
+            {
+                ItemId = itemId,
+                Quantity = -quantiy,
+                TransactionMethodId = (int)ETransactionMethod.Requisition,
+                CompanyId = Sessions.CompanyId.Value
+            };
+
+            return transactionLogRepo.Add(transactionLog);
         }
     }
 }

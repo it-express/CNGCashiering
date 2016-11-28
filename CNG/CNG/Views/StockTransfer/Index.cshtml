@@ -12,7 +12,7 @@
 <div class="toolbar row">
     <div class="col-sm-6 hidden-xs">
         <div class="page-header">
-            <h1>Stock Transfer </h1>
+            <h1>Company Stock Transfer </h1>
         </div>
     </div>
 </div>
@@ -29,9 +29,9 @@
 <div class="row">
     <div class="col-md-12">
         <!-- start: BASIC TABLE PANEL -->
-        <div class="ptanel panel-white">
+        <div class="panel panel-white">
             <div class="panel-heading">
-                <h4 class="panel-title pull-left"><span class="text-bold">Stock Transfer List - @ViewBag.CompanyName</span></h4>
+                <h4 class="panel-title pull-left"><span class="text-bold">Stock Transfer List - @ViewBag.CompanyName </span></h4>
                 <div class="pull-right">
                     <a href="@Url.Action("Create")" class="btn btn-dark-blue">Create</a>
                 </div>
@@ -41,7 +41,6 @@
             </div>
             <div class="panel-body">
 
-
                 @using (Html.BeginForm())
                 {
                     <div class="col-md-4 col-sm-12 no-padding pull-right" style="margin-bottom:16px; text-align:right;">
@@ -50,14 +49,35 @@
                     </div>
                 }
 
+
+                <div class="clearfix"></div>
+
                 <table class="table table-hover table-striped">
                     <thead>
                         <tr>
                             <th>
+                                @Html.ActionLink("No", "Index", new { sortColumn = "no", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+                            <th>
                                 @Html.ActionLink("Date", "Index", new { sortColumn = "date", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.ActionLink("Prepared By", "Index", new { sortColumn = "preparedBy", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                                @Html.ActionLink("Job Order No", "Index", new { sortColumn = "jobOrderNo", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+                            <th>
+                                @Html.ActionLink("Plate No", "Index", new { sortColumn = "unitPlateNo", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+                            <th>
+                                @Html.ActionLink("Odometer Reading", "Index", new { sortColumn = "odometerReading", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+                            <th>
+                                @Html.ActionLink("Driver Name", "Index", new { sortColumn = "driverName", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+                            <th>
+                                @Html.ActionLink("Reported By", "Index", new { sortColumn = "reportedBy", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+                            <th>
+                                @Html.ActionLink("Checked By", "Index", new { sortColumn = "checkedBy", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
                                 @Html.ActionLink("Approved By", "Index", new { sortColumn = "approvedBy", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
@@ -70,19 +90,44 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Date)
+                                    @Html.DisplayFor(modelItem => item.No)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.PreparedByObj.FullName)
+                                    @item.Date.ToShortDateString()
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.JobOrderNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UnitPlateNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OdometerReading)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DriverName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ReportedBy)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CheckedBy)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.ApprovedByObj.FullName)
                                 </td>
                                 <td>
                                     <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        @if (Convert.ToInt32(Session["utype"]) != 1)
+                                        //1 - user
+                                        {
+                                            <a href="@Url.Action("Edit", new { stNo = item.No })" data-original-title="Edit" data-placement="top" class="btn btn-xs btn-blue tooltips"><i class="fa fa-edit"></i></a>
+                                        }
+
                                         <a href="@Url.Action("Details", new { stNo = item.No })" data-original-title="Details" data-placement="top" class="btn btn-xs btn-green tooltips"><i class="fa fa-list"></i></a>
-                                        <a href="@Url.Action("Delete", new { stNo = item.No })" data-original-title="Delete" data-placement="top" class="btn btn-xs btn-red tooltips"><i class="fa fa-times"></i></a>
+                                        <a href="@Url.Action("Delete", new { stNo = item.No })" data-original-title="Remove" data-placement="top" class="btn btn-xs btn-red tooltips"><i class="fa fa-times fa fa-white"></i></a>
                                     </div>
+
                                 </td>
                             </tr>
                         }
@@ -101,7 +146,6 @@
                     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
                 </div>
 
-
                 <div class="clearfix"></div>
 
             </div>
@@ -109,8 +153,12 @@
         <!-- end: BASIC TABLE PANEL -->
     </div>
 
+    <div class="clearfix"></div>
 
 </div>
+
+
+
 <script>
 
     $(document).ready(function () {

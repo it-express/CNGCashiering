@@ -36,7 +36,7 @@ namespace CNG.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            IQueryable<VehicleStockTransfer> lstSt = vstRepo.List();
+            IQueryable<VehicleStockTransfer> lstSt = vstRepo.List().Where(p => p.CompanyId == Sessions.CompanyId);
 
             //if (!String.IsNullOrEmpty(searchString))
             //{
@@ -105,6 +105,7 @@ namespace CNG.Controllers
             vst.No = entry.No;
 
             vst.Date = Convert.ToDateTime(entry.Date);
+            vst.CompanyId = Sessions.CompanyId.Value;
 
             vst.RequestedBy = entry.RequestedBy;
             vst.CheckedBy = Common.GetCurrentUser.Id;

@@ -1,9 +1,36 @@
 ﻿$(document).ready(function () {
-    function Validate(rp) {
+    function Validate(st) {
         var err = "";
 
-        if (rp.Items.length == 0) {
+        if (st.StockTransferDate == "") {
+            err = "Stock transfer date is required.";
+        }
+        else if (st.JobOrderNo == "") {
+            err = "Job order no is required.";
+        }
+        else if (st.UnitPlateNo == "") {
+            err = "Unit plate no is required.";
+        }
+        else if (st.JobOrderDate == "") {
+            err = "Job order date is required.";
+        }
+        else if (st.OdometerReading == "") {
+            err = "Odometer reading is required.";
+        }
+        else if (st.Items.length == 0) {
             err = "Please select item/s.";
+        }
+        else {
+            $.each(st.Items, function (key, value) {
+                a = value;
+
+                if (parseInt(a.Quantity) > parseInt(a.QuantityOnHand)) {
+                    allow = false;
+                }
+                else {
+                    allow = true;
+                }
+            });
         }
 
         return err;
@@ -13,10 +40,17 @@
         event.preventDefault();
 
         var st = new Object();
-
         st.No = $('#lblStNo').text();
-        st.Date = $('#txtDate').val();
-        st.TransferFrom = $('#Companies').val();
+        st.StockTransferDate = $('#lblStDate').val();
+        st.CompanyTo = $('#StockTransfer_CompanyTo').val();
+        st.JobOrderNo = $('#txtJobOrderNo').val();
+        st.UnitPlateNo = $('#UnitPlateNo').val();
+        st.JobOrderDate = $('#txtJobOrderDate').val();
+        st.OdometerReading = $('#txtOdometerReading').val();
+        st.DriverName = $('#txtDriverName').val();
+
+        st.ReportedBy = $('#txtReportedBy').val();
+        st.CheckedBy = $('#txtCheckedBy').val();
 
         var lstItem = new Array();
 
@@ -24,9 +58,15 @@
             $this = $(this);
 
             var item = new Object();
-            item.Id = $this.data("item-id");
+            item.ItemId = $this.data("item-id");
             item.Quantity = $this.find(".txtQuantity").val();
-            item.Remarks = $this.find(".txtRemarks").val();
+            item.SerialNo = $this.find(".txtSerialNo").val();
+            item.Type = $this.find(".selType").val();
+            item.QuantityReturn = $this.find(".txtQuantityReturn ").val();
+            item.SerialNoReturn = $this.find('.txtSerialNoReturn').val();
+
+            item.QuantityOnHand = $this.data("quantity-on-hand");
+            item.Code = $this.find('.lblCode').text();;
 
             lstItem.push(item);
         });
@@ -57,9 +97,8 @@
         event.preventDefault();
 
         var itemId = $('#Items').val();
-        var transferFrom = $('#Companies').val();
 
-        var url = $(this).data('url') + '?itemId=' + itemId + '&transferFrom=' + transferFrom;
+        var url = $(this).data('url') + '?itemId=' + itemId;
         $.get(url, function (data) {
             $('#tblItems').append(data);
         });
@@ -70,5 +109,12 @@
         $row.fadeOut("fast", function () {
             $row.remove();
         })
+    });
+
+    $(document).on('keyup', '.txtQuantity', function () {
+        var $row = $(this).closest("tr");
+        var txtQuantityReturn = $row.find('.txtQuantityReturn');
+
+        txtQuantityReturn.val($(this).val());
     });
 });

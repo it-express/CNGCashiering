@@ -106,7 +106,7 @@ namespace CNG.Controllers
             VehicleAssignmentRepository vehicleAssignmentRepo = new VehicleAssignmentRepository();
 
             List<VehicleAssignmentVM> lstItemAssignmentVM = (from p in vehicleRepo.List().ToList()
-                                                          join q in vehicleAssignmentRepo.List().ToList()
+                                                          join q in vehicleAssignmentRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value).ToList()
                                                           on p.Id equals q.VehicleId into pq
                                                           from r in pq.DefaultIfEmpty()
                                                           select new VehicleAssignmentVM

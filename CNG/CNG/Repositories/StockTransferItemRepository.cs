@@ -7,11 +7,10 @@ namespace CNG.Models
 {
     public class StockTransferItemRepository
     {
-        private CNGDBContext context;
+        private CNGDBContext context = new CNGDBContext();
 
-        public StockTransferItemRepository(CNGDBContext _context)
+        public StockTransferItemRepository()
         {
-            this.context = _context;
         }
 
         public StockTransferItem Find(int stItemId)
@@ -21,18 +20,19 @@ namespace CNG.Models
             return item;
         }
 
-        public void Save(StockTransferItem rpItem)
+        public void Remove(int stItemId)
         {
-            context.StockTransferItems.Add(rpItem);
+            StockTransferItem item = context.StockTransferItems.Find(stItemId);
+            context.StockTransferItems.Remove(item);
 
             context.SaveChanges();
         }
 
-        public List<StockTransferItem> ListByStId(int id)
+        public void Save(StockTransferItem stItem)
         {
-            IQueryable<StockTransferItem> lstStItem = context.StockTransferItems.Where(p => p.StockTransferId == id);
+            context.StockTransferItems.Add(stItem);
 
-            return lstStItem.ToList();
+            context.SaveChanges();
         }
     }
 }

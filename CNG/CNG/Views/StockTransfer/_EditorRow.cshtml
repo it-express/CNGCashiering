@@ -1,39 +1,41 @@
-﻿@model CNG.Models.StockTransferItem
+﻿@model CNG.Models.StockTransferItemVM
 
+@*data-quantity-on-hand="@Model.RequisitionItem."*@
+<tr data-item-id="@Model.StockTransferItem.Item.Id" data-quantity-on-hand="@Model.StockTransferItem.Item.QuantityOnHand(Model.CompanyId)" class="item-row">
 
-<tr data-item-id="@Model.ItemId" class="item-row">
     <td>
-        @Model.Item.Code
-    </td>
-    <td>
-        @Model.Item.Description
-    </td>
-    <td>
-        @Model.Item.Brand
-    </td>
-    <td>
-        @Model.Item.UnitCost.ToString("F")
-    </td>
-    <td>
-        @{
-            int companyId = ViewBag.TransferFrom;
-            int quantityOnHand = Model.Item.QuantityOnHand(companyId);
+        @Html.HiddenFor(model => model.StockTransferItem.ItemId)
 
-            <span>@quantityOnHand.ToString()</span>
-        }
+        <label class="lblCode">@Model.StockTransferItem.Item.Code</label>
     </td>
     <td>
-        <input type='text' class='txtQuantity form-control' value="@Model.Quantity" />
+        @Html.TextBoxFor(model => model.StockTransferItem.Quantity, new { @class = "txtQuantity form-control" })
     </td>
     <td>
-        @Model.Item.Type.Description
+        @Model.StockTransferItem.Item.Description
     </td>
     <td>
-        <textarea class='txtRemarks form-control'> @Model.Remarks </textarea>
+        @Html.TextBoxFor(model => model.StockTransferItem.SerialNo, new { @class = "txtSerialNo form-control" })
     </td>
     <td>
-        <div class="visible-md visible-lg hidden-sm hidden-xs">
-            <a href="#!" data-original-title="Remove" data-placement="top" class="btn btn-xs btn-red tooltips btnRemoveItem"><i class="fa fa-times fa fa-white"></i></a>
-        </div>
+        @Model.StockTransferItem.Item.Code
+    </td>
+    <td>
+        @Html.TextBoxFor(model => model.StockTransferItem.QuantityReturn, new { @class = "txtQuantityReturn form-control" })
+    </td>
+    <td>
+        @Model.StockTransferItem.Item.Description
+    </td>
+    <td>
+        @Html.TextBoxFor(model => model.StockTransferItem.SerialNoReturn, new { @class = "txtSerialNoReturn form-control" })
+    </td>
+    <td>
+        @Html.DropDownListFor(p => p.StockTransferItem.Type, Model.ItemTypes, new { @class = "selType" });
+    </td>
+
+    <td>
+        <a class="btn btn-xs btn-red tooltips btnRemoveItem" href="#!" data-original-title="Remove" data-placement="top">
+            <i class="fa fa-times fa fa-white"></i>
+        </a>
     </td>
 </tr>

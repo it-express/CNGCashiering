@@ -4,12 +4,11 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <!-- start: TOOLBAR -->
 <div class="toolbar row">
     <div class="col-sm-6 hidden-xs">
         <div class="page-header">
-            <h1>Stock Transfer</h1>
+            <h1>Company Stock Transfer</h1>
         </div>
     </div>
 </div>
@@ -30,7 +29,7 @@
 
             <div class="panel-body">
 
-                <div class="form-horizontal" id="divPrintHere">
+                <div class="form-horizontal">
                     <h4>Stock Transfer</h4>
                     <hr />
 
@@ -38,14 +37,6 @@
                         <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.No)</label>
                         <div class="col-md-5">
                             <label class="form-control">@Html.DisplayFor(model => model.No)</label>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Transfer From</label>
-                        <div class="col-md-5">
-                            <label class="form-control">@Html.DisplayFor(model => model.TransferFromObj.Name)</label>
                         </div>
                     </div>
 
@@ -57,18 +48,61 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-2">Prepared By</label>
+                        <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.JobOrderNo)</label>
                         <div class="col-md-5">
-                            <label class="form-control">@Html.DisplayFor(model => model.PreparedByObj.Username)</label>
+                            <label class="form-control">@Html.DisplayFor(model => model.JobOrderNo)</label>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-2">Approved By</label>
+                        <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.JobOrderDate)</label>
                         <div class="col-md-5">
-                            <label class="form-control">@Html.DisplayFor(model => model.ApprovedByObj.Username)</label>
+                            <label class="form-control">@Html.DisplayFor(model => model.JobOrderDate)</label>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.UnitPlateNo)</label>
+                        <div class="col-md-5">
+                            <label class="form-control">@Html.DisplayFor(model => model.UnitPlateNo)</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.OdometerReading)</label>
+                        <div class="col-md-5">
+                            <label class="form-control">@Html.DisplayFor(model => model.OdometerReading)</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.DriverName)</label>
+                        <div class="col-md-5">
+                            <label class="form-control">@Html.DisplayFor(model => model.DriverName)</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.ReportedBy)</label>
+                        <div class="col-md-5">
+                            <label class="form-control">@Html.DisplayFor(model => model.ReportedBy)</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.CheckedBy)</label>
+                        <div class="col-md-5">
+                            <label class="form-control">@Html.DisplayFor(model => model.CheckedBy)</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.ApprovedBy)</label>
+                        <div class="col-md-5">
+                            <label class="form-control">@Html.DisplayFor(model => model.ApprovedByObj.FullName)</label>
+                        </div>
+                    </div>
+
 
                     <div class="form-group">
                         <label class="control-label col-md-1"></label>
@@ -77,46 +111,64 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            Item Code
-                                        </th>
-                                        <th>
-                                            Description
-                                        </th>
-                                        <th>
-                                            Item Type
-                                        </th>
-                                        <th>
-                                            Brand
+                                            Item/Part
                                         </th>
                                         <th>
                                             Quantity
                                         </th>
                                         <th>
-                                            Remarks
+                                            Description
+                                        </th>
+                                        <th>
+                                            Serial No
+                                        </th>
+                                        <th>
+                                            Item/Parts Required
+                                        </th>
+                                        <th>
+                                            Quantity
+                                        </th>
+                                        <th>
+                                            Description
+                                        </th>
+                                        <th>
+                                            SerialNo
+                                        </th>
+                                        <th>
+                                            Type
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var stItem in Model.StockTransferItems)
+                                    @foreach (var rpItem in Model.StockTransferItems)
                                     {
                                         <tr>
                                             <td>
-                                                @Html.DisplayFor(modelItem => stItem.Item.Code)
+                                                @Html.DisplayFor(modelItem => rpItem.Item.Code)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => stItem.Item.Description)
+                                                @Html.DisplayFor(modelItem => rpItem.Quantity)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => stItem.Item.Type.Description)
+                                                @Html.DisplayFor(modelItem => rpItem.Item.Description)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => stItem.Item.Brand)
+                                                @Html.DisplayFor(modelItem => rpItem.SerialNo)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => stItem.Quantity)
+                                                @Html.DisplayFor(modelItem => rpItem.Item.Code)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => stItem.Remarks)
+                                                @Html.DisplayFor(modelItem => rpItem.QuantityReturn)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => rpItem.Item.Description)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => rpItem.SerialNo)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => rpItem.TypeDescription)
                                             </td>
                                         </tr>
                                     }

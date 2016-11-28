@@ -14,8 +14,10 @@ namespace CNG.Controllers
     {
         CNGDBContext context = new CNGDBContext();
         StockTransferRepository stRepo = new StockTransferRepository();
-        CompanyRepository companyRepo = new CompanyRepository();
+        VehicleRepository vehicleRepo = new VehicleRepository();
         ItemRepository itemRepo = new ItemRepository();
+        CompanyRepository companyRepo = new CompanyRepository();
+        ItemTypeRepository itemTypeRepo = new ItemTypeRepository();
 
         // GET: StockTransfer
         public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
@@ -35,66 +37,99 @@ namespace CNG.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            IQueryable<StockTransfer> lstSt = stRepo.List();
+            IQueryable<StockTransfer> lstStockTransfer = stRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value);
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                lstSt = lstSt.Where(s => s.Date.ToString().Contains(searchString)
-                                       || s.PreparedByObj.FirstName.Contains(searchString)
-                                       || s.PreparedByObj.LastName.Contains(searchString)
+                lstStockTransfer = lstStockTransfer.Where(s => s.No.Contains(searchString)
+                                       || s.Date.ToString().Contains(searchString)
+                                       || s.JobOrderNo.Contains(searchString)
+                                       || s.UnitPlateNo.Contains(searchString)
+                                       || s.OdometerReading.ToString().Contains(searchString)
+                                       || s.DriverName.Contains(searchString)
+                                       || s.ReportedBy.Contains(searchString)
+                                       || s.CheckedBy.Contains(searchString)
                                        || s.ApprovedByObj.FirstName.Contains(searchString)
                                        || s.ApprovedByObj.LastName.Contains(searchString));
             }
 
             if (String.IsNullOrEmpty(sortColumn))
             {
-                lstSt = lstSt.OrderByDescending(p => p.Id);
+                lstStockTransfer = lstStockTransfer.OrderByDescending(p => p.Id);
             }
             else
             {
-                lstSt = lstSt.OrderBy(sortColumn + " " + sortOrder);
+                lstStockTransfer = lstStockTransfer.OrderBy(sortColumn + " " + sortOrder);
             }
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-
-            return View(lstSt.ToPagedList(pageNumber, pageSize));
+            return View(lstStockTransfer.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult Create()
         {
-            ViewBag.Items = new SelectList(context.Items, "Id", "Description");
-            ViewBag.Companies = new SelectList(context.Companies, "Id", "Name");
-            ViewBag.User = Common.GetCurrentUser.FullName;
-            ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
-            
+            InitViewBags();
+            var lstPlateNos = from p in vehicleRepo.List()
+                              select new { No = p.LicenseNo };
+            ViewBag.PlateNos = new SelectList(lstPlateNos, "No", "No");
 
-            StockTransfer stockTransfer = new StockTransfer
+            StockTransferVM stVM = new StockTransferVM
             {
-                No = stRepo.GenerateStockTransferNo(),
-                Date = DateTime.Now
+                StockTransfer = new StockTransfer
+                {
+                    No = stRepo.GenerateStockTransferNo(),
+                    Date = DateTime.Now,
+                    JobOrderDate = DateTime.Now
+                },
+                ItemTypes = new SelectList(itemTypeRepo.List().ToList(), "Id", "Description")
             };
 
-            return View(stockTransfer);
+            return View(stVM);
+        }
+
+        public ActionResult Edit(string stNo)
+        {
+            InitViewBags();
+            ViewBag.PurchaseOrders = new SelectList(stRepo.List(), "No", "No");
+
+            StockTransferVM stVM = new StockTransferVM
+            {
+                StockTransfer = stRepo.GetByNo(stNo),
+                ItemTypes = new SelectList(itemTypeRepo.List().ToList(), "Id", "Description")
+            };
+
+            var lstPlateNos = from p in vehicleRepo.List()
+                              select new { No = p.LicenseNo };
+            ViewBag.PlateNos = new SelectList(lstPlateNos, "No", "No", stVM.StockTransfer.UnitPlateNo);
+
+            return View("Create", stVM);
         }
 
         public ActionResult Details(string stNo)
         {
             StockTransfer st = stRepo.GetByNo(stNo);
 
+            ViewBag.CompanyId = Request.QueryString["companyId"];
+
             return View(st);
         }
 
-        public ActionResult RenderEditorRow(int itemId, int transferFrom)
+        public ActionResult RenderEditorRow(int itemId)
         {
-            StockTransferItem stockTransferItem = new StockTransferItem
+            StockTransferItem stItem = new StockTransferItem
             {
-                ItemId = itemId,
-                Item = itemRepo.GetById(itemId)
+                Item = itemRepo.GetById(itemId),
+                ItemId = itemId
             };
 
-            ViewBag.TransferFrom = transferFrom;
-            return PartialView("_EditorRow", stockTransferItem);
+            StockTransferItemVM vm = new StockTransferItemVM
+            {
+                StockTransferItem = stItem,
+                CompanyId = Sessions.CompanyId.Value
+            };
+
+            return PartialView("_EditorRow", vm);
         }
 
         public void Save(StockTransferDTO entry)
@@ -102,28 +137,37 @@ namespace CNG.Controllers
             StockTransfer st = new StockTransfer();
 
             st.No = entry.No;
-            st.Date = Convert.ToDateTime(entry.Date);
-            st.TransferFrom = entry.TransferFrom;
+            st.Date = entry.JobOrderDate;
+            st.CompanyTo = entry.CompanyTo;
+            st.JobOrderNo = entry.JobOrderNo;
+            st.UnitPlateNo = entry.UnitPlateNo;
+            st.JobOrderDate = entry.JobOrderDate;
+            st.OdometerReading = entry.OdometerReading; //Get from session
+            st.DriverName = entry.DriverName; //Get from session
+            st.ReportedBy = entry.ReportedBy; //Get from session
+            st.CheckedBy = entry.CheckedBy; //Get from session
+            st.ApprovedBy = Common.GetCurrentUser.GeneralManagerId; //Get from session
 
-            st.PreparedBy = Common.GetCurrentUser.Id;
-            st.ApprovedBy = Common.GetCurrentUser.GeneralManagerId;
-            //st.CheckedBy = entry.CheckedBy;
+            st.CompanyId = Sessions.CompanyId.Value;
 
-            st.StockTransferItems = new List<StockTransferItem>();
+            List<StockTransferItem> lstStItem = new List<StockTransferItem>();
             foreach (StockTransferDTO.Item item in entry.Items)
             {
-                StockTransferItem stItem = new StockTransferItem();
+                StockTransferItem stItem = new StockTransferItem
+                {
+                    StockTransferId = st.Id,
+                    ItemId = item.ItemId,
+                    Quantity = item.Quantity,
+                    SerialNo = item.SerialNo,
+                    Type = item.Type,
+                    QuantityReturn = item.QuantityReturn,
+                    SerialNoReturn = item.SerialNoReturn
+                };
 
-                stItem.StockTransferId = st.Id;
-                stItem.ItemId = item.Id;
-                stItem.Quantity = item.Quantity;
-                stItem.Remarks = item.Remarks;
-
-                st.StockTransferItems.Add(stItem);
-
-                InsertLogs(stItem.ItemId, stItem.Quantity * -1, st.TransferFrom);
-                InsertLogs(stItem.ItemId, stItem.Quantity, Sessions.CompanyId.Value);
+                lstStItem.Add(stItem);
             }
+
+            st.StockTransferItems = lstStItem;
 
             stRepo.Save(st);
         }
@@ -148,6 +192,16 @@ namespace CNG.Controllers
             };
 
             transactionLogRepo.Add(transactionLog);
+        }
+
+        private void InitViewBags()
+        {
+            ViewBag.Companies = new SelectList(companyRepo.List().Where(p => p.Id != Sessions.CompanyId.Value), "Id", "Name");
+            ViewBag.Items = new SelectList(itemRepo.List(), "Id", "Description");
+
+            ViewBag.ApprovedBy = Common.GetCurrentUser.GeneralManager.FullName;
+
+            ViewBag.CompanyId = Request.QueryString["companyId"];
         }
     }
 }

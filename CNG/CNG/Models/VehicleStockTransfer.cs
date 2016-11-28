@@ -18,6 +18,8 @@ namespace CNG.Models
         public string No { get; set; }
         public DateTime Date { get; set; }
 
+        public int CompanyId { get; set; }
+
         public string RequestedBy { get; set; }
         public int CheckedBy { get; set; }
         public int ApprovedBy { get; set; }
