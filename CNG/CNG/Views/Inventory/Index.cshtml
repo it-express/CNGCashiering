@@ -81,7 +81,7 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
+                            <tr class="item-row">
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Code)
                                 </td>
@@ -103,7 +103,7 @@
                                         int companyId = CNG.Models.Sessions.CompanyId.Value;
                                         int quantityOnHand = item.QuantityOnHand(companyId);
 
-                                        <span>@quantityOnHand.ToString()</span>
+                                        <label class="quantity">@quantityOnHand.ToString()</label>
                                     }
                                     @*@Html.DisplayFor(modelItem => item.QuantityOnHand)*@
                                 </td>
@@ -147,6 +147,16 @@
         $('ul.main-navigation-menu > li:nth-child(7)').addClass('active');
 
         $('.toolbar ul.nav li:nth-child(1)').addClass('open');
+
+        $("tr.item-row").each(function () {
+            $this = $(this);
+            
+            $lblQuantity = $this.find('.quantity');
+
+            var quantity = $lblQuantity.text();
+
+            $this.css('background-color', '#DD0000');
+        });
     });
 
 </script>
