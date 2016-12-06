@@ -148,14 +148,16 @@
 
         $('.toolbar ul.nav li:nth-child(1)').addClass('open');
 
+        //Highlight row if item quanity is less than 5
         $("tr.item-row").each(function () {
             $this = $(this);
             
             $lblQuantity = $this.find('.quantity');
 
             var quantity = $lblQuantity.text();
-
-            $this.css('background-color', '#DD0000');
+            if (quantity <= 5) {
+                $this.css('background-color', '#DD0000');
+            }
         });
     });
 
