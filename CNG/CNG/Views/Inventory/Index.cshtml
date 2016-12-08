@@ -156,7 +156,9 @@
 
             var quantity = $lblQuantity.text();
             if (quantity <= 5) {
-                $this.css('background-color', '#DD0000');
+                //$this.css('background-color', '#DD0000');
+                $this.addClass("RedHighlight");
+
             }
         });
     });

@@ -8141,4 +8141,10 @@ color:#eee;
 transition: all 0.3s ease 0s 1s ease-in-out;
 }
 
+
+.table tbody > tr.RedHighlight > td,
+.table tbody > tr.RedHighlight > td label{
+color:#DD0000;
+}
+
 /*additional*/
