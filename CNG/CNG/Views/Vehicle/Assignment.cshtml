@@ -30,44 +30,47 @@
 
             <div class="panel-body">
 
-                @using (Html.BeginForm("AssignmentSave", "Vehicle"))
-                {
-                    <div class="row">
+                                @using (Html.BeginForm("AssignmentSave", "Vehicle"))
+                                {
+                                    <div class="row">
 
-                        @foreach (var vehicle in Model)
-                        {
-                            <div class="col-sm-4">
-
-                                <div class="checkbox">
-                                    <label>
-                                        @if (vehicle.IsAssigned)
+                                        <input type="checkbox" id="CheckAllVehicle" value="Check All Vehicle" /> Check All
+                                        @foreach (var vehicle in Model)
                                         {
-                                            <input type="checkbox" name="VehicleId" value="@vehicle.VehicleId" checked="checked" />
+                                            <div class="col-sm-4">
+
+                                                <div class="checkbox">
+                                                    <label>
+
+                                                        @if (vehicle.IsAssigned)
+                                                        {
+                                                            <input type="checkbox" name="VehicleId" value="@vehicle.VehicleId" checked="checked" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="checkbox" name="VehicleId" value="@vehicle.VehicleId" />
+                                                        }
+
+                                                        @*@:&nbsp;*@
+
+                                                        @Html.LabelFor(model => vehicle.Vehicle.LicenseNo, vehicle.Vehicle.LicenseNo)
+
+                                                    </label>
+                                                </div>
+                                            </div>
                                         }
-                                        else
-                                        {
-                                            <input type="checkbox" name="VehicleId" value="@vehicle.VehicleId" />
-                                        }
 
-                                        @*@:&nbsp;*@
 
-                                        @Html.LabelFor(model => vehicle.Vehicle.LicenseNo, vehicle.Vehicle.LicenseNo)
+                                        <div class="clearfix"></div>
 
-                                    </label>
-                                </div>
-                            </div>
-                        }
+                                        <div class="col-sm-12">
+                                            <button type="submit" class="btn btn-dark-blue">
+                                                Save
+                                            </button>
+                                        </div>
 
-                        <div class="clearfix"></div>
-
-                        <div class="col-sm-12">
-                            <button type="submit" class="btn btn-dark-blue">
-                                Save
-                            </button>
-                        </div>
-
-                    </div>
-                }
+                                    </div>
+                                }
 
             </div>
             <!-- end: BASIC TABLE PANEL -->
@@ -83,6 +86,12 @@
         $('ul.main-navigation-menu > li:nth-child(8)').addClass('active open');
 
         $('ul.main-navigation-menu > li:nth-child(8) ul.sub-menu> li:nth-child(2)').addClass('active');
+
+        $("#CheckAllVehicle").change(function () {
+            $("input:checkbox").prop('checked', $(this).prop("checked"));
+        });
     });
+
+
 
 </script>
