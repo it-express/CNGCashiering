@@ -76,6 +76,6 @@ namespace CNG.Models
             }
         }
 
-        //public virtual PurchaseOrder PurchaseOrder { get; set; }
+ 
     }
 }

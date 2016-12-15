@@ -279,27 +279,17 @@ namespace CNG.Views.Receiving.Report {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class dtReceivingDataTable : global::System.Data.TypedTableBase<dtReceivingRow> {
             
-            private global::System.Data.DataColumn columnNo;
-            
-            private global::System.Data.DataColumn columnCompanyName;
-            
-            private global::System.Data.DataColumn columnItemCode;
-            
             private global::System.Data.DataColumn columnDescription;
             
             private global::System.Data.DataColumn columnQuantity;
             
             private global::System.Data.DataColumn columnUnitCost;
             
-            private global::System.Data.DataColumn columnTotalAmount;
-            
-            private global::System.Data.DataColumn columnBalance;
+            private global::System.Data.DataColumn columnAmount;
             
             private global::System.Data.DataColumn columnSerialNo;
             
-            private global::System.Data.DataColumn columnDrNo;
-            
-            private global::System.Data.DataColumn columnDateReceived;
+            private global::System.Data.DataColumn columnItemType;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -336,30 +326,6 @@ namespace CNG.Views.Receiving.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn NoColumn {
-                get {
-                    return this.columnNo;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn CompanyNameColumn {
-                get {
-                    return this.columnCompanyName;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn ItemCodeColumn {
-                get {
-                    return this.columnItemCode;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn DescriptionColumn {
                 get {
                     return this.columnDescription;
@@ -384,17 +350,9 @@ namespace CNG.Views.Receiving.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn TotalAmountColumn {
+            public global::System.Data.DataColumn AmountColumn {
                 get {
-                    return this.columnTotalAmount;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn BalanceColumn {
-                get {
-                    return this.columnBalance;
+                    return this.columnAmount;
                 }
             }
             
@@ -408,17 +366,9 @@ namespace CNG.Views.Receiving.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn DrNoColumn {
+            public global::System.Data.DataColumn ItemTypeColumn {
                 get {
-                    return this.columnDrNo;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn DateReceivedColumn {
-                get {
-                    return this.columnDateReceived;
+                    return this.columnItemType;
                 }
             }
             
@@ -459,20 +409,15 @@ namespace CNG.Views.Receiving.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public dtReceivingRow AdddtReceivingRow(string No, string CompanyName, string ItemCode, string Description, string Quantity, string UnitCost, string TotalAmount, string Balance, string SerialNo, string DrNo, string DateReceived) {
+            public dtReceivingRow AdddtReceivingRow(string Description, string Quantity, string UnitCost, string Amount, string SerialNo, string ItemType) {
                 dtReceivingRow rowdtReceivingRow = ((dtReceivingRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        No,
-                        CompanyName,
-                        ItemCode,
                         Description,
                         Quantity,
                         UnitCost,
-                        TotalAmount,
-                        Balance,
+                        Amount,
                         SerialNo,
-                        DrNo,
-                        DateReceived};
+                        ItemType};
                 rowdtReceivingRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowdtReceivingRow);
                 return rowdtReceivingRow;
@@ -495,44 +440,29 @@ namespace CNG.Views.Receiving.Report {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
-                this.columnNo = base.Columns["No"];
-                this.columnCompanyName = base.Columns["CompanyName"];
-                this.columnItemCode = base.Columns["ItemCode"];
                 this.columnDescription = base.Columns["Description"];
                 this.columnQuantity = base.Columns["Quantity"];
                 this.columnUnitCost = base.Columns["UnitCost"];
-                this.columnTotalAmount = base.Columns["TotalAmount"];
-                this.columnBalance = base.Columns["Balance"];
+                this.columnAmount = base.Columns["Amount"];
                 this.columnSerialNo = base.Columns["SerialNo"];
-                this.columnDrNo = base.Columns["DrNo"];
-                this.columnDateReceived = base.Columns["DateReceived"];
+                this.columnItemType = base.Columns["ItemType"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columnNo = new global::System.Data.DataColumn("No", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNo);
-                this.columnCompanyName = new global::System.Data.DataColumn("CompanyName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCompanyName);
-                this.columnItemCode = new global::System.Data.DataColumn("ItemCode", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnItemCode);
                 this.columnDescription = new global::System.Data.DataColumn("Description", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDescription);
                 this.columnQuantity = new global::System.Data.DataColumn("Quantity", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnQuantity);
                 this.columnUnitCost = new global::System.Data.DataColumn("UnitCost", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUnitCost);
-                this.columnTotalAmount = new global::System.Data.DataColumn("TotalAmount", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTotalAmount);
-                this.columnBalance = new global::System.Data.DataColumn("Balance", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnBalance);
+                this.columnAmount = new global::System.Data.DataColumn("Amount", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAmount);
                 this.columnSerialNo = new global::System.Data.DataColumn("SerialNo", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSerialNo);
-                this.columnDrNo = new global::System.Data.DataColumn("DrNo", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDrNo);
-                this.columnDateReceived = new global::System.Data.DataColumn("DateReceived", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDateReceived);
+                this.columnItemType = new global::System.Data.DataColumn("ItemType", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnItemType);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -675,54 +605,6 @@ namespace CNG.Views.Receiving.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string No {
-                get {
-                    try {
-                        return ((string)(this[this.tabledtReceiving.NoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'No\' in table \'dtReceiving\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabledtReceiving.NoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string CompanyName {
-                get {
-                    try {
-                        return ((string)(this[this.tabledtReceiving.CompanyNameColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'CompanyName\' in table \'dtReceiving\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabledtReceiving.CompanyNameColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string ItemCode {
-                get {
-                    try {
-                        return ((string)(this[this.tabledtReceiving.ItemCodeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ItemCode\' in table \'dtReceiving\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabledtReceiving.ItemCodeColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string Description {
                 get {
                     try {
@@ -771,33 +653,17 @@ namespace CNG.Views.Receiving.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string TotalAmount {
+            public string Amount {
                 get {
                     try {
-                        return ((string)(this[this.tabledtReceiving.TotalAmountColumn]));
+                        return ((string)(this[this.tabledtReceiving.AmountColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'TotalAmount\' in table \'dtReceiving\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Amount\' in table \'dtReceiving\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tabledtReceiving.TotalAmountColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Balance {
-                get {
-                    try {
-                        return ((string)(this[this.tabledtReceiving.BalanceColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Balance\' in table \'dtReceiving\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabledtReceiving.BalanceColumn] = value;
+                    this[this.tabledtReceiving.AmountColumn] = value;
                 }
             }
             
@@ -819,70 +685,18 @@ namespace CNG.Views.Receiving.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string DrNo {
+            public string ItemType {
                 get {
                     try {
-                        return ((string)(this[this.tabledtReceiving.DrNoColumn]));
+                        return ((string)(this[this.tabledtReceiving.ItemTypeColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'DrNo\' in table \'dtReceiving\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'ItemType\' in table \'dtReceiving\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tabledtReceiving.DrNoColumn] = value;
+                    this[this.tabledtReceiving.ItemTypeColumn] = value;
                 }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string DateReceived {
-                get {
-                    try {
-                        return ((string)(this[this.tabledtReceiving.DateReceivedColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'DateReceived\' in table \'dtReceiving\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabledtReceiving.DateReceivedColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsNoNull() {
-                return this.IsNull(this.tabledtReceiving.NoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetNoNull() {
-                this[this.tabledtReceiving.NoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsCompanyNameNull() {
-                return this.IsNull(this.tabledtReceiving.CompanyNameColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetCompanyNameNull() {
-                this[this.tabledtReceiving.CompanyNameColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsItemCodeNull() {
-                return this.IsNull(this.tabledtReceiving.ItemCodeColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetItemCodeNull() {
-                this[this.tabledtReceiving.ItemCodeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -923,26 +737,14 @@ namespace CNG.Views.Receiving.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsTotalAmountNull() {
-                return this.IsNull(this.tabledtReceiving.TotalAmountColumn);
+            public bool IsAmountNull() {
+                return this.IsNull(this.tabledtReceiving.AmountColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetTotalAmountNull() {
-                this[this.tabledtReceiving.TotalAmountColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsBalanceNull() {
-                return this.IsNull(this.tabledtReceiving.BalanceColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetBalanceNull() {
-                this[this.tabledtReceiving.BalanceColumn] = global::System.Convert.DBNull;
+            public void SetAmountNull() {
+                this[this.tabledtReceiving.AmountColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -959,26 +761,14 @@ namespace CNG.Views.Receiving.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsDrNoNull() {
-                return this.IsNull(this.tabledtReceiving.DrNoColumn);
+            public bool IsItemTypeNull() {
+                return this.IsNull(this.tabledtReceiving.ItemTypeColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetDrNoNull() {
-                this[this.tabledtReceiving.DrNoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsDateReceivedNull() {
-                return this.IsNull(this.tabledtReceiving.DateReceivedColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetDateReceivedNull() {
-                this[this.tabledtReceiving.DateReceivedColumn] = global::System.Convert.DBNull;
+            public void SetItemTypeNull() {
+                this[this.tabledtReceiving.ItemTypeColumn] = global::System.Convert.DBNull;
             }
         }
         

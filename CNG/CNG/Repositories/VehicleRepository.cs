@@ -8,7 +8,7 @@ namespace CNG.Models
     public class VehicleRepository
     {
         private CNGDBContext context = new CNGDBContext();
-
+      
         public IQueryable<Vehicle> List()
         {
             return context.Vehicles;
@@ -20,6 +20,14 @@ namespace CNG.Models
 
             return vehicle;
         }
+
+        public int GetIdByPlateNo(string PlateNo)
+        {
+            int vehicleId = context.Vehicles.FirstOrDefault(p => p.LicenseNo == PlateNo).Id;
+
+            return vehicleId;
+        }
+
 
         public void Save(Vehicle vehicle)
         {
@@ -47,6 +55,7 @@ namespace CNG.Models
             context.SaveChanges();
         }
 
+ 
         public void Delete(int id)
         {
             Vehicle vehicle = context.Vehicles.Find(id);

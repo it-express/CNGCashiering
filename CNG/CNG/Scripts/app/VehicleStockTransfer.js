@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+
     $('#btnSubmit').click(function (event) {
         event.preventDefault();
 
@@ -37,8 +38,11 @@
             'itemId': $('#Items').val(),
             'vehicleFromId': $('#PlateNoFrom').val(),
             'vehicleToId': $('#PlateNoTo').val(),
+            'quantity': $('#Quantity').val(),
             'remarks': $('#Remarks').val()
         };
+
+        alert(vm.quantity);
 
         var url = $(this).data('url');
 
@@ -73,6 +77,7 @@ function GetSelectedItems() {
             'Id': $this.data('item-id'),
             'VehicleFromId' : $this.data('vehicle-from-id'),
             'VehicleToid': $this.data('vehicle-to-id'),
+            'Quantity': $this.data('quantity'),
             'Remarks': $this.data('remarks')
         };
 

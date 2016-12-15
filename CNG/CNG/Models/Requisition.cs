@@ -61,6 +61,8 @@ namespace CNG.Models
 
         public virtual List<RequisitionItem> RequisitionItems { get; set; }
 
+        public virtual Company Company { get; set; }
+
         [ForeignKey("ApprovedBy")]
         public virtual User ApprovedByObj { get; set; }
     }

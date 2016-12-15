@@ -57,9 +57,10 @@
 
 function RefreshItems() {
     var poNo = $('#No').val();
+    var ReNo = $('#lblReNumber').text();
 
     if (poNo != null) {
-        var url = 'RenderEditorRow?poNo=' + poNo;
+        var url = 'RenderEditorRow?poNo=' + poNo + '&&?ReNo=' + ReNo;
         $.get(url, function (data) {
             $('#tblItems tbody').empty().append(data);
 
@@ -102,6 +103,7 @@ function HasNoRemainingBalance() {
 function Save(status) {
     var receiving = new Object();
     receiving.PoNo = $('#No').val();
+    receiving.RRNo = $('#lblReNumber').text();
     receiving.Status = status;
 
     var lstItem = new Array();

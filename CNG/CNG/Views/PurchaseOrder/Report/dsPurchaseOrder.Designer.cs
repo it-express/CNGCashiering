@@ -313,6 +313,12 @@ namespace CNG.Views.PurchaseOrder.Report {
             
             private global::System.Data.DataColumn columnRemarks;
             
+            private global::System.Data.DataColumn columnDueDate;
+            
+            private global::System.Data.DataColumn columnCompanyAddress;
+            
+            private global::System.Data.DataColumn columnVendorAddress;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public dtPurchaseOrderDataTable() {
@@ -484,6 +490,30 @@ namespace CNG.Views.PurchaseOrder.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn DueDateColumn {
+                get {
+                    return this.columnDueDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn CompanyAddressColumn {
+                get {
+                    return this.columnCompanyAddress;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn VendorAddressColumn {
+                get {
+                    return this.columnVendorAddress;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -536,7 +566,10 @@ namespace CNG.Views.PurchaseOrder.Report {
                         string Quantity, 
                         string UnitCost, 
                         string TotalAmount, 
-                        string Remarks) {
+                        string Remarks, 
+                        string DueDate, 
+                        string CompanyAddress, 
+                        string VendorAddress) {
                 dtPurchaseOrderRow rowdtPurchaseOrderRow = ((dtPurchaseOrderRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         No,
@@ -555,7 +588,10 @@ namespace CNG.Views.PurchaseOrder.Report {
                         Quantity,
                         UnitCost,
                         TotalAmount,
-                        Remarks};
+                        Remarks,
+                        DueDate,
+                        CompanyAddress,
+                        VendorAddress};
                 rowdtPurchaseOrderRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowdtPurchaseOrderRow);
                 return rowdtPurchaseOrderRow;
@@ -595,6 +631,9 @@ namespace CNG.Views.PurchaseOrder.Report {
                 this.columnUnitCost = base.Columns["UnitCost"];
                 this.columnTotalAmount = base.Columns["TotalAmount"];
                 this.columnRemarks = base.Columns["Remarks"];
+                this.columnDueDate = base.Columns["DueDate"];
+                this.columnCompanyAddress = base.Columns["CompanyAddress"];
+                this.columnVendorAddress = base.Columns["VendorAddress"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -634,6 +673,12 @@ namespace CNG.Views.PurchaseOrder.Report {
                 base.Columns.Add(this.columnTotalAmount);
                 this.columnRemarks = new global::System.Data.DataColumn("Remarks", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRemarks);
+                this.columnDueDate = new global::System.Data.DataColumn("DueDate", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDueDate);
+                this.columnCompanyAddress = new global::System.Data.DataColumn("CompanyAddress", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCompanyAddress);
+                this.columnVendorAddress = new global::System.Data.DataColumn("VendorAddress", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnVendorAddress);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1048,6 +1093,54 @@ namespace CNG.Views.PurchaseOrder.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string DueDate {
+                get {
+                    try {
+                        return ((string)(this[this.tabledtPurchaseOrder.DueDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DueDate\' in table \'dtPurchaseOrder\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtPurchaseOrder.DueDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string CompanyAddress {
+                get {
+                    try {
+                        return ((string)(this[this.tabledtPurchaseOrder.CompanyAddressColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CompanyAddress\' in table \'dtPurchaseOrder\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtPurchaseOrder.CompanyAddressColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string VendorAddress {
+                get {
+                    try {
+                        return ((string)(this[this.tabledtPurchaseOrder.VendorAddressColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'VendorAddress\' in table \'dtPurchaseOrder\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtPurchaseOrder.VendorAddressColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsNoNull() {
                 return this.IsNull(this.tabledtPurchaseOrder.NoColumn);
             }
@@ -1248,6 +1341,42 @@ namespace CNG.Views.PurchaseOrder.Report {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetRemarksNull() {
                 this[this.tabledtPurchaseOrder.RemarksColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsDueDateNull() {
+                return this.IsNull(this.tabledtPurchaseOrder.DueDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetDueDateNull() {
+                this[this.tabledtPurchaseOrder.DueDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsCompanyAddressNull() {
+                return this.IsNull(this.tabledtPurchaseOrder.CompanyAddressColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetCompanyAddressNull() {
+                this[this.tabledtPurchaseOrder.CompanyAddressColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsVendorAddressNull() {
+                return this.IsNull(this.tabledtPurchaseOrder.VendorAddressColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetVendorAddressNull() {
+                this[this.tabledtPurchaseOrder.VendorAddressColumn] = global::System.Convert.DBNull;
             }
         }
         

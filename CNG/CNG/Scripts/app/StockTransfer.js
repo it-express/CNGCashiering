@@ -22,13 +22,10 @@
         }
         else {
             $.each(st.Items, function (key, value) {
-                a = value;
+                item = value;
 
-                if (parseInt(a.Quantity) > parseInt(a.QuantityOnHand)) {
-                    allow = false;
-                }
-                else {
-                    allow = true;
+                if (parseInt(item.Quantity) > parseInt(item.QuantityOnHand)) {
+                    err = "Item Code:" + item.Code + "has insufficient quantity on hand";
                 }
             });
         }
@@ -44,7 +41,8 @@
         st.StockTransferDate = $('#lblStDate').val();
         st.CompanyTo = $('#StockTransfer_CompanyTo').val();
         st.JobOrderNo = $('#txtJobOrderNo').val();
-        st.UnitPlateNo = $('#UnitPlateNo').val();
+        // st.UnitPlateNo = $('#UnitPlateNo').val().text();
+        st.UnitPlateNo = $("#UnitPlateNo option:selected").text();
         st.JobOrderDate = $('#txtJobOrderDate').val();
         st.OdometerReading = $('#txtOdometerReading').val();
         st.DriverName = $('#txtDriverName').val();
@@ -68,6 +66,7 @@
             item.QuantityOnHand = $this.data("quantity-on-hand");
             item.Code = $this.find('.lblCode').text();;
 
+            
             lstItem.push(item);
         });
 
@@ -89,6 +88,25 @@
 
                 alert("Saved");
                 window.location.href = "/StockTransfer/Index";
+            }
+        });
+    });
+
+
+    $('#StockTransfer_CompanyTo').change(function () {
+        var CompanyId = $(this).val();
+        $.ajax({
+            url: "/StockTransfer/GetById",
+            type: "POST",
+            data: "{'CompanyID' : '" + CompanyId + "'}",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+
+                var markup = "";
+                for (var x = 0; x < data.length; x++) {
+                    markup += "<option value=" + data[x].VehicleId + ">" + data[x].VehiclePlateNo + "</option>";
+                }
+                $("#UnitPlateNo").html(markup).show();
             }
         });
     });

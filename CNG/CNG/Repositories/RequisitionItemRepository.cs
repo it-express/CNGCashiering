@@ -13,6 +13,10 @@ namespace CNG.Models
         {
         }
 
+        public IQueryable<RequisitionItem> List()
+        {
+            return context.RequisitionItems;
+        }
         public RequisitionItem Find(int reqItemId)
         {
             RequisitionItem item = context.RequisitionItems.Find(reqItemId);

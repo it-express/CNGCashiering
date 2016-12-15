@@ -19,6 +19,7 @@ namespace CNG.Models
         }
 
         public string PoNo { get; set; }
+        public string RRNo { get; set; }
         public int Status { get; set; }
 
         public List<Item> Items { get; set; }

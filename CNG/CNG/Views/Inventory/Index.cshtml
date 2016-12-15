@@ -56,6 +56,7 @@
 
                 <table class="table table-hover table-striped">
                     <thead>
+                        Item highlighted with red means the quantity is below minimum.
                         <tr>
                             <th>
                                 @Html.ActionLink("Code", "Index", new { sortColumn = "code", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
@@ -99,7 +100,7 @@
                                 </td>
                                 <td>
 
-                                    @{ 
+                                    @{
                                         int companyId = CNG.Models.Sessions.CompanyId.Value;
                                         int quantityOnHand = item.QuantityOnHand(companyId);
 
@@ -114,7 +115,7 @@
 
                                 </td>
                             </tr>
-                        }
+                                        }
                     </tbody>
 
                 </table>
@@ -138,8 +139,8 @@
     </div>
 
     <div class="clearfix"></div>
-    
-    
+
+
 </div>
 <script>
 
@@ -151,14 +152,12 @@
         //Highlight row if item quanity is less than 5
         $("tr.item-row").each(function () {
             $this = $(this);
-            
+
             $lblQuantity = $this.find('.quantity');
 
             var quantity = $lblQuantity.text();
-            if (quantity <= 5) {
-                //$this.css('background-color', '#DD0000');
+            if (quantity < 5) {
                 $this.addClass("RedHighlight");
-
             }
         });
     });

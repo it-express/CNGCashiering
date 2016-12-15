@@ -12,7 +12,10 @@ namespace CNG.Models
         public StockTransferItemRepository()
         {
         }
-
+        public IQueryable<StockTransferItem> List()
+        {
+            return context.StockTransferItems;
+        }
         public StockTransferItem Find(int stItemId)
         {
             StockTransferItem item = context.StockTransferItems.Find(stItemId);

@@ -1,6 +1,7 @@
 ﻿using CNG.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -10,7 +11,7 @@ namespace CNG.Models
     {
         private CNGDBContext context = new CNGDBContext();
         public ItemRepository itemRepo = new ItemRepository();
-
+       
         public IQueryable<TransactionLog> List()
         {
             return context.TransactionLogs;

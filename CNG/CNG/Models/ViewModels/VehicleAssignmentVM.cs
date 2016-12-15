@@ -9,6 +9,7 @@ namespace CNG.Models
     {
         public int VehicleId { get; set; }
         public Vehicle Vehicle { get; set; }
+        public string VehiclePlateNo { get; set; }
         public bool IsAssigned { get; set; }
     }
 }

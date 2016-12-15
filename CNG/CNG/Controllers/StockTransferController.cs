@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using CNG.Models;
 using PagedList;
 using System.Linq.Dynamic;
+using Microsoft.Reporting.WebForms;
 
 namespace CNG.Controllers
 {
@@ -14,10 +15,12 @@ namespace CNG.Controllers
     {
         CNGDBContext context = new CNGDBContext();
         StockTransferRepository stRepo = new StockTransferRepository();
+        StockTransferItemRepository stItemRepo = new StockTransferItemRepository();
         VehicleRepository vehicleRepo = new VehicleRepository();
         ItemRepository itemRepo = new ItemRepository();
         CompanyRepository companyRepo = new CompanyRepository();
         ItemTypeRepository itemTypeRepo = new ItemTypeRepository();
+        TransactionLogRepository translogRepo = new TransactionLogRepository();
 
         // GET: StockTransfer
         public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
@@ -153,23 +156,29 @@ namespace CNG.Controllers
             List<StockTransferItem> lstStItem = new List<StockTransferItem>();
             foreach (StockTransferDTO.Item item in entry.Items)
             {
-                StockTransferItem stItem = new StockTransferItem
-                {
-                    StockTransferId = st.Id,
-                    ItemId = item.ItemId,
-                    Quantity = item.Quantity,
-                    SerialNo = item.SerialNo,
-                    Type = item.Type,
-                    QuantityReturn = item.QuantityReturn,
-                    SerialNoReturn = item.SerialNoReturn
-                };
+                
+                    StockTransferItem stItem = new StockTransferItem
+                    {
 
-                lstStItem.Add(stItem);
+                        StockTransferId = st.Id,
+                        ItemId = item.ItemId,
+                        Quantity = item.Quantity,
+                        SerialNo = item.SerialNo,
+                        Type = item.Type,
+                        QuantityReturn = item.QuantityReturn,
+                        SerialNoReturn = item.SerialNoReturn
+
+                    };
+
+
+                    lstStItem.Add(stItem);
+               
             }
 
             st.StockTransferItems = lstStItem;
 
             stRepo.Save(st);
+           
         }
 
         public ActionResult Delete(string stNo)
@@ -194,6 +203,54 @@ namespace CNG.Controllers
             transactionLogRepo.Add(transactionLog);
         }
 
+        public ActionResult Report(string poNo)
+        {
+            StockTransfer st = stRepo.GetByNo(poNo);
+            List<StockTransferItem> lstStockTransferItem = st.StockTransferItems;
+
+            var lstStockTransfer = from s in lstStockTransferItem
+                                 select new
+                                 {
+                                     ApprovedBy = st.ApprovedByObj.FullName,
+                                     CheckedBy = st.CheckedBy,
+                                     RequestedBy = st.ReportedBy,
+                                     ItemCode = s.Item.Code,
+                                     Description = s.Item.Description,
+                                     Quantity = s.Quantity,
+                                     SerialNo = s.SerialNo,
+                                     Unit = st.UnitPlateNo
+                                     
+                                 };
+
+            ReportViewer reportViewer = new ReportViewer();
+            reportViewer.ProcessingMode = ProcessingMode.Local;
+
+            ReportDataSource _rds = new ReportDataSource();
+            _rds.Name = "DataSet1";
+            _rds.Value = lstStockTransfer;
+
+            reportViewer.KeepSessionAlive = false;
+            reportViewer.LocalReport.DataSources.Clear();
+            reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Views\StockTransfer\Report\rptStockTransfer.rdlc";
+
+            reportViewer.LocalReport.DataSources.Add(_rds);
+
+            List<ReportParameter> parameters = new List<ReportParameter>();
+            parameters.Add(new ReportParameter("Date", st.Date.ToShortDateString()));
+            parameters.Add(new ReportParameter("No", st.No));
+            parameters.Add(new ReportParameter("TransferredTo", companyRepo.GetById(st.CompanyTo).Name));
+            parameters.Add(new ReportParameter("JobOrderNo", st.JobOrderNo));
+            parameters.Add(new ReportParameter("CompanyName", companyRepo.GetById(Sessions.CompanyId.Value).Name));
+            parameters.Add(new ReportParameter("CompanyAddress", companyRepo.GetById(Sessions.CompanyId.Value).Address));
+            reportViewer.LocalReport.SetParameters(parameters);
+
+            reportViewer.LocalReport.Refresh();
+
+            ViewBag.ReportViewer = reportViewer;
+
+            return View();
+        }
+
         private void InitViewBags()
         {
             ViewBag.Companies = new SelectList(companyRepo.List().Where(p => p.Id != Sessions.CompanyId.Value), "Id", "Name");
@@ -202,6 +259,93 @@ namespace CNG.Controllers
             ViewBag.ApprovedBy = Common.GetCurrentUser.GeneralManager.FullName;
 
             ViewBag.CompanyId = Request.QueryString["companyId"];
+        }
+
+        public ActionResult SummaryReport(string dateFrom, string dateTo)
+        {
+            DateTime dtDateFrom = DateTime.Now.Date;
+            DateTime dtDateTo = DateTime.Now;
+
+            if (!String.IsNullOrEmpty(dateFrom))
+            {
+                dtDateFrom = Convert.ToDateTime(dateFrom);
+            }
+
+            if (!String.IsNullOrEmpty(dateTo))
+            {
+                dtDateTo = Convert.ToDateTime(dateTo);
+            }
+
+
+            int comp = Convert.ToInt32(Sessions.CompanyId.Value);
+
+            var lstSt  = from st in stRepo.List().Where(st => st.CompanyId == comp
+                                                                 && (System.Data.Entity.DbFunctions.TruncateTime(st.Date) <= dtDateTo
+                                                                && System.Data.Entity.DbFunctions.TruncateTime(st.Date) >= dtDateFrom)).ToList()
+                            join stItem in stItemRepo.List() on st.Id equals stItem.StockTransferId
+                            into r
+                            select new
+                            {
+                                Date = st.Date.ToShortDateString(),
+                                PlateNo = st.UnitPlateNo,
+                                No = st.No,
+                                ItemDesc = r.FirstOrDefault().Item.Description,
+                                Quantity = r.FirstOrDefault().Quantity,
+                                UnitCost = r.FirstOrDefault().Item.UnitCost,
+                                Amount = r.FirstOrDefault().Quantity * r.FirstOrDefault().Item.UnitCost
+
+
+                            };
+
+
+            ReportViewer reportViewer = new ReportViewer();
+            reportViewer.ProcessingMode = ProcessingMode.Local;
+
+            ReportDataSource _rds = new ReportDataSource();
+            _rds.Name = "DataSet1";
+            _rds.Value = lstSt;
+
+            reportViewer.KeepSessionAlive = false;
+            reportViewer.LocalReport.DataSources.Clear();
+            reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Views\StockTransfer\Report\rptSummaryReport.rdlc";
+
+            reportViewer.LocalReport.DataSources.Add(_rds);
+
+            List<ReportParameter> _parameter = new List<ReportParameter>();
+            _parameter.Add(new ReportParameter("DateRange", dtDateFrom.ToString("MMMM dd, yyyy") + " - " + dtDateTo.ToString("MMMM dd, yyyy")));
+            _parameter.Add(new ReportParameter("CompanyName", companyRepo.GetById(Sessions.CompanyId.Value).Name));
+            _parameter.Add(new ReportParameter("CompanyAddress", companyRepo.GetById(Sessions.CompanyId.Value).Address));
+            reportViewer.LocalReport.SetParameters(_parameter);
+
+            reportViewer.LocalReport.Refresh();
+
+
+            ViewBag.ReportViewer = reportViewer;
+
+            ViewBag.DateFrom = dtDateFrom.ToString("MM/dd/yyyy");
+            ViewBag.DateTo = dtDateTo.ToString("MM/dd/yyyy");
+
+            ViewBag.CompanyName = companyRepo.GetById(Sessions.CompanyId.Value).Name;
+
+            return View();
+        }
+
+        public JsonResult GetById(int CompanyID)
+        {
+            VehicleAssignmentRepository vehicleAssignmentRepo = new VehicleAssignmentRepository();
+
+            List<VehicleAssignmentVM> lstItemAssignmentVM = (from p in vehicleRepo.List().ToList()
+                                                             join q in vehicleAssignmentRepo.List().Where(p => p.CompanyId == CompanyID).ToList()
+                                                             on p.Id equals q.VehicleId into pq
+                                                             from r in pq.DefaultIfEmpty() where r == null ? false : true
+                                                             select new VehicleAssignmentVM
+                                                             {
+                                                                 VehicleId = p.Id,
+                                                                 VehiclePlateNo = p.LicenseNo
+                                                               
+                                                           }).ToList();      
+
+            return Json(lstItemAssignmentVM);
         }
     }
 }

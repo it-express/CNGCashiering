@@ -13,6 +13,9 @@ $(document).on('click', '#btnReceivingSave', function () {
     var receiving = new Object();
 
     receiving.PurchaseOrderItemId = $('#lblPOItemId').val();
+    receiving.RRNo = $('#HiddenReNumber').val();
+    alert($('#lblPOItemId').val());
+    alert($('#lblReNumber').val());
 
     var lstItem = new Array();
 

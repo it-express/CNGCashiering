@@ -195,7 +195,7 @@ namespace CNG.Controllers
             List<PurchaseOrderItem> lstPoItem = po.PurchaseOrderItems;
 
             var lstPurchaseOrder = from p in lstPoItem
-                       select new
+                   select new
                        {
                            No = po.No,
                            Vendor = po.Vendor.Name,
@@ -213,7 +213,10 @@ namespace CNG.Controllers
                            Quantity = p.Quantity,
                            UnitCost = p.UnitCost.ToString("N"),
                            TotalAmount = p.Amount.ToString("N"),
-                           Remarks = p.Remarks
+                           Remarks = p.Remarks,
+                           DueDate = po.DueDate,
+                           CompanyAddress = po.ShipToCompany.Address,
+                           VendorAddress = po.Vendor.Address
                        };
 
             ReportViewer reportViewer = new ReportViewer();
@@ -228,6 +231,19 @@ namespace CNG.Controllers
             reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Views\PurchaseOrder\Report\rptPurchaseOrder.rdlc";
 
             reportViewer.LocalReport.DataSources.Add(_rds);
+
+            List<ReportParameter> parameters = new List<ReportParameter>();
+            parameters.Add(new ReportParameter("Date", po.Date.ToShortDateString()));
+            parameters.Add(new ReportParameter("PONumber", po.No));
+            parameters.Add(new ReportParameter("Status", po.StatusDescription));
+            parameters.Add(new ReportParameter("Terms", po.Terms.ToString()));
+            parameters.Add(new ReportParameter("DueDate", po.DueDate));
+            parameters.Add(new ReportParameter("VendorName", po.Vendor.Name));
+            parameters.Add(new ReportParameter("VendorAddress", po.Vendor.Address));
+            parameters.Add(new ReportParameter("ShipTo", po.ShipToCompany.Name));
+            parameters.Add(new ReportParameter("CompanyAddress", po.ShipToCompany.Address));
+            reportViewer.LocalReport.SetParameters(parameters);
+
             reportViewer.LocalReport.Refresh();
 
             ViewBag.ReportViewer = reportViewer;

@@ -13,7 +13,10 @@ namespace CNG.Models
         {
             this.context = _context;
         }
-
+        public IQueryable<VehicleStockTransferItem> List()
+        {
+            return context.VehicleStockTransferItems;
+        }
         public VehicleStockTransferItem Find(int stItemId)
         {
             VehicleStockTransferItem item = context.VehicleStockTransferItems.Find(stItemId);

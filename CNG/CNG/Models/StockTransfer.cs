@@ -64,6 +64,9 @@ namespace CNG.Models
         public int CompanyId { get; set; }
 
         public virtual List<StockTransferItem> StockTransferItems { get; set; }
+        
+        public virtual Company Company { get; set; }
+
 
         [ForeignKey("ApprovedBy")]
         public virtual User ApprovedByObj { get; set; }

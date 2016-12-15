@@ -100,6 +100,25 @@ namespace CNG.Models
             return poNumber;
         }
 
+        public string GenerateReNumber()
+        {
+            int companyId = Sessions.CompanyId.Value;
+            //get last id
+            int lastId = 1;
+            int cnt = List().Where(p => p.ShipTo == companyId && p.Status > 0).Count();
+            if (cnt > 0)
+            {
+                lastId = cnt + 1;
+            }
+
+            string prefix = companyRepo.GetById(companyId).Prefix;
+
+            //MMyy-series
+            string reNumber = prefix + "-" + DateTime.Now.ToString("MMyy") + "-" + lastId.ToString().PadLeft(4, '0');
+
+            return reNumber;
+        }
+
         public IQueryable<PurchaseOrder> ListReceived() {
             IQueryable<PurchaseOrder> lst = List().Where(p =>
             p.Status != (int) EPurchaseOrderStatus.Open);
@@ -107,9 +126,10 @@ namespace CNG.Models
             return lst;
         }
 
-        public void ChangeStatus(string poNo, int status) {
+        public void ChangeStatus(string poNo, int status, string RRNo) {
             PurchaseOrder po = context.PurchaseOrders.FirstOrDefault(p => p.No == poNo);
             po.Status = status;
+            po.RRNo = RRNo;
 
             context.SaveChanges();
         }

@@ -76,12 +76,13 @@ namespace CNG.Controllers
 
         public ActionResult Details(string poNo) {
             PurchaseOrder po = poRepo.GetByNo(poNo);
-
+            @ViewBag.ReNumber = po.RRNo;
             return View(po);
         }
 
         public ActionResult Create()
         {
+            ViewBag.ReNumber = poRepo.GenerateReNumber();
             InitViewBags();
 
             int companyId = Convert.ToInt32(Session["companyId"]);
@@ -95,9 +96,9 @@ namespace CNG.Controllers
         {
             InitViewBags();
             ViewBag.PurchaseOrders = new SelectList(poRepo.List(), "No", "No");
-
+         
             PurchaseOrder po = poRepo.GetByNo(poNo);
-
+            @ViewBag.ReNumber = po.RRNo;
             return View("Create", po);
         }
         
@@ -119,8 +120,8 @@ namespace CNG.Controllers
         public ActionResult RenderReceivingLogEditor(int poItemId)
         {
             PurchaseOrderItem poItem = poItemRepo.Find(poItemId);
-
             ViewBag.POItemId = poItemId;
+
             ViewBag.ItemDescription = poItem.Item.Description;
             IEnumerable<Receiving> lstReceiving = receivingRepo.ListByPurchaseOrderItemId(poItemId);
 
@@ -137,7 +138,7 @@ namespace CNG.Controllers
         }
 
         public void Save(ReceivingDTO receivingDTO) {
-            poRepo.ChangeStatus(receivingDTO.PoNo, receivingDTO.Status);
+            poRepo.ChangeStatus(receivingDTO.PoNo, receivingDTO.Status, receivingDTO.RRNo);
 
             //foreach (ReceivingDTO.Item item in receivingDTO.Items) {
             //    PurchaseOrderItem poItem = poItemRepo.Find(item.PoItemId);
@@ -170,8 +171,8 @@ namespace CNG.Controllers
         public void ReceivingLogsSave(ReceivingLogsDTO receivingLogsDTO) {
             PurchaseOrderItem poItem = poItemRepo.Find(receivingLogsDTO.PurchaseOrderItemId);
             PurchaseOrder po = context.PurchaseOrders.Find(poItem.PurchaseOrderId);
-
             po.Status = (int) EPurchaseOrderStatus.Saved;
+            po.RRNo = receivingLogsDTO.RRNo;
 
             context.SaveChanges();
 
@@ -190,7 +191,7 @@ namespace CNG.Controllers
                 receiving.PurchaseOrderItemId = receivingLogsDTO.PurchaseOrderItemId;
                 receiving.Quantity = item.Quantity;
                 receiving.SerialNo = item.SerialNo;
-                receiving.DrNo = item.DrNo;
+                receiving.DrNo = item.DrNo;               
                 receiving.DateReceived = item.DateReceived;
 
                 receivingRepo.Save(receiving);
@@ -204,18 +205,20 @@ namespace CNG.Controllers
 
             var lstPurchaseOrder = from p in lstReceiving
                                    select new
-                                   {
-                                       No = po.No,
-                                       CompanyName = po.ShipToCompany.Name,
-                                       ItemCode = p.Item.Code,
+                                   {     
+                                      // PoNo = po.No,
+                                       //DrNo = p.DrNo,
                                        Description = p.Item.Description,
                                        Quantity = p.Quantity,
                                        UnitCost = p.UnitCost.ToString("N"),
-                                       TotalAmount = p.Amount.ToString("N"),
-                                       Balance = p.Balance,
-                                       DateReceived = p.Date.ToShortDateString()
+                                       Amount = p.Amount.ToString("N"),
+                                       SerialNo = p.Receivings.FirstOrDefault().SerialNo,
+                                       ItemType = p.Item.Type.Description
+                                       //ReceivedBy = p.Receivings.FirstOrDefault().TransactionLog.User.FullName,
+                                    
+                                      
                                    };
-
+           
             ReportViewer reportViewer = new ReportViewer();
             reportViewer.ProcessingMode = ProcessingMode.Local;
 
@@ -228,6 +231,20 @@ namespace CNG.Controllers
             reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Views\Receiving\Report\rptReceiving.rdlc";
 
             reportViewer.LocalReport.DataSources.Add(_rds);
+
+            List<ReportParameter> parameters = new List<ReportParameter>();
+            parameters.Add(new ReportParameter("RRNo", po.RRNo));
+            parameters.Add(new ReportParameter("PONo", po.No));
+            parameters.Add(new ReportParameter("DRNo", po.PurchaseOrderItems.FirstOrDefault().Receivings.FirstOrDefault().DrNo));
+            parameters.Add(new ReportParameter("SupplierName", po.Vendor.Name));
+            parameters.Add(new ReportParameter("ReceivedBy", po.PurchaseOrderItems.FirstOrDefault().Receivings.FirstOrDefault().TransactionLog.User.FullName));
+            parameters.Add(new ReportParameter("Date", po.PurchaseOrderItems.FirstOrDefault().Date.ToShortDateString()));
+            parameters.Add(new ReportParameter("CompanyName", companyRepo.GetById(Sessions.CompanyId.Value).Name));
+            parameters.Add(new ReportParameter("CompanyAddress", companyRepo.GetById(Sessions.CompanyId.Value).Address));
+
+
+            reportViewer.LocalReport.SetParameters(parameters);
+
             reportViewer.LocalReport.Refresh();
 
             ViewBag.ReportViewer = reportViewer;

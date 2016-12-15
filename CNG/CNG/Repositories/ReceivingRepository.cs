@@ -9,7 +9,7 @@ namespace CNG
     public class ReceivingRepository
     {
         private CNGDBContext context = new CNGDBContext();
-
+        CompanyRepository companyRepo = new CompanyRepository();
         public IQueryable<Receiving> List()
         {
             return context.Receivings;
@@ -28,6 +28,7 @@ namespace CNG
             return lstItem;
         }
 
+
         public void Save(Receiving receiving)
         {
             if (receiving.Id == 0)
@@ -44,7 +45,7 @@ namespace CNG
                     dbEntry.SerialNo = receiving.SerialNo;
                     dbEntry.DrNo = receiving.DrNo;
                     dbEntry.DateReceived = receiving.DateReceived;
-                    //dbEntry.TransactionLogId = receiving.TransactionLogId;
+                   // dbEntry.TransactionLogId = receiving.TransactionLogId;
 
                     TransactionLogRepository transLogRepo = new TransactionLogRepository();
                     transLogRepo.Update(dbEntry.TransactionLogId.Value, receiving.Quantity, receiving.DateReceived.Value);

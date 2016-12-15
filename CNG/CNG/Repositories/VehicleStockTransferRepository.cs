@@ -8,7 +8,7 @@ namespace CNG.Models
     public class VehicleStockTransferRepository
     {
         private CNGDBContext context = new CNGDBContext();
-
+        VehicleAssignmentRepository vsItemRepo = new VehicleAssignmentRepository();
         public IQueryable<VehicleStockTransfer> List()
         {
             return context.VehicleStockTransfers;
@@ -51,7 +51,22 @@ namespace CNG.Models
 
             return stNo;
         }
+        public int InsertLogs(int itemId, int quantiy)
+        {
+            TransactionLogRepository transactionLogRepo = new TransactionLogRepository();
 
+            TransactionLog transactionLog = new TransactionLog
+            {
+                ItemId = itemId,
+                Quantity = -quantiy,
+                TransactionMethodId = (int)ETransactionMethod.StockTransfer,
+                CompanyId = Sessions.CompanyId.Value
+            };
+
+            return transactionLogRepo.Add(transactionLog);
+        }
+
+   
         public void Save(VehicleStockTransfer vst)
         {
             bool exists = context.VehicleStockTransfers.Count(p => p.No == vst.No) > 0;
@@ -65,6 +80,15 @@ namespace CNG.Models
                 context.SaveChanges();
 
                 id = vst.Id;
+
+                foreach (VehicleStockTransferItem vsItem in vst.VehicleStockTransferItems)
+                {
+                    vsItem.VehicleStockTransferId = id;
+                    if (vsItem.Quantity != 0)
+                    {
+                        vsItem.TransactionLogId = InsertLogs(vsItem.ItemId, vsItem.Quantity);
+                    }
+                }
             }
             else
             {
@@ -84,6 +108,15 @@ namespace CNG.Models
                 id = dbEntry.Id;
 
                 //Delete previous items
+                foreach (VehicleStockTransferItem vsItem in dbEntry.VehicleStockTransferItems.ToList())
+                {
+                    //Delete previous logs
+                    TransactionLogRepository transLogRepo = new TransactionLogRepository();
+                    transLogRepo.Remove(vsItem.TransactionLogId.Value);
+
+                    vsItemRepo.Remove(vsItem.Id);
+                }
+
                 foreach (VehicleStockTransferItem vstIitem in dbEntry.VehicleStockTransferItems.ToList())
                 {
                     context.VehicleStockTransferItems.Remove(vstIitem);

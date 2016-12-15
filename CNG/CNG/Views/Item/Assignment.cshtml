@@ -35,6 +35,15 @@
                 {
 
                     <div class="row">
+                        <div class="col-sm-12">
+
+                            <div class="checkbox">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="CheckAllItem" value="Check All Item" />
+                                    <label>Check All</label>
+                                </label>
+                            </div>
+                        </div>
 
                         @foreach (var item in Model)
                         {
@@ -82,6 +91,11 @@
         $('ul.main-navigation-menu > li:nth-child(8)').addClass('active open');
 
         $('ul.main-navigation-menu > li:nth-child(8) ul.sub-menu> li:nth-child(1)').addClass('active');
+
+
+        $("#CheckAllItem").change(function () {
+            $("input:checkbox").prop('checked', $(this).prop("checked"));
+        });
     });
 
 </script>

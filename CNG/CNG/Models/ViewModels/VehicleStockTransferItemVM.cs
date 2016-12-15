@@ -15,6 +15,7 @@ namespace CNG.Models
         public int VehicleToId { get; set; }
         public string VehicleFromPlateNo { get; set; }
         public string VehicleToPlateNo { get; set; }
+        public int Quantity { get; set; }
         public string Remarks { get; set; }
     }
 }

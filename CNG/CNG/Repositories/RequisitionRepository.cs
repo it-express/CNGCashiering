@@ -27,6 +27,13 @@ namespace CNG.Models
             return req;
         }
 
+        public Requisition GetAll()
+        {
+            Requisition req = context.Requisitions.FirstOrDefault();
+
+            return req;
+        }
+
         public void Save(Requisition req) {
             bool reqExists = context.Requisitions.Any(p => p.No == req.No);
 

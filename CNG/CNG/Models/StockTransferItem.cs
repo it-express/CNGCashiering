@@ -28,6 +28,8 @@ namespace CNG.Models
 
         public virtual TransactionLog TransactionLog { get; set; }
 
+        
+
         public string TypeDescription
         {
             get

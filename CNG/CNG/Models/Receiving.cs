@@ -19,6 +19,7 @@ namespace CNG.Models
 
         public int? TransactionLogId { get; set; }
 
+        public virtual TransactionLog TransactionLog { get; set; }
         public virtual PurchaseOrderItem PurchaseOrderItem { get; set; }
     }
 }

@@ -28,5 +28,16 @@ namespace CNG.Models
 
             context.SaveChanges();
         }
+
+        public void Remove(int vsItem)
+        {
+            VehicleStockTransferItem item = context.VehicleStockTransferItems.Find(vsItem);
+
+            context.VehicleStockTransferItems.Remove(item);
+
+            context.SaveChanges();
+        }
+
+
     }
 }

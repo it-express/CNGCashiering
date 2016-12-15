@@ -48,10 +48,11 @@ namespace CNG.Models
 
         public int Status { get; set; }
 
+        public string RRNo { get; set; }
+
         public virtual Vendor Vendor { get; set; }
         [ForeignKey("ShipTo")]
         public virtual Company ShipToCompany { get; set; }
-
         public virtual List<PurchaseOrderItem> PurchaseOrderItems { get; set; }
 
         [ForeignKey("PreparedBy")]
@@ -59,6 +60,11 @@ namespace CNG.Models
 
         [ForeignKey("ApprovedBy")]
         public virtual User ApprovedByObj { get; set; }
+
+        public string DueDate {
+            get
+            { return Date.AddDays(Vendor.Terms).ToShortDateString(); }
+        }
 
         public string StatusDescription {
             get {
