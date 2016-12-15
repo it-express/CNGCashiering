@@ -3,6 +3,7 @@
 <tr data-item-id="@Model.ItemId" 
     data-vehicle-from-id="@Model.VehicleFromId" 
     data-vehicle-to-id="@Model.VehicleToId"
+    data-quantity="@Model.Quantity"
     data-remarks="@Model.Remarks"
     class="item-row">
     <td>
@@ -16,6 +17,9 @@
     </td>
     <td>
         @Model.VehicleToPlateNo
+    </td>
+    <td>
+        @Model.Quantity
     </td>
     <td>
         @Model.Remarks

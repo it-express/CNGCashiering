@@ -12,6 +12,12 @@
             <h1>Vehicle Stock Transfer</h1>
         </div>
     </div>
+    <div class="col-sm-6 col-xs-12">
+        <div class="toolbar-tools pull-right">
+            <!-- start: TOP NAVIGATION MENU -->
+            @{ Html.RenderPartial("_VehicleStockTransferMenu"); }
+        </div>
+    </div>
 </div>
 <!-- end: TOOLBAR -->
 <!-- end: PAGE HEADER -->
@@ -88,6 +94,9 @@
                                             Plate No. To
                                         </th>
                                         <th>
+                                           Quantity
+                                        </th>
+                                        <th>
                                             Remarks
                                         </th>
                                     </tr>
@@ -109,6 +118,9 @@
                                                 @Html.DisplayFor(modelItem => stItem.VehicleTo.LicenseNo)
                                             </td>
                                             <td>
+                                                @Html.DisplayFor(modelItem => stItem.Quantity)
+                                            </td>
+                                            <td>
                                                 @Html.DisplayFor(modelItem => stItem.Remarks)
                                             </td>
                                         </tr>
@@ -123,6 +135,9 @@
                         <div class="col-md-offset-2 col-md-10">
                             <a href="@Url.Action("Index")" class="btn btn-dark-beige">
                                 Back to List
+                            </a>
+                            <a href="@Url.Action("Report", new { poNo = Model.No })" class="btn btn-dark-blue">
+                                Print
                             </a>
                         </div>
                     </div>

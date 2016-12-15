@@ -11,6 +11,13 @@
             <h1>Company Stock Transfer</h1>
         </div>
     </div>
+
+    <div class="col-sm-6 col-xs-12">
+        <div class="toolbar-tools pull-right">
+            <!-- start: TOP NAVIGATION MENU -->
+            @{ Html.RenderPartial("_StockTransferMenu"); }
+        </div>
+    </div>
 </div>
 <!-- end: TOOLBAR -->
 <!-- end: PAGE HEADER -->
@@ -182,6 +189,9 @@
                         <div class="col-md-offset-2 col-md-10">
                             <a href="@Url.Action("Index")" class="btn btn-dark-beige">
                                 Back to List
+                            </a>
+                            <a href="@Url.Action("Report", new { poNo = Model.No })" class="btn btn-dark-blue">
+                                Print
                             </a>
                         </div>
                     </div>
