@@ -6,13 +6,14 @@ namespace CNG.Views.VehicleStockTransfer.Report
 {
 
 
-    public partial class dsPurchaseOrder
+    public partial class dsVehicleStockTransfer
     {
     }
 }
 namespace CNG.Views.StockTransfer.Report {
     
     
-    public partial class dsPurchaseOrder {
+    public partial class dsVehicleStockTransfer
+    {
     }
 }
