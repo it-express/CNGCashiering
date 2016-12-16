@@ -122,6 +122,12 @@ namespace CNG.Controllers
             PurchaseOrderItem poItem = poItemRepo.Find(poItemId);
             ViewBag.POItemId = poItemId;
 
+            PurchaseOrder po = poRepo.GetById(poItem.PurchaseOrderId);
+            if (po.RRNo == null)
+            { ViewBag.ReNumber = poRepo.GenerateReNumber(); }
+            else
+            { @ViewBag.ReNumber = po.RRNo; }
+
             ViewBag.ItemDescription = poItem.Item.Description;
             IEnumerable<Receiving> lstReceiving = receivingRepo.ListByPurchaseOrderItemId(poItemId);
 

@@ -23,7 +23,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
         <Top>0.89458in</Top>
-        <Left>2.53867in</Left>
+        <Left>2.72727in</Left>
         <Height>0.25in</Height>
         <Width>2.21529in</Width>
         <Style>
@@ -327,8 +327,8 @@
             <TablixMember />
           </TablixMembers>
         </TablixRowHierarchy>
-        <Top>1.70014in</Top>
-        <Left>0.32167in</Left>
+        <Top>1.71403in</Top>
+        <Left>0.18039in</Left>
         <Height>0.75in</Height>
         <Width>3.0625in</Width>
         <ZIndex>3</ZIndex>
@@ -567,7 +567,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <Top>1.70014in</Top>
-        <Left>5.08384in</Left>
+        <Left>4.94256in</Left>
         <Height>0.75in</Height>
         <Width>2in</Width>
         <ZIndex>4</ZIndex>
@@ -939,7 +939,6 @@ COST</Value>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1105,8 +1104,8 @@ COST</Value>
           </Tablix>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>2.51959in</Top>
-        <Left>0.32159in</Left>
+        <Top>2.53348in</Top>
+        <Left>0.18031in</Left>
         <Height>3.4757in</Height>
         <Width>6.76225in</Width>
         <ZIndex>5</ZIndex>
@@ -1286,7 +1285,7 @@ COST</Value>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
         <Top>6.05085in</Top>
-        <Left>5.08384in</Left>
+        <Left>4.94256in</Left>
         <Height>0.48958in</Height>
         <Width>2in</Width>
         <ZIndex>6</ZIndex>
@@ -1304,7 +1303,7 @@ COST</Value>
       </Border>
     </Style>
   </Body>
-  <Width>7.2722in</Width>
+  <Width>7.11595in</Width>
   <Page>
     <LeftMargin>0.5in</LeftMargin>
     <RightMargin>0.5in</RightMargin>

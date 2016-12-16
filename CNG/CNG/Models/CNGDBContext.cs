@@ -18,6 +18,8 @@ namespace CNG.Models
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
         public virtual DbSet<Vehicle> Vehicles { get; set; }
+
+        public virtual DbSet<VehicleItems> VehicleItems { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
 

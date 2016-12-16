@@ -31,6 +31,13 @@ namespace CNG.Models
             return po;
         }
 
+        public PurchaseOrder GetById(int poId)
+        {
+            PurchaseOrder po = context.PurchaseOrders.FirstOrDefault(p => p.Id == poId);
+
+            return po;
+        }
+
         public void Save(PurchaseOrder po) {
             bool poExist = context.PurchaseOrders.Count(p => p.No == po.No) > 0;
 

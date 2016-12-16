@@ -17,7 +17,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>ApprovedBy</rd:DefaultName>
-        <Top>7.43973in</Top>
+        <Top>6.9189in</Top>
         <Left>3.6758in</Left>
         <Height>0.25in</Height>
         <Width>1.19792in</Width>
@@ -46,7 +46,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>PreparedBy</rd:DefaultName>
-        <Top>7.43973in</Top>
+        <Top>6.9189in</Top>
         <Left>0.17147in</Left>
         <Height>0.25in</Height>
         <Width>1.27083in</Width>
@@ -76,7 +76,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>CheckedBy</rd:DefaultName>
-        <Top>7.43973in</Top>
+        <Top>6.9189in</Top>
         <Left>1.98397in</Left>
         <Height>0.25in</Height>
         <Width>1.25in</Width>
@@ -100,7 +100,7 @@
               <TextRun>
                 <Value>PURCHASE ORDER</Value>
                 <Style>
-                  <FontSize>16pt</FontSize>
+                  <FontSize>14pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -111,8 +111,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox39</rd:DefaultName>
-        <Top>0.15152in</Top>
-        <Left>4.48918in</Left>
+        <Top>0.20708in</Top>
+        <Left>4.35461in</Left>
         <Height>0.30035in</Height>
         <Width>3.0625in</Width>
         <ZIndex>3</ZIndex>
@@ -352,8 +352,8 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>0.52131in</Top>
-        <Left>5.24699in</Left>
+        <Top>0.57687in</Top>
+        <Left>5.11242in</Left>
         <Height>0.51042in</Height>
         <Width>2.3047in</Width>
         <ZIndex>6</ZIndex>
@@ -860,7 +860,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <Top>2.67237in</Top>
-        <Left>4.89284in</Left>
+        <Left>4.76869in</Left>
         <Height>0.5in</Height>
         <Width>2.64843in</Width>
         <ZIndex>9</ZIndex>
@@ -885,7 +885,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox3</rd:DefaultName>
-        <Top>7.12029in</Top>
+        <Top>6.59946in</Top>
         <Left>0.17147in</Left>
         <Height>0.25in</Height>
         <Width>1in</Width>
@@ -915,7 +915,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox3</rd:DefaultName>
-        <Top>7.12029in</Top>
+        <Top>6.59946in</Top>
         <Left>1.98397in</Left>
         <Height>0.25in</Height>
         <Width>1in</Width>
@@ -945,7 +945,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox3</rd:DefaultName>
-        <Top>7.12029in</Top>
+        <Top>6.59946in</Top>
         <Left>3.6758in</Left>
         <Height>0.25in</Height>
         <Width>1in</Width>
@@ -1522,10 +1522,10 @@
           </Tablix>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>3.20015in</Top>
-        <Left>0.18277in</Left>
-        <Height>3.1875in</Height>
-        <Width>7.36891in</Width>
+        <Top>3.24181in</Top>
+        <Left>0.05862in</Left>
+        <Height>2.73958in</Height>
+        <Width>7.3585in</Width>
         <ZIndex>13</ZIndex>
         <Style>
           <Border>
@@ -1701,8 +1701,8 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>6.40154in</Top>
-        <Left>5.15759in</Left>
+        <Top>6.02306in</Top>
+        <Left>5.03343in</Left>
         <Height>0.5in</Height>
         <Width>2.38368in</Width>
         <ZIndex>14</ZIndex>
@@ -1713,10 +1713,10 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>8.24875in</Height>
+    <Height>7.655in</Height>
     <Style />
   </Body>
-  <Width>7.68971in</Width>
+  <Width>7.54127in</Width>
   <Page>
     <LeftMargin>0.5in</LeftMargin>
     <RightMargin>0.5in</RightMargin>
