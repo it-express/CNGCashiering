@@ -1,0 +1,134 @@
+﻿@model IPagedList<CNG.Models.Vehicle>
+@using PagedList.Mvc;
+@using PagedList;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- start: TOOLBAR -->
+<div class="toolbar row">
+    <div class="col-sm-6 hidden-xs">
+        <div class="page-header">
+            <h1>History </h1>
+        </div>
+    </div>
+
+</div>
+<!-- end: TOOLBAR -->
+<!-- end: PAGE HEADER -->
+<!-- start: BREADCRUMB -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="breadcrumb"></div>
+    </div>
+</div>
+<!-- end: BREADCRUMB -->
+<!-- start: PAGE CONTENT -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- start: BASIC TABLE PANEL -->
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h4 class="panel-title pull-left"><span class="text-bold">Inventory - @ViewBag.CompanyName</span></h4>
+
+                <div class="clearfix"></div>
+
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm())
+                {
+                    <div class="col-md-4 col-sm-12 no-padding pull-right" style="margin-bottom:16px; text-align:right;">
+                        @Html.TextBox("SearchString", (string)ViewBag.CurrentFilter, new { @class = "form-control", @placeholder = "Find", @style = "display:inline; width:74%;" })
+                        <input type="submit" value="Search" class="btn btn-dark-beige" />
+                    </div>
+                }
+
+
+                <div class="clearfix"></div>
+
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.ActionLink("LicenseNo", "Index", new { sortColumn = "licenseno", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+                            <th>
+                                @Html.ActionLink("EngineNo", "Index", new { sortColumn = "engineno", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+                            <th>
+                                @Html.ActionLink("ChasisNo", "Index", new { sortColumn = "chasisno", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+                            <th>
+                                @Html.ActionLink("Make", "Index", new { sortColumn = "make", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+                            <th>
+                                @Html.ActionLink("Year", "Index", new { sortColumn = "year", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var vehicle in Model)
+                        {
+                            <tr class="item-row">
+                                <td>
+                                    @Html.DisplayFor(modelItem => vehicle.LicenseNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => vehicle.Make)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => vehicle.Year)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => vehicle.EngineNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => vehicle.ChasisNo)
+                                </td>
+                                <td>
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="@Url.Action("TransactionHistory", new { id = vehicle.Id })" data-original-title="View History" data-placement="top" class="btn btn-xs btn-orange tooltips"><i class="fa fa-history fa fa-white"></i></a>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+
+                <div class="clearfix"></div>
+
+                <div class="col-md-4 col-sm-12 no-padding pull-left" style="margin:20px 0px;">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                </div>
+
+                <div class="col-md-8 col-sm-12 no-padding pull-left" style="text-align:right;">
+                    @Html.PagedListPager(Model, page => Url.Action("Index",
+                    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                </div>
+
+                <div class="clearfix"></div>
+
+            </div>
+        </div>
+        <!-- end: BASIC TABLE PANEL -->
+    </div>
+
+    <div class="clearfix"></div>
+    
+    
+</div>
+<script>
+
+    $(document).ready(function () {
+        $('ul.main-navigation-menu > li:nth-child(7)').addClass('active');
+
+        $('.toolbar ul.nav li:nth-child(1)').addClass('open');
+
+    });
+
+</script>
