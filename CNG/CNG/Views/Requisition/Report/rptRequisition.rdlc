@@ -576,7 +576,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Parameters!JONumber.Value</Value>
+                              <Value>=Parameters!Odometer.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>

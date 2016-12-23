@@ -502,21 +502,21 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Quantity1">
+                    <Textbox Name="PlateNo1">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!Quantity.Value</Value>
+                              <Value>=Fields!PlateNo.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Quantity1</rd:DefaultName>
+                      <rd:DefaultName>PlateNo1</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -528,6 +528,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -589,7 +590,7 @@
         <Top>2.07167in</Top>
         <Left>0.26958in</Left>
         <Height>0.5in</Height>
-        <Width>8.73263in</Width>
+        <Width>8.73262in</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
