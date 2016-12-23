@@ -11,7 +11,7 @@
               <TextRun>
                 <Value>Company to Company Stock Transfer Summary Report</Value>
                 <Style>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>11pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -20,8 +20,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox39</rd:DefaultName>
-        <Top>0.15152in</Top>
-        <Left>5.93971in</Left>
+        <Top>0.20708in</Top>
+        <Left>4.08553in</Left>
         <Height>0.54166in</Height>
         <Width>3.0625in</Width>
         <Style>
@@ -151,16 +151,16 @@
               <Width>1in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.42708in</Width>
+              <Width>1.48958in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1in</Width>
+              <Width>0.63542in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.14583in</Width>
+              <Width>0.90625in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.24652in</Width>
+              <Width>0.93402in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -851,7 +851,7 @@
         <Top>1.91542in</Top>
         <Left>0.18277in</Left>
         <Height>0.75in</Height>
-        <Width>8.81944in</Width>
+        <Width>6.96526in</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
@@ -863,7 +863,7 @@
     <Height>6.91542in</Height>
     <Style />
   </Body>
-  <Width>9.55083in</Width>
+  <Width>7.16541in</Width>
   <Page>
     <LeftMargin>0.5in</LeftMargin>
     <RightMargin>0.5in</RightMargin>

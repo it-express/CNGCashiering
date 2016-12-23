@@ -18,7 +18,7 @@
         </Paragraphs>
         <rd:DefaultName>ApprovedBy</rd:DefaultName>
         <Top>6.07229in</Top>
-        <Left>5.68101in</Left>
+        <Left>4.92986in</Left>
         <Height>0.25in</Height>
         <Width>1.19792in</Width>
         <Style>
@@ -47,7 +47,7 @@
         </Paragraphs>
         <rd:DefaultName>CheckedBy</rd:DefaultName>
         <Top>6.07229in</Top>
-        <Left>2.99642in</Left>
+        <Left>2.79242in</Left>
         <Height>0.25in</Height>
         <Width>1.25in</Width>
         <ZIndex>1</ZIndex>
@@ -70,19 +70,19 @@
               <TextRun>
                 <Value>Company to Company Stock Transfer</Value>
                 <Style>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>11pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
             <Style>
-              <TextAlign>Right</TextAlign>
+              <TextAlign>Center</TextAlign>
             </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox39</rd:DefaultName>
         <Top>0.97443in</Top>
-        <Left>2.42929in</Left>
+        <Left>1.96878in</Left>
         <Height>0.30035in</Height>
         <Width>3.0625in</Width>
         <ZIndex>2</ZIndex>
@@ -322,8 +322,8 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>1.52653in</Top>
-        <Left>5.23918in</Left>
+        <Top>1.49007in</Top>
+        <Left>3.99351in</Left>
         <Height>0.50521in</Height>
         <Width>2.3047in</Width>
         <ZIndex>5</ZIndex>
@@ -349,7 +349,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox3</rd:DefaultName>
         <Top>5.75285in</Top>
-        <Left>2.99642in</Left>
+        <Left>2.79242in</Left>
         <Height>0.25in</Height>
         <Width>1in</Width>
         <ZIndex>6</ZIndex>
@@ -379,7 +379,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox3</rd:DefaultName>
         <Top>5.75285in</Top>
-        <Left>5.67493in</Left>
+        <Left>4.92378in</Left>
         <Height>0.25in</Height>
         <Width>1in</Width>
         <ZIndex>7</ZIndex>
@@ -402,13 +402,13 @@
                   <Width>0.5586in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.92635in</Width>
+                  <Width>0.72235in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.0787in</Width>
+                  <Width>1.57755in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.29167in</Width>
+                  <Width>0.75115in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1in</Width>
@@ -816,7 +816,7 @@
             </TablixRowHierarchy>
             <DataSetName>DataSet1</DataSetName>
             <Height>0.5in</Height>
-            <Width>7.36111in</Width>
+            <Width>6.11544in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -828,7 +828,7 @@
         <Top>2.06472in</Top>
         <Left>0.18277in</Left>
         <Height>3.06945in</Height>
-        <Width>7.36111in</Width>
+        <Width>6.11544in</Width>
         <ZIndex>8</ZIndex>
         <Style>
           <Border>
@@ -1068,10 +1068,10 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>6.91542in</Height>
+    <Height>6.60292in</Height>
     <Style />
   </Body>
-  <Width>7.64543in</Width>
+  <Width>6.46835in</Width>
   <Page>
     <LeftMargin>0.5in</LeftMargin>
     <RightMargin>0.5in</RightMargin>
