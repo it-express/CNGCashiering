@@ -61,6 +61,9 @@
                     <thead>
                         <tr>
                             <th>
+                                @Html.ActionLink("Module", "TransactionHistory", new { sortColumn = "TransactionMethod.Description", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+                            <th>
                                 @Html.ActionLink("Item", "TransactionHistory", new { sortColumn = "item.Description", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
@@ -80,6 +83,9 @@
                         {
                             <tr>
                                 <td>
+                                    @Html.DisplayFor(modelItem => item.TransactionLog.TransactionMethod.Description)
+                                </td>
+                                <td>
                                     
                                     @Html.DisplayFor(modelItem => item.TransactionLog.Item.Description)
                                 </td>
@@ -88,8 +94,6 @@
                                 </td>
                                             
                                 <td>
-                                    from vehicle:
-
                                     @Html.DisplayFor(modelItem => item.VehicleFrom)
                                 </td>
                         
