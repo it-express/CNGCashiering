@@ -134,17 +134,18 @@ namespace CNG.Controllers
                                                   VehicleFrom = p.VehicleFrom.LicenseNo
                                               };
 
-            List<TransactionLogVM> lstTransactionLog = (from p in transactionLogRepo.List().Where(p=> DbFunctions.TruncateTime(p.Date) >= DbFunctions.TruncateTime(dtDateFrom) &&
+            List<TransactionLogVM> lstTransactionLog = (from p in transactionLogRepo.List().Where(p => DbFunctions.TruncateTime(p.Date) >= DbFunctions.TruncateTime(dtDateFrom) &&
                                                                DbFunctions.TruncateTime(p.Date) <= DbFunctions.TruncateTime(dtDateTo)
                                                               && p.CompanyId == Sessions.CompanyId.Value).ToList()
-                                                             join q in lstVehicleStockTransferItem.ToList()
-                                                             on p.Id equals q.TransactionLog.Id
-                                                             where lstVehicle.Contains(p.Id) 
-                                                             select new TransactionLogVM
-                                                             {
-                                                                TransactionLog = p,
-                                                                 VehicleFrom = q.VehicleFrom
-                                                             }).ToList();
+                                                        join q in lstVehicleStockTransferItem.ToList()
+                                                        on p.Id equals q.TransactionLog.Id into pq from sub in pq.DefaultIfEmpty()
+                                                        where lstVehicle.Contains(p.Id)
+
+                                                        select new TransactionLogVM
+                                                        {
+                                                            TransactionLog = p,
+                                                            VehicleFrom = sub == null ? null: "from vehicle:" + sub.VehicleFrom
+                                                        }).ToList();
 
             //lstTransactionLog = (from p in lstTransactionLog
             //                     where DbFunctions.TruncateTime(p.TransactionLog.Date) >= DbFunctions.TruncateTime(dtDateFrom) &&

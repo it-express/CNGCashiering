@@ -21,6 +21,7 @@ namespace CNG.Controllers
         CompanyRepository companyRepo = new CompanyRepository();
         ItemTypeRepository itemTypeRepo = new ItemTypeRepository();
         TransactionLogRepository translogRepo = new TransactionLogRepository();
+        VehicleItemsRepository veItemRepo = new VehicleItemsRepository();
 
         // GET: StockTransfer
         public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
@@ -178,7 +179,20 @@ namespace CNG.Controllers
             st.StockTransferItems = lstStItem;
 
             stRepo.Save(st);
-           
+
+            int? translogId = st.StockTransferItems.Last().TransactionLogId;
+            int vehicleId = vehicleRepo.GetIdByPlateNo(st.UnitPlateNo);
+            SaveVehicle(vehicleId, translogId);
+
+        }
+
+        public void SaveVehicle(int vehicleId, int? translogId)
+        {
+            VehicleItems vi = new VehicleItems();
+            vi.VehicleId = vehicleId;
+            vi.TransactionLogId = translogId;
+
+            veItemRepo.Save(vi);
         }
 
         public ActionResult Delete(string stNo)
@@ -196,7 +210,7 @@ namespace CNG.Controllers
             {
                 ItemId = itemId,
                 Quantity = quantiy,
-                TransactionMethodId = (int)ETransactionMethod.StockTransfer,
+                TransactionMethodId = (int)ETransactionMethod.StockTransfer_Company,
                 CompanyId = companyId
             };
 

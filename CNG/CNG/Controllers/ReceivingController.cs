@@ -26,7 +26,7 @@ namespace CNG.Controllers
         public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page, int? companyId)
         {
             if (companyId.HasValue) {
-                Sessions.CompanyId = companyId;
+                Sessions.CompanyId = companyId; 
             }
 
             ViewBag.CompanyId = companyId;
@@ -129,6 +129,8 @@ namespace CNG.Controllers
             { @ViewBag.ReNumber = po.RRNo; }
 
             ViewBag.ItemDescription = poItem.Item.Description;
+            ViewBag.ItemQuantity = poItem.Quantity;
+
             IEnumerable<Receiving> lstReceiving = receivingRepo.ListByPurchaseOrderItemId(poItemId);
 
             return PartialView("_ReceivingLogEditor", lstReceiving);
