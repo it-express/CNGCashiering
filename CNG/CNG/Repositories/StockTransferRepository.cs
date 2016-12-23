@@ -132,7 +132,7 @@ namespace CNG.Models
             {
                 ItemId = itemId,
                 Quantity = -quantiy,
-                TransactionMethodId = (int)ETransactionMethod.Requisition,
+                TransactionMethodId = (int)ETransactionMethod.StockTransfer_Company,
                 CompanyId = Sessions.CompanyId.Value
             };
 
