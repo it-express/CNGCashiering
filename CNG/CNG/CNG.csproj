@@ -168,6 +168,7 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\DevelopmentController.cs" />
     <Compile Include="Controllers\ExcessPartsSetController.cs" />
+    <Compile Include="Controllers\HistoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
@@ -214,6 +215,7 @@
     <Compile Include="Models\StockTransferItem.cs" />
     <Compile Include="Models\TransactionLog.cs" />
     <Compile Include="Models\TransactionMethod.cs" />
+    <Compile Include="Models\VehicleItems.cs" />
     <Compile Include="Models\VehicleStockTransfer.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserType.cs" />
@@ -222,7 +224,9 @@
     <Compile Include="Models\VehicleStockTransferItem.cs" />
     <Compile Include="Models\Vendor.cs" />
     <Compile Include="Models\ViewModels\ItemAssignmentVM.cs" />
+    <Compile Include="Models\ViewModels\ItemHistoryVM.cs" />
     <Compile Include="Models\ViewModels\PurchaseOrderVM.cs" />
+    <Compile Include="Models\ViewModels\ReceivingVM.cs" />
     <Compile Include="Models\ViewModels\RequisitionItemVM.cs" />
     <Compile Include="Models\ViewModels\RequisitionVM.cs" />
     <Compile Include="Models\ViewModels\StockTransferItemVM.cs" />
@@ -252,6 +256,7 @@
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\UserTypeRepository.cs" />
     <Compile Include="Repositories\VehicleAssignmentRepository.cs" />
+    <Compile Include="Repositories\VehicleItemsRepository.cs" />
     <Compile Include="Repositories\VehicleRepository.cs" />
     <Compile Include="Repositories\VehicleStockTransferItemRepository.cs" />
     <Compile Include="Repositories\VehicleStockTransferRepository.cs" />
@@ -270,6 +275,21 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsReceiving.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Requisition\Report\dsRequisition.Designer.cs" />
+    <Compile Include="Views\StockTransfer\Report\dsStockTransfer.cs">
+      <DependentUpon>dsStockTransfer.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StockTransfer\Report\dsStockTransfer.Designer.cs">
+      <DependentUpon>dsStockTransfer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VehicleStockTransfer\Report\dsVehicleStockTransfer.cs">
+      <DependentUpon>dsVehicleStockTransfer.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VehicleStockTransfer\Report\dsVehicleStockTransfer.Designer.cs">
+      <DependentUpon>dsVehicleStockTransfer.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -492,6 +512,7 @@
     <Content Include="Content\rapido\sass\vendor\_summernote.scss" />
     <Content Include="Content\rapido\sass\vendor\_tags-input.scss" />
     <Content Include="Content\rapido\sass\vendor\_time-picker.scss" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\testProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -562,6 +583,8 @@
     <Content Include="Views\Inventory\InventoryReport.cshtml" />
     <Content Include="Views\Development\Index.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
+    <Content Include="Views\History\Index.cshtml" />
+    <Content Include="Views\History\TransactionHistory.cshtml" />
     <None Include="Views\Inventory\Report\dsInventory.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -608,6 +631,50 @@
     <Content Include="Views\StockTransfer\Details.cshtml" />
     <Content Include="Views\VehicleStockTransfer\Details.cshtml" />
     <Content Include="Views\Shared\_LayoutNoColumn.cshtml" />
+    <Content Include="Views\VehicleStockTransfer\Report\dsVehicleStockTransfer.xsc">
+      <DependentUpon>dsVehicleStockTransfer.xsd</DependentUpon>
+    </Content>
+    <Content Include="Views\StockTransfer\Report\dsStockTransfer.xsc">
+      <DependentUpon>dsStockTransfer.xsd</DependentUpon>
+    </Content>
+    <Content Include="Views\Requisition\Report\dsRequisition.xsc">
+      <DependentUpon>dsRequisition.xsd</DependentUpon>
+    </Content>
+    <Content Include="Views\Requisition\Report.cshtml" />
+    <None Include="Views\Requisition\Report\dsRequisition.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsRequisition1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\Requisition\Report\dsRequisition.xss">
+      <DependentUpon>dsRequisition.xsd</DependentUpon>
+    </Content>
+    <Content Include="Views\Requisition\RequisitionSummaryReport.cshtml" />
+    <Content Include="Views\Shared\_LayoutBackup.cshtml" />
+    <Content Include="Views\Shared\_LayoutLogin.cshtml" />
+    <Content Include="Views\Shared\_RequisitionMenu.cshtml" />
+    <Content Include="Views\Shared\_StockTransferMenu.cshtml" />
+    <Content Include="Views\Shared\_VehicleStockTransferMenu.cshtml" />
+    <Content Include="Views\StockTransfer\Report.cshtml" />
+    <None Include="Views\StockTransfer\Report\dsStockTransfer.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsStockTransfer1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\StockTransfer\Report\dsStockTransfer.xss">
+      <DependentUpon>dsStockTransfer.xsd</DependentUpon>
+    </Content>
+    <Content Include="Views\VehicleStockTransfer\Report.cshtml" />
+    <Content Include="Views\StockTransfer\SummaryReport.cshtml" />
+    <None Include="Views\VehicleStockTransfer\Report\dsVehicleStockTransfer.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsVehicleStockTransfer.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\VehicleStockTransfer\Report\dsVehicleStockTransfer.xss">
+      <DependentUpon>dsVehicleStockTransfer.xsd</DependentUpon>
+    </Content>
+    <Content Include="Views\VehicleStockTransfer\SummaryReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -624,6 +691,14 @@
     <Content Include="Views\Inventory\Report\rptInventory.rdlc" />
     <Content Include="Views\PurchaseOrder\Report\rptPurchaseOrder.rdlc" />
     <Content Include="Views\Receiving\Report\rptReceiving.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Requisition\Report\rptRequisition.rdlc" />
+    <EmbeddedResource Include="Views\Requisition\Report\rptRequisitionSummary.rdlc" />
+    <EmbeddedResource Include="Views\StockTransfer\Report\rptStockTransfer.rdlc" />
+    <EmbeddedResource Include="Views\StockTransfer\Report\rptSummaryReport.rdlc" />
+    <EmbeddedResource Include="Views\VehicleStockTransfer\Report\rptStockTransfer.rdlc" />
+    <EmbeddedResource Include="Views\VehicleStockTransfer\Report\rptSummaryReport.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
