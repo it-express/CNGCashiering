@@ -98,7 +98,7 @@ namespace CNG.Controllers
             lstTransactionLog = from p in lstTransactionLog
                             where DbFunctions.TruncateTime(p.Date) >= DbFunctions.TruncateTime(dtDateFrom) &&
                                                           DbFunctions.TruncateTime(p.Date) <= DbFunctions.TruncateTime(dtDateTo)
-                                                          && p.CompanyId == Sessions.CompanyId.Value
+                                                          && p.CompanyId == Sessions.CompanyId.Value && p.TransactionMethodId != 7
                                                           select p;
 
             if (!String.IsNullOrEmpty(searchString))
@@ -142,7 +142,7 @@ namespace CNG.Controllers
                 dtDateTo = Convert.ToDateTime(dateTo);
             }
 
-            var lstInventory2 = (from p in transactionLogRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value && p.TransactionMethodId != 5).ToList()
+            var lstInventory2 = (from p in transactionLogRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value && p.TransactionMethodId != 7).ToList()
                                 group p by p.ItemId into g
                                 select new
                                 {
