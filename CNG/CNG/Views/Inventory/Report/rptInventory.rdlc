@@ -661,6 +661,7 @@
                               <Value>=Fields!UnitCost.Value * Fields!StartingQuantity.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>#,0.00;(#,0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -757,6 +758,7 @@
                               <Value>=Fields!In.Value * Fields!UnitCost.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>#,0.00;(#,0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -853,6 +855,7 @@
                               <Value>=Fields!Out.Value * Fields!UnitCost.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>#,0.00;(#,0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -949,6 +952,7 @@
                               <Value>=Fields!EndingQuantity.Value * Fields!UnitCost.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>#,0.00;(#,0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
