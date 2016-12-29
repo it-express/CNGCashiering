@@ -1655,7 +1655,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Convert.ToDecimal(Fields!TotalAmount.Value))</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
