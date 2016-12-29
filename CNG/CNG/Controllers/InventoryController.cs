@@ -142,14 +142,14 @@ namespace CNG.Controllers
                 dtDateTo = Convert.ToDateTime(dateTo);
             }
 
-            var lstInventory2 = (from p in transactionLogRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value && p.TransactionMethodId != 7).ToList()
+            var lstInventory2 = (from p in transactionLogRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value ).ToList()
                                 group p by p.ItemId into g
                                 select new
                                 {
                                     ItemId = g.Key,
-                                    EndingQuantity = g.Where(p => p.Date.Date <= dtDateTo).Sum(p => p.Quantity),
-                                    In = g.Where(p => p.Quantity > 0).Sum(p => p.Quantity),
-                                    Out = g.Where(p => p.Quantity < 0).Sum(p => p.Quantity),
+                                    EndingQuantity = g.Where(p => p.Date.Date <= dtDateTo ).Sum(p => p.Quantity),
+                                    In = g.Where(p => p.Quantity > 0 && p.TransactionMethodId != 7).Sum(p => p.Quantity),
+                                    Out = g.Where(p => p.Quantity < 0 && p.TransactionMethodId != 7).Sum(p => p.Quantity),
                                     StartingQuantity = g.Where(p => p.Date.Date <= dtDateFrom).Sum(p => p.Quantity)
                                 }).ToList();
 
