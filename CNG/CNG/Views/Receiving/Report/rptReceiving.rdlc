@@ -1015,7 +1015,9 @@ COST</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Amount.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <Format>#,0.00;(#,0.00)</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1237,7 +1239,9 @@ COST</Value>
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Convert.ToDecimal(Fields!Amount.Value))</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
