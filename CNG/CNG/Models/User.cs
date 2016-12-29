@@ -40,7 +40,7 @@ namespace CNG.Models
         public int GeneralManagerId { get; set; }
 
         public string FullName {
-            get { return LastName + ", " + FirstName; }
+            get { return FirstName + " " + LastName; }
         }
 
         public virtual UserType UserType { get; set; }
