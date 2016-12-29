@@ -544,7 +544,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!UnitCost.Value</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -797,7 +799,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Convert.ToDecimal(Sum(Fields!Amount.Value))</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -851,7 +855,7 @@
         <Top>1.91542in</Top>
         <Left>0.18277in</Left>
         <Height>0.75in</Height>
-        <Width>6.96526in</Width>
+        <Width>6.96527in</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
