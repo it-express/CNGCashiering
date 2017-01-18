@@ -8,7 +8,6 @@
     });
 });
 
-
 $(document).on('click', '#btnReceivingSave', function () {
     var receiving = new Object();
 

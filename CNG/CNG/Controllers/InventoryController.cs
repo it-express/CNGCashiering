@@ -18,6 +18,7 @@ namespace CNG.Controllers
         ItemRepository itemRepo = new ItemRepository();
         TransactionLogRepository transactionLogRepo = new TransactionLogRepository();
         CompanyRepository companyRepo = new CompanyRepository();
+        ItemAssignmentRepository itemAssignmentRepo = new ItemAssignmentRepository();
 
         // GET: Inventory
         public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page, int? companyId)
@@ -42,7 +43,10 @@ namespace CNG.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            IQueryable<Item> lstItem = from p in itemRepo.List() select p;
+            //IQueryable<Item> lstItem = from p in itemRepo.List() select p;
+            IQueryable<Item> lstItem = itemAssignmentRepo.List()
+                                    .Where(p => p.CompanyId == Sessions.CompanyId)
+                                    .Select(p => p.Item);
 
             if (!String.IsNullOrEmpty(searchString))
             {
