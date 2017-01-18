@@ -6,10 +6,10 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>0.60417in</Width>
+              <Width>0.39584in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.06251in</Width>
+              <Width>1.75001in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>0.39583in</Width>
@@ -193,7 +193,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>AMOUNT</Value>
+                              <Value>TOTAL AMOUNT</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -490,7 +490,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>AMT</Value>
+                              <Value>TOTAL AMOUNT</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -627,6 +627,7 @@
                               <Value>=Fields!UnitCost.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>#,0.00;(#,0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -665,7 +666,9 @@
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox11</rd:DefaultName>
@@ -726,6 +729,7 @@
                               <Value>=Fields!UnitCost.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>#,0.00;(#,0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -823,6 +827,8 @@
                               <Value>=Fields!UnitCost.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>'$'#,0.00;('$'#,0.00)</Format>
+                                <rd:FormatSymbolCulture>en-US</rd:FormatSymbolCulture>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -920,6 +926,7 @@
                               <Value>=Fields!UnitCost.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>#,0.00;(#,0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1011,7 +1018,7 @@
         <Top>0.08209in</Top>
         <Left>0.14457in</Left>
         <Height>0.5in</Height>
-        <Width>9.27084in</Width>
+        <Width>8.75001in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1352,8 +1359,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox12</rd:DefaultName>
-          <Top>1.3264in</Top>
-          <Left>4.67583in</Left>
+          <Top>1.31598in</Top>
+          <Left>4.15499in</Left>
           <Height>0.25in</Height>
           <Width>1.52083in</Width>
           <ZIndex>3</ZIndex>
@@ -1387,8 +1394,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox12</rd:DefaultName>
-          <Top>1.3264in</Top>
-          <Left>6.19666in</Left>
+          <Top>1.31598in</Top>
+          <Left>5.67582in</Left>
           <Height>0.25in</Height>
           <Width>1.53124in</Width>
           <ZIndex>4</ZIndex>
@@ -1422,8 +1429,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox5</rd:DefaultName>
-          <Top>1.3264in</Top>
-          <Left>2.81126in</Left>
+          <Top>1.31598in</Top>
+          <Left>2.29041in</Left>
           <Height>0.25in</Height>
           <Width>1.86458in</Width>
           <ZIndex>5</ZIndex>
@@ -1457,8 +1464,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox5</rd:DefaultName>
-          <Top>1.3264in</Top>
-          <Left>7.7279in</Left>
+          <Top>1.31598in</Top>
+          <Left>7.20707in</Left>
           <Height>0.25in</Height>
           <Width>1.68751in</Width>
           <ZIndex>6</ZIndex>
@@ -1479,6 +1486,8 @@
         </Border>
       </Style>
     </PageHeader>
+    <PageHeight>8.5in</PageHeight>
+    <PageWidth>11in</PageWidth>
     <LeftMargin>1in</LeftMargin>
     <RightMargin>1in</RightMargin>
     <TopMargin>1in</TopMargin>
