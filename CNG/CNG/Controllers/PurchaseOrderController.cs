@@ -166,7 +166,7 @@ namespace CNG.Controllers
                 Item _item = itemRepo.GetById(item.Id);
 
                 poItem.UnitCost = _item.UnitCost;
-                poItem.Quantity = item.Quantity;
+                //poItem.Quantity = item.Quantity;
                 poItem.Remarks = item.Remarks;
                 poItem.Date = DateTime.Now;
                 poItem.RemainingBalanceDate = null;

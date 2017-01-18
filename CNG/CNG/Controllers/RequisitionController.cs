@@ -145,45 +145,50 @@ namespace CNG.Controllers
 
         public void Save(RequisitionDTO entry)
         {
-            Requisition req = new Requisition();
+            try
+            {
+                Requisition req = new Requisition();
 
-            req.No = entry.No;
-            req.Date = entry.JobOrderDate;
-            req.JobOrderNo = entry.JobOrderNo;
-            req.UnitPlateNo = entry.UnitPlateNo;
-            req.JobOrderDate = entry.JobOrderDate;
-            req.OdometerReading = entry.OdometerReading; //Get from session
-            req.DriverName = entry.DriverName; //Get from session
-            req.ReportedBy = entry.ReportedBy; //Get from session
-            req.CheckedBy = entry.CheckedBy; //Get from session
-            req.ApprovedBy = Common.GetCurrentUser.GeneralManagerId; //Get from session
+                req.No = entry.No;
+                req.Date = entry.JobOrderDate;
+                req.JobOrderNo = entry.JobOrderNo;
+                req.UnitPlateNo = entry.UnitPlateNo;
+                req.JobOrderDate = entry.JobOrderDate;
+                req.OdometerReading = entry.OdometerReading; //Get from session
+                req.DriverName = entry.DriverName; //Get from session
+                req.ReportedBy = entry.ReportedBy; //Get from session
+                req.CheckedBy = entry.CheckedBy; //Get from session
+                req.ApprovedBy = Common.GetCurrentUser.GeneralManagerId; //Get from session
 
-            req.CompanyId = Sessions.CompanyId.Value;
+                req.CompanyId = Sessions.CompanyId.Value;
 
-            int vehicleId = vehicleRepo.GetIdByPlateNo(entry.UnitPlateNo);
+                int vehicleId = vehicleRepo.GetIdByPlateNo(entry.UnitPlateNo);
 
-            List<RequisitionItem> lstReqItem = new List<RequisitionItem>();
-            foreach (RequisitionDTO.Item item in entry.Items) {
-                RequisitionItem reqItem = new RequisitionItem
+                List<RequisitionItem> lstReqItem = new List<RequisitionItem>();
+                foreach (RequisitionDTO.Item item in entry.Items)
                 {
-                    RequisitionId = req.Id,
-                    ItemId = item.ItemId,
-                    Quantity = item.Quantity,
-                    SerialNo = item.SerialNo,
-                    Type = item.Type,
-                    QuantityReturn = item.QuantityReturn,
-                    SerialNoReturn = item.SerialNoReturn
-                };
+                    RequisitionItem reqItem = new RequisitionItem
+                    {
+                        RequisitionId = req.Id,
+                        ItemId = item.ItemId,
+                        //Quantity = item.Quantity,
+                        SerialNo = item.SerialNo,
+                        Type = item.Type,
+                        QuantityReturn = item.QuantityReturn,
+                        SerialNoReturn = item.SerialNoReturn
+                    };
 
-                lstReqItem.Add(reqItem);
+                    lstReqItem.Add(reqItem);
+                }
+
+                req.RequisitionItems = lstReqItem;
+
+
+                reqRepo.Save(req);
+                int? translogId = req.RequisitionItems.Last().TransactionLogId;
+                SaveVehicle(vehicleId, translogId);
             }
-
-            req.RequisitionItems = lstReqItem;
-           
-
-            reqRepo.Save(req);
-            int? translogId = req.RequisitionItems.Last().TransactionLogId;
-            SaveVehicle(vehicleId,translogId);
+            catch { }
         }
 
         public void SaveVehicle(int vehicleId, int? translogId)
@@ -282,7 +287,7 @@ namespace CNG.Controllers
                                     PlateNo = req.UnitPlateNo,
                                     RNo = req.No,
                                     ItemDesc = reqItem.Item.Description,
-                                    Quantity = reqItem.Quantity,
+                                    //Quantity = reqItem.Quantity,
                                     VehicleUnit = r.FirstOrDefault().Model,
                                     CompanyName =req.Company.Prefix
 
