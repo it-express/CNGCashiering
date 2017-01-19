@@ -156,7 +156,7 @@ namespace CNG.Controllers
                                     EndingQuantity = g.Where(p => p.Date.Date <= dtDateTo ).Sum(p => p.Quantity),
                                     In = g.Where(p => p.Quantity > 0 && p.Date.Date >= dtDateFrom && p.Date.Date <= dtDateTo).Sum(p => p.Quantity),
                                     Out = g.Where(p => p.Quantity < 0 && p.Date.Date >= dtDateFrom && p.Date.Date <= dtDateTo).Sum(p => p.Quantity),
-                                    StartingQuantity = g.Where(p => p.Date.Date < dtDateFrom).Sum(p => p.Quantity)
+                                    StartingQuantity = g.Where(p => p.Date.Date <= dtDateFrom).Sum(p => p.Quantity)
                                 }).ToList();
 
 
@@ -169,8 +169,8 @@ namespace CNG.Controllers
                            Code = item.Code,
                            Description = item.Description,
                            UnitCost = string.Format("{0:#,##0.##}", item.UnitCost), //item.UnitCost.ToString("F"),
-                           StartingQuantity = i != null ? i.StartingQuantity : 0,
-                           EndingQuantity = i != null? i.In - i.Out:0, //i != null ? i.EndingQuantity : 0,
+                           StartingQuantity = i != null ? i.StartingQuantity - i.In: 0,
+                           EndingQuantity = i != null ? i.In - i.Out:0, //i != null ? i.EndingQuantity : 0,
                            In = i != null ? i.In : 0,
                            Out = i != null ? i.Out : 0
                        };
