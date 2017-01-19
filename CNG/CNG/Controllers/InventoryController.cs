@@ -157,20 +157,23 @@ namespace CNG.Controllers
                                     StartingQuantity = g.Where(p => p.Date.Date <= dtDateFrom).Sum(p => p.Quantity)
                                 }).ToList();
 
-            var lstInventory = from item in itemRepo.List().ToList()
-                       join inv in lstInventory2
-                       on item.Id equals inv.ItemId into itemInv
-                       from i in itemInv.DefaultIfEmpty()
-                       select new
-                       {
-                           Code = item.Code,
-                           Description = item.Description,
-                           UnitCost = item.UnitCost.ToString("F"),
-                           StartingQuantity = i != null ? i.StartingQuantity : 0,
-                           EndingQuantity = i != null ? i.EndingQuantity : 0,
-                           In = i != null ? i.In : 0,
-                           Out = i != null ? i.Out : 0
-                       };
+            List<ItemAssignment> lstItemAssignment = itemAssignmentRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value).ToList();
+
+            var lstInventory = from item in lstItemAssignment
+                               join inv in lstInventory2
+                               on item.Id equals inv.ItemId into itemInv
+                               from i in itemInv.DefaultIfEmpty()
+                               select new
+                               {
+                                   Code = item.Item.Code,
+                                   Description = item.Item.Description,
+                                   UnitCost = item.Item.UnitCost.ToString("F"),
+                                   StartingQuantity = i != null ? i.StartingQuantity : 0,
+                                   EndingQuantity = i != null ? i.EndingQuantity : 0,
+                                   In = i != null ? i.In : 0,
+                                   Out = i != null ? i.Out : 0
+                               };
+
 
             int currCompanyId = Sessions.CompanyId.Value;
             int totalMaterials = itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Materials).ToList().Sum(p => p.QuantityOnHand(currCompanyId));

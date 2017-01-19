@@ -12,7 +12,7 @@ namespace CNG.Models
             : base("name=CNGDBContext")
         {
         }
-
+        
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<ItemType> ItemTypes { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
