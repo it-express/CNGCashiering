@@ -171,7 +171,7 @@ namespace CNG.Controllers
                     {
                         RequisitionId = req.Id,
                         ItemId = item.ItemId,
-                        //Quantity = item.Quantity,
+                        Quantity = item.Quantity,
                         SerialNo = item.SerialNo,
                         Type = item.Type,
                         QuantityReturn = item.QuantityReturn,
