@@ -159,34 +159,44 @@ namespace CNG.Controllers
 
 
 
-            List<ItemAssignment> lstItemAssignment = itemAssignmentRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value).ToList();
+            var lstItemAssignment = from itemAssign in itemAssignmentRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value).ToList()
+                                    join item in itemRepo.List()
+                                    on itemAssign.ItemId equals item.Id into lst
+                                    from l in lst
+                                    select new
+                                    {
+                                        ItemId = l.Id,
+                                        Code = l.Code,
+                                        Description = l.Description,
+                                        UnitCost = l.UnitCost
+                                    };
 
-            var lstInventory = from item in lstItemAssignment
-                               join inv in lstInventory2
-                               on item.ItemId equals inv.ItemId into itemInv
-                               from i in itemInv.DefaultIfEmpty()
+            var lstInventory = from inv in lstInventory2
+                               join item in lstItemAssignment
+                               on inv.ItemId equals item.ItemId into itemInv
+                               from i in itemInv
                                select new
                                {
-                                     Code = item.Item.Code,
-                                     Description = item.Item.Description,
-                                     UnitCost = string.Format("{0:#,##0.##}", item.Item.UnitCost), //item.UnitCost.ToString("F"),
-                                    StartingQuantity = i != null ? i.StartingQuantity - i.In: 0,
-                                    EndingQuantity = i != null ? i.EndingQuantity :0, //i != null ? i.EndingQuantity : 0,
-                                    In = i != null ? i.In : 0,
-                                    Out = i != null ? i.Out : 0
-                       };
+                                   Code = i.Code,
+                                   Description = i.Description,
+                                   UnitCost = string.Format("{0:#,##0.00}", i.UnitCost), //item.UnitCost.ToString("F"),
+                                   StartingQuantity = i != null ? inv.StartingQuantity - (inv.In + inv.Out) : 0,
+                                   EndingQuantity = i != null ? inv.EndingQuantity : 0, 
+                                   In = i != null ? inv.In : 0,
+                                   Out = i != null ? inv.Out : 0
+                               };
 
             int currCompanyId = Sessions.CompanyId.Value;
             int totalMaterials = 0; //itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Materials).ToList().Sum(p => p.QuantityOnHand(currCompanyId));
-            int totalTires = itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Tires).ToList().Sum(p => p.QuantityOnHand(currCompanyId));
-            int totalBatteries = itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Batteries).ToList().Sum(p => p.QuantityOnHand(currCompanyId));
+            int totalTires = 0; //itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Tires).ToList().Sum(p => p.QuantityOnHand(currCompanyId));
+            int totalBatteries = 0; //itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Batteries).ToList().Sum(p => p.QuantityOnHand(currCompanyId));
 
              ReportViewer reportViewer = new ReportViewer();
             reportViewer.ProcessingMode = ProcessingMode.Local;
 
             ReportDataSource _rds = new ReportDataSource();
             _rds.Name = "DataSet1";
-            _rds.Value = lstInventory;
+            _rds.Value = lstInventory.OrderBy(p => p.Code);
 
             reportViewer.KeepSessionAlive = false;
             reportViewer.LocalReport.DataSources.Clear();

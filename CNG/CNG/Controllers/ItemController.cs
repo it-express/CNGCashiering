@@ -35,7 +35,7 @@ namespace CNG.Controllers
 
             //IQueryable<Item> lstItem = itemRepo.List();
 
-            IQueryable<Item> lstItem = itemAssignmentRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value).Select(p => p.Item);
+           IQueryable<Item> lstItem = itemAssignmentRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value).Select(p => p.Item);
 
             if (!String.IsNullOrEmpty(searchString))
             {

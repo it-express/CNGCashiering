@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using CNG.Models;
 using PagedList;
 using System.Linq.Dynamic;
+using Microsoft.Reporting.WebForms;
 
 namespace CNG.Controllers
 {
@@ -117,6 +118,7 @@ namespace CNG.Controllers
 
             rp.PreparedBy = Common.GetCurrentUser.Id;
             rp.ApprovedBy = Common.GetCurrentUser.GeneralManagerId;
+            rp.CheckedBy = rpDTO.CheckedBy;
 
             context.RequisitionPurchases.Add(rp);
             context.SaveChanges();
@@ -137,7 +139,56 @@ namespace CNG.Controllers
                 InsertLogs(rpItem.ItemId, rpItem.Quantity);
             }
         }
+        
+        public ActionResult Report(string ReqPoNo)
+        {
+            RequisitionPurchase rp = rpRepo.GetByRpNo(ReqPoNo);
+            List<RequisitionPurchaseItem> lstrpItem = rp.RequisitionPurchaseItems;
 
+            var lstReqPurchase = from p in lstrpItem
+                                   select new
+                                   {
+                                       No = rp.No,
+                                       Date = rp.Date.ToShortDateString(),
+                                       ApprovedBy = rp.ApprovedByObj.FullName,
+                                       PreparedBy = rp.PreparedByObj.FullName,
+                                       CheckedBy = rp.CheckedBy,
+                                       ItemCode = p.Item.Code,
+                                       Description = p.Item.Description,
+                                       ItemType = p.Item.Type.Description,
+                                       Brand = p.Item.Brand,
+                                       Quantity = p.Quantity,
+                                       UnitCost = p.UnitCost.ToString("N"),
+                                       TotalAmount = p.Amount.ToString("N"),
+                                       Remarks = p.Remarks
+                                   };
+
+            ReportViewer reportViewer = new ReportViewer();
+            reportViewer.ProcessingMode = ProcessingMode.Local;
+
+            ReportDataSource _rds = new ReportDataSource();
+            _rds.Name = "DataSet1";
+            _rds.Value = lstReqPurchase;
+
+            reportViewer.KeepSessionAlive = false;
+            reportViewer.LocalReport.DataSources.Clear();
+            reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Views\RequisitionPurchase\Report\rptReqPurchase.rdlc";
+
+            reportViewer.LocalReport.DataSources.Add(_rds);
+
+            List<ReportParameter> parameters = new List<ReportParameter>();
+            parameters.Add(new ReportParameter("Date", rp.Date.ToShortDateString()));
+            parameters.Add(new ReportParameter("RPNumber", rp.No));
+            parameters.Add(new ReportParameter("CompanyName", companyRepo.GetById(Sessions.CompanyId.Value).Name));
+            parameters.Add(new ReportParameter("CompanyAddress", companyRepo.GetById(Sessions.CompanyId.Value).Address));
+            reportViewer.LocalReport.SetParameters(parameters);
+
+            reportViewer.LocalReport.Refresh();
+
+            ViewBag.ReportViewer = reportViewer;
+
+            return View();
+        }
         public void InsertLogs(int itemId, int quantiy)
         {
             TransactionLogRepository transactionLogRepo = new TransactionLogRepository();
