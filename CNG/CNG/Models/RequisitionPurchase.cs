@@ -33,6 +33,8 @@ namespace CNG.Models
         [ForeignKey("ApprovedBy")]
         public virtual User ApprovedByObj { get; set; }
 
+        public string CheckedBy { get; set; }
+
         public decimal TotalAmountItems {
             get {
                 return RequisitionPurchaseItems.Sum(p => p.Amount);
