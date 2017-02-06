@@ -5,17 +5,21 @@
         if (rp.Items.length == 0) {
             err = "Please select item/s.";
         }
+        if (rp.CheckedBy == null) {
+            err = "Please put checked by.";
+        }
 
         return err;
     }
 
     $('#btnSubmit').click(function (event) {
         event.preventDefault();
-
+       
         var rp = new Object();
 
+        rp.CheckedBy = $('#CheckedBy').val();   
         var lstItem = new Array();
-
+ 
         $("tr.item-row").each(function () {
             $this = $(this);
 
@@ -27,7 +31,7 @@
 
             lstItem.push(item);
         });
-
+ 
         rp.Items = lstItem;
 
         var err = Validate(rp);
@@ -43,7 +47,7 @@
             data: JSON.stringify(rp),
             contentType: "application/json; charset=utf-8",
             success: function (r) {
-
+               
                 alert("Saved");
                 window.location.href = "/RequisitionPurchase/Index";
             }
