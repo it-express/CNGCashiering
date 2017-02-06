@@ -259,7 +259,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>COST</Value>
+                              <Value>UNIT COST</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -358,7 +358,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>COST</Value>
+                              <Value>UNIT COST</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -457,7 +457,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>COST</Value>
+                              <Value>UNIT COST</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -627,7 +627,7 @@
                               <Value>=Fields!UnitCost.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
-                                <Format>#,0.00;(#,0.00)</Format>
+                                <Format>#,0.00;(#,0.00);''</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1995,7 +1995,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>dsInventory</rd:DataSetName>
-        <rd:SchemaPath>C:\Projects\CNG\trunk\CNG\CNG\Views\Inventory\Report\dsInventory.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Frances\Desktop\PROGRAM\CNG\trunk\CNG\CNG\Views\Inventory\Report\dsInventory.xsd</rd:SchemaPath>
         <rd:TableName>dtInventory</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />

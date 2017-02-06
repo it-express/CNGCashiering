@@ -66,6 +66,14 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="control-label col-md-2">Checked By</label>
+                        <div class="col-md-5">
+                            <label class="form-control">
+                                @Html.DisplayFor(model => model.CheckedBy)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.ApprovedBy)</label>
                         <div class="col-md-5">
                             <label class="form-control">
@@ -116,19 +124,20 @@
                                                 @Html.DisplayFor(modelItem => rpItem.Item.Description)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => rpItem.Item.Brand)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => rpItem.UnitCost)
-                                            </td>
-                                            <td>
                                                 @Html.DisplayFor(modelItem => rpItem.Item.Type.Description)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => rpItem.Remarks)
+                                                @Html.DisplayFor(modelItem => rpItem.Item.Brand)
+                                                
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => rpItem.Quantity)
+                                            </td>
+                                            <td>                           
+                                                @Html.DisplayFor(modelItem => rpItem.UnitCost)
+                                            </td>
+                                            <td>
+                                              @Html.DisplayFor(modelItem => rpItem.Remarks)
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => rpItem.Amount)
@@ -155,7 +164,9 @@
                             <a href="@Url.Action("Index")" class="btn btn-dark-beige">
                                 Back to List
                             </a>
-
+                            <a href="@Url.Action("Report", new { ReqPoNo = Model.No })" class="btn btn-dark-blue">
+                                Print
+                            </a>
 
                         </div>
                     </div>
