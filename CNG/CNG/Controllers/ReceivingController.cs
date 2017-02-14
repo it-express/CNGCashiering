@@ -220,7 +220,10 @@ namespace CNG.Controllers
                                        Quantity = p.Quantity,
                                        UnitCost = p.UnitCost.ToString("N"),
                                        Amount = p.Amount.ToString("N"),
-                                       SerialNo = p.Receivings.FirstOrDefault().SerialNo,
+                                       SerialNo = p.Receivings.Where(a => a.PurchaseOrderItemId == p.Id).Select(a => new Receiving
+                                       {
+                                          SerialNo= a.SerialNo
+                                       }).ToList().FirstOrDefault().SerialNo,
                                        ItemType = p.Item.Type.Description
                                        //ReceivedBy = p.Receivings.FirstOrDefault().TransactionLog.User.FullName,
                                     

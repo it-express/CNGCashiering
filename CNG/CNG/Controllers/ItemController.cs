@@ -35,7 +35,7 @@ namespace CNG.Controllers
 
             //IQueryable<Item> lstItem = itemRepo.List();
 
-           IQueryable<Item> lstItem = itemAssignmentRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value).Select(p => p.Item);
+            IQueryable<Item> lstItem = itemAssignmentRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value).Select(p => p.Item);
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -47,7 +47,7 @@ namespace CNG.Controllers
 
             if (String.IsNullOrEmpty(sortColumn))
             {
-                lstItem = lstItem.OrderByDescending(p => p.Id);
+                lstItem = lstItem.OrderBy(p => p.Description);
             }
             else {
                 lstItem = lstItem.OrderBy(sortColumn + " " + sortOrder);
@@ -106,8 +106,8 @@ namespace CNG.Controllers
         public ActionResult Assignment() {
             ItemAssignmentRepository itemAssignmentRepo = new ItemAssignmentRepository();
 
-            List<ItemAssignmentVM> lstItemAssignmentVM = (from p in itemRepo.List().ToList()
-                                                               join q in itemAssignmentRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value).ToList() 
+            List<ItemAssignmentVM> lstItemAssignmentVM = (from p in itemRepo.List().ToList().OrderBy(p => p.Description)
+                                                          join q in itemAssignmentRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value).ToList() 
                                                                on p.Id equals q.ItemId into pq
                                                                from r in pq.DefaultIfEmpty()
                                                                select new ItemAssignmentVM

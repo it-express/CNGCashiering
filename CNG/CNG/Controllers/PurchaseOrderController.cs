@@ -180,7 +180,7 @@ namespace CNG.Controllers
 
         private void InitViewBags()
         {
-            ViewBag.Items = new SelectList(context.Items.Where(p => p.Active), "Id", "Description");
+            ViewBag.Items = new SelectList(context.Items.Where(p => p.Active).OrderBy(p=> p.Description), "Id", "Description");
             ViewBag.User = Common.GetCurrentUser.FullName;
             ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
 
@@ -242,6 +242,8 @@ namespace CNG.Controllers
             parameters.Add(new ReportParameter("VendorAddress", po.Vendor.Address));
             parameters.Add(new ReportParameter("ShipTo", po.ShipToCompany.Name));
             parameters.Add(new ReportParameter("CompanyAddress", po.ShipToCompany.Address));
+            parameters.Add(new ReportParameter("ShipToContact", po.ShipToCompany.ContactNo));
+            parameters.Add(new ReportParameter("VendorContact", po.Vendor.ContactNo));
             reportViewer.LocalReport.SetParameters(parameters);
 
             reportViewer.LocalReport.Refresh();

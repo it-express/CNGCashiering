@@ -17,6 +17,7 @@ namespace CNG.Controllers
     {
         VehicleRepository vehicleRepo = new VehicleRepository();
         VehicleItemsRepository vehicleItemRepo = new VehicleItemsRepository();
+        VehicleAssignmentRepository vehicleAssignmentRepo = new VehicleAssignmentRepository();
         ItemRepository itemRepo = new ItemRepository();
         TransactionLogRepository transactionLogRepo = new TransactionLogRepository();
         CompanyRepository companyRepo = new CompanyRepository();
@@ -45,7 +46,9 @@ namespace CNG.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            IQueryable<Vehicle> lstVehicle = from p in vehicleRepo.List() select p;
+            IQueryable<Vehicle> lstVehicle = vehicleAssignmentRepo.List()
+                                            .Where(p => p.CompanyId == Sessions.CompanyId.Value)
+                                            .Select(q => q.Vehicle);
 
             if (!String.IsNullOrEmpty(searchString))
             {

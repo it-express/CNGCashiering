@@ -287,7 +287,7 @@ namespace CNG.Controllers
                                     PlateNo = req.UnitPlateNo,
                                     RNo = req.No,
                                     ItemDesc = reqItem.Item.Description,
-                                    //Quantity = reqItem.Quantity,
+                                    Quantity = reqItem.Quantity,
                                     VehicleUnit = r.FirstOrDefault().Model,
                                     CompanyName =req.Company.Prefix
 
