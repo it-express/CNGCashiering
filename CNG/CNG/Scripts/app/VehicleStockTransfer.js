@@ -42,8 +42,7 @@
             'remarks': $('#Remarks').val()
         };
 
-        alert(vm.quantity);
-
+       
         var url = $(this).data('url');
 
         $.ajax({
