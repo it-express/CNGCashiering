@@ -4,11 +4,23 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
 
 <script src="~/Scripts/moment.js"></script>
 <script src="~/Scripts/app/Common.js"></script>
 <script src="~/Scripts/app/Receiving.js"></script>
 <script src="~/Scripts/app/ReceivingModal.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".po-item").select2({
+            data: null
+        });
+    });
+</script>
 
 <!-- start: TOOLBAR -->
 <div class="toolbar row">
@@ -51,7 +63,7 @@
                         <div class="col-md-5">
                             @if (Model.Id == 0)
                             {
-                                @Html.DropDownList("No", (IEnumerable<SelectListItem>)ViewBag.PurchaseOrders, "", new { @class = "form-control", data_url = Url.Action("RenderEditorRow") })
+                                @Html.DropDownList("No", (IEnumerable<SelectListItem>)ViewBag.PurchaseOrders, "", new { @class = "form-control po-item", data_url = Url.Action("RenderEditorRow") })
                             }
                             else
                             {

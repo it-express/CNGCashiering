@@ -4,11 +4,22 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
 
 @*<script src="~/Scripts/jquery-1.10.2.js"></script>*@
 <script src="~/Scripts/moment.js"></script>
 <script src="~/Scripts/app/Common.js"></script>
 <script src="~/Scripts/app/PurchaseOrder.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".ddl-item").select2({
+            data: null
+        });
+    });
+</script>
 
 <!-- start: TOOLBAR -->
 <div class="toolbar row">
@@ -161,7 +172,8 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">Search Item</label>
                             <div class="col-md-5">
-                                @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items, "", new { @class = "form-control" })
+                                @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items, "", new { @class = "form-control ddl-item" })
+                                
                             </div>
                             <div class="col-md-1">
                                 <input type="button" id="btnAddItem" value="Ok" data-url="@Url.Action("RenderEditorRow", "PurchaseOrder")" class="btn btn-dark-blue" />
