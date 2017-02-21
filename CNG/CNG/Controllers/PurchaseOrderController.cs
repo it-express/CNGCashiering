@@ -19,6 +19,7 @@ namespace CNG.Controllers
         VendorRepository vendorRepo = new VendorRepository();
         ItemRepository itemRepo = new ItemRepository();
         CompanyRepository companyRepo = new CompanyRepository();
+        ItemAssignmentRepository itemAssignmentRepo = new ItemAssignmentRepository();
 
         public PurchaseOrderController() {
             poItemRepo = new PurchaseOrderItemRepository(context);
@@ -180,7 +181,8 @@ namespace CNG.Controllers
 
         private void InitViewBags()
         {
-            ViewBag.Items = new SelectList(context.Items.Where(p => p.Active).OrderBy(p=> p.Description), "Id", "Description");
+            IQueryable<Item> lstItem = itemAssignmentRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value).Select(p => p.Item);
+            ViewBag.Items = new SelectList(lstItem.Where(p => p.Active).OrderBy(p=> p.Description), "Id", "Description");
             ViewBag.User = Common.GetCurrentUser.FullName;
             ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
 

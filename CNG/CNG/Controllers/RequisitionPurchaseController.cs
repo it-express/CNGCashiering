@@ -18,6 +18,7 @@ namespace CNG.Controllers
         RequisitionPurchaseItemRepository rpItemRepo;
         CompanyRepository companyRepo = new CompanyRepository();
         ItemRepository itemRepo = new ItemRepository();
+        ItemAssignmentRepository itemAssignmentRepo = new ItemAssignmentRepository();
 
         public RequisitionPurchaseController() {
             rpItemRepo = new RequisitionPurchaseItemRepository(context);
@@ -73,7 +74,8 @@ namespace CNG.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.Items = new SelectList(context.Items, "Id", "Description");
+            IQueryable<Item> lstItem = itemAssignmentRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value).Select(p => p.Item);
+            ViewBag.Items = new SelectList(lstItem.Where(p => p.Active).OrderBy(p => p.Description), "Id", "Description");
             ViewBag.User = Common.GetCurrentUser.FullName;
             ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
 

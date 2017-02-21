@@ -49,7 +49,7 @@ namespace CNG.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                lstReceivedPo = lstReceivedPo.Where(s => s.No.Contains(searchString)
+                lstReceivedPo = lstReceivedPo.Where(s => s.RRNo.Contains(searchString)
                                        || s.Date.ToString().Contains(searchString)
                                        || s.Vendor.Name.ToString().Contains(searchString)
                                        || s.ShipToCompany.Name.Contains(searchString)
