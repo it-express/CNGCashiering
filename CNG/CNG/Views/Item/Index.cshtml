@@ -7,6 +7,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@if (TempData["message"] != null)
+{
+    <h2>@TempData["message"]</h2>
+}
 
 <!-- start: TOOLBAR -->
 <div class="toolbar row">
