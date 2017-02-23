@@ -77,6 +77,7 @@ namespace CNG.Controllers
         {
             ViewBag.PoNumber = poRepo.GeneratePoNumber();
             ViewBag.Vendors = new SelectList(context.Vendors.Where(p => p.Active), "Id", "Name");
+            ViewBag.User = Common.GetCurrentUser.FullName;
             InitViewBags();
 
             PurchaseOrder po = new PurchaseOrder();
@@ -99,6 +100,7 @@ namespace CNG.Controllers
 
             ViewBag.PoNumber = poNo;
             ViewBag.Vendors = new SelectList(context.Vendors.Where(p => p.Active), "Id", "Name", poVM.PurchaseOrder.VendorId.ToString());
+            ViewBag.User = poVM.PurchaseOrder.PreparedByObj.FullName;
             InitViewBags();
 
             return View("Create", poVM);
@@ -183,7 +185,6 @@ namespace CNG.Controllers
         {
             IQueryable<Item> lstItem = itemAssignmentRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value).Select(p => p.Item);
             ViewBag.Items = new SelectList(lstItem.Where(p => p.Active).OrderBy(p=> p.Description), "Id", "Description");
-            ViewBag.User = Common.GetCurrentUser.FullName;
             ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
 
             int companyId = Convert.ToInt32(Sessions.CompanyId);

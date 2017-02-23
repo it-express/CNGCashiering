@@ -81,11 +81,18 @@ namespace CNG.Controllers
         {
             if (ModelState.IsValid)
             {
-                itemRepo.Save(item);
 
-                TempData["message"] = "Item has been saved";
+                    string msg = itemRepo.Save(item);
 
-                return RedirectToAction("Index");
+                if (msg == "save")
+                {
+                    TempData["message"] = "Item has been saved";
+                }
+                else
+                {
+                    TempData["message"] = "Item already exist";
+                }
+                    return RedirectToAction("Index");
             }
             else
             {
