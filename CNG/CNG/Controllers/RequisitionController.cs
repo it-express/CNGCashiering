@@ -150,7 +150,7 @@ namespace CNG.Controllers
                 Requisition req = new Requisition();
 
                 req.No = entry.No;
-                req.Date = entry.JobOrderDate;
+                req.Date = entry.RequisitionDate;
                 req.JobOrderNo = entry.JobOrderNo;
                 req.UnitPlateNo = entry.UnitPlateNo;
                 req.JobOrderDate = entry.JobOrderDate;

@@ -188,9 +188,12 @@ namespace CNG.Controllers
             {
                 Receiving receiving = new Receiving();
 
+                int poitem = poItem.ItemId;
+
                 if (item.Id != 0)
                 {
                     receiving.Id = item.Id;
+                    receiving.TransactionLogId = item.TransLogId;
                 }
                 else {
                     receiving.TransactionLogId = InsertLogs(poItem.ItemId, item.Quantity, item.DateReceived);
@@ -246,7 +249,7 @@ namespace CNG.Controllers
             List<ReportParameter> parameters = new List<ReportParameter>();
             parameters.Add(new ReportParameter("RRNo", po.RRNo));
             parameters.Add(new ReportParameter("PONo", po.No));
-            parameters.Add(new ReportParameter("DRNo", po.PurchaseOrderItems.FirstOrDefault().Receivings.FirstOrDefault().DrNo));
+            parameters.Add(new ReportParameter("DRNo",po.PurchaseOrderItems.FirstOrDefault().Receivings.FirstOrDefault().DrNo));
             parameters.Add(new ReportParameter("SupplierName", po.Vendor.Name));
             parameters.Add(new ReportParameter("ReceivedBy", po.PurchaseOrderItems.FirstOrDefault().Receivings.FirstOrDefault().TransactionLog.User.FullName));
             parameters.Add(new ReportParameter("Date", po.PurchaseOrderItems.FirstOrDefault().Date.ToShortDateString()));

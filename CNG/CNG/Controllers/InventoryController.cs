@@ -187,9 +187,9 @@ namespace CNG.Controllers
                                };
 
             int currCompanyId = Sessions.CompanyId.Value;
-            int totalMaterials = 0; //itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Materials).ToList().Sum(p => p.QuantityOnHand(currCompanyId));
-            int totalTires = 0; //itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Tires).ToList().Sum(p => p.QuantityOnHand(currCompanyId));
-            int totalBatteries = 0; //itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Batteries).ToList().Sum(p => p.QuantityOnHand(currCompanyId));
+            int totalMaterials = itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Materials).ToList().Sum(p => p.QuantityOnHand(currCompanyId));
+            int totalTires = itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Tires).ToList().Sum(p => p.QuantityOnHand(currCompanyId));
+            int totalBatteries = itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Batteries).ToList().Sum(p => p.QuantityOnHand(currCompanyId));
 
              ReportViewer reportViewer = new ReportViewer();
             reportViewer.ProcessingMode = ProcessingMode.Local;
