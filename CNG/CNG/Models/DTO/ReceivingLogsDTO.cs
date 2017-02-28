@@ -14,6 +14,7 @@ namespace CNG.Models
             public string SerialNo { get; set; }
             public string DrNo { get; set; }       
             public DateTime DateReceived { get; set; }
+            public int TransLogId { get; set; }
         }
 
         public int Id { get; set; }
