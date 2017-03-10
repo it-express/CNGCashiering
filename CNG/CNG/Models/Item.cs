@@ -10,6 +10,7 @@ namespace CNG.Models
     public class Item
     {
         TransactionLogRepository transLogRepo = new TransactionLogRepository();
+        ItemRepository itemRepo = new ItemRepository();
 
         [Key]
         public int Id { get; set; }
@@ -54,6 +55,8 @@ namespace CNG.Models
         {
             return transLogRepo.SumByItemId(Id, companyId);
         }
+
+      
 
         public virtual ItemType Type { get; set; }
 
