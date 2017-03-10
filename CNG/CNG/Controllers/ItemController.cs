@@ -105,7 +105,15 @@ namespace CNG.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            itemRepo.Delete(id);
+            string msg = itemRepo.Delete(id);
+            if (msg == "save")
+            {
+                TempData["message"] = "Item has been deleted";
+            }
+            else
+            {
+                TempData["message"] = "Cannot delete item is used in another company";
+            }
 
             return RedirectToAction("Index");
         }
@@ -157,6 +165,7 @@ namespace CNG.Controllers
         private void InitViewBags() {
             ViewBag.ItemTypes = new SelectList(itemTypeRepo.List(), "Id", "Description");
             ViewBag.ItemClassifications = new SelectList(itemClassificationRepo.List(), "Id", "Description");
+            ViewBag.ItemCode = itemRepo.GeneratedItemCode();
         }
     }
 }
