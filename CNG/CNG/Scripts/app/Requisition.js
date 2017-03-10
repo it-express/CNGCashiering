@@ -43,10 +43,10 @@
 
     $('#btnSubmit').click(function (event) {
         event.preventDefault();
-        
+      
         var req = new Object();
         req.No = $('#lblReqNo').text();
-        req.RequisitionDate = $('#lblReqDate').val();
+        req.RequisitionDate = $('#txtReqDate').val();
         req.JobOrderNo = $('#txtJobOrderNo').val();
         req.UnitPlateNo = $('#UnitPlateNo').val();
         req.JobOrderDate = $('#txtJobOrderDate').val();
@@ -56,6 +56,8 @@
         req.ReportedBy = $('#txtReportedBy').val();
         req.CheckedBy = $('#txtCheckedBy').val();
 
+
+      
         var lstItem = new Array();
 
         $("tr.item-row").each(function () {

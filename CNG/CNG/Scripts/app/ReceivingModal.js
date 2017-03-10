@@ -20,13 +20,14 @@ $(document).on('click', '#btnReceivingSave', function () {
 
     $("#tblReceivingLog tr.item-row").each(function () {
         $this = $(this);
-
+      
         var item = new Object();
         item.Id = $this.data("item-id");
         item.Quantity = $this.find(".txtQuantity").val();
         item.SerialNo = $this.find(".txtSerialNo").val();
         item.DrNo = $this.find(".txtDrNo").val();
         item.DateReceived = $this.find(".txtDateReceived").val();
+        item.TransLogId = $this.find(".lblTransLogId").val();
 
         lstItem.push(item);
     });
