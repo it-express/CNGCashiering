@@ -15,6 +15,11 @@ namespace CNG.Models
             return context.Items;
         }
 
+        public IQueryable<ItemAssignment> ListItemAssignments()
+        {
+            return context.ItemAssignments;
+        }
+
         public Item GetById(int id)
         {
             Item item = context.Items.FirstOrDefault(p => p.Id == id);
@@ -22,18 +27,54 @@ namespace CNG.Models
             return item;
         }
 
-        public void Save(Item item)
+        public string GeneratedItemCode()
         {
+            int counter = 1;
+            int lastId = 1;
+            int cnt = List().Count();
+            if (cnt > 0)
+            {
+                lastId = cnt + counter;
+            }
+            string ItemCode = lastId.ToString().PadLeft(3, '0');
+
+            IQueryable<Item> lstItem = List();
+            lstItem = lstItem.Where(s => s.Code.Contains(ItemCode));
+
+            while (lstItem.Count()> 0)
+            {
+                counter += 1;
+                lastId = cnt + counter;
+                ItemCode = lastId.ToString().PadLeft(3, '0');
+                lstItem = lstItem.Where(s => s.Code.Contains(ItemCode));
+            }
+            
+
+            return ItemCode;
+        }
+
+
+        public  string Save(Item item)
+        {
+            string msg = "";
             if (item.Id == 0)
             {
-                context.Items.Add(item);
+                IQueryable<Item> lstItem = List();
+                lstItem = lstItem.Where(s => s.Description.Contains(item.Description));
+
+                if (lstItem.Count() == 0)
+                {
+                    context.Items.Add(item);
+                    msg = "save";
+                }
+
             }
             else
             {
                 Item dbEntry = context.Items.Find(item.Id);
                 if (dbEntry != null)
                 {
-                    dbEntry.Code = item.Code;
+                    dbEntry.Code = GeneratedItemCode();
                     dbEntry.Description = item.Description;
                     dbEntry.Brand = item.Brand;
                     dbEntry.UnitCost = item.UnitCost;
@@ -41,18 +82,35 @@ namespace CNG.Models
                     dbEntry.ClassificationId = item.ClassificationId;
                     dbEntry.Active = item.Active;
                 }
+                msg = "not save";
             }
 
             context.SaveChanges();
+
+            return msg;
         }
 
-        public void Delete(int id)
+        public string Delete(int id)
         {
-            Item item = context.Items.Find(id);
+            string msg = "";
+            IQueryable<ItemAssignment> lstitemAssign = ListItemAssignments();
+            lstitemAssign = lstitemAssign.Where(p => p.CompanyId != Sessions.CompanyId && p.ItemId == id);
 
-            context.Items.Remove(item);
+            if (lstitemAssign.Count() > 0)
+            {
+                msg = "not save";
+            }
+            else
+            {
+                Item item = context.Items.Find(id);
 
-            context.SaveChanges();
+                context.Items.Remove(item);
+
+                context.SaveChanges();
+                msg = "save";
+            }
+
+            return msg;
         }
 
         //public void AdjustQuantity(int itemId, int quantity) {

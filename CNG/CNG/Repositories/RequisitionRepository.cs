@@ -52,7 +52,7 @@ namespace CNG.Models
                     reqItem.RequisitionId = id;
                     if (reqItem.Quantity != 0)
                     {
-                        reqItem.TransactionLogId = InsertLogs(reqItem.ItemId, reqItem.Quantity);
+                        reqItem.TransactionLogId = InsertLogs(reqItem.ItemId, reqItem.Quantity, req.Date);
                     }
                 }
             }
@@ -92,7 +92,7 @@ namespace CNG.Models
                     reqItem.RequisitionId = id;
                     if (reqItem.Quantity != 0)
                     {
-                        reqItem.TransactionLogId = InsertLogs(reqItem.ItemId, reqItem.Quantity);
+                        reqItem.TransactionLogId = InsertLogs(reqItem.ItemId, reqItem.Quantity, req.Date);
                     }
 
                     context.RequisitionItems.Add(reqItem);
@@ -125,7 +125,7 @@ namespace CNG.Models
             return reqNo;
         }
 
-        public int InsertLogs(int itemId, int quantiy)
+        public int InsertLogs(int itemId, int quantiy, DateTime req_Date)
         {
             TransactionLogRepository transactionLogRepo = new TransactionLogRepository();
 
@@ -133,6 +133,7 @@ namespace CNG.Models
             {
                 ItemId = itemId,
                 Quantity = -quantiy,
+                Date = req_Date,
                 TransactionMethodId = (int)ETransactionMethod.Requisition,
                 CompanyId = Sessions.CompanyId.Value
             };

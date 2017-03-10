@@ -45,7 +45,9 @@ namespace CNG
                     dbEntry.SerialNo = receiving.SerialNo;
                     dbEntry.DrNo = receiving.DrNo;
                     dbEntry.DateReceived = receiving.DateReceived;
-                   dbEntry.TransactionLogId = receiving.TransactionLogId;
+                    dbEntry.TransactionLogId = receiving.TransactionLogId;
+
+                    context.SaveChanges();
 
                     TransactionLogRepository transLogRepo = new TransactionLogRepository();
                     transLogRepo.Update(dbEntry.TransactionLogId.Value, receiving.Quantity, receiving.DateReceived.Value);
