@@ -60,12 +60,16 @@ namespace CNG.Models
             if (item.Id == 0)
             {
                 IQueryable<Item> lstItem = List();
-                lstItem = lstItem.Where(s => s.Description.Contains(item.Description));
+                lstItem = lstItem.Where(s => s.Description == item.Description.Trim());
 
                 if (lstItem.Count() == 0)
                 {
                     context.Items.Add(item);
                     msg = "save";
+                }
+                else
+                {
+                    msg = "not save";
                 }
 
             }
@@ -81,8 +85,10 @@ namespace CNG.Models
                     dbEntry.TypeId = item.TypeId;
                     dbEntry.ClassificationId = item.ClassificationId;
                     dbEntry.Active = item.Active;
+
+                    msg = "updated";
                 }
-                msg = "not save";
+              
             }
 
             context.SaveChanges();
