@@ -88,6 +88,10 @@ namespace CNG.Controllers
                 {
                     TempData["message"] = "Item has been saved";
                 }
+                else if (msg == "updated")
+                {
+                    TempData["message"] = "Item has been updated";
+                }
                 else
                 {
                     TempData["message"] = "Item already exist";
