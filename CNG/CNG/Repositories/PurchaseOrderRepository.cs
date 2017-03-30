@@ -38,7 +38,7 @@ namespace CNG.Models
             return po;
         }
 
-        public void Save(PurchaseOrder po) {
+        public void Save(PurchaseOrder po, ItemPriceLogs pItemLog) {
             bool poExist = context.PurchaseOrders.Count(p => p.No == po.No) > 0;
 
             int id;
@@ -52,6 +52,8 @@ namespace CNG.Models
                 context.SaveChanges();
 
                 id = po.Id;
+
+                InsertStockCard(id, pItemLog.ItemId, pItemLog.UnitCost, pItemLog.Qty);
             }
             else
             {
@@ -84,9 +86,46 @@ namespace CNG.Models
 
                     context.PurchaseOrderItems.Add(poItem);
                 }
+
+                //Delete previous items
+                foreach (ItemPriceLogs poItem in dbEntry.ItemPriceLogs.ToList())
+                {
+                    context.ItemPriceLogs.Remove(poItem);
+                }
+
+                foreach (ItemPriceLogs poItem in po.ItemPriceLogs.ToList())
+                {
+                    poItem.PurchaseOrderId = id;
+
+                    InsertStockCard(id, poItem.ItemId, poItem.UnitCost, poItem.Qty);
+                    context.ItemPriceLogs.Add(poItem);
+                }
             }
 
             context.SaveChanges();
+        }
+
+        //For Stock Card
+
+        public void InsertStockCard(int ReferenceId, int itemId, decimal unitcost, int quantiy)
+        {
+            ItemStockCardRepository stockcardRepo = new ItemStockCardRepository();
+
+            StockCard stockCard = new StockCard
+            {
+                ItemId = itemId,
+                ReferenceModule = "Purchase Order",
+                ReferenceId = ReferenceId,
+                Qty = quantiy,
+                UnitCost = unitcost,
+                CompanyId = Sessions.CompanyId.Value,
+                Date = DateTime.Now
+            };
+
+
+            stockcardRepo.Add(stockCard);
+
+
         }
 
         public string GeneratePoNumber()

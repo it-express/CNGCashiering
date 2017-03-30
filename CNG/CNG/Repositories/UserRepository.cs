@@ -16,7 +16,7 @@ namespace CNG.Models
 
         public User GetByCredentials(string username, string password) {
             User user = List().FirstOrDefault(p => p.Username == username && p.Password == password);
-
+            var affectedRows = context.Database.ExecuteSqlCommand("sp_Update_Item_UnitCost");
             return user;
         }
 

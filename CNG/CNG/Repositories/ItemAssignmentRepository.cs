@@ -12,8 +12,10 @@ namespace CNG.Models
         public IQueryable<ItemAssignment> List()
         {
             return context.ItemAssignments;
+
         }
 
+       
         public void Save(List<ItemAssignment> lstItemAssignment) {
             int companyId = lstItemAssignment[0].CompanyId;
 

@@ -13,6 +13,11 @@ namespace CNG.Models
             this.context = _context;
         }
 
+        public IQueryable<PurchaseOrderItem> List()
+        {
+            return context.PurchaseOrderItems;
+        }
+
         public PurchaseOrderItem Find(int poItemId) {
             PurchaseOrderItem item = context.PurchaseOrderItems.Find(poItemId);
 

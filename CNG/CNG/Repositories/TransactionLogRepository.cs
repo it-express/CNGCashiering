@@ -11,7 +11,7 @@ namespace CNG.Models
     {
         private CNGDBContext context = new CNGDBContext();
         public ItemRepository itemRepo = new ItemRepository();
-       
+
         public IQueryable<TransactionLog> List()
         {
             return context.TransactionLogs;
@@ -19,11 +19,13 @@ namespace CNG.Models
 
         public int Add(TransactionLog transactionLog)
         {
-            if (transactionLog.Date == DateTime.MinValue) {
+            if (transactionLog.Date == DateTime.MinValue)
+            {
                 transactionLog.Date = DateTime.Now;
             }
 
-            if (transactionLog.UserId == 0) {
+            if (transactionLog.UserId == 0)
+            {
                 transactionLog.UserId = Convert.ToInt32(HttpContext.Current.Session["uid"]); //get from current session
             }
 
@@ -35,7 +37,8 @@ namespace CNG.Models
             return transactionLog.Id;
         }
 
-        public void Update(int transactionLogId, int quantity, DateTime date) {
+        public void Update(int transactionLogId, int quantity, DateTime date)
+        {
             bool doesExists = context.TransactionLogs.Any(p => p.Id == transactionLogId);
 
             TransactionLog transLog = context.TransactionLogs.Find(transactionLogId);
@@ -52,19 +55,24 @@ namespace CNG.Models
         {
             IQueryable<TransactionLog> lstTransactionLog = context.TransactionLogs.Where(p => p.ItemId == itemId && p.CompanyId == companyId);
             int quantity = 0;
-            if (lstTransactionLog.Count() > 0) {
+            if (lstTransactionLog.Count() > 0)
+            {
                 quantity = lstTransactionLog.Sum(p => p.Quantity);
             }
 
-            return quantity;   
+            return quantity;
         }
 
-        public void Remove(int id) {
+        public void Remove(int id)
+        {
             TransactionLog transLog = List().FirstOrDefault(p => p.Id == id);
 
             context.TransactionLogs.Remove(transLog);
 
             context.SaveChanges();
         }
+
     }
+
+    
 }

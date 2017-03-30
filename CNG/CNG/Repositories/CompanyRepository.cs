@@ -17,7 +17,7 @@ namespace CNG.Models
         public Company GetById(int id)
         {
             Company company = context.Companies.FirstOrDefault(p => p.Id == id);
-
+            var affectedRows = context.Database.ExecuteSqlCommand("sp_Update_Item_UnitCost");
             return company;
         }
 
