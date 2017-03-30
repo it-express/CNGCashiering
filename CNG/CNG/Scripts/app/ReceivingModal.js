@@ -28,7 +28,6 @@ $(document).on('click', '#btnReceivingSave', function () {
         item.DrNo = $this.find(".txtDrNo").val();
         item.DateReceived = $this.find(".txtDateReceived").val();
         item.TransLogId = $this.find(".lblTransLogId").val();
-
         lstItem.push(item);
     });
 

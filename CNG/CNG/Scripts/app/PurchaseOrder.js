@@ -12,10 +12,24 @@
         $tr = $(this).closest('tr');
 
         var itemId = $tr.data('item-id');
-        var unitCost = RemoveCommas($tr.find('.lblUnitCost').text());
+        var unitCost = RemoveCommas($tr.find('.lblUnitCost').val());
         var quantity = $tr.find('.txtQuantity').val();
         var amount = parseFloat(unitCost) * parseFloat(quantity);
 
+        $txtAmount = $tr.find(".txtAmount");
+        $txtAmount.text(FormatNumber(amount));
+
+        GetTotalAmount();
+    });
+
+    $(document).on('keyup change', '.lblUnitCost', function () {
+        $tr = $(this).closest('tr');
+
+        var itemId = $tr.data('item-id');
+        var unitCost = RemoveCommas($tr.find('.lblUnitCost').val());
+        var quantity = $tr.find('.txtQuantity').val();
+        var amount = parseFloat(unitCost) * parseFloat(quantity);
+      
         $txtAmount = $tr.find(".txtAmount");
         $txtAmount.text(FormatNumber(amount));
 
@@ -131,10 +145,12 @@ function GetSelectedItems() {
         item.Id = $this.data("item-id");
         item.Quantity = $this.find(".txtQuantity").val();
         item.Remarks = $this.find(".txtRemarks").val();
+        item.UnitCost = $this.find(".lblUnitCost").val();
         lstItem.push(item);
     });
-
     return lstItem;
+
+    
 }
 
 function getParameterByName(name, url) {
