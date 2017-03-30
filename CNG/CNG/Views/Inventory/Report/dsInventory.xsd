@@ -12,7 +12,7 @@
   <xs:element name="dsInventory" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsInventory" msprop:Generator_UserDSName="dsInventory">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="dtInventory" msprop:Generator_TableClassName="dtInventoryDataTable" msprop:Generator_TableVarName="tabledtInventory" msprop:Generator_TablePropName="dtInventory" msprop:Generator_RowDeletingName="dtInventoryRowDeleting" msprop:Generator_RowChangingName="dtInventoryRowChanging" msprop:Generator_RowEvHandlerName="dtInventoryRowChangeEventHandler" msprop:Generator_RowDeletedName="dtInventoryRowDeleted" msprop:Generator_UserTableName="dtInventory" msprop:Generator_RowChangedName="dtInventoryRowChanged" msprop:Generator_RowEvArgName="dtInventoryRowChangeEvent" msprop:Generator_RowClassName="dtInventoryRow">
+        <xs:element name="dtInventory" msprop:Generator_TableClassName="dtInventoryDataTable" msprop:Generator_TableVarName="tabledtInventory" msprop:Generator_RowChangedName="dtInventoryRowChanged" msprop:Generator_TablePropName="dtInventory" msprop:Generator_RowDeletingName="dtInventoryRowDeleting" msprop:Generator_RowChangingName="dtInventoryRowChanging" msprop:Generator_RowEvHandlerName="dtInventoryRowChangeEventHandler" msprop:Generator_RowDeletedName="dtInventoryRowDeleted" msprop:Generator_RowClassName="dtInventoryRow" msprop:Generator_UserTableName="dtInventory" msprop:Generator_RowEvArgName="dtInventoryRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Code" msprop:Generator_ColumnVarNameInTable="columnCode" msprop:Generator_ColumnPropNameInRow="Code" msprop:Generator_ColumnPropNameInTable="CodeColumn" msprop:Generator_UserColumnName="Code" type="xs:string" minOccurs="0" />
@@ -22,6 +22,7 @@
               <xs:element name="In" msprop:Generator_ColumnVarNameInTable="columnIn" msprop:Generator_ColumnPropNameInRow="In" msprop:Generator_ColumnPropNameInTable="InColumn" msprop:Generator_UserColumnName="In" type="xs:string" minOccurs="0" />
               <xs:element name="Out" msprop:Generator_ColumnVarNameInTable="columnOut" msprop:Generator_ColumnPropNameInRow="Out" msprop:Generator_ColumnPropNameInTable="OutColumn" msprop:Generator_UserColumnName="Out" type="xs:string" minOccurs="0" />
               <xs:element name="EndingQuantity" msprop:Generator_ColumnVarNameInTable="columnEndingQuantity" msprop:Generator_ColumnPropNameInRow="EndingQuantity" msprop:Generator_ColumnPropNameInTable="EndingQuantityColumn" msprop:Generator_UserColumnName="EndingQuantity" type="xs:string" minOccurs="0" />
+              <xs:element name="Date" msprop:Generator_ColumnVarNameInTable="columnDate" msprop:Generator_ColumnPropNameInRow="Date" msprop:Generator_ColumnPropNameInTable="DateColumn" msprop:Generator_UserColumnName="Date" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

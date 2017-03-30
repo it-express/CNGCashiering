@@ -293,6 +293,8 @@ namespace CNG.Views.Inventory.Report {
             
             private global::System.Data.DataColumn columnEndingQuantity;
             
+            private global::System.Data.DataColumn columnDate;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public dtInventoryDataTable() {
@@ -384,6 +386,14 @@ namespace CNG.Views.Inventory.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn DateColumn {
+                get {
+                    return this.columnDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -419,7 +429,7 @@ namespace CNG.Views.Inventory.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public dtInventoryRow AdddtInventoryRow(string Code, string Description, string StartingQuantity, string UnitCost, string In, string Out, string EndingQuantity) {
+            public dtInventoryRow AdddtInventoryRow(string Code, string Description, string StartingQuantity, string UnitCost, string In, string Out, string EndingQuantity, string Date) {
                 dtInventoryRow rowdtInventoryRow = ((dtInventoryRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Code,
@@ -428,7 +438,8 @@ namespace CNG.Views.Inventory.Report {
                         UnitCost,
                         In,
                         Out,
-                        EndingQuantity};
+                        EndingQuantity,
+                        Date};
                 rowdtInventoryRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowdtInventoryRow);
                 return rowdtInventoryRow;
@@ -458,6 +469,7 @@ namespace CNG.Views.Inventory.Report {
                 this.columnIn = base.Columns["In"];
                 this.columnOut = base.Columns["Out"];
                 this.columnEndingQuantity = base.Columns["EndingQuantity"];
+                this.columnDate = base.Columns["Date"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -477,6 +489,8 @@ namespace CNG.Views.Inventory.Report {
                 base.Columns.Add(this.columnOut);
                 this.columnEndingQuantity = new global::System.Data.DataColumn("EndingQuantity", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnEndingQuantity);
+                this.columnDate = new global::System.Data.DataColumn("Date", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDate);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -731,6 +745,22 @@ namespace CNG.Views.Inventory.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Date {
+                get {
+                    try {
+                        return ((string)(this[this.tabledtInventory.DateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Date\' in table \'dtInventory\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtInventory.DateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsCodeNull() {
                 return this.IsNull(this.tabledtInventory.CodeColumn);
             }
@@ -811,6 +841,18 @@ namespace CNG.Views.Inventory.Report {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetEndingQuantityNull() {
                 this[this.tabledtInventory.EndingQuantityColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsDateNull() {
+                return this.IsNull(this.tabledtInventory.DateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetDateNull() {
+                this[this.tabledtInventory.DateColumn] = global::System.Convert.DBNull;
             }
         }
         
