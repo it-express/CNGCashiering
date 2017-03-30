@@ -17,15 +17,18 @@
         <input type='text' class='txtQuantity form-control' value="@Model.Quantity" />
     </td>
     <td>
-        <label class="lblUnitCost">
-            @Model.Item.UnitCost.ToString("N")
-        </label>
+        @*<label class="lblUnitCost">
+            @Model.UnitCost.ToString("N")
+        </label>*@
+
+        <input type='text' class='lblUnitCost form-control' value="@Model.DisplayUnitCost.ToString("N")" />
+
     </td>
     <td>
         <span class='txtAmount'>@Model.Amount.ToString("N")</span>
     </td>
     <td>
-        <textarea class='txtRemarks' class="form-control"> @Model.Remarks </textarea>
+        <textarea class='txtRemarks form-control'> @Model.Remarks </textarea>
     </td>
     <td>
         <div class="visible-md visible-lg hidden-sm hidden-xs">
