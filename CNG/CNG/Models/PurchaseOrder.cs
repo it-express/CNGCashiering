@@ -54,6 +54,7 @@ namespace CNG.Models
         [ForeignKey("ShipTo")]
         public virtual Company ShipToCompany { get; set; }
         public virtual List<PurchaseOrderItem> PurchaseOrderItems { get; set; }
+        public virtual List<ItemPriceLogs> ItemPriceLogs { get; set; }
 
         [ForeignKey("PreparedBy")]
         public virtual User PreparedByObj { get; set; }

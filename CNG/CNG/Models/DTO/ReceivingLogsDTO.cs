@@ -11,6 +11,7 @@ namespace CNG.Models
         {
             public int Id { get; set; }
             public int Quantity { get; set; }
+            public string UnitCost { get; set; }
             public string SerialNo { get; set; }
             public string DrNo { get; set; }       
             public DateTime DateReceived { get; set; }

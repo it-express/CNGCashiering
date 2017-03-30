@@ -30,6 +30,24 @@ namespace CNG.Models
         [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
         public decimal UnitCost { get; set; }
 
+        public decimal DisplayUnitCost
+        { get
+            {
+                decimal Unit;
+                if (UnitCost > 1.00m)
+                {
+                    Unit = UnitCost;
+                }
+                else
+                {
+                    Unit = Item.UnitCost;
+                }
+
+                return Unit;
+            }
+
+        }
+
         [Required]
         public int Quantity { get; set; }
 

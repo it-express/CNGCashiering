@@ -21,5 +21,7 @@ namespace CNG.Models
 
         public virtual TransactionLog TransactionLog { get; set; }
         public virtual PurchaseOrderItem PurchaseOrderItem { get; set; }
+
+        
     }
 }

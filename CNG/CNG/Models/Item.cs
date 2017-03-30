@@ -56,7 +56,29 @@ namespace CNG.Models
             return transLogRepo.SumByItemId(Id, companyId);
         }
 
-      
+        public string GetCode(int itemid)
+        {
+            string code = "";
+
+            var item = itemRepo.GetById(itemid);
+
+            try
+            {
+                if (item.Code != null)
+                {
+                    code = item.Code;
+                }
+            }
+            catch
+            {
+                code = itemRepo.GeneratedItemCode();
+            }          
+            
+
+            return code;
+        }
+
+
 
         public virtual ItemType Type { get; set; }
 
