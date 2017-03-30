@@ -32,6 +32,7 @@ namespace CNG.Controllers
             ViewBag.CurrentSort = sortColumn;
             ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
 
+
             if (searchString != null)
             {
                 page = 1;

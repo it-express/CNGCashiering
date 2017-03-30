@@ -168,7 +168,7 @@ namespace CNG.Controllers
                 poItem.ItemId = item.Id;
                 Item _item = itemRepo.GetById(item.Id);
 
-                poItem.UnitCost = _item.UnitCost;
+                poItem.UnitCost = Convert.ToDecimal(item.UnitCost);
                 poItem.Quantity = item.Quantity;
                 poItem.Remarks = item.Remarks;
                 poItem.Date = DateTime.Now;
@@ -177,8 +177,28 @@ namespace CNG.Controllers
                 po.PurchaseOrderItems.Add(poItem);
             }
 
-            poRepo.Save(po);
+            // for FIFO price
+            po.ItemPriceLogs = new List<ItemPriceLogs>();
+            foreach (PurchaseOrderDTO.Item item in entry.Items)
+            {
+                ItemPriceLogs itemLogs = new ItemPriceLogs();
+
+                itemLogs.PurchaseOrderId = po.Id;
+                itemLogs.ItemId = item.Id;
+                itemLogs.UnitCost = Convert.ToDecimal(item.UnitCost);
+                itemLogs.Qty = item.Quantity;
+                itemLogs.Date = DateTime.Now;   
+  
+                po.ItemPriceLogs.Add(itemLogs);
+
+                poRepo.Save(po, itemLogs);
+            }
+           
+            
+           
         }
+
+       
 
 
         private void InitViewBags()
@@ -191,6 +211,8 @@ namespace CNG.Controllers
             ViewBag.Companies = new SelectList(context.Companies.Where(p => p.Active), "Id", "Name", companyId);
 
             ViewBag.CompanyId = companyId.ToString();
+
+            var affectedRows = context.Database.ExecuteSqlCommand("sp_Update_Item_UnitCost");
         }
 
         public ActionResult Report(string poNo) {

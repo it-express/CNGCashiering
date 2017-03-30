@@ -255,6 +255,8 @@ namespace CNG.Controllers
             ViewBag.ApprovedBy = Common.GetCurrentUser.GeneralManager.FullName;
 
             ViewBag.CompanyId = Request.QueryString["companyId"];
+
+            var affectedRows = context.Database.ExecuteSqlCommand("sp_Update_Item_UnitCost");
         }
 
         public ActionResult RequisitionSummaryReport(string dateFrom, string dateTo)

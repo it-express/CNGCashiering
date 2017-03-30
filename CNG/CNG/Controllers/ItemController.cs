@@ -22,6 +22,7 @@ namespace CNG.Controllers
             ViewBag.CurrentSort = sortColumn;
             ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
 
+
             if (searchString != null)
             {
                 page = 1;
@@ -61,6 +62,7 @@ namespace CNG.Controllers
         [HttpGet]
         public ViewResult Create()
         {
+            ItemCode(0);
             InitViewBags();
 
             return View("Edit", new Item());
@@ -69,6 +71,7 @@ namespace CNG.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
+            ItemCode(id);
             InitViewBags();
 
             Item item = itemRepo.GetById(id);
@@ -100,6 +103,7 @@ namespace CNG.Controllers
             }
             else
             {
+                ItemCode(item.Id);
                 InitViewBags();
 
                 return View(item);
@@ -167,9 +171,18 @@ namespace CNG.Controllers
         }
 
         private void InitViewBags() {
+
+            Item item = new Item();
             ViewBag.ItemTypes = new SelectList(itemTypeRepo.List(), "Id", "Description");
             ViewBag.ItemClassifications = new SelectList(itemClassificationRepo.List(), "Id", "Description");
-            ViewBag.ItemCode = itemRepo.GeneratedItemCode();
+
+        }
+
+        private void ItemCode(int itemid)
+        {
+
+            Item item = new Item();
+            ViewBag.ItemCode = item.GetCode(itemid);
         }
     }
 }

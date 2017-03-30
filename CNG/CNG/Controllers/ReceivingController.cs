@@ -19,6 +19,7 @@ namespace CNG.Controllers
         CompanyRepository companyRepo = new CompanyRepository();
         ReceivingRepository receivingRepo = new ReceivingRepository();
         TransactionLogRepository transLogRepo = new TransactionLogRepository();
+      
 
         public ReceivingController() {
             poItemRepo = new PurchaseOrderItemRepository(context);
@@ -33,6 +34,7 @@ namespace CNG.Controllers
             ViewBag.CompanyName = companyRepo.GetById(Sessions.CompanyId.Value).Name;
             ViewBag.CurrentSort = sortColumn;
             ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
+           
             
             if (searchString != null)
             {
@@ -184,6 +186,8 @@ namespace CNG.Controllers
 
             context.SaveChanges();
 
+            PurchaseOrderItem pItem = poItemRepo.Find(receivingLogsDTO.PurchaseOrderItemId);
+
             foreach (ReceivingLogsDTO.Item item in receivingLogsDTO.Items)
             {
                 Receiving receiving = new Receiving();
@@ -197,6 +201,7 @@ namespace CNG.Controllers
                 }
                 else {
                     receiving.TransactionLogId = InsertLogs(poItem.ItemId, item.Quantity, item.DateReceived);
+                   
                 }
 
                 receiving.PurchaseOrderItemId = receivingLogsDTO.PurchaseOrderItemId;
@@ -205,7 +210,7 @@ namespace CNG.Controllers
                 receiving.DrNo = item.DrNo;               
                 receiving.DateReceived = item.DateReceived;
 
-                receivingRepo.Save(receiving);
+                receivingRepo.Save(receiving, pItem.ItemId, pItem.Item.UnitCost.ToString("N"));
             }
         }
 
@@ -283,9 +288,12 @@ namespace CNG.Controllers
             return transactionLog.Id;
         }
 
+     
+
         private void InitViewBags()
         {
             ViewBag.CompanyId = Request.QueryString["companyId"];
+            var affectedRows = context.Database.ExecuteSqlCommand("sp_Update_Item_UnitCost");
         } 
     }
 }

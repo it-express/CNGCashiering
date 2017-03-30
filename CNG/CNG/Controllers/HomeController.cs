@@ -15,6 +15,7 @@ namespace CNG.Controllers
                 Sessions.CompanyId = companyId;
             }
 
+
             return View();
         }
 
