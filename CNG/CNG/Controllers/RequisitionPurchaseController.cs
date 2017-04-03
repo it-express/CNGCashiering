@@ -135,10 +135,13 @@ namespace CNG.Controllers
                 rpItem.Quantity = dtoItem.Quantity;
                 rpItem.Remarks = dtoItem.Remarks;
 
+
                 context.RequisitionPurchaseItems.Add(rpItem);
+              
                 context.SaveChanges();
 
-                InsertLogs(rpItem.ItemId, rpItem.Quantity);
+                int translogid = InsertLogs(rpItem.ItemId, rpItem.Quantity);
+                InsertStockCard(rp.Id, dtoItem.ItemId, dtoItem.UnitCost, dtoItem.Quantity,translogid);
             }
         }
         
@@ -191,7 +194,7 @@ namespace CNG.Controllers
 
             return View();
         }
-        public void InsertLogs(int itemId, int quantiy)
+        public int InsertLogs(int itemId, int quantiy)
         {
             TransactionLogRepository transactionLogRepo = new TransactionLogRepository();
 
@@ -204,6 +207,28 @@ namespace CNG.Controllers
             };
 
             transactionLogRepo.Add(transactionLog);
+
+            return transactionLog.Id;
+        }
+
+        public void InsertStockCard(int ReferenceId, int itemId, decimal unitcost, int quantiy, int? TransLogId)
+        {
+            ItemStockCardRepository stockcardRepo = new ItemStockCardRepository();
+
+            StockCard stockCard = new StockCard
+            {
+                ItemId = itemId,
+                ReferenceModule = "Requisition to purchase",
+                ReferenceId = ReferenceId,
+                Qty = quantiy,
+                UnitCost = unitcost,
+                CompanyId = Sessions.CompanyId.Value,
+                Date = DateTime.Now,
+                TransLogId = TransLogId
+            };
+
+
+            stockcardRepo.Add(stockCard);
         }
     }
 }

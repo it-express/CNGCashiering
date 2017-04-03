@@ -90,6 +90,8 @@ namespace CNG.Models
                 //Delete previous items
                 foreach (ItemPriceLogs poItem in dbEntry.ItemPriceLogs.ToList())
                 {
+                    StockCard sc = context.StockCards.FirstOrDefault(p => p.ReferenceId==poItem.PurchaseOrderId);
+                    context.StockCards.Remove(sc);
                     context.ItemPriceLogs.Remove(poItem);
                 }
 

@@ -53,6 +53,7 @@ namespace CNG.Models
                     if (reqItem.Quantity != 0)
                     {
                         reqItem.TransactionLogId = InsertLogs(reqItem.ItemId, reqItem.Quantity, req.Date);
+                        InsertStockCard(id, reqItem.ItemId, reqItem.Item.UnitCost, reqItem.Quantity, reqItem.TransactionLogId);
                     }
                 }
             }
@@ -139,6 +140,26 @@ namespace CNG.Models
             };
 
             return transactionLogRepo.Add(transactionLog);
+        }
+
+        public void InsertStockCard(int ReferenceId, int itemId, decimal unitcost, int quantiy, int? TransLogId)
+        {
+            ItemStockCardRepository stockcardRepo = new ItemStockCardRepository();
+
+            StockCard stockCard = new StockCard
+            {
+                ItemId = itemId,
+                ReferenceModule = "Requisition",
+                ReferenceId = ReferenceId,
+                Qty = quantiy,
+                UnitCost = unitcost,
+                CompanyId = Sessions.CompanyId.Value,
+                Date = DateTime.Now,
+                TransLogId = TransLogId
+            };
+
+
+            stockcardRepo.Add(stockCard);
         }
     }
 }

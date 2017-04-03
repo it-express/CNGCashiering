@@ -40,7 +40,7 @@ namespace CNG
                 int id;
                 id = receiving.Id;
 
-                InsertStockCard(id, itemid, Convert.ToDecimal(unitcost), receiving.Quantity);
+                InsertStockCard(id, itemid, Convert.ToDecimal(unitcost), receiving.Quantity, receiving.TransactionLogId);
                 UpdateItemPriceLogs(itemid, receiving.Quantity);
             }
             else
@@ -59,6 +59,7 @@ namespace CNG
 
                     TransactionLogRepository transLogRepo = new TransactionLogRepository();
                     transLogRepo.Update(dbEntry.TransactionLogId.Value, receiving.Quantity, receiving.DateReceived.Value);
+                    UpdateStockCard(receiving.Id, itemid, Convert.ToDecimal(unitcost), receiving.Quantity, receiving.TransactionLogId);
 
                 }
             }
@@ -66,7 +67,7 @@ namespace CNG
             context.SaveChanges();
         }
 
-        public void InsertStockCard(int ReferenceId, int itemId, decimal unitcost, int quantiy)
+        public void InsertStockCard(int ReferenceId, int itemId, decimal unitcost, int quantiy, int? TransLogId)
         {
             ItemStockCardRepository stockcardRepo = new ItemStockCardRepository();
 
@@ -78,11 +79,32 @@ namespace CNG
                 Qty = quantiy,
                 UnitCost = unitcost,
                 CompanyId = Sessions.CompanyId.Value,
-                Date = DateTime.Now
+                Date = DateTime.Now,
+                TransLogId = TransLogId
             };
 
 
             stockcardRepo.Add(stockCard);
+        }
+
+        public void UpdateStockCard(int ReferenceId, int itemId, decimal unitcost, int quantiy, int? TransLogId)
+        {
+            ItemStockCardRepository stockcardRepo = new ItemStockCardRepository();
+
+            StockCard stockCard = new StockCard
+            {
+                ItemId = itemId,
+                ReferenceModule = "Receiving",
+                ReferenceId = ReferenceId,
+                Qty = quantiy,
+                UnitCost = unitcost,
+                CompanyId = Sessions.CompanyId.Value,
+                Date = DateTime.Now,
+                TransLogId = TransLogId
+            };
+
+
+            stockcardRepo.Update(stockCard);
         }
 
         public void UpdateItemPriceLogs(int itemid, int quantity)
