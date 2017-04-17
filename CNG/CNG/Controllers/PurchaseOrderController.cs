@@ -187,15 +187,17 @@ namespace CNG.Controllers
                 itemLogs.ItemId = item.Id;
                 itemLogs.UnitCost = Convert.ToDecimal(item.UnitCost);
                 itemLogs.Qty = item.Quantity;
-                itemLogs.Date = DateTime.Now;   
-  
-                po.ItemPriceLogs.Add(itemLogs);
+                itemLogs.Date = DateTime.Now;
 
-                poRepo.Save(po, itemLogs);
+             
+                po.ItemPriceLogs.Add(itemLogs);
+             
+
             }
-           
             
-           
+            poRepo.Save(po);
+          
+
         }
 
        
