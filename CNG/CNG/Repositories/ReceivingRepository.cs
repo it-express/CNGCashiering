@@ -41,13 +41,14 @@ namespace CNG
                 id = receiving.Id;
 
                 InsertStockCard(id, itemid, Convert.ToDecimal(unitcost), receiving.Quantity, receiving.TransactionLogId);
-                UpdateItemPriceLogs(itemid, receiving.Quantity);
+              
             }
             else
             {
                 Receiving dbEntry = context.Receivings.Find(receiving.Id);
                 if (dbEntry != null)
                 {
+                   
                     dbEntry.PurchaseOrderItemId = receiving.PurchaseOrderItemId;
                     dbEntry.Quantity = receiving.Quantity;
                     dbEntry.SerialNo = receiving.SerialNo;
@@ -107,35 +108,8 @@ namespace CNG
             stockcardRepo.Update(stockCard);
         }
 
-        public void UpdateItemPriceLogs(int itemid, int quantity)
-        {
-            int diff = 0;
-            ItemPriceLogs itempricelogs = context.ItemPriceLogs.Where(p => p.ItemId == itemid && p.Qty>0).First();
+      
 
-            diff = quantity;
-            while (diff > itempricelogs.Qty)
-            {
-                diff -= itempricelogs.Qty;
-
-                ItemPriceLogs update = context.ItemPriceLogs.Find(itempricelogs.Id);
-
-                update.Qty = 0;
-                context.SaveChanges();
-                itempricelogs = context.ItemPriceLogs.Where(p => p.ItemId == itemid && p.Qty > 0).First();
-            }
-
-            if (diff < itempricelogs.Qty && diff != 0)
-            {
-                itempricelogs = context.ItemPriceLogs.Where(p => p.ItemId == itemid && p.Qty > 0).First();
-
-                itempricelogs.Qty -= diff;
-
-                ItemPriceLogs update = context.ItemPriceLogs.Find(itempricelogs.Id);
-
-                update.Qty = itempricelogs.Qty;
-                context.SaveChanges();
-
-            }
-        }
+   
     }
 }

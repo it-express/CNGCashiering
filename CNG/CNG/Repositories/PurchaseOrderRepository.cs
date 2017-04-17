@@ -38,7 +38,7 @@ namespace CNG.Models
             return po;
         }
 
-        public void Save(PurchaseOrder po, ItemPriceLogs pItemLog) {
+        public void Save(PurchaseOrder po) {
             bool poExist = context.PurchaseOrders.Count(p => p.No == po.No) > 0;
 
             int id;
@@ -48,12 +48,19 @@ namespace CNG.Models
                 po.ShipToCompany = null;
                 po.Vendor = null;
                 context.PurchaseOrders.Add(po);
-
+              
                 context.SaveChanges();
+
 
                 id = po.Id;
 
-                InsertStockCard(id, pItemLog.ItemId, pItemLog.UnitCost, pItemLog.Qty);
+                foreach (ItemPriceLogs poItem in po.ItemPriceLogs.ToList())
+                {
+                    poItem.PurchaseOrderId = id;
+                    InsertStockCard(id, poItem.ItemId, poItem.UnitCost, poItem.Qty);
+                }
+
+
             }
             else
             {
@@ -125,7 +132,7 @@ namespace CNG.Models
             };
 
 
-            stockcardRepo.Add(stockCard);
+            context.StockCards.Add(stockCard);
 
 
         }
@@ -174,12 +181,50 @@ namespace CNG.Models
             return lst;
         }
 
-        public void ChangeStatus(string poNo, int status, string RRNo) {
+        public void ChangeStatus(string poNo, int status, string RRNo)
+        {
             PurchaseOrder po = context.PurchaseOrders.FirstOrDefault(p => p.No == poNo);
             po.Status = status;
             po.RRNo = RRNo;
 
             context.SaveChanges();
+
+            foreach (PurchaseOrderItem Item in po.PurchaseOrderItems.ToList())
+            {
+                UpdateItemPriceLogs(Item.ItemId, Item.Quantity);
+            }
+        }
+
+        public void UpdateItemPriceLogs(int itemid, int quantity)
+        {
+            int diff = 0;
+            ItemPriceLogs itempricelogs = context.ItemPriceLogs.Where(p => p.ItemId == itemid && p.Qty > 0).First();
+
+
+            diff = quantity;
+            while (diff > itempricelogs.Qty)
+            {
+                diff -= itempricelogs.Qty;
+
+                ItemPriceLogs update = context.ItemPriceLogs.Find(itempricelogs.Id);
+
+                update.Qty = 0;
+                context.SaveChanges();
+                itempricelogs = context.ItemPriceLogs.Where(p => p.ItemId == itemid && p.Qty > 0).First();
+            }
+
+            if (diff < itempricelogs.Qty && diff != 0)
+            {
+                itempricelogs = context.ItemPriceLogs.Where(p => p.ItemId == itemid && p.Qty > 0).First();
+
+                itempricelogs.Qty -= diff;
+
+                ItemPriceLogs update = context.ItemPriceLogs.Find(itempricelogs.Id);
+
+                update.Qty = itempricelogs.Qty;
+                context.SaveChanges();
+
+            }
         }
 
         public void Delete(string poNo) {
