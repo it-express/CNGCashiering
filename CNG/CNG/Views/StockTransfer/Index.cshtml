@@ -40,7 +40,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title pull-left"><span class="text-bold">Stock Transfer List - @ViewBag.CompanyName </span></h4>
                 <div class="pull-right">
-                    <a href="@Url.Action("Create")" class="btn btn-dark-blue">Create</a>
+                    @*<a href="@Url.Action("Create")" class="btn btn-dark-blue">Create</a>*@
                 </div>
 
                 <div class="clearfix"></div>
@@ -50,6 +50,24 @@
 
                 @using (Html.BeginForm())
                 {
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Date From</label>
+                            <div class="col-md-6">
+                                <input type="text" name="DateFrom" class="date-picker form-control" value="@ViewBag.DateFrom" />
+                            </div>
+                        </div>
+                    </div>
+
+                        <div class="col-md-5 col-md-pull-1">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Date To</label>
+                                <div class="col-md-6">
+                                    <input type="text" name="DateTo" class="date-picker form-control" value="@ViewBag.DateTo" />
+                                </div>
+                            </div>
+                        </div>
+
                     <div class="col-md-4 col-sm-12 no-padding pull-right" style="margin-bottom:16px; text-align:right;">
                         @Html.TextBox("SearchString", (string)ViewBag.CurrentFilter, new { @class = "form-control", @placeholder = "Find", @style = "display:inline; width:74%;" })
                         <input type="submit" value="Search" class="btn btn-dark-beige" />
@@ -100,7 +118,7 @@
                                     @Html.DisplayFor(modelItem => item.No)
                                 </td>
                                 <td>
-                                    @item.Date.ToShortDateString()
+                                    @item.Date.ToShortDateString();
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.JobOrderNo)

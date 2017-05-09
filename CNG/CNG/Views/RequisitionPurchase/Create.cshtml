@@ -1,4 +1,4 @@
-﻿@model CNG.Models.RequisitionPurchase
+﻿@model CNG.Models.PurchaseOrder
 
 @{
     ViewBag.Title = "Create";
@@ -8,6 +8,8 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
 
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/app/Common.js"></script>
 <script src="~/Scripts/app/RequisitionPurchase.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
@@ -74,7 +76,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-1"></label>
+                        <label class="control-label col-md-1"></label>
                         <div class="col-md-9">
                             <table id="tblItems" class="table table-hover table-striped table-bordered">
                                 <thead>
@@ -82,17 +84,29 @@
                                         <th>Item Code</th>
                                         <th>Description</th>
                                         <th>Brand</th>
-                                        <th>Unit Cost</th>
                                         <th>Quantity</th>
+                                        <th>Unit Cost</th>
+                                        <th>Amount</th>
                                         <th>Item Type</th>
                                         <th>Remarks</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in Model.RequisitionPurchaseItems)
+                                    @foreach (var item in Model.PurchaseOrderItems)
                                     {
                                         Html.RenderPartial("_EditorRow", item);
                                     }
+
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td> <label id="lblTotalAmount">@Model.ItemsTotalAmount.ToString("#,##0.00")</label></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+
                                 </tbody>
                             </table>
                         </div>

@@ -18,7 +18,8 @@ namespace CNG.Models
         public int Id { get; set; }
         public string No { get; set; }
         public DateTime Date { get; set; }
-
+        public string GetDate
+        { get { return Date.ToShortDateString(); } }
         public int CompanyId { get; set; }
 
         [DisplayName("Prepared By")]

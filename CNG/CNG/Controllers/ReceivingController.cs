@@ -19,7 +19,10 @@ namespace CNG.Controllers
         CompanyRepository companyRepo = new CompanyRepository();
         ReceivingRepository receivingRepo = new ReceivingRepository();
         TransactionLogRepository transLogRepo = new TransactionLogRepository();
-      
+
+        UserRepository userRepo = new UserRepository();
+
+
 
         public ReceivingController() {
             poItemRepo = new PurchaseOrderItemRepository(context);
@@ -47,7 +50,7 @@ namespace CNG.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            IQueryable<PurchaseOrder> lstReceivedPo = poRepo.ListReceived().Where(p => p.ShipTo == Sessions.CompanyId);
+            IQueryable<PurchaseOrder> lstReceivedPo = poRepo.ListReceived().Where(p => p.ShipTo == Sessions.CompanyId || p.CompanyId == companyId);
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -64,7 +67,7 @@ namespace CNG.Controllers
 
             if (String.IsNullOrEmpty(sortColumn))
             {
-                lstReceivedPo = lstReceivedPo.OrderByDescending(p => p.Id);
+                lstReceivedPo = lstReceivedPo.OrderByDescending(p => p.ReceivedDate);
             }
             else
             {
@@ -84,12 +87,13 @@ namespace CNG.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.ReNumber = poRepo.GenerateReNumber();
+            ViewBag.ReNumber = poRepo.GenerateReNumber(DateTime.Now);
             InitViewBags();
 
             int companyId = Convert.ToInt32(Session["companyId"]);
 
-            ViewBag.PurchaseOrders = new SelectList(poRepo.ListForReceiving().Where(p => p.ShipTo == companyId), "No", "No");
+            ViewBag.PurchaseOrders = new SelectList(poRepo.ListForReceiving().Where(p => p.ShipTo == companyId || p.CompanyId == companyId)
+                                                                             .OrderByDescending(p=>p.Date), "No", "No");
 
             return View(new PurchaseOrder());
         }
@@ -126,9 +130,9 @@ namespace CNG.Controllers
 
             PurchaseOrder po = poRepo.GetById(poItem.PurchaseOrderId);
             if (po.RRNo == null)
-            { ViewBag.ReNumber = poRepo.GenerateReNumber(); }
+            { ViewBag.ReNumber = poRepo.GenerateReNumber(DateTime.Now); }
             else
-            { @ViewBag.ReNumber = po.RRNo; }
+            { ViewBag.ReNumber = po.RRNo; }
 
             ViewBag.ItemDescription = poItem.Item.Description;
             ViewBag.ItemQuantity = poItem.Quantity;
@@ -138,17 +142,17 @@ namespace CNG.Controllers
             return PartialView("_ReceivingLogEditor", lstReceiving);
         }
 
-        public ActionResult RenderReceivingLogEditorRow(int receivingId) {
+        public ActionResult RenderReceivingLogEditorRow(int receivingId, int POItemID) {
             Receiving receiving = new Receiving();
             if (receivingId != 0) {
                 receivingRepo.GetById(receivingId);
             }
-
+            ViewBag.POItemId = POItemID;
             return PartialView("_ReceivingLogEditorRow", receiving);
         }
 
         public void Save(ReceivingDTO receivingDTO) {
-            poRepo.ChangeStatus(receivingDTO.PoNo, receivingDTO.Status, receivingDTO.RRNo);
+            poRepo.ChangeStatus(receivingDTO.PoNo, receivingDTO.Status, receivingDTO.RRNo,receivingDTO.DateReceived);
 
             //foreach (ReceivingDTO.Item item in receivingDTO.Items) {
             //    PurchaseOrderItem poItem = poItemRepo.Find(item.PoItemId);
@@ -182,8 +186,17 @@ namespace CNG.Controllers
             PurchaseOrderItem poItem = poItemRepo.Find(receivingLogsDTO.PurchaseOrderItemId);
             PurchaseOrder po = context.PurchaseOrders.Find(poItem.PurchaseOrderId);
             po.Status = (int) EPurchaseOrderStatus.Saved;
-            po.RRNo = receivingLogsDTO.RRNo;
-
+           
+            try
+            {
+                po.RRNo = poRepo.GenerateReNumber(receivingLogsDTO.DateReceived);
+                po.ReceivedDate = receivingLogsDTO.DateReceived;
+            }
+            catch
+            {
+                po.RRNo = poRepo.GenerateReNumber(DateTime.Now);
+                po.ReceivedDate = DateTime.Now;
+            }
             context.SaveChanges();
 
             PurchaseOrderItem pItem = poItemRepo.Find(receivingLogsDTO.PurchaseOrderItemId);
@@ -207,7 +220,7 @@ namespace CNG.Controllers
                 receiving.PurchaseOrderItemId = receivingLogsDTO.PurchaseOrderItemId;
                 receiving.Quantity = item.Quantity;
                 receiving.SerialNo = item.SerialNo;
-                receiving.DrNo = item.DrNo;               
+                receiving.DrNo = receivingLogsDTO.DrNo;               
                 receiving.DateReceived = item.DateReceived;
 
                 receivingRepo.Save(receiving, pItem.ItemId, pItem.Item.UnitCost.ToString("N"));
@@ -288,11 +301,33 @@ namespace CNG.Controllers
             return transactionLog.Id;
         }
 
-     
+        public void RChecked(PurchaseOrderDTO entry)
+        {
+            PurchaseOrder po = new PurchaseOrder();
+
+            po.No = entry.No;
+            po.RChecked = entry.Checked;
+
+            poRepo.RChecked(po);
+
+        }
+
+        public void RApproved(PurchaseOrderDTO entry)
+        {
+            PurchaseOrder po = new PurchaseOrder();
+
+            po.No = entry.No;
+            po.RApproved = entry.Approved;
+
+            poRepo.RApproved(po);
+
+        }
+
 
         private void InitViewBags()
         {
             ViewBag.CompanyId = Request.QueryString["companyId"];
+            ViewBag.UserLevel = userRepo.GetByUserLevel(Common.GetCurrentUser.Id);
             var affectedRows = context.Database.ExecuteSqlCommand("sp_Update_Item_UnitCost");
         } 
     }

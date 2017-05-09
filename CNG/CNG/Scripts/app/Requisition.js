@@ -48,7 +48,9 @@
         req.No = $('#lblReqNo').text();
         req.RequisitionDate = $('#txtReqDate').val();
         req.JobOrderNo = $('#txtJobOrderNo').val();
-        req.UnitPlateNo = $('#UnitPlateNo').val();
+        req.CompanyTo = $('#StockTransfer_CompanyTo').val();
+        //req.UnitPlateNo = $('#UnitPlateNo').val();
+        req.UnitPlateNo = $("#UnitPlateNo option:selected").text();
         req.JobOrderDate = $('#txtJobOrderDate').val();
         req.OdometerReading = $('#txtOdometerReading').val();
         req.DriverName = $('#txtDriverName').val();
@@ -99,6 +101,24 @@
         });
     });
 
+    $('#StockTransfer_CompanyTo').change(function () {
+        var CompanyId = $(this).val();
+        $.ajax({
+            url: "/Requisition/GetById",
+            type: "POST",
+            data: "{'CompanyID' : '" + CompanyId + "'}",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+
+                var markup = "";
+                for (var x = 0; x < data.length; x++) {
+                    markup += "<option value=" + data[x].VehicleId + ">" + data[x].VehiclePlateNo + "</option>";
+                }
+                $("#UnitPlateNo").html(markup).show();
+            }
+        });
+    });
+
     $('#btnAddItem').click(function (event) {
         event.preventDefault();
 
@@ -123,4 +143,57 @@
 
         txtQuantityReturn.val($(this).val());
     });
+});
+
+$(function () {
+    $('#cb_Checked').change(function () {
+        var req = new Object();
+
+        req.No = $('#lblReqNo').text();
+
+        if ($('#cb_Checked').prop('checked') == true) {
+            req.Checked = 1;
+        }
+        else { req.Checked = 0; }
+
+        $.ajax({
+            url: "/Requisition/Checked",
+            type: "POST",
+            data: JSON.stringify(req),
+            contentType: "application/json; charset=utf-8"
+        });
+
+
+    });
+
+
+
+
+});
+
+$(function () {
+    $('#cb_Approved').change(function () {
+    
+        var req = new Object();
+
+        req.No = $('#lblReqNo').text();
+
+        if ($('#cb_Approved').prop('checked') == true) {
+            req.Checked = 1;
+        }
+        else { req.Checked = 0; }
+
+        $.ajax({
+            url: "/Requisition/Approved",
+            type: "POST",
+            data: JSON.stringify(req),
+            contentType: "application/json; charset=utf-8"
+        });
+
+
+    });
+
+
+
+
 });

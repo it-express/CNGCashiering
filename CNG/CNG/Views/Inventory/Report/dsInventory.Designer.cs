@@ -295,6 +295,32 @@ namespace CNG.Views.Inventory.Report {
             
             private global::System.Data.DataColumn columnDate;
             
+            private global::System.Data.DataColumn columnBegUnitCost;
+            
+            private global::System.Data.DataColumn columnStartingMaterials;
+            
+            private global::System.Data.DataColumn columnStartingTires;
+            
+            private global::System.Data.DataColumn columnStartingBatteries;
+            
+            private global::System.Data.DataColumn columnEndingMaterials;
+            
+            private global::System.Data.DataColumn columnEndingTires;
+            
+            private global::System.Data.DataColumn columnEndingBatteries;
+            
+            private global::System.Data.DataColumn columnInMaterials;
+            
+            private global::System.Data.DataColumn columnInTires;
+            
+            private global::System.Data.DataColumn columnInBatteries;
+            
+            private global::System.Data.DataColumn columnOutMaterials;
+            
+            private global::System.Data.DataColumn columnOutTires;
+            
+            private global::System.Data.DataColumn columnOutBatteries;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public dtInventoryDataTable() {
@@ -394,6 +420,110 @@ namespace CNG.Views.Inventory.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn BegUnitCostColumn {
+                get {
+                    return this.columnBegUnitCost;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn StartingMaterialsColumn {
+                get {
+                    return this.columnStartingMaterials;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn StartingTiresColumn {
+                get {
+                    return this.columnStartingTires;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn StartingBatteriesColumn {
+                get {
+                    return this.columnStartingBatteries;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn EndingMaterialsColumn {
+                get {
+                    return this.columnEndingMaterials;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn EndingTiresColumn {
+                get {
+                    return this.columnEndingTires;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn EndingBatteriesColumn {
+                get {
+                    return this.columnEndingBatteries;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn InMaterialsColumn {
+                get {
+                    return this.columnInMaterials;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn InTiresColumn {
+                get {
+                    return this.columnInTires;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn InBatteriesColumn {
+                get {
+                    return this.columnInBatteries;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn OutMaterialsColumn {
+                get {
+                    return this.columnOutMaterials;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn OutTiresColumn {
+                get {
+                    return this.columnOutTires;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn OutBatteriesColumn {
+                get {
+                    return this.columnOutBatteries;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -429,7 +559,28 @@ namespace CNG.Views.Inventory.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public dtInventoryRow AdddtInventoryRow(string Code, string Description, string StartingQuantity, string UnitCost, string In, string Out, string EndingQuantity, string Date) {
+            public dtInventoryRow AdddtInventoryRow(
+                        string Code, 
+                        string Description, 
+                        string StartingQuantity, 
+                        string UnitCost, 
+                        string In, 
+                        string Out, 
+                        string EndingQuantity, 
+                        string Date, 
+                        string BegUnitCost, 
+                        string StartingMaterials, 
+                        string StartingTires, 
+                        string StartingBatteries, 
+                        string EndingMaterials, 
+                        string EndingTires, 
+                        string EndingBatteries, 
+                        string InMaterials, 
+                        string InTires, 
+                        string InBatteries, 
+                        string OutMaterials, 
+                        string OutTires, 
+                        string OutBatteries) {
                 dtInventoryRow rowdtInventoryRow = ((dtInventoryRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Code,
@@ -439,7 +590,20 @@ namespace CNG.Views.Inventory.Report {
                         In,
                         Out,
                         EndingQuantity,
-                        Date};
+                        Date,
+                        BegUnitCost,
+                        StartingMaterials,
+                        StartingTires,
+                        StartingBatteries,
+                        EndingMaterials,
+                        EndingTires,
+                        EndingBatteries,
+                        InMaterials,
+                        InTires,
+                        InBatteries,
+                        OutMaterials,
+                        OutTires,
+                        OutBatteries};
                 rowdtInventoryRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowdtInventoryRow);
                 return rowdtInventoryRow;
@@ -470,6 +634,19 @@ namespace CNG.Views.Inventory.Report {
                 this.columnOut = base.Columns["Out"];
                 this.columnEndingQuantity = base.Columns["EndingQuantity"];
                 this.columnDate = base.Columns["Date"];
+                this.columnBegUnitCost = base.Columns["BegUnitCost"];
+                this.columnStartingMaterials = base.Columns["StartingMaterials"];
+                this.columnStartingTires = base.Columns["StartingTires"];
+                this.columnStartingBatteries = base.Columns["StartingBatteries"];
+                this.columnEndingMaterials = base.Columns["EndingMaterials"];
+                this.columnEndingTires = base.Columns["EndingTires"];
+                this.columnEndingBatteries = base.Columns["EndingBatteries"];
+                this.columnInMaterials = base.Columns["InMaterials"];
+                this.columnInTires = base.Columns["InTires"];
+                this.columnInBatteries = base.Columns["InBatteries"];
+                this.columnOutMaterials = base.Columns["OutMaterials"];
+                this.columnOutTires = base.Columns["OutTires"];
+                this.columnOutBatteries = base.Columns["OutBatteries"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -491,6 +668,32 @@ namespace CNG.Views.Inventory.Report {
                 base.Columns.Add(this.columnEndingQuantity);
                 this.columnDate = new global::System.Data.DataColumn("Date", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDate);
+                this.columnBegUnitCost = new global::System.Data.DataColumn("BegUnitCost", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBegUnitCost);
+                this.columnStartingMaterials = new global::System.Data.DataColumn("StartingMaterials", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStartingMaterials);
+                this.columnStartingTires = new global::System.Data.DataColumn("StartingTires", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStartingTires);
+                this.columnStartingBatteries = new global::System.Data.DataColumn("StartingBatteries", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStartingBatteries);
+                this.columnEndingMaterials = new global::System.Data.DataColumn("EndingMaterials", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEndingMaterials);
+                this.columnEndingTires = new global::System.Data.DataColumn("EndingTires", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEndingTires);
+                this.columnEndingBatteries = new global::System.Data.DataColumn("EndingBatteries", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEndingBatteries);
+                this.columnInMaterials = new global::System.Data.DataColumn("InMaterials", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnInMaterials);
+                this.columnInTires = new global::System.Data.DataColumn("InTires", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnInTires);
+                this.columnInBatteries = new global::System.Data.DataColumn("InBatteries", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnInBatteries);
+                this.columnOutMaterials = new global::System.Data.DataColumn("OutMaterials", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOutMaterials);
+                this.columnOutTires = new global::System.Data.DataColumn("OutTires", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOutTires);
+                this.columnOutBatteries = new global::System.Data.DataColumn("OutBatteries", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOutBatteries);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -761,6 +964,214 @@ namespace CNG.Views.Inventory.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string BegUnitCost {
+                get {
+                    try {
+                        return ((string)(this[this.tabledtInventory.BegUnitCostColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'BegUnitCost\' in table \'dtInventory\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtInventory.BegUnitCostColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string StartingMaterials {
+                get {
+                    try {
+                        return ((string)(this[this.tabledtInventory.StartingMaterialsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'StartingMaterials\' in table \'dtInventory\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtInventory.StartingMaterialsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string StartingTires {
+                get {
+                    try {
+                        return ((string)(this[this.tabledtInventory.StartingTiresColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'StartingTires\' in table \'dtInventory\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtInventory.StartingTiresColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string StartingBatteries {
+                get {
+                    try {
+                        return ((string)(this[this.tabledtInventory.StartingBatteriesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'StartingBatteries\' in table \'dtInventory\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtInventory.StartingBatteriesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string EndingMaterials {
+                get {
+                    try {
+                        return ((string)(this[this.tabledtInventory.EndingMaterialsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EndingMaterials\' in table \'dtInventory\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtInventory.EndingMaterialsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string EndingTires {
+                get {
+                    try {
+                        return ((string)(this[this.tabledtInventory.EndingTiresColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EndingTires\' in table \'dtInventory\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtInventory.EndingTiresColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string EndingBatteries {
+                get {
+                    try {
+                        return ((string)(this[this.tabledtInventory.EndingBatteriesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EndingBatteries\' in table \'dtInventory\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtInventory.EndingBatteriesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string InMaterials {
+                get {
+                    try {
+                        return ((string)(this[this.tabledtInventory.InMaterialsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'InMaterials\' in table \'dtInventory\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtInventory.InMaterialsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string InTires {
+                get {
+                    try {
+                        return ((string)(this[this.tabledtInventory.InTiresColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'InTires\' in table \'dtInventory\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtInventory.InTiresColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string InBatteries {
+                get {
+                    try {
+                        return ((string)(this[this.tabledtInventory.InBatteriesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'InBatteries\' in table \'dtInventory\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtInventory.InBatteriesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string OutMaterials {
+                get {
+                    try {
+                        return ((string)(this[this.tabledtInventory.OutMaterialsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'OutMaterials\' in table \'dtInventory\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtInventory.OutMaterialsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string OutTires {
+                get {
+                    try {
+                        return ((string)(this[this.tabledtInventory.OutTiresColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'OutTires\' in table \'dtInventory\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtInventory.OutTiresColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string OutBatteries {
+                get {
+                    try {
+                        return ((string)(this[this.tabledtInventory.OutBatteriesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'OutBatteries\' in table \'dtInventory\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtInventory.OutBatteriesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsCodeNull() {
                 return this.IsNull(this.tabledtInventory.CodeColumn);
             }
@@ -853,6 +1264,162 @@ namespace CNG.Views.Inventory.Report {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetDateNull() {
                 this[this.tabledtInventory.DateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsBegUnitCostNull() {
+                return this.IsNull(this.tabledtInventory.BegUnitCostColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetBegUnitCostNull() {
+                this[this.tabledtInventory.BegUnitCostColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsStartingMaterialsNull() {
+                return this.IsNull(this.tabledtInventory.StartingMaterialsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetStartingMaterialsNull() {
+                this[this.tabledtInventory.StartingMaterialsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsStartingTiresNull() {
+                return this.IsNull(this.tabledtInventory.StartingTiresColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetStartingTiresNull() {
+                this[this.tabledtInventory.StartingTiresColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsStartingBatteriesNull() {
+                return this.IsNull(this.tabledtInventory.StartingBatteriesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetStartingBatteriesNull() {
+                this[this.tabledtInventory.StartingBatteriesColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsEndingMaterialsNull() {
+                return this.IsNull(this.tabledtInventory.EndingMaterialsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetEndingMaterialsNull() {
+                this[this.tabledtInventory.EndingMaterialsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsEndingTiresNull() {
+                return this.IsNull(this.tabledtInventory.EndingTiresColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetEndingTiresNull() {
+                this[this.tabledtInventory.EndingTiresColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsEndingBatteriesNull() {
+                return this.IsNull(this.tabledtInventory.EndingBatteriesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetEndingBatteriesNull() {
+                this[this.tabledtInventory.EndingBatteriesColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsInMaterialsNull() {
+                return this.IsNull(this.tabledtInventory.InMaterialsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetInMaterialsNull() {
+                this[this.tabledtInventory.InMaterialsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsInTiresNull() {
+                return this.IsNull(this.tabledtInventory.InTiresColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetInTiresNull() {
+                this[this.tabledtInventory.InTiresColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsInBatteriesNull() {
+                return this.IsNull(this.tabledtInventory.InBatteriesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetInBatteriesNull() {
+                this[this.tabledtInventory.InBatteriesColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsOutMaterialsNull() {
+                return this.IsNull(this.tabledtInventory.OutMaterialsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetOutMaterialsNull() {
+                this[this.tabledtInventory.OutMaterialsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsOutTiresNull() {
+                return this.IsNull(this.tabledtInventory.OutTiresColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetOutTiresNull() {
+                this[this.tabledtInventory.OutTiresColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsOutBatteriesNull() {
+                return this.IsNull(this.tabledtInventory.OutBatteriesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetOutBatteriesNull() {
+                this[this.tabledtInventory.OutBatteriesColumn] = global::System.Convert.DBNull;
             }
         }
         

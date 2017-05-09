@@ -15,6 +15,10 @@ namespace CNG.Models
         public int ItemId { get; set; }
         [DisplayName("Unit Cost")]
         public decimal UnitCost { get; set; }
+        
+        public string GetUnitCost
+        { get { return UnitCost.ToString("#,##0.00"); } }
+    
         public int Quantity { get; set; }
         public string Remarks { get; set; }
 
@@ -23,6 +27,9 @@ namespace CNG.Models
                 return UnitCost * Quantity;
             }
         }
+
+        public string GetAmount
+        { get { return Amount.ToString("#,##0.00"); } }
 
         public virtual RequisitionPurchase RequisitionPurchase { get; set; }
         public virtual Item Item { get; set; }

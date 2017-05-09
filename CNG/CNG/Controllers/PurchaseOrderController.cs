@@ -11,6 +11,7 @@ using Microsoft.Reporting.WebForms;
 namespace CNG.Controllers
 {
     [AuthorizationFilter]
+
     public class PurchaseOrderController : Controller
     {
         CNGDBContext context = new CNGDBContext();
@@ -20,6 +21,7 @@ namespace CNG.Controllers
         ItemRepository itemRepo = new ItemRepository();
         CompanyRepository companyRepo = new CompanyRepository();
         ItemAssignmentRepository itemAssignmentRepo = new ItemAssignmentRepository();
+        UserRepository userRepo = new UserRepository();
 
         public PurchaseOrderController() {
             poItemRepo = new PurchaseOrderItemRepository(context);
@@ -44,7 +46,7 @@ namespace CNG.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            IQueryable<PurchaseOrder> lstPo = poRepo.List().Where(p => p.ShipTo == Sessions.CompanyId);
+            IQueryable<PurchaseOrder> lstPo = poRepo.List().Where(p => p.ShipTo == Sessions.CompanyId && p.isRP == false);
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -75,7 +77,9 @@ namespace CNG.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.PoNumber = poRepo.GeneratePoNumber();
+            
+            ViewBag.PoNumber = poRepo.GeneratePoNumber(DateTime.Now);
+            
             ViewBag.Vendors = new SelectList(context.Vendors.Where(p => p.Active), "Id", "Name");
             ViewBag.User = Common.GetCurrentUser.FullName;
             InitViewBags();
@@ -127,11 +131,11 @@ namespace CNG.Controllers
             return PartialView("_EditorRow", poItem);
         }
 
-        public string GeneratePoNumber() {
-            string poNumber = poRepo.GeneratePoNumber();
+        //public string GeneratePoNumber() {
+        //    string poNumber = poRepo.GeneratePoNumber();
 
-            return poNumber;
-        }
+        //    return poNumber;
+        //}
 
         [HttpPost]
         public JsonResult ListItemByPoNo(string poNo) {
@@ -159,6 +163,8 @@ namespace CNG.Controllers
             po.PreparedBy = Common.GetCurrentUser.Id;
             po.ApprovedBy = Common.GetCurrentUser.GeneralManagerId;
             po.CheckedBy = entry.CheckedBy;
+            po.isRP = false;
+            po.CompanyId = Sessions.CompanyId.Value;
 
             po.PurchaseOrderItems = new List<PurchaseOrderItem>();
             foreach (PurchaseOrderDTO.Item item in entry.Items)
@@ -200,7 +206,29 @@ namespace CNG.Controllers
 
         }
 
-       
+        public void Checked(PurchaseOrderDTO entry)
+        {
+            PurchaseOrder po = new PurchaseOrder();
+
+            po.No = entry.No;
+            po.Checked = entry.Checked;
+
+            poRepo.Checked(po);
+
+        }
+
+        public void Approved(PurchaseOrderDTO entry)
+        {
+            PurchaseOrder po = new PurchaseOrder();
+
+            po.No = entry.No;
+            po.Approved = entry.Approved;
+
+            poRepo.Approved(po);
+
+        }
+
+
 
 
         private void InitViewBags()
@@ -213,6 +241,8 @@ namespace CNG.Controllers
             ViewBag.Companies = new SelectList(context.Companies.Where(p => p.Active), "Id", "Name", companyId);
 
             ViewBag.CompanyId = companyId.ToString();
+
+            ViewBag.UserLevel = userRepo.GetByUserLevel(Common.GetCurrentUser.Id);
 
             var affectedRows = context.Database.ExecuteSqlCommand("sp_Update_Item_UnitCost");
         }

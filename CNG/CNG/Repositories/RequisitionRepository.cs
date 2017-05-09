@@ -11,7 +11,9 @@ namespace CNG.Models
     {
         private CNGDBContext context = new CNGDBContext();
         RequisitionItemRepository reqItemRepo = new RequisitionItemRepository();
-
+        CompanyRepository companyRepo = new CompanyRepository();
+        VehicleRepository vehicleRepo = new VehicleRepository();
+        VehicleItemsRepository veItemRepo = new VehicleItemsRepository();
         public RequisitionRepository() {
         }
 
@@ -37,6 +39,7 @@ namespace CNG.Models
         public void Save(Requisition req) {
             bool reqExists = context.Requisitions.Any(p => p.No == req.No);
 
+            req.No = GenerateReqNo(req.Date);
             int id;
 
             if (!reqExists)
@@ -53,7 +56,7 @@ namespace CNG.Models
                     if (reqItem.Quantity != 0)
                     {
                         reqItem.TransactionLogId = InsertLogs(reqItem.ItemId, reqItem.Quantity, req.Date);
-                        InsertStockCard(id, reqItem.ItemId, reqItem.Item.UnitCost, reqItem.Quantity, reqItem.TransactionLogId);
+                        InsertStockCard(id, reqItem.ItemId, reqItem.GetItemUnitCost, reqItem.Quantity, reqItem.TransactionLogId);
                     }
                 }
             }
@@ -100,7 +103,21 @@ namespace CNG.Models
                 }
             }
 
+
+            int vehicleId = vehicleRepo.GetIdByPlateNo(req.UnitPlateNo);
+            int? translogId = req.RequisitionItems.Last().TransactionLogId;
+            SaveVehicle(vehicleId, translogId);
+
             context.SaveChanges();
+        }
+
+        public void SaveVehicle(int vehicleId, int? translogId)
+        {
+            VehicleItems vi = new VehicleItems();
+            vi.VehicleId = vehicleId;
+            vi.TransactionLogId = translogId;
+
+            veItemRepo.Save(vi);
         }
 
         public void Delete(string reqNo) {
@@ -111,8 +128,9 @@ namespace CNG.Models
             context.SaveChanges();
         }
 
-        public string GenerateReqNo()
+        public string GenerateReqNo(DateTime Date)
         {
+            int companyId = Sessions.CompanyId.Value;
             //get last id
             int lastId = 0;
             if (List().Count() > 0)
@@ -120,8 +138,22 @@ namespace CNG.Models
                 lastId = List().Max(p => p.Id);
             }
 
+            string prefix = companyRepo.GetById(companyId).Prefix;
             //MMyy-series
-            string reqNo = DateTime.Now.ToString("MMyy") + "-" + (lastId + 1).ToString().PadLeft(4, '0');
+            string reqNo = prefix + Date.ToString("MMyy") + "-" + (lastId + 1).ToString().PadLeft(4, '0');
+
+            bool poExist = context.Requisitions.Count(p => p.No == reqNo) > 0;
+
+            while (poExist)
+            {
+                if (List().Count() > 0)
+                {
+                    lastId = lastId + 1;
+                    reqNo = prefix + Date.ToString("MMyy") + "-" + lastId.ToString().PadLeft(4, '0');
+                    poExist = context.Requisitions.Count(p => p.No == reqNo) > 0;
+                }
+
+            }
 
             return reqNo;
         }
@@ -160,6 +192,28 @@ namespace CNG.Models
 
 
             stockcardRepo.Add(stockCard);
+        }
+
+        public void Checked(Requisition po)
+        {
+            Requisition dbEntry = context.Requisitions.FirstOrDefault(p => p.No == po.No);
+            if (dbEntry != null)
+            {
+                dbEntry.Checked = po.Checked;
+            }
+
+            context.SaveChanges();
+        }
+
+        public void Approved(Requisition po)
+        {
+            Requisition dbEntry = context.Requisitions.FirstOrDefault(p => p.No == po.No);
+            if (dbEntry != null)
+            {
+                dbEntry.Approved = po.Approved;
+            }
+
+            context.SaveChanges();
         }
     }
 }

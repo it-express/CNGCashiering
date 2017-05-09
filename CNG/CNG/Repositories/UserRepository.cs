@@ -44,6 +44,7 @@ namespace CNG.Models
                     dbEntry.LastName = user.LastName;
                     dbEntry.UserTypeId = user.UserTypeId;
                     dbEntry.GeneralManagerId = user.GeneralManagerId;
+                    dbEntry.UserLevel = user.UserLevel;
                 }
             }
 
@@ -63,6 +64,13 @@ namespace CNG.Models
             List<User> lstUser = context.Users.Where(p => p.UserTypeId == userTypeId).ToList();
 
             return lstUser;
+        }
+
+        public int GetByUserLevel(int userid)
+        {
+            int Userid = context.Users.FirstOrDefault(p => p.Id == userid).UserLevel;
+
+            return Userid;
         }
     }
 }

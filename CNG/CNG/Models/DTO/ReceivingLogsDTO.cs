@@ -13,7 +13,6 @@ namespace CNG.Models
             public int Quantity { get; set; }
             public string UnitCost { get; set; }
             public string SerialNo { get; set; }
-            public string DrNo { get; set; }       
             public DateTime DateReceived { get; set; }
             public int TransLogId { get; set; }
         }
@@ -21,6 +20,9 @@ namespace CNG.Models
         public int Id { get; set; }
         public int PurchaseOrderItemId { get; set; }
         public string RRNo { get; set; }
+        public string DrNo { get; set; }
+        public DateTime DateReceived { get; set; }
+
         public List<Item> Items { get; set; }
     }
 }

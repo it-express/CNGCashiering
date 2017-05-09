@@ -5,6 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/app/Common.js"></script>
+<script src="~/Scripts/app/Receiving.js"></script>
 <!-- start: TOOLBAR -->
 <div class="toolbar row">
     <div class="col-sm-6 hidden-xs">
@@ -34,10 +37,11 @@
                     <h4>Receiving</h4>
                     <hr />
 
+                    <label id="lblPoNumber" hidden="hidden">@Html.DisplayFor(model => model.No)</label>
                     <div class="form-group">
-                        <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.No)</label>
+                        <label class="control-label col-md-2">Receiving No</label>
                         <div class="col-md-5">
-                            <label class="form-control">@Html.DisplayFor(model => model.No)</label>
+                            <label class="form-control">@Html.DisplayFor(model => model.RRNo)</label>
                         </div>
                     </div>
 
@@ -94,13 +98,13 @@
                                                 @Html.DisplayFor(modelItem => poItem.Quantity)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => poItem.UnitCost)
+                                                @Html.DisplayFor(modelItem => poItem.GetUnitCost)
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => poItem.Item.Description)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => poItem.Amount)
+                                                @Html.DisplayFor(modelItem => poItem.GetAmount)
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => poItem.Receivings.FirstOrDefault().SerialNo)
@@ -122,7 +126,7 @@
                                                 @Html.DisplayFor(modelItem => poItem.RemainingBalanceDate)
                                             </td>*@
                                         </tr>
-
+                                      
                                         foreach (var logs in poItem.Receivings)
                                         {
                                             <tr>
@@ -151,7 +155,33 @@
                                     }
                                 </tbody>
                             </table>
-                        </div>
+
+                            <div>
+                                
+                                @if (ViewBag.UserLevel == 1)
+                                {
+                                    @Html.CheckBoxFor(model => model.RChecked, new { id = "cb_Checked", @disabled = "disabled" })
+                                }
+                                else
+                                {
+                                    @Html.CheckBoxFor(model => model.RChecked, new { id = "cb_Checked" })
+                                }
+                                checked
+                            </div>
+                            <div>
+                               
+                                @if (ViewBag.UserLevel == 3)
+                                {
+                                    @Html.CheckBoxFor(model => model.RApproved, new { id = "cb_Approved" })
+                                }
+                                else
+                                {
+                                    @Html.CheckBoxFor(model => model.RApproved, new { id = "cb_Approved", @disabled = "disabled" })
+                                }
+                                approved
+                            </div>
+
+                            </div>
                     </div>
                     
                 </div>

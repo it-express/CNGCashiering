@@ -190,3 +190,57 @@ function GetTotalAmount() {
 
     $('#lblTotalAmount').text(FormatNumber(totalAmount));
 }
+
+$(function () {
+    $('#cb_Checked').change(function () {
+
+        var purchaseOrder = new Object();
+       
+        purchaseOrder.No = $('#lblPoNumber').text();
+
+        if ($('#cb_Checked').prop('checked') == true) {
+            purchaseOrder.Checked = 1;
+        }
+        else { purchaseOrder.Checked = 0; }
+
+            $.ajax({
+                url: "/PurchaseOrder/Checked",
+                type: "POST",
+                data: JSON.stringify(purchaseOrder),
+                contentType: "application/json; charset=utf-8"
+            });
+        
+
+    });
+
+
+
+
+});
+
+$(function () {
+    $('#cb_Approved').change(function () {
+
+        var purchaseOrder = new Object();
+
+        purchaseOrder.No = $('#lblPoNumber').text();
+
+        if ($('#cb_Approved').prop('checked') == true) {
+            purchaseOrder.Checked = 1;
+        }
+        else { purchaseOrder.Checked = 0; }
+
+        $.ajax({
+            url: "/PurchaseOrder/Approved",
+            type: "POST",
+            data: JSON.stringify(purchaseOrder),
+            contentType: "application/json; charset=utf-8"
+        });
+
+
+    });
+
+
+
+
+});

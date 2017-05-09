@@ -9,6 +9,7 @@ namespace CNG.Models
     {
         private CNGDBContext context = new CNGDBContext();
         VehicleAssignmentRepository vsItemRepo = new VehicleAssignmentRepository();
+        CompanyRepository companyRepo = new CompanyRepository();
         public IQueryable<VehicleStockTransfer> List()
         {
             return context.VehicleStockTransfers;
@@ -37,8 +38,9 @@ namespace CNG.Models
             context.SaveChanges();
         }
 
-        public string GenerateVehicleStockTransferNo()
+        public string GenerateVehicleStockTransferNo(DateTime Date)
         {
+            int companyId = Sessions.CompanyId.Value;
             //get last id
             int lastId = 0;
             if (List().Count() > 0)
@@ -46,8 +48,22 @@ namespace CNG.Models
                 lastId = List().Max(p => p.Id);
             }
 
+            string prefix = companyRepo.GetById(companyId).Prefix;
             //MMyy-series
-            string stNo = DateTime.Now.ToString("MMyy") + "-" + (lastId + 1).ToString().PadLeft(4, '0');
+            string stNo = prefix + Date.ToString("MMyy") + "-" + (lastId + 1).ToString().PadLeft(4, '0');
+
+            bool poExist = context.VehicleStockTransfers.Count(p => p.No == stNo) > 0;
+
+            while (poExist)
+            {
+                if (List().Count() > 0)
+                {
+                    lastId = lastId + 1;
+                    stNo = prefix + Date.ToString("MMyy") + "-" + lastId.ToString().PadLeft(4, '0');
+                    poExist = context.VehicleStockTransfers.Count(p => p.No == stNo) > 0;
+                }
+
+            }
 
             return stNo;
         }
@@ -71,6 +87,7 @@ namespace CNG.Models
         {
             bool exists = context.VehicleStockTransfers.Count(p => p.No == vst.No) > 0;
 
+            vst.No = GenerateVehicleStockTransferNo(vst.Date);
             int id;
 
             if (!exists)
@@ -128,6 +145,28 @@ namespace CNG.Models
 
                     context.VehicleStockTransferItems.Add(vstIitem);
                 }
+            }
+
+            context.SaveChanges();
+        }
+
+        public void Checked(VehicleStockTransfer po)
+        {
+            VehicleStockTransfer dbEntry = context.VehicleStockTransfers.FirstOrDefault(p => p.No == po.No);
+            if (dbEntry != null)
+            {
+                dbEntry.Checked = po.Checked;
+            }
+
+            context.SaveChanges();
+        }
+
+        public void Approved(VehicleStockTransfer po)
+        {
+            VehicleStockTransfer dbEntry = context.VehicleStockTransfers.FirstOrDefault(p => p.No == po.No);
+            if (dbEntry != null)
+            {
+                dbEntry.Approved = po.Approved;
             }
 
             context.SaveChanges();

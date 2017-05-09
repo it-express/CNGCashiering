@@ -18,7 +18,8 @@ namespace CNG.Models
 
         public string No { get; set; }
         public string Date { get; set; }
-       
+        public bool Checked { get; set; }
+        public bool Approved { get; set; }
         public string RequestedBy { get; set; }
 
         public List<Item> Items { get; set; }

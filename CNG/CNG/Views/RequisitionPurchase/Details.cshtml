@@ -1,10 +1,13 @@
-﻿@model CNG.Models.RequisitionPurchase
+﻿@model CNG.Models.PurchaseOrder
 
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/app/Common.js"></script>
+<script src="~/Scripts/app/PurchaseOrder.js"></script>
 <!-- start: TOOLBAR -->
 <div class="toolbar row">
     <div class="col-sm-6 hidden-xs">
@@ -44,9 +47,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.No)</label>
                         <div class="col-md-5">
-                            <label class="form-control">
-                                @Html.DisplayFor(model => model.No)
-                            </label>
+                            <label id="lblPoNumber" class="form-control">@Html.DisplayFor(model => model.No)</label>
                         </div>
                     </div>
                     <div class="form-group">
@@ -61,7 +62,7 @@
                         <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.PreparedBy)</label>
                         <div class="col-md-5">
                             <label class="form-control">
-                                @Html.DisplayFor(model => model.ApprovedByObj.FullName)
+                                @Html.DisplayFor(model => model.PreparedByObj.FullName)
                             </label>
                         </div>
                     </div>
@@ -72,14 +73,31 @@
                                 @Html.DisplayFor(model => model.CheckedBy)
                             </label>
                         </div>
+                        @if (ViewBag.UserLevel == 1)
+                        {
+                            @Html.CheckBoxFor(model => model.Checked, new { id = "cb_Checked", @disabled = "disabled" })
+                        }
+                        else
+                        {
+                            @Html.CheckBoxFor(model => model.Checked, new { id = "cb_Checked" })
+                        }
+                        </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.ApprovedBy)</label>
                         <div class="col-md-5">
                             <label class="form-control">
                                 @Html.DisplayFor(model => model.ApprovedByObj.FullName)
-                            </label>
+                            </label>                     
                         </div>
+                        @if (ViewBag.UserLevel == 3)
+                        {
+                            @Html.CheckBoxFor(model => model.Approved, new { id = "cb_Approved" })
+                        }
+                        else
+                        {
+                            @Html.CheckBoxFor(model => model.Approved, new { id = "cb_Approved", @disabled = "disabled" })
+                        }
                     </div>
                     <div class="form-group">
                         <label class="col-md-1"></label>
@@ -106,15 +124,16 @@
                                             Unit Cost
                                         </th>
                                         <th>
-                                            Remarks
-                                        </th>
-                                        <th>
                                             Total Amount
                                         </th>
+                                        <th>
+                                            Remarks
+                                        </th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var rpItem in Model.RequisitionPurchaseItems)
+                                    @foreach (var rpItem in Model.PurchaseOrderItems)
                                       {
                                         <tr>
                                             <td>
@@ -134,13 +153,13 @@
                                                 @Html.DisplayFor(modelItem => rpItem.Quantity)
                                             </td>
                                             <td>                           
-                                                @Html.DisplayFor(modelItem => rpItem.UnitCost)
+                                                @Html.DisplayFor(modelItem => rpItem.GetUnitCost)
                                             </td>
                                             <td>
-                                              @Html.DisplayFor(modelItem => rpItem.Remarks)
+                                                @Html.DisplayFor(modelItem => rpItem.GetAmount)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => rpItem.Amount)
+                                                @Html.DisplayFor(modelItem => rpItem.Remarks)
                                             </td>
                                         </tr>
                                     }
@@ -151,8 +170,9 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td></td>
                                         <td>@Html.DisplayFor(p => p.TotalAmountItems)</td>
+                                        <td></td>
+                                        
                                     </tr>
                                 </tbody>
                             </table>

@@ -60,7 +60,7 @@ namespace CNG.Models
             if (item.Id == 0)
             {
                 IQueryable<Item> lstItem = List();
-                lstItem = lstItem.Where(s => s.Description == item.Description.Trim());
+                lstItem = lstItem.Where(s => s.Description.Contains(item.Description.Trim()));
 
                 if (lstItem.Count() == 0)
                 {
@@ -75,7 +75,7 @@ namespace CNG.Models
             }
             else
             {
-                Item dbEntry = context.Items.Find(item.Id);
+                Item dbEntry = context.Items.Find(item.Description);
                 
 
                 if (dbEntry != null)
@@ -92,6 +92,42 @@ namespace CNG.Models
                     msg = "updated";
                 }
               
+            }
+
+            context.SaveChanges();
+
+            return msg;
+        }
+
+        public int SaveByEncoder(Item item)
+        {
+            int msg = 0;
+           
+                IQueryable<Item> lstItem = List();
+                lstItem = lstItem.Where(s => s.Description.Contains(item.Description.Trim()));
+                int itemid = lstItem.Select(p => p.Id).Distinct().FirstOrDefault();
+
+                if (lstItem.Count() == 0)
+                {
+                item.Code = GeneratedItemCode();
+                    context.Items.Add(item);
+                    context.SaveChanges();
+
+                    msg = item.Id;
+                }
+               
+
+            else
+            { 
+            
+                Item dbEntry = context.Items.Find(itemid);
+
+
+                if (dbEntry != null)
+                {
+                    msg = dbEntry.Id;
+                }
+
             }
 
             context.SaveChanges();

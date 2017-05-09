@@ -14,9 +14,12 @@
 
     $('#btnSubmit').click(function (event) {
         event.preventDefault();
-       
+        alert($('#txtDate').val());
+
         var rp = new Object();
 
+        rp.Date = $('#txtDate').val();
+       
         rp.CheckedBy = $('#CheckedBy').val();   
         var lstItem = new Array();
  
@@ -61,7 +64,7 @@
 
         var url = $(this).data('url') + '?itemId=' + itemId;
         $.get(url, function (data) {
-            $('#tblItems').append(data);
+            $('#tblItems').prepend(data);
         });
     });
 
@@ -71,4 +74,46 @@
             $row.remove();
         })
     });
+
+
+    $(document).on('keyup change', '.txtQuantity', function () {
+        $tr = $(this).closest('tr');
+
+        var itemId = $tr.data('item-id');
+        var unitCost = RemoveCommas($tr.find('.txtUnitCost').val());
+        var quantity = $tr.find('.txtQuantity').val();
+        var amount = parseFloat(unitCost) * parseFloat(quantity);
+
+        $txtAmount = $tr.find(".txtAmount");
+        $txtAmount.text(FormatNumber(amount));
+
+        GetTotalAmount();
+    });
+
+    $(document).on('keyup change', '.txtUnitCost', function () {
+        $tr = $(this).closest('tr');
+
+        var itemId = $tr.data('item-id');
+        var unitCost = RemoveCommas($tr.find('.txtUnitCost').val());
+        var quantity = $tr.find('.txtQuantity').val();
+        var amount = parseFloat(unitCost) * parseFloat(quantity);
+
+        $txtAmount = $tr.find(".txtAmount");
+        $txtAmount.text(FormatNumber(amount));
+
+        GetTotalAmount();
+    });
 });
+
+
+function GetTotalAmount() {
+    var totalAmount = 0;
+    $('#tblItems tr.item-row').each(function (i, tr) {
+        var $txtAmount = $(tr).find('.txtAmount');
+        var amount = parseFloat(RemoveCommas($txtAmount.text()));
+
+        totalAmount += amount;
+    });
+
+    $('#lblTotalAmount').text(FormatNumber(totalAmount));
+}

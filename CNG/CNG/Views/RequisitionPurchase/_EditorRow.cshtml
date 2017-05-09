@@ -1,4 +1,4 @@
-﻿@model CNG.Models.RequisitionPurchaseItem
+﻿@model CNG.Models.PurchaseOrderItem
 
 <tr data-item-id="@Model.Item.Id" class="item-row">
     <td>
@@ -11,11 +11,15 @@
         @Model.Item.Brand
     </td>
     <td>
-        <input type='text' class='txtUnitCost form-control' value='@Model.UnitCost.ToString("F")' />
-    </td>
-    <td>
         <input type='text' class='txtQuantity form-control' value="@Model.Quantity" />
     </td>
+    <td>
+        <input type='text' class='txtUnitCost form-control' value='@Model.DisplayUnitCost.ToString("#,##0.00")' />
+    </td>
+    <td>
+        <span class='txtAmount'>@Model.Amount.ToString("#,##0.00")</span>
+    </td>
+
     <td>
         @Model.Item.Type.Description
     </td>

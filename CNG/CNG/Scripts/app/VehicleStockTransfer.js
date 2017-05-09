@@ -98,3 +98,56 @@ function Validate(vst) {
 
     return err;
 }
+
+$(function () {
+    $('#cb_Checked').change(function () {
+       
+        var vehicleStockTransfer = new Object();
+
+        vehicleStockTransfer.No = $('#lblNo').text();
+
+        if ($('#cb_Checked').prop('checked') == true) {
+            vehicleStockTransfer.Checked = 1;
+        }
+        else { vehicleStockTransfer.Checked = 0; }
+
+        $.ajax({
+            url: "/VehicleStockTransfer/Checked",
+            type: "POST",
+            data: JSON.stringify(vehicleStockTransfer),
+            contentType: "application/json; charset=utf-8"
+        });
+
+
+    });
+
+
+
+
+});
+
+$(function () {
+    $('#cb_Approved').change(function () {
+
+        var vehicleStockTransfer = new Object();
+
+        vehicleStockTransfer.No = $('#lblNo').text();
+
+        if ($('#cb_Approved').prop('checked') == true) {
+            vehicleStockTransfer.Checked = 1;
+        }
+        else { vehicleStockTransfer.Checked = 0; }
+
+        $.ajax({
+            url: "/VehicleStockTransfer/Approved",
+            type: "POST",
+            data: JSON.stringify(vehicleStockTransfer),
+            contentType: "application/json; charset=utf-8"
+        });
+
+    });
+
+
+
+
+});

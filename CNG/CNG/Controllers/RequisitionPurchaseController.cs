@@ -14,11 +14,12 @@ namespace CNG.Controllers
     public class RequisitionPurchaseController : Controller
     {
         CNGDBContext context = new CNGDBContext();
-        RequisitionPurchaseRepository rpRepo = new RequisitionPurchaseRepository();
+        PurchaseOrderRepository rpRepo = new PurchaseOrderRepository();
         RequisitionPurchaseItemRepository rpItemRepo;
         CompanyRepository companyRepo = new CompanyRepository();
         ItemRepository itemRepo = new ItemRepository();
         ItemAssignmentRepository itemAssignmentRepo = new ItemAssignmentRepository();
+        UserRepository userRepo = new UserRepository();
 
         public RequisitionPurchaseController() {
             rpItemRepo = new RequisitionPurchaseItemRepository(context);
@@ -47,7 +48,7 @@ namespace CNG.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            IQueryable<RequisitionPurchase> lstRp = rpRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value);
+            IQueryable<PurchaseOrder> lstRp = rpRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value && p.isRP == true);
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -79,9 +80,9 @@ namespace CNG.Controllers
             ViewBag.User = Common.GetCurrentUser.FullName;
             ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
 
-            RequisitionPurchase reqPurchase = new RequisitionPurchase
+            PurchaseOrder reqPurchase = new PurchaseOrder
             {
-                No = rpRepo.GenerateRpNo(),
+                No = rpRepo.GenerateRpNo(DateTime.Now),
                 Date = DateTime.Now
             };
 
@@ -94,16 +95,18 @@ namespace CNG.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Details(int rpNo) {
-            RequisitionPurchase rp = rpRepo.GetById(rpNo);
-            rp.RequisitionPurchaseItems = new List<RequisitionPurchaseItem>();
+        public ActionResult Details(string rpNo) {
+            PurchaseOrder rp = rpRepo.GetByNo(rpNo);
+            rp.PurchaseOrderItems = new List<PurchaseOrderItem>();
+
+            ViewBag.UserLevel = userRepo.GetByUserLevel(Common.GetCurrentUser.Id);
 
             return View(rp);
         }
 
         public ActionResult RenderEditorRow(int itemId)
         {
-            RequisitionPurchaseItem reqPurchaseItem = new RequisitionPurchaseItem
+            PurchaseOrderItem reqPurchaseItem = new PurchaseOrderItem
             {
                 Item = itemRepo.GetById(itemId)
             };
@@ -113,42 +116,61 @@ namespace CNG.Controllers
 
         public void Save(RequisitionPurchaseDTO rpDTO)
         {
-            RequisitionPurchase rp = new RequisitionPurchase();
-            rp.No = rpRepo.GenerateRpNo();
-            rp.Date = DateTime.Now;
+            PurchaseOrder rp = new PurchaseOrder();
+            int id;
+            rp.No = rpRepo.GenerateRpNo(rpDTO.Date);
+            rp.Date = rpDTO.Date;
             rp.CompanyId = Sessions.CompanyId.Value;
 
             rp.PreparedBy = Common.GetCurrentUser.Id;
             rp.ApprovedBy = Common.GetCurrentUser.GeneralManagerId;
             rp.CheckedBy = rpDTO.CheckedBy;
+            rp.isRP = true;
 
-            context.RequisitionPurchases.Add(rp);
+            context.PurchaseOrders.Add(rp);
             context.SaveChanges();
+
+            id = rp.Id;
+
+            rp.ItemPriceLogs = new List<ItemPriceLogs>();
+            foreach (RequisitionPurchaseDTO.Item item in rpDTO.Items)
+            {
+                ItemPriceLogs itemLogs = new ItemPriceLogs();
+
+                itemLogs.PurchaseOrderId = rp.Id;
+                itemLogs.ItemId = item.ItemId;
+                itemLogs.UnitCost = Convert.ToDecimal(item.UnitCost);
+                itemLogs.Qty = item.Quantity;
+                itemLogs.Date = DateTime.Now;
+
+                rp.ItemPriceLogs.Add(itemLogs);
+
+            }
 
             foreach (RequisitionPurchaseDTO.Item dtoItem in rpDTO.Items)
             {
-                RequisitionPurchaseItem rpItem = new RequisitionPurchaseItem();
+                PurchaseOrderItem rpItem = new PurchaseOrderItem();
 
-                rpItem.RequisitionPurchaseId = rp.Id;
+                rpItem.PurchaseOrderId = rp.Id;
                 rpItem.ItemId = dtoItem.ItemId;
                 rpItem.UnitCost = dtoItem.UnitCost;
                 rpItem.Quantity = dtoItem.Quantity;
                 rpItem.Remarks = dtoItem.Remarks;
+                rpItem.Date = DateTime.Now;
 
-
-                context.RequisitionPurchaseItems.Add(rpItem);
+                context.PurchaseOrderItems.Add(rpItem);
               
                 context.SaveChanges();
 
-                int translogid = InsertLogs(rpItem.ItemId, rpItem.Quantity);
-                InsertStockCard(rp.Id, dtoItem.ItemId, dtoItem.UnitCost, dtoItem.Quantity,translogid);
+                InsertStockCard(rp.Id, dtoItem.ItemId, dtoItem.UnitCost, dtoItem.Quantity);
             }
         }
-        
+
+
         public ActionResult Report(string ReqPoNo)
         {
-            RequisitionPurchase rp = rpRepo.GetByRpNo(ReqPoNo);
-            List<RequisitionPurchaseItem> lstrpItem = rp.RequisitionPurchaseItems;
+            PurchaseOrder rp = rpRepo.GetByNo(ReqPoNo);
+            List<PurchaseOrderItem> lstrpItem = rp.PurchaseOrderItems;
 
             var lstReqPurchase = from p in lstrpItem
                                    select new
@@ -194,24 +216,9 @@ namespace CNG.Controllers
 
             return View();
         }
-        public int InsertLogs(int itemId, int quantiy)
-        {
-            TransactionLogRepository transactionLogRepo = new TransactionLogRepository();
+      
 
-            TransactionLog transactionLog = new TransactionLog
-            {
-                ItemId = itemId,
-                Quantity = quantiy,
-                TransactionMethodId = (int)ETransactionMethod.RequisitionToPurchase,
-                CompanyId = Sessions.CompanyId.Value
-            };
-
-            transactionLogRepo.Add(transactionLog);
-
-            return transactionLog.Id;
-        }
-
-        public void InsertStockCard(int ReferenceId, int itemId, decimal unitcost, int quantiy, int? TransLogId)
+        public void InsertStockCard(int ReferenceId, int itemId, decimal unitcost, int quantiy)
         {
             ItemStockCardRepository stockcardRepo = new ItemStockCardRepository();
 
@@ -223,10 +230,8 @@ namespace CNG.Controllers
                 Qty = quantiy,
                 UnitCost = unitcost,
                 CompanyId = Sessions.CompanyId.Value,
-                Date = DateTime.Now,
-                TransLogId = TransLogId
+                Date = DateTime.Now
             };
-
 
             stockcardRepo.Add(stockCard);
         }

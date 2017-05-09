@@ -58,7 +58,8 @@ namespace CNG.Models
         public int ApprovedBy { get; set; }
 
         public int CompanyId { get; set; }
-
+        public bool Checked { get; set; }
+        public bool Approved { get; set; }
         public virtual List<RequisitionItem> RequisitionItems { get; set; }
 
         public virtual Company Company { get; set; }

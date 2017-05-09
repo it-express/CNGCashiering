@@ -19,6 +19,7 @@ namespace CNG.Models
 
         [Required]
         [StringLength(50)]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Required]
@@ -34,6 +35,10 @@ namespace CNG.Models
         [Required]
         [Display(Name ="User Type")]
         public int UserTypeId { get; set; }
+
+        [Required]
+        [Display(Name = "User Level")]
+        public int UserLevel { get; set; }
 
         [Required]
         [Display(Name = "General Manager")]

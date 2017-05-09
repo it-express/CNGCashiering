@@ -19,6 +19,7 @@ namespace CNG.Controllers
         TransactionLogRepository transactionLogRepo = new TransactionLogRepository();
         CompanyRepository companyRepo = new CompanyRepository();
         ItemAssignmentRepository itemAssignmentRepo = new ItemAssignmentRepository();
+        ItemStockCardRepository itemStockCardRepo = new ItemStockCardRepository();
 
         // GET: Inventory
         public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page, int? companyId)
@@ -72,7 +73,8 @@ namespace CNG.Controllers
             return View(lstItem.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult TransactionHistory(int id, string sortColumn, string sortOrder, string currentFilter, string searchString, string dateFrom, string dateTo, int? page) {
+        public ActionResult TransactionHistory(int id, string sortColumn, string sortOrder, string currentFilter, string searchString, string dateFrom, string dateTo, int? page)
+        {
             ViewBag.CurrentSort = sortColumn;
             ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
 
@@ -101,10 +103,10 @@ namespace CNG.Controllers
 
             IQueryable<TransactionLog> lstTransactionLog = transactionLogRepo.List().Where(p => p.ItemId == id);
             lstTransactionLog = from p in lstTransactionLog
-                            where DbFunctions.TruncateTime(p.Date) >= DbFunctions.TruncateTime(dtDateFrom) &&
-                                                          DbFunctions.TruncateTime(p.Date) <= DbFunctions.TruncateTime(dtDateTo)
-                                                          && p.CompanyId == Sessions.CompanyId.Value && p.TransactionMethodId != 7
-                                                          select p;
+                                where DbFunctions.TruncateTime(p.Date) >= DbFunctions.TruncateTime(dtDateFrom) &&
+                                                              DbFunctions.TruncateTime(p.Date) <= DbFunctions.TruncateTime(dtDateTo)
+                                                              && p.CompanyId == Sessions.CompanyId.Value && p.TransactionMethodId != 7
+                                select p;
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -126,7 +128,8 @@ namespace CNG.Controllers
             int pageSize = 10;
             int pageNumber = (page ?? 1);
 
-            var transHistoryVM = new TransactionHistoryVM {
+            var transHistoryVM = new TransactionHistoryVM
+            {
                 Item = itemRepo.GetById(id),
                 Company = companyRepo.GetById(Sessions.CompanyId.Value),
                 TransactionLogs = lstTransactionLog.ToPagedList(pageNumber, pageSize)
@@ -135,33 +138,54 @@ namespace CNG.Controllers
             return View(transHistoryVM);
         }
 
-        public ActionResult InventoryReport(string dateFrom, string dateTo) {
+        public ActionResult InventoryReport(string dateFrom, string dateTo)
+        {
             DateTime dtDateFrom = DateTime.Now.Date;
             DateTime dtDateTo = DateTime.Now;
 
-            if (!String.IsNullOrEmpty(dateFrom)) {
+            if (!String.IsNullOrEmpty(dateFrom))
+            {
                 dtDateFrom = Convert.ToDateTime(dateFrom);
             }
 
-            if (!String.IsNullOrEmpty(dateTo)) {
+            if (!String.IsNullOrEmpty(dateTo))
+            {
                 dtDateTo = Convert.ToDateTime(dateTo);
             }
 
-            var lstInventory2 = (from p in transactionLogRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value ).ToList()                           
-                                group p by p.ItemId into g
-                                select new
-                                {
-                                    ItemId = g.Key,
-                                    EndingQuantity = g.Where(p => p.Date.Date <= dtDateTo ).Sum(p => p.Quantity),
-                                    In = g.Where(p => p.Quantity > 0 && p.Date.Date >= dtDateFrom && p.Date.Date <= dtDateTo && p.TransactionMethodId != 7).Sum(p => p.Quantity),
-                                    Out = g.Where(p => p.Quantity < 0 && p.Date.Date >= dtDateFrom && p.Date.Date <= dtDateTo && p.TransactionMethodId != 7).Sum(p => p.Quantity),
-                                    StartingQuantity = g.Where(p => p.Date.Date <= dtDateTo).Sum(p => p.Quantity)
-                                }).ToList();
+            var lstInventory2 = (from p in transactionLogRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value).ToList()
+                                 group p by p.ItemId into g
+                                 select new
+                                 {
+                                     ItemId = g.Key,
+
+                                     EndingQuantity = g.Where(p => p.Date.Date <= dtDateTo).Sum(p => p.Quantity),
+                                     EndingMaterials = g.Where(p => p.Item.ClassificationId == (int)EItemClassification.Materials && p.Date.Date <= dtDateTo).Sum(p => p.Quantity),
+                                     EndingTires = g.Where(p => p.Item.ClassificationId == (int)EItemClassification.Tires && p.Date.Date <= dtDateTo).Sum(p => p.Quantity),
+                                     EndingBatteries = g.Where(p => p.Item.ClassificationId == (int)EItemClassification.Batteries && p.Date.Date <= dtDateTo).Sum(p => p.Quantity),
+
+                                     In = g.Where(p => p.Quantity > 0 && p.Date.Date >= dtDateFrom && p.Date.Date <= dtDateTo && p.TransactionMethodId != 7).Sum(p => p.Quantity),
+                                     InMaterials = g.Where(p => p.Item.ClassificationId == (int)EItemClassification.Materials && p.Quantity > 0 && p.Date.Date >= dtDateFrom && p.Date.Date <= dtDateTo && p.TransactionMethodId != 7).Sum(p => p.Quantity),
+                                     InTires = g.Where(p => p.Item.ClassificationId == (int)EItemClassification.Tires && p.Quantity > 0 && p.Date.Date >= dtDateFrom && p.Date.Date <= dtDateTo && p.TransactionMethodId != 7).Sum(p => p.Quantity),
+                                     InBatteries = g.Where(p => p.Item.ClassificationId == (int)EItemClassification.Batteries && p.Quantity > 0 && p.Date.Date >= dtDateFrom && p.Date.Date <= dtDateTo && p.TransactionMethodId != 7).Sum(p => p.Quantity),
+
+                                     Out = g.Where(p => p.Quantity < 0 && p.Date.Date >= dtDateFrom && p.Date.Date <= dtDateTo && p.TransactionMethodId != 7).Sum(p => p.Quantity),
+                                     OutMaterials = g.Where(p => p.Item.ClassificationId == (int)EItemClassification.Materials && p.Quantity < 0 && p.Date.Date >= dtDateFrom && p.Date.Date <= dtDateTo && p.TransactionMethodId != 7).Sum(p => p.Quantity),
+                                     OutTires = g.Where(p => p.Item.ClassificationId == (int)EItemClassification.Tires && p.Quantity < 0 && p.Date.Date >= dtDateFrom && p.Date.Date <= dtDateTo && p.TransactionMethodId != 7).Sum(p => p.Quantity),
+                                     OutBatteries = g.Where(p => p.Item.ClassificationId == (int)EItemClassification.Batteries && p.Quantity < 0 && p.Date.Date >= dtDateFrom && p.Date.Date <= dtDateTo && p.TransactionMethodId != 7).Sum(p => p.Quantity),
+
+                                     StartingQuantity = g.Where(p => p.Date.Date <= dtDateTo).Sum(p => p.Quantity),
+                                     StartingMaterials = g.Where(p => p.Item.ClassificationId == (int)EItemClassification.Materials && p.Date.Date <= dtDateTo).Sum(p => p.Quantity),
+                                     StartingTires = g.Where(p => p.Item.ClassificationId == (int)EItemClassification.Tires && p.Date.Date <= dtDateTo).Sum(p => p.Quantity),
+                                     StartingBatteries = g.Where(p => p.Item.ClassificationId == (int)EItemClassification.Batteries && p.Date.Date <= dtDateTo).Sum(p => p.Quantity)
+
+                                 }).ToList();
+
 
 
 
             var lstItemAssignment = from itemAssign in itemAssignmentRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value).ToList()
-                                    join item in itemRepo.List()
+                                    join item in itemRepo.List().OrderBy(p=>p.Description)
                                     on itemAssign.ItemId equals item.Id into lst
                                     from l in lst
                                     select new
@@ -180,11 +204,31 @@ namespace CNG.Controllers
                                {
                                    Code = i.Code,
                                    Description = i.Description,
-                                   UnitCost = string.Format("{0:#,##0.00}", i.UnitCost), //item.UnitCost.ToString("F"),
+                                   BegUnitCost = BegUnitCost(i.ItemId, string.Format("{0:#,##0.00}", i.UnitCost),dtDateTo),
+                                   UnitCost = string.Format("{0:#,##0.00}", i.UnitCost), //item.UnitCost.ToString("F"),   
+                                                     
                                    StartingQuantity = i != null ? inv.StartingQuantity - (inv.In + inv.Out) : 0,
-                                   EndingQuantity = i != null ? inv.EndingQuantity : 0, 
+                                   StartingMaterials = i != null ? inv.StartingMaterials - (inv.InMaterials + inv.OutMaterials) : 0,
+                                   StartingTires = i != null ? inv.StartingTires - (inv.InTires + inv.OutTires) : 0,
+                                   StartingBatteries = i != null ? inv.StartingBatteries - (inv.InBatteries + inv.OutBatteries) : 0,
+
+                                   EndingQuantity = i != null ? inv.EndingQuantity : 0,
+                                   EndingMaterials = i != null ? inv.EndingMaterials : 0,
+                                   EndingTires = i != null ? inv.EndingTires : 0,
+                                   EndingBatteries = i != null ? inv.EndingBatteries : 0,
+
                                    In = i != null ? inv.In : 0,
-                                   Out = i != null ? inv.Out : 0
+                                   InMaterials = i != null ? inv.InMaterials : 0,
+                                   InTires = i != null ? inv.InTires : 0,
+                                   InBatteries = i != null ? inv.InBatteries : 0,
+
+                                   Out = i != null ? inv.Out : 0,
+                                   OutMaterials = i != null ? inv.OutMaterials : 0,
+                                   OutTires = i != null ? inv.OutTires : 0,
+                                   OutBatteries = i != null ? inv.OutBatteries : 0
+
+
+
                                };
 
             int currCompanyId = Sessions.CompanyId.Value;
@@ -192,12 +236,12 @@ namespace CNG.Controllers
             int totalTires = itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Tires).ToList().Sum(p => p.QuantityOnHand(currCompanyId));
             int totalBatteries = itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Batteries).ToList().Sum(p => p.QuantityOnHand(currCompanyId));
 
-             ReportViewer reportViewer = new ReportViewer();
+            ReportViewer reportViewer = new ReportViewer();
             reportViewer.ProcessingMode = ProcessingMode.Local;
 
             ReportDataSource _rds = new ReportDataSource();
             _rds.Name = "DataSet1";
-            _rds.Value = lstInventory.OrderBy(p => p.Code);
+            _rds.Value = lstInventory.OrderBy(p => p.Description);
 
             reportViewer.KeepSessionAlive = false;
             reportViewer.LocalReport.DataSources.Clear();
@@ -222,6 +266,33 @@ namespace CNG.Controllers
             ViewBag.CompanyName = companyRepo.GetById(Sessions.CompanyId.Value).Name;
 
             return View();
+        }
+
+
+        public string BegUnitCost(int itemid, string unitcost, DateTime DateTo)
+        {
+            string BegUnitCost = "";
+
+            var lstStockCard = (from stockCard in itemStockCardRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value && p.Date <= DateTo).ToList()
+                                group stockCard by stockCard.ItemId into g
+                                select new
+                                {
+                                    ItemId = g.Key,
+                                    BegUnitCost = g.OrderByDescending(p => p.Date).FirstOrDefault().UnitCost
+
+                                }).ToList();
+
+            if (lstStockCard.Where(p => p.ItemId == itemid).Count() == 0)
+            {
+                BegUnitCost = unitcost;
+            }
+            else
+            {
+                BegUnitCost = string.Format("{0:#,##0.00}", lstStockCard.Where(p => p.ItemId == itemid).FirstOrDefault().BegUnitCost);
+            }
+
+
+            return BegUnitCost;
         }
     }
 }

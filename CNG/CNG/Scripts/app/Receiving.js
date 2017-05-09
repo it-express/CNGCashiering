@@ -105,6 +105,7 @@ function Save(status) {
     receiving.PoNo = $('#No').val();
     receiving.RRNo = $('#lblReNumber').text();
     receiving.Status = status;
+    receiving.DateReceived = $('#txtDateReceived').val();
 
     var lstItem = new Array();
 
@@ -137,3 +138,57 @@ function Save(status) {
         }
     });
 }
+
+$(function () {
+    $('#cb_Checked').change(function () {
+        alert('a');
+        var purchaseOrder = new Object();
+
+        purchaseOrder.No = $('#lblPoNumber').text();
+
+        if ($('#cb_Checked').prop('checked') == true) {
+            purchaseOrder.Checked = 1;
+        }
+        else { purchaseOrder.Checked = 0; }
+
+        $.ajax({
+            url: "/Receiving/RChecked",
+            type: "POST",
+            data: JSON.stringify(purchaseOrder),
+            contentType: "application/json; charset=utf-8"
+        });
+
+
+    });
+
+
+
+
+});
+
+$(function () {
+    $('#cb_Approved').change(function () {
+
+        var purchaseOrder = new Object();
+
+        purchaseOrder.No = $('#lblPoNumber').text();
+
+        if ($('#cb_Approved').prop('checked') == true) {
+            purchaseOrder.Checked = 1;
+        }
+        else { purchaseOrder.Checked = 0; }
+
+        $.ajax({
+            url: "/Receiving/RApproved",
+            type: "POST",
+            data: JSON.stringify(purchaseOrder),
+            contentType: "application/json; charset=utf-8"
+        });
+
+
+    });
+
+
+
+
+});

@@ -60,6 +60,9 @@
                     <thead>
                         <tr>
                             <th>
+                                @Html.ActionLink("No", "Index", new { sortColumn = "no", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+                            <th>
                                 @Html.ActionLink("Date", "Index", new { sortColumn = "date", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
@@ -75,6 +78,9 @@
                         @foreach (var item in Model)
                         {
                             <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.No)
+                                </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Date)
                                 </td>

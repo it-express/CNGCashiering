@@ -81,6 +81,13 @@
                         </div>
 
                         <div class="form-group">
+                            <label class="control-label col-md-2">Company</label>
+                            <div class="col-md-5">
+                                @Html.DropDownList("StockTransfer.CompanyTo", (IEnumerable<SelectListItem>)ViewBag.Companies, "", new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label class="control-label col-md-2">Search unit plate no</label>
                             <div class="col-md-5">
                                 @Html.DropDownList("UnitPlateNo", (IEnumerable<SelectListItem>)ViewBag.PlateNos, "", new { @class = "form-control" })

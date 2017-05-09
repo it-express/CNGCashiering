@@ -23,6 +23,8 @@ namespace CNG.Models
         public string RequestedBy { get; set; }
         public int CheckedBy { get; set; }
         public int ApprovedBy { get; set; }
+        public bool Checked { get; set; }
+        public bool Approved { get; set; }
 
         public virtual List<VehicleStockTransferItem> VehicleStockTransferItems { get; set; }
 

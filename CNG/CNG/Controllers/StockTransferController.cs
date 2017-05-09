@@ -24,11 +24,24 @@ namespace CNG.Controllers
         VehicleItemsRepository veItemRepo = new VehicleItemsRepository();
 
         // GET: StockTransfer
-        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
+        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page, string dateFrom, string dateTo)
         {
             ViewBag.CompanyName = companyRepo.GetById(Sessions.CompanyId.Value).Name;
             ViewBag.CurrentSort = sortColumn;
             ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
+
+            DateTime dtDateFrom = DateTime.Now.Date;
+            DateTime dtDateTo = DateTime.Now;
+
+            if (!String.IsNullOrEmpty(dateFrom))
+            {
+                dtDateFrom = Convert.ToDateTime(dateFrom);
+            }
+
+            if (!String.IsNullOrEmpty(dateTo))
+            {
+                dtDateTo = Convert.ToDateTime(dateTo);
+            }
 
             if (searchString != null)
             {
@@ -41,7 +54,7 @@ namespace CNG.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            IQueryable<StockTransfer> lstStockTransfer = stRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value);
+            IQueryable<StockTransfer> lstStockTransfer = stRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value && (p.Date >= dtDateFrom && p.Date <= dtDateTo));
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -66,6 +79,9 @@ namespace CNG.Controllers
                 lstStockTransfer = lstStockTransfer.OrderBy(sortColumn + " " + sortOrder);
             }
 
+
+            ViewBag.DateFrom = dtDateFrom.ToString("MM/dd/yyyy");
+            ViewBag.DateTo = dtDateTo.ToString("MM/dd/yyyy");
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(lstStockTransfer.ToPagedList(pageNumber, pageSize));
@@ -88,6 +104,7 @@ namespace CNG.Controllers
                 },
                 ItemTypes = new SelectList(itemTypeRepo.List().ToList(), "Id", "Description")
             };
+
 
             return View(stVM);
         }
@@ -275,11 +292,16 @@ namespace CNG.Controllers
             ViewBag.CompanyId = Request.QueryString["companyId"];
         }
 
-        public ActionResult SummaryReport(string dateFrom, string dateTo)
+        public ActionResult SummaryReport(string dateFrom, string dateTo, int? companyTo)
         {
             DateTime dtDateFrom = DateTime.Now.Date;
             DateTime dtDateTo = DateTime.Now;
 
+            if (companyTo == null)
+            {
+                companyTo = 0;
+            }
+           
             if (!String.IsNullOrEmpty(dateFrom))
             {
                 dtDateFrom = Convert.ToDateTime(dateFrom);
@@ -294,13 +316,14 @@ namespace CNG.Controllers
             int comp = Convert.ToInt32(Sessions.CompanyId.Value);
 
             var lstSt  = from st in stRepo.List().Where(st => st.CompanyId == comp
-                                                                 && (System.Data.Entity.DbFunctions.TruncateTime(st.Date) <= dtDateTo
-                                                                && System.Data.Entity.DbFunctions.TruncateTime(st.Date) >= dtDateFrom)).ToList()
+                                                                && (System.Data.Entity.DbFunctions.TruncateTime(st.Date) <= dtDateTo
+                                                                && System.Data.Entity.DbFunctions.TruncateTime(st.Date) >= dtDateFrom)
+                                                                && st.CompanyTo == companyTo).ToList()
                             join stItem in stItemRepo.List() on st.Id equals stItem.StockTransferId
                             into r
                             select new
                             {
-                                Date = st.Date.ToShortDateString(),
+                                Date = st.Date.ToString("MM/dd/yyyy"),
                                 PlateNo = st.UnitPlateNo,
                                 No = st.No,
                                 ItemDesc = r.FirstOrDefault().Item.Description,
@@ -329,6 +352,14 @@ namespace CNG.Controllers
             _parameter.Add(new ReportParameter("DateRange", dtDateFrom.ToString("MMMM dd, yyyy") + " - " + dtDateTo.ToString("MMMM dd, yyyy")));
             _parameter.Add(new ReportParameter("CompanyName", companyRepo.GetById(Sessions.CompanyId.Value).Name));
             _parameter.Add(new ReportParameter("CompanyAddress", companyRepo.GetById(Sessions.CompanyId.Value).Address));
+            if (companyTo == 0)
+            {
+                _parameter.Add(new ReportParameter("CompanyTo",""));
+            }
+            else
+            {
+                _parameter.Add(new ReportParameter("CompanyTo", companyRepo.GetById(Convert.ToInt32(companyTo)).Name));
+            }
             reportViewer.LocalReport.SetParameters(_parameter);
 
             reportViewer.LocalReport.Refresh();
@@ -340,6 +371,8 @@ namespace CNG.Controllers
             ViewBag.DateTo = dtDateTo.ToString("MM/dd/yyyy");
 
             ViewBag.CompanyName = companyRepo.GetById(Sessions.CompanyId.Value).Name;
+
+            ViewBag.Companies = new SelectList(companyRepo.List().Where(p => p.Id != Sessions.CompanyId.Value), "Id", "Name");
 
             return View();
         }

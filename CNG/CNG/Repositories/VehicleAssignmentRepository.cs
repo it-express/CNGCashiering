@@ -15,6 +15,20 @@ namespace CNG.Models
             return context.VehicleAssignments;
         }
 
+        public int GetIdByVehicleId(int VehicleId)
+        {
+            int companyId = context.VehicleAssignments.FirstOrDefault(p => p.VehicleId == VehicleId).CompanyId;
+
+            return companyId;
+        }
+
+        public string GetCompanyByVehicleId(int VehicleId)
+        {
+            string company = context.VehicleAssignments.FirstOrDefault(p => p.VehicleId == VehicleId).Company.Name;
+
+            return company;
+        }
+
         public void Save(List<VehicleAssignment> lstItemAssignment)
         {
             int companyId = lstItemAssignment[0].CompanyId;

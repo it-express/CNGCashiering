@@ -46,10 +46,18 @@ namespace CNG.Models
 
         public string CheckedBy { get; set; }
 
+        public int? CompanyId { get; set; }
         public int Status { get; set; }
 
         public string RRNo { get; set; }
+        public bool Checked { get; set; }
+        public bool Approved { get; set; }
+        public bool RChecked { get; set; }
+        public bool RApproved { get; set; }
+        public bool isRP { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? ReceivedDate { get; set; }
         public virtual Vendor Vendor { get; set; }
         [ForeignKey("ShipTo")]
         public virtual Company ShipToCompany { get; set; }
@@ -65,6 +73,14 @@ namespace CNG.Models
         public string DueDate {
             get
             { return Date.AddDays(Vendor.Terms).ToShortDateString(); }
+        }
+
+        public decimal TotalAmountItems
+        {
+            get
+            {
+                return PurchaseOrderItems.Sum(p => p.Amount);
+            }
         }
 
         public string StatusDescription {
@@ -100,4 +116,7 @@ namespace CNG.Models
         Saved = 1,
         Submitted = 2
     }
+
+
+  
 }

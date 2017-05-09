@@ -51,7 +51,7 @@
                     @Html.AntiForgeryToken()
 
                     <div class="form-horizontal">
-                        <h4>PO Number <label id="lblPoNumber">@ViewBag.PoNumber</label></h4>
+                        <h4>PO Number<label id="lblPoNumber">@ViewBag.PoNumber</label></h4>
                         <hr />
 
 
@@ -210,7 +210,7 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td> <label id="lblTotalAmount">@Model.PurchaseOrder.ItemsTotalAmount.ToString("N")</label></td>
+                                            <td> <label id="lblTotalAmount">@Model.PurchaseOrder.ItemsTotalAmount.ToString("#,##0.00")</label></td>
                                             <td></td>
                                             <td></td>
                                         </tr>

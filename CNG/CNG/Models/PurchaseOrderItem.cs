@@ -11,6 +11,7 @@ namespace CNG.Models
     public class PurchaseOrderItem
     {
         private ReceivingRepository receivingRepo = new ReceivingRepository();
+        private  PurchaseOrderRepository poRepo = new PurchaseOrderRepository();
 
         public PurchaseOrderItem()
         {
@@ -29,6 +30,9 @@ namespace CNG.Models
         [Required]
         [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
         public decimal UnitCost { get; set; }
+
+        public string GetUnitCost
+        { get { return UnitCost.ToString("#,##0.00"); } }
 
         public decimal DisplayUnitCost
         { get
@@ -67,6 +71,31 @@ namespace CNG.Models
             }
         }
 
+        public DateTime? ReceivedDate
+        {
+            get
+            {
+                DateTime? receiveddate = receivingRepo.ListByPurchaseOrderItemId(Id).OrderByDescending(p=>p.DateReceived).First().DateReceived;
+
+                return receiveddate;
+            }
+        }
+
+        public string VendorName
+        {
+            get
+            {
+                string vendor = "";
+                try
+                {
+                     vendor = poRepo.GetById(PurchaseOrderId).Vendor.Name;
+                }
+                catch {  vendor = ""; }
+
+                return vendor;
+            }
+        }
+
         public string DrNo { get; set; }
 
         public DateTime Date { get; set; }
@@ -87,6 +116,9 @@ namespace CNG.Models
                 return UnitCost * Quantity;
             }
         }
+
+        public string GetAmount
+        { get { return Amount.ToString("#,##0.00"); } }
 
         public int Balance {
             get {

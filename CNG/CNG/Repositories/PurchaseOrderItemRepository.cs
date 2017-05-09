@@ -36,5 +36,12 @@ namespace CNG.Models
 
             return poItem;
         }
+
+        public int GetQuantity(int PoItemID)
+        {
+            int qty = context.PurchaseOrderItems.FirstOrDefault(p => p.Id == PoItemID).Quantity;
+
+            return qty;
+        }
     }
 }

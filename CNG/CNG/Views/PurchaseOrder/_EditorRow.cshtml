@@ -21,11 +21,11 @@
             @Model.UnitCost.ToString("N")
         </label>*@
 
-        <input type='text' class='lblUnitCost form-control' value="@Model.DisplayUnitCost.ToString("N")" />
+        <input type='text' class='lblUnitCost form-control' value="@Model.DisplayUnitCost.ToString("#,##0.00")" />
 
     </td>
     <td>
-        <span class='txtAmount'>@Model.Amount.ToString("N")</span>
+        <span class='txtAmount'>@Model.Amount.ToString("#,##0.00")</span>
     </td>
     <td>
         <textarea class='txtRemarks form-control'> @Model.Remarks </textarea>

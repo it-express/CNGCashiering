@@ -22,6 +22,7 @@ namespace CNG.Models
 
         public DateTime RequisitionDate { get; set; }
         public string JobOrderNo { get; set; }
+        public int CompanyTo { get; set; }
         public string UnitPlateNo { get; set; }
         public DateTime JobOrderDate { get; set; }
         public string OdometerReading { get; set; }
@@ -29,6 +30,8 @@ namespace CNG.Models
 
         public string ReportedBy { get; set; }
         public string CheckedBy { get; set; }
+        public bool Checked { get; set; }
+        public bool Approved { get; set; }
 
         public List<Item> Items { get; set; }
     }

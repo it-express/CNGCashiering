@@ -22,6 +22,8 @@ namespace CNG.Models
 
         public string CheckedBy { get; set; }
 
+        public bool Checked { get; set; }
+        public bool Approved { get; set; }
         public List<Item> Items { get; set; }
     }
 }

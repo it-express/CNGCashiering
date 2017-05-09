@@ -5,6 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/app/Common.js"></script>
+<script src="~/Scripts/app/VehicleStockTransfer.js"></script>
+
 <!-- start: TOOLBAR -->
 <div class="toolbar row">
     <div class="col-sm-6 hidden-xs">
@@ -43,7 +47,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.No)</label>
                         <div class="col-md-5">
-                            <label class="form-control">@Html.DisplayFor(model => model.No)</label>
+                            <label id="lblNo" class="form-control">@Html.DisplayFor(model => model.No)</label>
                         </div>
                     </div>
 
@@ -66,6 +70,14 @@
                         <div class="col-md-5">
                             <label class="form-control">@Html.DisplayFor(model => model.CheckedByObj.Username)</label>
                         </div>
+                        @if (ViewBag.UserLevel == 1)
+                        {
+                            @Html.CheckBoxFor(model => model.Checked, new { id = "cb_Checked", @disabled = "disabled" })
+                        }
+                        else
+                        {
+                            @Html.CheckBoxFor(model => model.Checked, new { id = "cb_Checked" })
+                        }
                     </div>
 
                     <div class="form-group">
@@ -73,6 +85,14 @@
                         <div class="col-md-5">
                             <label class="form-control">@Html.DisplayFor(model => model.ApprovedByObj.Username)</label>
                         </div>
+                        @if (ViewBag.UserLevel == 3)
+                        {
+                            @Html.CheckBoxFor(model => model.Approved, new { id = "cb_Approved" })
+                        }
+                        else
+                        {
+                            @Html.CheckBoxFor(model => model.Approved, new { id = "cb_Approved", @disabled = "disabled" })
+                        }
                     </div>
 
                     <div class="form-group">

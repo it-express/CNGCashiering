@@ -1,5 +1,5 @@
 ﻿$(document).on('click', '#btnReceivingAdd', function () {
-    var url = 'RenderReceivingLogEditorRow?receivingId=0';
+    var url = 'RenderReceivingLogEditorRow?receivingId=0&POItemID=' + $('#lblPOItemId').val();
 
     $.get(url, function (data) {
         $('#divReceivingLog table').append(data);
@@ -13,6 +13,8 @@ $(document).on('click', '#btnReceivingSave', function () {
 
     receiving.PurchaseOrderItemId = $('#lblPOItemId').val();
     receiving.RRNo = $('#HiddenReNumber').val();
+    receiving.DRNo = $('#txtDrNo').val();
+    receiving.DateReceived = $('#txtDateReceived').val();
     //alert($('#lblPOItemId').val());
     //alert($('#HiddenReNumber').val());
 
@@ -25,7 +27,7 @@ $(document).on('click', '#btnReceivingSave', function () {
         item.Id = $this.data("item-id");
         item.Quantity = $this.find(".txtQuantity").val();
         item.SerialNo = $this.find(".txtSerialNo").val();
-        item.DrNo = $this.find(".txtDrNo").val();
+        //item.DrNo = $this.find(".txtDrNo").val();
         item.DateReceived = $this.find(".txtDateReceived").val();
         item.TransLogId = $this.find(".lblTransLogId").val();
         lstItem.push(item);
@@ -66,6 +68,11 @@ function Validate(receiving) {
     var PoQuantity = parseInt($('#txtPoQuantity').val());
     if (total > PoQuantity) {
         err = "Received quantity must be less than the PO quantity.";
+    }
+
+    if ($('#txtDrNo').val() == "")
+    {
+        err = "DR No is Required";
     }
 
     return err;

@@ -9,6 +9,8 @@ namespace CNG.Models
 {
     public class RequisitionItem
     {
+        ItemRepository itemRepo = new ItemRepository();
+
         [Key]
         public int Id { get; set; }
         public int RequisitionId { get; set; }
@@ -23,6 +25,9 @@ namespace CNG.Models
         public int? TransactionLogId { get; set; }
 
         [ForeignKey("ItemId")]
+
+        public decimal GetItemUnitCost
+        { get { return itemRepo.GetById(ItemId).UnitCost; } }
         public virtual Item Item { get; set; }
 
         public virtual TransactionLog TransactionLog { get; set; }

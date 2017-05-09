@@ -8,6 +8,8 @@ namespace CNG.Models
 {
     public class Receiving
     {
+        PurchaseOrderRepository poItemRepo = new PurchaseOrderRepository();
+
         public int Id { get; set; }
         public int PurchaseOrderItemId { get; set; }
         public int Quantity { get; set; }
@@ -22,6 +24,11 @@ namespace CNG.Models
         public virtual TransactionLog TransactionLog { get; set; }
         public virtual PurchaseOrderItem PurchaseOrderItem { get; set; }
 
-        
+        public int GetPOItemQuantity(int PoItemID)
+        {
+            return poItemRepo.GetQuantity(PoItemID);   
+        }
+
+
     }
 }

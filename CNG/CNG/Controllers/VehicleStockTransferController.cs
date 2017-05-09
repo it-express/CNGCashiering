@@ -73,7 +73,7 @@ namespace CNG.Controllers
 
             VehicleStockTransfer vehicleStockTransfer = new VehicleStockTransfer
             {
-                No = vstRepo.GenerateVehicleStockTransferNo(),
+                No = vstRepo.GenerateVehicleStockTransferNo(DateTime.Now),
                 Date = DateTime.Now
             };
 
@@ -270,5 +270,26 @@ namespace CNG.Controllers
             return View();
         }
 
+        public void Checked(VehicleStockTransferDTO entry)
+        {
+            VehicleStockTransfer po = new VehicleStockTransfer();
+
+            po.No = entry.No;
+            po.Checked = entry.Checked;
+
+            vstRepo.Checked(po);
+
+        }
+
+        public void Approved(VehicleStockTransferDTO entry)
+        {
+            VehicleStockTransfer po = new VehicleStockTransfer();
+
+            po.No = entry.No;
+            po.Approved = entry.Approved;
+
+            vstRepo.Approved(po);
+
+        }
     }
 }

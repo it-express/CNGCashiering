@@ -30,10 +30,14 @@ namespace CNG
         }
 
 
+
         public void Save(Receiving receiving, int itemid, string unitcost)
         {
             if (receiving.Id == 0)
             {
+                if (receiving.SerialNo == null)
+                { receiving.SerialNo = "N/A"; }
+
                 context.Receivings.Add(receiving);
 
                 context.SaveChanges();

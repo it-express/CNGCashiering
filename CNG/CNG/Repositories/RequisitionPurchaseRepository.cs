@@ -9,6 +9,7 @@ namespace CNG.Models
     public class RequisitionPurchaseRepository
     {
         private CNGDBContext context = new CNGDBContext();
+        CompanyRepository companyRepo = new CompanyRepository();
 
         public IQueryable<RequisitionPurchase> List()
         {
@@ -35,8 +36,9 @@ namespace CNG.Models
             context.SaveChanges();
         }
 
-        public string GenerateRpNo()
+        public string GenerateRpNo(DateTime Date)
         {
+            int companyId = Sessions.CompanyId.Value;
             //get last id
             int lastId = 0;
             if (List().Count() > 0)
@@ -44,10 +46,25 @@ namespace CNG.Models
                 lastId = List().Max(p => p.Id);
             }
 
+            string prefix = companyRepo.GetById(companyId).Prefix;
             //MMyy-series
-            string poNumber = DateTime.Now.ToString("MMyy") + "-" + (lastId + 1).ToString().PadLeft(4, '0');
+            string poNumber = prefix + "-RP" + Date.ToString("MMyy") + "-" + (lastId + 1).ToString().PadLeft(4, '0');
 
+            bool poExist = context.RequisitionPurchases.Count(p => p.No == poNumber) > 0;
+
+            while (poExist)
+            {
+                if (List().Count() > 0)
+                {
+                    lastId = lastId + 1;
+                    poNumber = prefix + "-RP" + Date.ToString("MMyy") + "-" + lastId.ToString().PadLeft(4, '0');
+                    poExist = context.RequisitionPurchases.Count(p => p.No == poNumber) > 0;
+                }
+
+            }
             return poNumber;
         }
+
+      
     }
 }

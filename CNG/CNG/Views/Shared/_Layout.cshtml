@@ -188,13 +188,9 @@
                                     <li>
                                         <a href="@Url.Action("Index", "Vendor")"><i class="fa fa-users"></i> <span class="title">Vendor</span> </a>
                                     </li>
-                                    if (Convert.ToInt32(Session["utype"]) == 3)
-                                    {
-                                        //3 - sysadmin
-                                        <li>
-                                            <a href="@Url.Action("Index", "User")"><i class="fa fa-user"></i> <span class="title">User</span> </a>
-                                        </li>
-                                    }
+                                     <li>
+                                            <a href="@Url.Action("Index", "User")"><i class="fa fa-user"></i> <span class="title">User</span> </a> 
+                                    </li>                           
                                 }
                             </ul>
                         </li>

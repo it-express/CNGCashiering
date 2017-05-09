@@ -18,10 +18,12 @@ namespace CNG.Controllers
         RequisitionItemRepository reqItemRepo = new RequisitionItemRepository();
         VehicleRepository vehicleRepo = new VehicleRepository();
         VehicleItemsRepository veItemRepo = new VehicleItemsRepository();
+        VehicleAssignmentRepository veAssignRepo = new VehicleAssignmentRepository();
         ItemRepository itemRepo = new ItemRepository();
         CompanyRepository companyRepo = new CompanyRepository();
         ItemTypeRepository itemTypeRepo = new ItemTypeRepository();
-       
+        StockTransferRepository stRepo = new StockTransferRepository();
+        UserRepository userRepo = new UserRepository();
 
         public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page, int? companyId)
         {
@@ -84,7 +86,7 @@ namespace CNG.Controllers
             RequisitionVM reqVM = new RequisitionVM
             {
                 Requisition = new Requisition {
-                    No = reqRepo.GenerateReqNo(),
+                    No = reqRepo.GenerateReqNo(DateTime.Now),
                     Date = DateTime.Now,
                     JobOrderDate = DateTime.Now
                 },
@@ -109,6 +111,9 @@ namespace CNG.Controllers
                               select new { No = p.LicenseNo };
             ViewBag.PlateNos = new SelectList(lstPlateNos, "No", "No", reqVM.Requisition.UnitPlateNo);
 
+            int vehicleId = vehicleRepo.GetIdByPlateNo(reqVM.Requisition.UnitPlateNo);
+            ViewBag.Companies = new SelectList(companyRepo.List(), "Id", "Name",veAssignRepo.GetIdByVehicleId(vehicleId));
+
             return View("Create", reqVM);
         }
 
@@ -122,6 +127,7 @@ namespace CNG.Controllers
             Requisition req = reqRepo.GetByNo(reqNo);
             req.RequisitionItems = new List<RequisitionItem>();
 
+            ViewBag.UserLevel = userRepo.GetByUserLevel(Common.GetCurrentUser.Id);
             ViewBag.CompanyId = Request.QueryString["companyId"];
 
             return View(req);
@@ -152,6 +158,7 @@ namespace CNG.Controllers
                 req.No = entry.No;
                 req.Date = entry.RequisitionDate;
                 req.JobOrderNo = entry.JobOrderNo;
+                req.CompanyId = entry.CompanyTo;
                 req.UnitPlateNo = entry.UnitPlateNo;
                 req.JobOrderDate = entry.JobOrderDate;
                 req.OdometerReading = entry.OdometerReading; //Get from session
@@ -161,8 +168,6 @@ namespace CNG.Controllers
                 req.ApprovedBy = Common.GetCurrentUser.GeneralManagerId; //Get from session
 
                 req.CompanyId = Sessions.CompanyId.Value;
-
-                int vehicleId = vehicleRepo.GetIdByPlateNo(entry.UnitPlateNo);
 
                 List<RequisitionItem> lstReqItem = new List<RequisitionItem>();
                 foreach (RequisitionDTO.Item item in entry.Items)
@@ -184,22 +189,68 @@ namespace CNG.Controllers
                 req.RequisitionItems = lstReqItem;
 
 
+              
+                if (Sessions.CompanyId != entry.CompanyTo)
+                {
+                    SaveStockTransfer(entry);
+                }
                 reqRepo.Save(req);
-                int? translogId = req.RequisitionItems.Last().TransactionLogId;
-                SaveVehicle(vehicleId, translogId);
             }
             catch { }
         }
 
-        public void SaveVehicle(int vehicleId, int? translogId)
+        public void SaveStockTransfer(RequisitionDTO entry)
         {
-            VehicleItems vi = new VehicleItems();
-            vi.VehicleId = vehicleId;
-            vi.TransactionLogId = translogId;
+            StockTransfer st = new StockTransfer();
 
-            veItemRepo.Save(vi);
+            st.No = entry.No;
+            st.Date = entry.JobOrderDate;
+
+            if (entry.CompanyTo == 0)
+            {
+                int vehicleId = vehicleRepo.GetIdByPlateNo(entry.UnitPlateNo);
+                st.CompanyTo = veAssignRepo.GetIdByVehicleId(vehicleId);
+            }
+            else
+            {
+                st.CompanyTo = entry.CompanyTo;
+            }
+            st.JobOrderNo = entry.JobOrderNo;
+            st.UnitPlateNo = entry.UnitPlateNo;
+            st.JobOrderDate = entry.JobOrderDate;
+            st.OdometerReading = entry.OdometerReading; //Get from session
+            st.DriverName = entry.DriverName; //Get from session
+            st.ReportedBy = entry.ReportedBy; //Get from session
+            st.CheckedBy = entry.CheckedBy; //Get from session
+            st.ApprovedBy = Common.GetCurrentUser.GeneralManagerId; //Get from session
+
+            st.CompanyId = Sessions.CompanyId.Value;
+
+            List<StockTransferItem> lstStItem = new List<StockTransferItem>();
+            foreach (RequisitionDTO.Item item in entry.Items)
+            {
+
+                StockTransferItem stItem = new StockTransferItem
+                {
+
+                    StockTransferId = st.Id,
+                    ItemId = item.ItemId,
+                    Quantity = item.Quantity,
+                    SerialNo = item.SerialNo,
+                    Type = item.Type,
+                    QuantityReturn = item.QuantityReturn,
+                    SerialNoReturn = item.SerialNoReturn
+
+                };
+
+                lstStItem.Add(stItem);
+            }
+
+            st.StockTransferItems = lstStItem;
+            stRepo.Save(st);
         }
 
+       
         public ActionResult Report(string poNo)
         {
             Requisition req = reqRepo.GetByNo(poNo);
@@ -250,6 +301,8 @@ namespace CNG.Controllers
         }
         private void InitViewBags()
         {
+            ViewBag.Companies = new SelectList(companyRepo.List(), "Id", "Name");
+
             ViewBag.Items = new SelectList(itemRepo.List(), "Id", "Description");
 
             ViewBag.ApprovedBy = Common.GetCurrentUser.GeneralManager.FullName;
@@ -326,6 +379,47 @@ namespace CNG.Controllers
             ViewBag.CompanyName = companyRepo.GetById(Sessions.CompanyId.Value).Name;
 
             return View();
+        }
+
+        public JsonResult GetById(int CompanyID)
+        {
+            VehicleAssignmentRepository vehicleAssignmentRepo = new VehicleAssignmentRepository();
+
+            List<VehicleAssignmentVM> lstItemAssignmentVM = (from p in vehicleRepo.List().ToList()
+                                                             join q in vehicleAssignmentRepo.List().Where(p => p.CompanyId == CompanyID).ToList()
+                                                             on p.Id equals q.VehicleId into pq
+                                                             from r in pq.DefaultIfEmpty()
+                                                             where r == null ? false : true
+                                                             select new VehicleAssignmentVM
+                                                             {
+                                                                 VehicleId = p.Id,
+                                                                 VehiclePlateNo = p.LicenseNo
+
+                                                             }).ToList();
+
+            return Json(lstItemAssignmentVM);
+        }
+
+        public void Checked(RequisitionDTO entry)
+        {
+            Requisition po = new Requisition();
+
+            po.No = entry.No;
+            po.Checked = entry.Checked;
+
+            reqRepo.Checked(po);
+
+        }
+
+        public void Approved(RequisitionDTO entry)
+        {
+            Requisition po = new Requisition();
+
+            po.No = entry.No;
+            po.Approved = entry.Approved;
+
+            reqRepo.Approved(po);
+
         }
     }
 }

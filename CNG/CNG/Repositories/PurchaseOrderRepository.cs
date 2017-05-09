@@ -47,6 +47,7 @@ namespace CNG.Models
             {
                 po.ShipToCompany = null;
                 po.Vendor = null;
+                po.No = GeneratePoNumber(po.Date);
                 context.PurchaseOrders.Add(po);
               
                 context.SaveChanges();
@@ -114,6 +115,50 @@ namespace CNG.Models
             context.SaveChanges();
         }
 
+        public void Checked(PurchaseOrder po)
+        {
+            PurchaseOrder dbEntry = context.PurchaseOrders.FirstOrDefault(p => p.No == po.No);
+            if (dbEntry != null)
+            {
+                dbEntry.Checked = po.Checked;
+            }
+
+            context.SaveChanges();
+        }
+
+        public void Approved(PurchaseOrder po)
+        {
+            PurchaseOrder dbEntry = context.PurchaseOrders.FirstOrDefault(p => p.No == po.No);
+            if (dbEntry != null)
+            {
+                dbEntry.Approved = po.Approved;
+            }
+
+            context.SaveChanges();
+        }
+
+        public void RChecked(PurchaseOrder po)
+        {
+            PurchaseOrder dbEntry = context.PurchaseOrders.FirstOrDefault(p => p.No == po.No);
+            if (dbEntry != null)
+            {
+                dbEntry.RChecked = po.RChecked;
+            }
+
+            context.SaveChanges();
+        }
+
+        public void RApproved(PurchaseOrder po)
+        {
+            PurchaseOrder dbEntry = context.PurchaseOrders.FirstOrDefault(p => p.No == po.No);
+            if (dbEntry != null)
+            {
+                dbEntry.RApproved = po.RApproved;
+            }
+
+            context.SaveChanges();
+        }
+
         //For Stock Card
 
         public void InsertStockCard(int ReferenceId, int itemId, decimal unitcost, int quantiy)
@@ -133,11 +178,9 @@ namespace CNG.Models
 
 
             context.StockCards.Add(stockCard);
-
-
         }
 
-        public string GeneratePoNumber()
+        public string GeneratePoNumber(DateTime Date)
         {
             int companyId = Sessions.CompanyId.Value;
             //get last id
@@ -150,12 +193,54 @@ namespace CNG.Models
             string prefix = companyRepo.GetById(companyId).Prefix;
 
             //MMyy-series
-            string poNumber = prefix + "-" + DateTime.Now.ToString("MMyy") + "-" + lastId.ToString().PadLeft(4, '0');
+            string poNumber = prefix + "-" + Date.ToString("MMyy") + "-" + lastId.ToString().PadLeft(4, '0');
+
+            bool poExist = context.PurchaseOrders.Count(p => p.No == poNumber) > 0;
+
+            while (poExist)
+            {
+                if (cnt > 0)
+                {
+                    lastId = lastId + 1;
+                    poNumber = prefix + "-" + Date.ToString("MMyy") + "-" + lastId.ToString().PadLeft(4, '0');
+                    poExist = context.PurchaseOrders.Count(p => p.No == poNumber) > 0;
+                }
+
+            }
 
             return poNumber;
         }
 
-        public string GenerateReNumber()
+        public string GenerateRpNo(DateTime Date)
+        {
+            int companyId = Sessions.CompanyId.Value;
+            //get last id
+            int lastId = 0;
+            if (List().Count() > 0)
+            {
+                lastId = List().Max(p => p.Id);
+            }
+
+            string prefix = companyRepo.GetById(companyId).Prefix;
+            //MMyy-series
+            string poNumber = prefix + "-RP" + Date.ToString("MMyy") + "-" + (lastId + 1).ToString().PadLeft(4, '0');
+
+            bool poExist = context.PurchaseOrders.Count(p => p.No == poNumber) > 0;
+
+            while (poExist)
+            {
+                if (List().Count() > 0)
+                {
+                    lastId = lastId + 1;
+                    poNumber = prefix + "-RP" + Date.ToString("MMyy") + "-" + lastId.ToString().PadLeft(4, '0');
+                    poExist = context.PurchaseOrders.Count(p => p.No == poNumber) > 0;
+                }
+
+            }
+            return poNumber;
+        }
+
+        public string GenerateReNumber(DateTime Date)
         {
             int companyId = Sessions.CompanyId.Value;
             //get last id
@@ -168,8 +253,22 @@ namespace CNG.Models
 
             string prefix = companyRepo.GetById(companyId).Prefix;
 
+
             //MMyy-series
-            string reNumber = prefix + "-" + DateTime.Now.ToString("MMyy") + "-" + lastId.ToString().PadLeft(4, '0');
+            string reNumber = prefix + "-" + Date.ToString("MMyy") + "-" + lastId.ToString().PadLeft(4, '0');
+
+            bool poExist = context.PurchaseOrders.Count(p => p.RRNo == reNumber) > 0;
+
+            while (poExist)
+            {
+                if (cnt > 0)
+                {
+                    lastId = lastId + 1;
+                    reNumber = prefix + "-" + Date.ToString("MMyy") + "-" + lastId.ToString().PadLeft(4, '0');
+                    poExist = context.PurchaseOrders.Count(p => p.RRNo == reNumber) > 0;
+                }
+
+            }
 
             return reNumber;
         }
@@ -181,11 +280,12 @@ namespace CNG.Models
             return lst;
         }
 
-        public void ChangeStatus(string poNo, int status, string RRNo)
+        public void ChangeStatus(string poNo, int status, string RRNo, DateTime DateReceived)
         {
             PurchaseOrder po = context.PurchaseOrders.FirstOrDefault(p => p.No == poNo);
             po.Status = status;
-            po.RRNo = RRNo;
+            po.RRNo = GenerateReNumber(DateReceived);
+            po.ReceivedDate = DateReceived;
 
             context.SaveChanges();
 
@@ -193,6 +293,13 @@ namespace CNG.Models
             {
                 UpdateItemPriceLogs(Item.ItemId, Item.Quantity);
             }
+        }
+
+        public int GetQuantity(int PoItemID)
+        {
+            int qty = context.PurchaseOrderItems.FirstOrDefault(p => p.Id == PoItemID).Quantity;
+
+            return qty;
         }
 
         public void UpdateItemPriceLogs(int itemid, int quantity)
@@ -235,6 +342,8 @@ namespace CNG.Models
             context.SaveChanges();
         }
     }
+
+
 
     public enum EReceivingStatus {
         NotReceived = 0,
