@@ -46,7 +46,7 @@
                     </div>
 
 
-                    <div class="form-group">
+                    <div class="form-group TableHolder">
                         <label class="control-label col-md-1"></label>
                         <div class="col-md-10">
                             <table class="table table-hover table-striped table-bordered">
@@ -156,46 +156,52 @@
                                 </tbody>
                             </table>
 
-                            <div>
-                                
-                                @if (ViewBag.UserLevel == 1)
-                                {
-                                    @Html.CheckBoxFor(model => model.RChecked, new { id = "cb_Checked", @disabled = "disabled" })
-                                }
-                                else
-                                {
-                                    @Html.CheckBoxFor(model => model.RChecked, new { id = "cb_Checked" })
-                                }
-                                checked
                             </div>
-                            <div>
-                               
-                                @if (ViewBag.UserLevel == 3)
-                                {
-                                    @Html.CheckBoxFor(model => model.RApproved, new { id = "cb_Approved" })
-                                }
-                                else
-                                {
-                                    @Html.CheckBoxFor(model => model.RApproved, new { id = "cb_Approved", @disabled = "disabled" })
-                                }
-                                approved
-                            </div>
+                    </div>
 
-                            </div>
+                    <div class="form-group">
+
+                        <div class="col-md-2 col-md-offset-1">
+
+                            @if (ViewBag.UserLevel == 1)
+                            {
+                                @Html.CheckBoxFor(model => model.RChecked, new { id = "cb_Checked", @disabled = "disabled" })
+                            }
+                            else
+                            {
+                                @Html.CheckBoxFor(model => model.RChecked, new { id = "cb_Checked" })
+                            }
+                            checked
+                        </div>
+                        <div class="col-md-2">
+
+                            @if (ViewBag.UserLevel == 3)
+                            {
+                                @Html.CheckBoxFor(model => model.RApproved, new { id = "cb_Approved" })
+                            }
+                            else
+                            {
+                                @Html.CheckBoxFor(model => model.RApproved, new { id = "cb_Approved", @disabled = "disabled" })
+                            }
+                            approved
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-1 col-md-10">
+                            <a href="@Url.Action("Index")" class="btn btn-dark-beige">
+                                Back to List
+                            </a>
+                            <a href="@Url.Action("Report", new { poNo = Model.No })" class="btn btn-dark-blue">
+                                Print
+                            </a>
+                        </div>
                     </div>
                     
                 </div>
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <a href="@Url.Action("Index")" class="btn btn-dark-beige">
-                            Back to List
-                        </a>
-                        <a href="@Url.Action("Report", new { poNo = Model.No })" class="btn btn-dark-blue">
-                            Print
-                        </a>
-                    </div>
-                </div>
+                
             </div>
         </div>
         <!-- end: BASIC TABLE PANEL -->

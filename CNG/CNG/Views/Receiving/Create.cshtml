@@ -59,7 +59,7 @@
                     <hr />
 
                     <div class="form-group">
-                        <label class="control-label col-md-2">Search PO</label>
+                        <label class="control-label col-md-2">Search PO:</label>
                         <div class="col-md-5">
                             @if (Model.Id == 0)
                             {
@@ -67,15 +67,26 @@
                             }
                             else
                             {
-                                <input type="text" id="No" name="No" value="@Model.No" readonly />
+                                <input type="text" id="No" name="No" value="@Model.No" readonly class="form-control" />
                             }
                         </div>
-                        DR NO: <input type="text" id="txtDrNo" name="txtDrNo" value="" />
-                        Date Received: <input type="text" id="txtDateReceived" name="txtDateReceived" value="@Model.ReceivedDate.ToString()" class="date-picker form-control" />
                     </div>
 
                     <div class="form-group">
-                        @*<label class="col-md-1"></label>*@
+                        <label class="control-label col-md-2">DR NO:</label>
+                        <div class="col-md-5">
+                            <input type="text" id="txtDrNo" name="txtDrNo" value="" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Date Received:</label>
+                        <div class="col-md-5">
+                            <input type="text" id="txtDateReceived" name="txtDateReceived" value="@Model.ReceivedDate.ToString()" class="date-picker form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group TableHolder">
                         <div class="col-md-12">
                             <table id="tblItems" class="table table-hover table-striped table-bordered">
                                 <thead>
@@ -122,7 +133,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Receiving Logs</h4>
-               
+
             </div>
             <div class="modal-body">
             </div>

@@ -48,31 +48,29 @@
             </div>
             <div class="panel-body">
 
-                @using (Html.BeginForm())
-                {
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Date From</label>
-                            <div class="col-md-6">
-                                <input type="text" name="DateFrom" class="date-picker form-control" value="@ViewBag.DateFrom" />
-                            </div>
-                        </div>
-                    </div>
-
-                        <div class="col-md-5 col-md-pull-1">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Date To</label>
-                                <div class="col-md-6">
-                                    <input type="text" name="DateTo" class="date-picker form-control" value="@ViewBag.DateTo" />
-                                </div>
-                            </div>
+                <div class="row ToolHolder">
+                     @using (Html.BeginForm())
+                     {
+                        <label class="col-sm-1">Date From</label>
+                        <div class="col-sm-3">
+                            <input type="text" name="DateFrom" class="date-picker form-control" value="@ViewBag.DateFrom" />
                         </div>
 
-                    <div class="col-md-4 col-sm-12 no-padding pull-right" style="margin-bottom:16px; text-align:right;">
-                        @Html.TextBox("SearchString", (string)ViewBag.CurrentFilter, new { @class = "form-control", @placeholder = "Find", @style = "display:inline; width:74%;" })
-                        <input type="submit" value="Search" class="btn btn-dark-beige" />
-                    </div>
-                }
+                        <label class="col-sm-1">Date To</label>
+                        <div class="col-sm-3">
+                            <input type="text" name="DateTo" class="date-picker form-control" value="@ViewBag.DateTo" />
+                        </div>
+
+                        <div class="col-sm-3">
+                            @Html.TextBox("SearchString", (string)ViewBag.CurrentFilter, new { @class = "form-control", @placeholder = "Find" })                            
+                        </div>
+                        <div class="col-sm-1 no-padding">
+                            <input type="submit" value="Search" class="btn btn-dark-beige" />
+                        </div>
+
+                     }
+                </div>
+
 
 
                 <div class="clearfix"></div>

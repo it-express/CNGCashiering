@@ -8147,4 +8147,9 @@ transition: all 0.3s ease 0s 1s ease-in-out;
 color:#DD0000;
 }
 
+.TableHolder,
+.ToolHolder{
+display:block;
+margin-bottom:32px;
+}
 /*additional*/
