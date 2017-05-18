@@ -60,7 +60,7 @@ namespace CNG.Models
             if (item.Id == 0)
             {
                 IQueryable<Item> lstItem = List();
-                lstItem = lstItem.Where(s => s.Description.Contains(item.Description.Trim()));
+                lstItem = lstItem.Where(s => s.Description == item.Description.Trim());
 
                 if (lstItem.Count() == 0)
                 {
@@ -104,7 +104,7 @@ namespace CNG.Models
             int msg = 0;
            
                 IQueryable<Item> lstItem = List();
-                lstItem = lstItem.Where(s => s.Description.Contains(item.Description.Trim()));
+                lstItem = lstItem.Where(s => s.Description == item.Description.Trim());
                 int itemid = lstItem.Select(p => p.Id).Distinct().FirstOrDefault();
 
                 if (lstItem.Count() == 0)

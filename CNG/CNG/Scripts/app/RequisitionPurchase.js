@@ -14,7 +14,7 @@
 
     $('#btnSubmit').click(function (event) {
         event.preventDefault();
-        alert($('#txtDate').val());
+      
 
         var rp = new Object();
 

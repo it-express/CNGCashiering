@@ -10,6 +10,7 @@ namespace CNG.Models
 {
     public class PurchaseOrder
     {
+        ReceivingRepository receivingRepo = new ReceivingRepository();
         public PurchaseOrder() {
             PurchaseOrderItems = new List<PurchaseOrderItem>();
         }
@@ -80,6 +81,29 @@ namespace CNG.Models
             get
             {
                 return PurchaseOrderItems.Sum(p => p.Amount);
+            }
+        }
+
+        public int PurchaseOrderItemId
+        {
+            get
+            {
+                return PurchaseOrderItems.FirstOrDefault(p => p.PurchaseOrderId == Id).Id;
+            }
+
+        }
+
+        public string DRNo
+        {
+            
+            get
+            {
+                try
+                {
+                    return receivingRepo.ListByPurchaseOrderItemId(PurchaseOrderItemId).FirstOrDefault().DrNo;
+                }
+                catch
+                { return ""; }
             }
         }
 

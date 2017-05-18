@@ -226,9 +226,9 @@ $(function () {
         purchaseOrder.No = $('#lblPoNumber').text();
 
         if ($('#cb_Approved').prop('checked') == true) {
-            purchaseOrder.Checked = 1;
+            purchaseOrder.Approved = 1;
         }
-        else { purchaseOrder.Checked = 0; }
+        else { purchaseOrder.Approved = 0; }
 
         $.ajax({
             url: "/PurchaseOrder/Approved",

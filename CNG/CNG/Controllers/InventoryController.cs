@@ -196,40 +196,38 @@ namespace CNG.Controllers
                                         UnitCost = l.UnitCost
                                     };
 
-            var lstInventory = from inv in lstInventory2
-                               join item in lstItemAssignment
-                               on inv.ItemId equals item.ItemId into itemInv
-                               from i in itemInv
+            var lstInventory =( from item in lstItemAssignment
+                               from i in lstInventory2.Where(i=>i.ItemId == item.ItemId).DefaultIfEmpty()
                                select new
                                {
-                                   Code = i.Code,
-                                   Description = i.Description,
-                                   BegUnitCost = BegUnitCost(i.ItemId, string.Format("{0:#,##0.00}", i.UnitCost),dtDateTo),
-                                   UnitCost = string.Format("{0:#,##0.00}", i.UnitCost), //item.UnitCost.ToString("F"),   
+                                   Code = item.Code,
+                                   Description = item.Description,
+                                   BegUnitCost = BegUnitCost(item.ItemId, string.Format("{0:#,##0.00}", item.UnitCost),dtDateTo),
+                                   UnitCost = string.Format("{0:#,##0.00}", item.UnitCost), //item.UnitCost.ToString("F"),   
                                                      
-                                   StartingQuantity = i != null ? inv.StartingQuantity - (inv.In + inv.Out) : 0,
-                                   StartingMaterials = i != null ? inv.StartingMaterials - (inv.InMaterials + inv.OutMaterials) : 0,
-                                   StartingTires = i != null ? inv.StartingTires - (inv.InTires + inv.OutTires) : 0,
-                                   StartingBatteries = i != null ? inv.StartingBatteries - (inv.InBatteries + inv.OutBatteries) : 0,
+                                   StartingQuantity = i != null ? i.StartingQuantity - (i.In + i.Out) : 0,
+                                   StartingMaterials = i != null ? i.StartingMaterials - (i.InMaterials + i.OutMaterials) : 0,
+                                   StartingTires = i != null ? i.StartingTires - (i.InTires + i.OutTires) : 0,
+                                   StartingBatteries = i != null ? i.StartingBatteries - (i.InBatteries + i.OutBatteries) : 0,
 
-                                   EndingQuantity = i != null ? inv.EndingQuantity : 0,
-                                   EndingMaterials = i != null ? inv.EndingMaterials : 0,
-                                   EndingTires = i != null ? inv.EndingTires : 0,
-                                   EndingBatteries = i != null ? inv.EndingBatteries : 0,
+                                   EndingQuantity = i != null ? i.EndingQuantity : 0,
+                                   EndingMaterials = i != null ? i.EndingMaterials : 0,
+                                   EndingTires = i != null ? i.EndingTires : 0,
+                                   EndingBatteries = i != null ? i.EndingBatteries : 0,
 
-                                   In = i != null ? inv.In : 0,
-                                   InMaterials = i != null ? inv.InMaterials : 0,
-                                   InTires = i != null ? inv.InTires : 0,
-                                   InBatteries = i != null ? inv.InBatteries : 0,
+                                   In = i != null ? i.In : 0,
+                                   InMaterials = i != null ? i.InMaterials : 0,
+                                   InTires = i != null ? i.InTires : 0,
+                                   InBatteries = i != null ? i.InBatteries : 0,
 
-                                   Out = i != null ? inv.Out : 0,
-                                   OutMaterials = i != null ? inv.OutMaterials : 0,
-                                   OutTires = i != null ? inv.OutTires : 0,
-                                   OutBatteries = i != null ? inv.OutBatteries : 0
+                                   Out = i != null ? i.Out : 0,
+                                   OutMaterials = i != null ? i.OutMaterials : 0,
+                                   OutTires = i != null ? i.OutTires : 0,
+                                   OutBatteries = i != null ? i.OutBatteries : 0
 
 
 
-                               };
+                               }).ToList();
 
             int currCompanyId = Sessions.CompanyId.Value;
             int totalMaterials = itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Materials).ToList().Sum(p => p.QuantityOnHand(currCompanyId));

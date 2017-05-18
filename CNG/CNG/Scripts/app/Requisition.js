@@ -179,9 +179,9 @@ $(function () {
         req.No = $('#lblReqNo').text();
 
         if ($('#cb_Approved').prop('checked') == true) {
-            req.Checked = 1;
+            req.Approved = 1;
         }
-        else { req.Checked = 0; }
+        else { req.Approved = 0; }
 
         $.ajax({
             url: "/Requisition/Approved",

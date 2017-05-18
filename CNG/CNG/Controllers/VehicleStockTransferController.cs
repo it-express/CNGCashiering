@@ -20,6 +20,8 @@ namespace CNG.Controllers
         ItemRepository itemRepo = new ItemRepository();
         VehicleRepository vehicleRepo = new VehicleRepository();
 
+        UserRepository userRepo = new UserRepository();
+
         // GET: VehicleStockTransfer
         public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
         {
@@ -148,6 +150,8 @@ namespace CNG.Controllers
         public ActionResult Details(string vstNo)
         {
             VehicleStockTransfer vst = vstRepo.GetByNo(vstNo);
+
+            ViewBag.UserLevel = userRepo.GetByUserLevel(Common.GetCurrentUser.Id);
 
             return View(vst);
         }

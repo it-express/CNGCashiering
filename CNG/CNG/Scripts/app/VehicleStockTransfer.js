@@ -134,9 +134,9 @@ $(function () {
         vehicleStockTransfer.No = $('#lblNo').text();
 
         if ($('#cb_Approved').prop('checked') == true) {
-            vehicleStockTransfer.Checked = 1;
+            vehicleStockTransfer.Approved = 1;
         }
-        else { vehicleStockTransfer.Checked = 0; }
+        else { vehicleStockTransfer.Approved = 0; }
 
         $.ajax({
             url: "/VehicleStockTransfer/Approved",

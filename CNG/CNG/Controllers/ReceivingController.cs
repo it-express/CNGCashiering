@@ -50,12 +50,14 @@ namespace CNG.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            IQueryable<PurchaseOrder> lstReceivedPo = poRepo.ListReceived().Where(p => p.ShipTo == Sessions.CompanyId || p.CompanyId == companyId);
+            IQueryable<PurchaseOrder> lstReceivedPo = poRepo.ListReceived().Where(p => p.ShipTo == Sessions.CompanyId || p.CompanyId == companyId).OrderByDescending(p=>p.ReceivedDate);
 
             if (!String.IsNullOrEmpty(searchString))
             {
                 lstReceivedPo = lstReceivedPo.Where(s => s.RRNo.Contains(searchString)
+                                       || s.No.ToString().Contains(searchString)
                                        || s.Date.ToString().Contains(searchString)
+                                       || s.ReceivedDate.ToString().Contains(searchString)
                                        || s.Vendor.Name.ToString().Contains(searchString)
                                        || s.ShipToCompany.Name.Contains(searchString)
                                        || s.Terms.ToString().Contains(searchString)
@@ -80,6 +82,7 @@ namespace CNG.Controllers
         }
 
         public ActionResult Details(string poNo) {
+            InitViewBags();
             PurchaseOrder po = poRepo.GetByNo(poNo);
             @ViewBag.ReNumber = po.RRNo;
             return View(po);
@@ -186,16 +189,26 @@ namespace CNG.Controllers
             PurchaseOrderItem poItem = poItemRepo.Find(receivingLogsDTO.PurchaseOrderItemId);
             PurchaseOrder po = context.PurchaseOrders.Find(poItem.PurchaseOrderId);
             po.Status = (int) EPurchaseOrderStatus.Saved;
-           
-            try
+
+            bool poExist = context.PurchaseOrders.Count(p => p.RRNo == receivingLogsDTO.RRNo) > 0;
+
+            if (!poExist)
             {
-                po.RRNo = poRepo.GenerateReNumber(receivingLogsDTO.DateReceived);
-                po.ReceivedDate = receivingLogsDTO.DateReceived;
+                try
+                {
+                    po.RRNo = poRepo.GenerateReNumber(receivingLogsDTO.DateReceived);
+                    po.ReceivedDate = receivingLogsDTO.DateReceived;
+                }
+                catch
+                {
+                    po.RRNo = poRepo.GenerateReNumber(DateTime.Now);
+                    po.ReceivedDate = DateTime.Now;
+                }
             }
-            catch
+            else
             {
-                po.RRNo = poRepo.GenerateReNumber(DateTime.Now);
-                po.ReceivedDate = DateTime.Now;
+                po.RRNo = receivingLogsDTO.RRNo;
+                po.ReceivedDate = receivingLogsDTO.DateReceived;
             }
             context.SaveChanges();
 

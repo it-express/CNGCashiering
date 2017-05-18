@@ -284,7 +284,18 @@ namespace CNG.Models
         {
             PurchaseOrder po = context.PurchaseOrders.FirstOrDefault(p => p.No == poNo);
             po.Status = status;
-            po.RRNo = GenerateReNumber(DateReceived);
+
+            bool poExist = context.PurchaseOrders.Count(p => p.RRNo == RRNo) > 0;
+
+            if (!poExist)
+            {
+                po.RRNo = GenerateReNumber(DateReceived);
+            }
+            else
+            {
+                po.RRNo = RRNo;
+            }
+               
             po.ReceivedDate = DateReceived;
 
             context.SaveChanges();
@@ -304,34 +315,39 @@ namespace CNG.Models
 
         public void UpdateItemPriceLogs(int itemid, int quantity)
         {
-            int diff = 0;
-            ItemPriceLogs itempricelogs = context.ItemPriceLogs.Where(p => p.ItemId == itemid && p.Qty > 0).First();
-
-
-            diff = quantity;
-            while (diff > itempricelogs.Qty)
+            try
             {
-                diff -= itempricelogs.Qty;
+                int diff = 0;
+                ItemPriceLogs itempricelogs = context.ItemPriceLogs.Where(p => p.ItemId == itemid && p.Qty > 0).First();
 
-                ItemPriceLogs update = context.ItemPriceLogs.Find(itempricelogs.Id);
 
-                update.Qty = 0;
-                context.SaveChanges();
-                itempricelogs = context.ItemPriceLogs.Where(p => p.ItemId == itemid && p.Qty > 0).First();
+                diff = quantity;
+                while (diff > itempricelogs.Qty)
+                {
+                    diff -= itempricelogs.Qty;
+
+                    ItemPriceLogs update = context.ItemPriceLogs.Find(itempricelogs.Id);
+
+                    update.Qty = 0;
+                    context.SaveChanges();
+                    itempricelogs = context.ItemPriceLogs.Where(p => p.ItemId == itemid && p.Qty > 0).First();
+                }
+
+                if (diff < itempricelogs.Qty && diff != 0)
+                {
+                    itempricelogs = context.ItemPriceLogs.Where(p => p.ItemId == itemid && p.Qty > 0).First();
+
+                    itempricelogs.Qty -= diff;
+
+                    ItemPriceLogs update = context.ItemPriceLogs.Find(itempricelogs.Id);
+
+                    update.Qty = itempricelogs.Qty;
+                    context.SaveChanges();
+
+                }
             }
 
-            if (diff < itempricelogs.Qty && diff != 0)
-            {
-                itempricelogs = context.ItemPriceLogs.Where(p => p.ItemId == itemid && p.Qty > 0).First();
-
-                itempricelogs.Qty -= diff;
-
-                ItemPriceLogs update = context.ItemPriceLogs.Find(itempricelogs.Id);
-
-                update.Qty = itempricelogs.Qty;
-                context.SaveChanges();
-
-            }
+            catch { }
         }
 
         public void Delete(string poNo) {

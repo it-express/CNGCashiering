@@ -53,45 +53,36 @@
                     <div class="form-group">
                         <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.Date)</label>
                         <div class="col-md-5">
-                            <label class="form-control">
-                                @Html.DisplayFor(model => model.Date)
-                            </label>
+                            <label class="form-control">@Html.DisplayFor(model => model.Date)</label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.PreparedBy)</label>
                         <div class="col-md-5">
-                            <label class="form-control">
-                                @Html.DisplayFor(model => model.PreparedByObj.FullName)
-                            </label>
+                            <label class="form-control">@Html.DisplayFor(model => model.PreparedByObj.FullName)</label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-2">Checked By</label>
                         <div class="col-md-3">
-                            <label class="form-control">
-                                @Html.DisplayFor(model => model.CheckedBy)
-                            </label>
+                            <label class="form-control">@Html.DisplayFor(model => model.CheckedBy)</label>
                         </div>
                         <div class="col-md-2 no-padding">
-                           @if (ViewBag.UserLevel == 1)
-                           {
-                            @Html.CheckBoxFor(model => model.Checked, new { id = "cb_Checked", @disabled = "disabled" })
-                           }
-                           else
-                           {
-                            @Html.CheckBoxFor(model => model.Checked, new { id = "cb_Checked" })
-                           }
+                            @if (ViewBag.UserLevel == 1)
+                            {
+                                @Html.CheckBoxFor(model => model.Checked, new { id = "cb_Checked", @disabled = "disabled" })
+                            }
+                            else
+                            {
+                                @Html.CheckBoxFor(model => model.Checked, new { id = "cb_Checked" })
+                            }
                         </div>
-                        
-                        </div>
+
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.ApprovedBy)</label>
                         <div class="col-md-3">
-                            <label class="form-control">
-                                @Html.DisplayFor(model => model.ApprovedByObj.FullName)
-                            </label>                     
+                            <label class="form-control">@Html.DisplayFor(model => model.ApprovedByObj.FullName)</label>
                         </div>
                         <div class="col-md-2 no-padding">
                             @if (ViewBag.UserLevel == 3)
@@ -106,7 +97,7 @@
                     </div>
                     <div class="form-group">
                         <label class="col-md-1"></label>
-                        <div class="col-md-9">
+                        <div class="col-md-9 TableHolder">
                             <table class="table table-hover table-striped table-bordered">
                                 <thead>
                                     <tr>
@@ -134,12 +125,12 @@
                                         <th>
                                             Remarks
                                         </th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var rpItem in Model.PurchaseOrderItems)
-                                      {
+                                    {
                                         <tr>
                                             <td>
                                                 @Html.DisplayFor(modelItem => rpItem.Item.Code)
@@ -152,12 +143,12 @@
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => rpItem.Item.Brand)
-                                                
+
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => rpItem.Quantity)
                                             </td>
-                                            <td>                           
+                                            <td>
                                                 @Html.DisplayFor(modelItem => rpItem.GetUnitCost)
                                             </td>
                                             <td>
@@ -177,7 +168,7 @@
                                         <td></td>
                                         <td>@Html.DisplayFor(p => p.TotalAmountItems)</td>
                                         <td></td>
-                                        
+
                                     </tr>
                                 </tbody>
                             </table>
@@ -198,8 +189,9 @@
 
                 </div>
             </div>
-            <!-- end: BASIC TABLE PANEL -->
+
         </div>
+        <!-- end: BASIC TABLE PANEL -->
     </div>
 </div>
 

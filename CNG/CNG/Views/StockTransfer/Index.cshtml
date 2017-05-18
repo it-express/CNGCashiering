@@ -116,7 +116,7 @@
                                     @Html.DisplayFor(modelItem => item.No)
                                 </td>
                                 <td>
-                                    @item.Date.ToShortDateString();
+                                    @item.Date.ToShortDateString()
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.JobOrderNo)
@@ -144,11 +144,11 @@
                                         @if (Convert.ToInt32(Session["utype"]) != 1)
                                         //1 - user
                                         {
-                                            <a href="@Url.Action("Edit", new { stNo = item.No })" data-original-title="Edit" data-placement="top" class="btn btn-xs btn-blue tooltips"><i class="fa fa-edit"></i></a>
+                                           // <a href="@Url.Action("Edit", new { stNo = item.No })" data-original-title="Edit" data-placement="top" class="btn btn-xs btn-blue tooltips"><i class="fa fa-edit"></i></a>
                                         }
 
                                         <a href="@Url.Action("Details", new { stNo = item.No })" data-original-title="Details" data-placement="top" class="btn btn-xs btn-green tooltips"><i class="fa fa-list"></i></a>
-                                        <a href="@Url.Action("Delete", new { stNo = item.No })" data-original-title="Remove" data-placement="top" class="btn btn-xs btn-red tooltips"><i class="fa fa-times fa fa-white"></i></a>
+                                        @*<a href="@Url.Action("Delete", new { stNo = item.No })" data-original-title="Remove" data-placement="top" class="btn btn-xs btn-red tooltips"><i class="fa fa-times fa fa-white"></i></a>*@
                                     </div>
 
                                 </td>

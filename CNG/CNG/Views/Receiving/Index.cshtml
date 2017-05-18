@@ -60,10 +60,10 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.ActionLink("No", "Index", new { sortColumn = "no", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                                @Html.ActionLink("Receiving No", "Index", new { sortColumn = "no", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
-                                @Html.ActionLink("Date", "Index", new { sortColumn = "date", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                                @Html.ActionLink("Date Received", "Index", new { sortColumn = "date", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
                             </th>
                             <th>
                                 @Html.ActionLink("Vendor", "Index", new { sortColumn = "vendorId", sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
@@ -95,7 +95,7 @@
                                     @Html.DisplayFor(modelItem => item.RRNo)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Date)
+                                    @Html.DisplayFor(modelItem => item.ReceivedDate)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Vendor.Name)

@@ -141,7 +141,7 @@ function Save(status) {
 
 $(function () {
     $('#cb_Checked').change(function () {
-        alert('a');
+      
         var purchaseOrder = new Object();
 
         purchaseOrder.No = $('#lblPoNumber').text();
@@ -174,9 +174,9 @@ $(function () {
         purchaseOrder.No = $('#lblPoNumber').text();
 
         if ($('#cb_Approved').prop('checked') == true) {
-            purchaseOrder.Checked = 1;
+            purchaseOrder.Approved = 1;
         }
-        else { purchaseOrder.Checked = 0; }
+        else { purchaseOrder.Approved = 0; }
 
         $.ajax({
             url: "/Receiving/RApproved",
