@@ -53,6 +53,22 @@
 
         RefreshSubmitButtonState();
     });
+
+    $('#txtDateReceived').change(function () {
+        if ($('#update').val() != "1") {
+            var txtDate = $(this).val();
+            $.ajax({
+                url: "/Receiving/GetRRNo",
+                type: "POST",
+                data: "{'Date' : '" + txtDate + "'}",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $("#lblReNumber").html(data).show();
+                }
+            });
+        }
+    });
+
 });
 
 function RefreshItems() {
@@ -192,3 +208,5 @@ $(function () {
 
 
 });
+
+

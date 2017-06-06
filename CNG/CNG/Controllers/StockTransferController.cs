@@ -290,6 +290,8 @@ namespace CNG.Controllers
             ViewBag.ApprovedBy = Common.GetCurrentUser.GeneralManager.FullName;
 
             ViewBag.CompanyId = Request.QueryString["companyId"];
+
+            var affectedRows1 = context.Database.ExecuteSqlCommand("spUpdate_Items_QuantityOnHand");
         }
 
         public ActionResult SummaryReport(string dateFrom, string dateTo, int? companyTo)

@@ -285,17 +285,17 @@ namespace CNG.Models
             PurchaseOrder po = context.PurchaseOrders.FirstOrDefault(p => p.No == poNo);
             po.Status = status;
 
-            bool poExist = context.PurchaseOrders.Count(p => p.RRNo == RRNo) > 0;
+            //bool poExist = context.PurchaseOrders.Count(p => p.RRNo == RRNo) > 0;
 
-            if (!poExist)
-            {
-                po.RRNo = GenerateReNumber(DateReceived);
-            }
-            else
-            {
-                po.RRNo = RRNo;
-            }
-               
+            //if (!poExist)
+            //{
+            //    po.RRNo = GenerateReNumber(DateReceived);
+            //}
+            //else
+            //{
+            //    po.RRNo = RRNo;
+            //}
+            po.RRNo = RRNo;
             po.ReceivedDate = DateReceived;
 
             context.SaveChanges();

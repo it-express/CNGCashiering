@@ -103,6 +103,19 @@
 
         GetTotalAmount();
     });
+
+    $('#txtDate').change(function () {
+        var txtDate = $(this).val();
+        $.ajax({
+            url: "/RequisitionPurchase/GetRPNo",
+            type: "POST",
+            data: "{'Date' : '" + txtDate + "'}",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                $("#lblRpNo").html(data).show();
+            }
+        });
+    });
 });
 
 

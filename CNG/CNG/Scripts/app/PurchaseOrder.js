@@ -127,6 +127,23 @@
             $('#tblItems').prepend(data);
         });
     });
+
+    $('#txtDate').change(function () {
+        if ($('#update').val() != "1") {
+
+            var txtDate = $(this).val();
+            $.ajax({
+                url: "/PurchaseOrder/GetPONo",
+                type: "POST",
+                data: "{'Date' : '" + txtDate + "'}",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $("#lblPoNumber").html(data).show();
+                }
+
+            });
+        }
+    });
 });
 
 function addDays(date, days) {

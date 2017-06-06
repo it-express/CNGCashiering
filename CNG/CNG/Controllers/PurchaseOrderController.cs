@@ -78,7 +78,7 @@ namespace CNG.Controllers
         public ActionResult Create()
         {
             
-            ViewBag.PoNumber = poRepo.GeneratePoNumber(DateTime.Now);
+            //ViewBag.PoNumber = poRepo.GeneratePoNumber(DateTime.Now);
             
             ViewBag.Vendors = new SelectList(context.Vendors.Where(p => p.Active), "Id", "Name");
             ViewBag.User = Common.GetCurrentUser.FullName;
@@ -92,6 +92,7 @@ namespace CNG.Controllers
             poVM.PurchaseOrder = po;
             int companyId = Convert.ToInt32(Sessions.CompanyId);
             poVM.SelectedCompany = companyRepo.GetById(companyId);
+            ViewBag.Update = "0";
 
             return View(poVM);
         }
@@ -105,6 +106,7 @@ namespace CNG.Controllers
             ViewBag.PoNumber = poNo;
             ViewBag.Vendors = new SelectList(context.Vendors.Where(p => p.Active), "Id", "Name", poVM.PurchaseOrder.VendorId.ToString());
             ViewBag.User = poVM.PurchaseOrder.PreparedByObj.FullName;
+            ViewBag.Update = "1";
             InitViewBags();
 
             return View("Create", poVM);
@@ -245,6 +247,7 @@ namespace CNG.Controllers
             ViewBag.UserLevel = userRepo.GetByUserLevel(Common.GetCurrentUser.Id);
 
             var affectedRows = context.Database.ExecuteSqlCommand("sp_Update_Item_UnitCost");
+            var affectedRows1 = context.Database.ExecuteSqlCommand("spUpdate_Items_QuantityOnHand");
         }
 
         public ActionResult Report(string poNo) {
@@ -308,6 +311,14 @@ namespace CNG.Controllers
             ViewBag.ReportViewer = reportViewer;
 
             return View();
+        }
+
+        public JsonResult GetPONo(string Date)
+        {
+
+            string ponumber = poRepo.GeneratePoNumber(Convert.ToDateTime(Date));
+
+            return Json(ponumber);
         }
     }
 }

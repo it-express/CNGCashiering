@@ -90,14 +90,14 @@ namespace CNG.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.ReNumber = poRepo.GenerateReNumber(DateTime.Now);
+           // ViewBag.ReNumber = poRepo.GenerateReNumber(DateTime.Now);
             InitViewBags();
 
             int companyId = Convert.ToInt32(Session["companyId"]);
 
             ViewBag.PurchaseOrders = new SelectList(poRepo.ListForReceiving().Where(p => p.ShipTo == companyId || p.CompanyId == companyId)
                                                                              .OrderByDescending(p=>p.Date), "No", "No");
-
+            ViewBag.Update = "0";
             return View(new PurchaseOrder());
         }
 
@@ -108,6 +108,7 @@ namespace CNG.Controllers
          
             PurchaseOrder po = poRepo.GetByNo(poNo);
             @ViewBag.ReNumber = po.RRNo;
+            ViewBag.Update = "1";
             return View("Create", po);
         }
         
@@ -133,9 +134,9 @@ namespace CNG.Controllers
 
             PurchaseOrder po = poRepo.GetById(poItem.PurchaseOrderId);
             if (po.RRNo == null)
-            { ViewBag.ReNumber = poRepo.GenerateReNumber(DateTime.Now); }
+            { ViewBag.ReNumber = "Receiving Number" + poRepo.GenerateReNumber(DateTime.Now); }
             else
-            { ViewBag.ReNumber = po.RRNo; }
+            { ViewBag.ReNumber = "Receiving Number" + po.RRNo; }
 
             ViewBag.ItemDescription = poItem.Item.Description;
             ViewBag.ItemQuantity = poItem.Quantity;
@@ -342,6 +343,15 @@ namespace CNG.Controllers
             ViewBag.CompanyId = Request.QueryString["companyId"];
             ViewBag.UserLevel = userRepo.GetByUserLevel(Common.GetCurrentUser.Id);
             var affectedRows = context.Database.ExecuteSqlCommand("sp_Update_Item_UnitCost");
-        } 
+            var affectedRows1 = context.Database.ExecuteSqlCommand("spUpdate_Items_QuantityOnHand");
+        }
+
+        public JsonResult GetRRNo(string Date)
+        {
+
+            string renumber =  poRepo.GenerateReNumber(Convert.ToDateTime(Date));
+
+            return Json(renumber);
+        }
     }
 }

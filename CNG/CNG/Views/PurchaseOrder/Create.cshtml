@@ -51,7 +51,7 @@
                     @Html.AntiForgeryToken()
 
                     <div class="form-horizontal">
-                        <h4>PO Number<label id="lblPoNumber">@ViewBag.PoNumber</label></h4>
+                        <h4>PO Number  <label id="lblPoNumber">@ViewBag.PoNumber</label></h4>
                         <hr />
 
 
@@ -67,6 +67,8 @@
                                     {
                                         <input type="text" id="txtDate" value="@DateTime.Now.ToString("MM/dd/yyyy")" class="date-picker form-control" />
                                     }
+
+                                    <input type="text" hidden="hidden" id="update" value="@ViewBag.Update" />
                                 </div>
                             </div>
                         </div>

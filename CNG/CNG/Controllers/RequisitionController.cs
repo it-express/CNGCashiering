@@ -82,6 +82,7 @@ namespace CNG.Controllers
             var lstPlateNos = from p in vehicleRepo.List()
                               select new { No = p.LicenseNo };
             ViewBag.PlateNos = new SelectList(lstPlateNos, "No", "No");
+            ViewBag.Update = "0";
 
             RequisitionVM reqVM = new RequisitionVM
             {
@@ -100,7 +101,8 @@ namespace CNG.Controllers
         {
             InitViewBags();
             ViewBag.PurchaseOrders = new SelectList(reqRepo.List(), "No", "No");
-            
+            ViewBag.Update = "1";
+
             RequisitionVM reqVM = new RequisitionVM
             {
                 Requisition = reqRepo.GetByNo(reqNo),
@@ -204,7 +206,7 @@ namespace CNG.Controllers
             StockTransfer st = new StockTransfer();
 
             st.No = entry.No;
-            st.Date = entry.JobOrderDate;
+            st.Date = entry.RequisitionDate;
 
             if (entry.CompanyTo == 0)
             {
@@ -310,6 +312,7 @@ namespace CNG.Controllers
             ViewBag.CompanyId = Request.QueryString["companyId"];
 
             var affectedRows = context.Database.ExecuteSqlCommand("sp_Update_Item_UnitCost");
+            var affectedRows1 = context.Database.ExecuteSqlCommand("spUpdate_Items_QuantityOnHand");
         }
 
         public ActionResult RequisitionSummaryReport(string dateFrom, string dateTo)
@@ -420,6 +423,14 @@ namespace CNG.Controllers
 
             reqRepo.Approved(po);
 
+        }
+
+        public JsonResult GetReqNo(string Date)
+        {
+
+            string reqnumber = reqRepo.GenerateReqNo(Convert.ToDateTime(Date));
+
+            return Json(reqnumber);
         }
     }
 }

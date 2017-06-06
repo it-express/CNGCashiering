@@ -79,7 +79,7 @@ namespace CNG.Controllers
             ViewBag.Items = new SelectList(lstItem.Where(p => p.Active).OrderBy(p => p.Description), "Id", "Description");
             ViewBag.User = Common.GetCurrentUser.FullName;
             ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
-
+            ViewBag.Update = "0";
             PurchaseOrder reqPurchase = new PurchaseOrder
             {
                 No = rpRepo.GenerateRpNo(DateTime.Now),
@@ -234,6 +234,14 @@ namespace CNG.Controllers
             };
 
             stockcardRepo.Add(stockCard);
+        }
+
+        public JsonResult GetRPNo(string Date)
+        {
+
+            string reqnumber = rpRepo.GenerateRpNo(Convert.ToDateTime(Date));
+
+            return Json(reqnumber);
         }
     }
 }

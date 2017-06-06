@@ -55,7 +55,7 @@
             <div class="panel-body">
 
                 <div class="form-horizontal">
-                    <h4>Receiving Number <label id="lblReNumber">@ViewBag.ReNumber</label></h4>
+                    <h4>Receiving Number  <label id="lblReNumber">@ViewBag.ReNumber</label></h4>
                     <hr />
 
                     <div class="form-group">
@@ -69,6 +69,7 @@
                             {
                                 <input type="text" id="No" name="No" value="@Model.No" readonly class="form-control" />
                             }
+
                         </div>
                     </div>
 
@@ -83,6 +84,8 @@
                         <label class="control-label col-md-2">Date Received:</label>
                         <div class="col-md-5">
                             <input type="text" id="txtDateReceived" name="txtDateReceived" value="@Model.ReceivedDate.ToString()" class="date-picker form-control" />
+
+                            <input type="text" hidden="hidden" id="update" value="@ViewBag.Update" />
                         </div>
                     </div>
 

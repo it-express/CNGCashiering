@@ -75,13 +75,12 @@ namespace CNG.Models
             }
             else
             {
-                Item dbEntry = context.Items.Find(item.Description);
+                Item dbEntry = context.Items.Find(item.Id);
                 
 
                 if (dbEntry != null)
                 {
                     // update Items table
-                    dbEntry.Code = GeneratedItemCode();
                     dbEntry.Description = item.Description;
                     dbEntry.Brand = item.Brand;
                     dbEntry.UnitCost = item.UnitCost;

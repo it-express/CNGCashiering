@@ -70,6 +70,7 @@
                             <label class="control-label col-md-2">Requisition Date</label>
                             <div class="col-md-5">
                                 <input type="text" id="txtReqDate" class="form-control date-picker" value="@Model.Requisition.Date.ToString("MM/dd/yyyy")" />
+                                <input type="text" hidden="hidden" id="update" value="@ViewBag.Update" />
                             </div>
                         </div>
 

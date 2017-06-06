@@ -6,13 +6,15 @@
 
         $('.date-picker').datepicker();
     });
+
+  
 });
 
 $(document).on('click', '#btnReceivingSave', function () {
     var receiving = new Object();
 
     receiving.PurchaseOrderItemId = $('#lblPOItemId').val();
-    receiving.RRNo = $('#HiddenReNumber').val();
+    receiving.RRNo = $('#lblReNumber').text();
     receiving.DRNo = $('#txtDrNo').val();
     receiving.DateReceived = $('#txtDateReceived').val();
     //alert($('#lblPOItemId').val());
@@ -46,10 +48,11 @@ $(document).on('click', '#btnReceivingSave', function () {
             contentType: "application/json; charset=utf-8",
             success: function (r) {
 
-                alert("Saved");
+             
                 $('#divReceivingLog').modal('hide')
 
                 RefreshItems();
+               
             }
         });
     }

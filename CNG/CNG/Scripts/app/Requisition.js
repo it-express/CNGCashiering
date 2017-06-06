@@ -143,6 +143,21 @@
 
         txtQuantityReturn.val($(this).val());
     });
+
+    $('#txtReqDate').change(function () {
+        if ($('#update').val() != "1") {
+            var txtDate = $(this).val();
+            $.ajax({
+                url: "/Requisition/GetReqNo",
+                type: "POST",
+                data: "{'Date' : '" + txtDate + "'}",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $("#lblReqNo").html(data).show();
+                }
+            });
+        }
+    });
 });
 
 $(function () {
