@@ -10,6 +10,7 @@ namespace CNG.Models
     public class Item
     {
         TransactionLogRepository transLogRepo = new TransactionLogRepository();
+        ItemAssignmentRepository itemAssignRepo = new ItemAssignmentRepository();
         ItemRepository itemRepo = new ItemRepository();
 
         [Key]
@@ -43,13 +44,6 @@ namespace CNG.Models
         [Required]
         public bool Active { get; set; }
 
-        //[DisplayName("Quantity on Hand")]
-        //public int QuantityOnHand {
-        //    get {
-        //         return transLogRepo.SumByItemId(Id);
-        //    }
-        //}
-
         [DisplayName("Quantity on Hand")]
         public int QuantityOnHand(int companyId)
         {
@@ -76,6 +70,23 @@ namespace CNG.Models
             
 
             return code;
+        }
+
+        public decimal GetUnitCostByCompany
+        {
+            get
+            {
+                try
+
+                {
+                    return itemAssignRepo.GetUnitCostByCompany(Id, Sessions.CompanyId);
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+           
         }
 
 

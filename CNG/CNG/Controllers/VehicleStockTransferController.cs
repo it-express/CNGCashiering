@@ -125,7 +125,11 @@ namespace CNG.Controllers
                 vstItem.VehicleFromId = item.VehicleFromId;
                 vstItem.VehicleToId = item.VehicleToId;
                 vstItem.Quantity = item.Quantity;
-                vstItem.Remarks = item.Remarks;
+
+                if (item.Remarks != null)
+                    vstItem.Remarks = item.Remarks;
+                else
+                    vstItem.Remarks = "";
 
                 vst.VehicleStockTransferItems.Add(vstItem);
             }

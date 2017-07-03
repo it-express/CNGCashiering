@@ -7,6 +7,7 @@ using CNG.Models;
 using PagedList;
 using System.Linq.Dynamic;
 using Microsoft.Reporting.WebForms;
+using System.Data.SqlClient;
 
 namespace CNG.Controllers
 {
@@ -179,10 +180,11 @@ namespace CNG.Controllers
                 poItem.UnitCost = Convert.ToDecimal(item.UnitCost);
                 poItem.Quantity = item.Quantity;
                 poItem.Remarks = item.Remarks;
-                poItem.Date = DateTime.Now;
+                poItem.Date = Convert.ToDateTime(entry.Date);
                 poItem.RemainingBalanceDate = null;
 
                 po.PurchaseOrderItems.Add(poItem);
+
             }
 
             // for FIFO price
@@ -196,13 +198,14 @@ namespace CNG.Controllers
                 itemLogs.UnitCost = Convert.ToDecimal(item.UnitCost);
                 itemLogs.Qty = item.Quantity;
                 itemLogs.Date = DateTime.Now;
+                itemLogs.CompanyId = Sessions.CompanyId.Value;
 
-             
+
                 po.ItemPriceLogs.Add(itemLogs);
-             
 
             }
-            
+
+
             poRepo.Save(po);
           
 
@@ -246,7 +249,9 @@ namespace CNG.Controllers
 
             ViewBag.UserLevel = userRepo.GetByUserLevel(Common.GetCurrentUser.Id);
 
-            var affectedRows = context.Database.ExecuteSqlCommand("sp_Update_Item_UnitCost");
+            SqlParameter parameter1 = new SqlParameter("@CompanyID",Sessions.CompanyId);
+            var affectedRows = context.Database.ExecuteSqlCommand("sp_Update_Item_UnitCost @CompanyID", parameter1);
+            var affectedRows1 = context.Database.ExecuteSqlCommand("spUpdate_Items_QuantityOnHand");
             var affectedRows1 = context.Database.ExecuteSqlCommand("spUpdate_Items_QuantityOnHand");
         }
 

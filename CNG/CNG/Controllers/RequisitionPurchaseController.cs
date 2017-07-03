@@ -76,12 +76,14 @@ namespace CNG.Controllers
         public ActionResult Create()
         {
             IQueryable<Item> lstItem = itemAssignmentRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value).Select(p => p.Item);
+            ViewBag.Vendors = new SelectList(context.Vendors.Where(p => p.Active), "Id", "Name");
             ViewBag.Items = new SelectList(lstItem.Where(p => p.Active).OrderBy(p => p.Description), "Id", "Description");
             ViewBag.User = Common.GetCurrentUser.FullName;
             ViewBag.GeneralManager = Common.GetCurrentUser.GeneralManager.FullName;
             ViewBag.Update = "0";
             PurchaseOrder reqPurchase = new PurchaseOrder
             {
+                Vendor = new Vendor(),
                 No = rpRepo.GenerateRpNo(DateTime.Now),
                 Date = DateTime.Now
             };
@@ -121,7 +123,8 @@ namespace CNG.Controllers
             rp.No = rpRepo.GenerateRpNo(rpDTO.Date);
             rp.Date = rpDTO.Date;
             rp.CompanyId = Sessions.CompanyId.Value;
-
+            rp.VendorId = rpDTO.VendorId;
+            rp.ShipTo = Sessions.CompanyId.Value;
             rp.PreparedBy = Common.GetCurrentUser.Id;
             rp.ApprovedBy = Common.GetCurrentUser.GeneralManagerId;
             rp.CheckedBy = rpDTO.CheckedBy;

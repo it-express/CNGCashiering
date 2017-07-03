@@ -27,5 +27,12 @@ namespace CNG.Models
 
             context.SaveChanges();
         }
+
+        public decimal GetUnitCostByCompany(int id, int? companyid)
+        {
+            decimal item = context.ItemAssignments.FirstOrDefault(p => p.ItemId == id && p.CompanyId == companyid).UnitCost;
+
+            return item;
+        }
     }
 }

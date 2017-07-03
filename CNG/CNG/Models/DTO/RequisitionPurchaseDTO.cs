@@ -15,8 +15,8 @@ namespace CNG.Models
             public string Remarks { get; set; }
         }
 
+        public int VendorId { get; set; }
         public string No { get; set; }
-
         public string CheckedBy { get; set; }
         public DateTime Date { get; set; }
         public List<Item> Items { get; set; }

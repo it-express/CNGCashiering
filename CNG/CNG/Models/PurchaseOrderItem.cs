@@ -44,7 +44,7 @@ namespace CNG.Models
                 }
                 else
                 {
-                    Unit = Item.UnitCost;
+                    Unit = Item.GetUnitCostByCompany;
                 }
 
                 return Unit;
@@ -105,7 +105,6 @@ namespace CNG.Models
         public int? TransactionLogId { get; set; }
 
         public virtual Item Item { get; set; }
-
         public virtual TransactionLog TransactionLog { get; set; }
 
         public virtual List<Receiving> Receivings { get; set; }

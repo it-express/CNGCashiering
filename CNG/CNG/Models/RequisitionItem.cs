@@ -27,7 +27,7 @@ namespace CNG.Models
         [ForeignKey("ItemId")]
 
         public decimal GetItemUnitCost
-        { get { return itemRepo.GetById(ItemId).UnitCost; } }
+        { get { return itemRepo.GetByItemId(ItemId,Sessions.CompanyId).UnitCost; } }
         public virtual Item Item { get; set; }
 
         public virtual TransactionLog TransactionLog { get; set; }

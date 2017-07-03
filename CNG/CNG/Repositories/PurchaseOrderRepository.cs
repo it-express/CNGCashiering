@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 
@@ -48,10 +49,11 @@ namespace CNG.Models
                 po.ShipToCompany = null;
                 po.Vendor = null;
                 po.No = GeneratePoNumber(po.Date);
-                context.PurchaseOrders.Add(po);
               
-                context.SaveChanges();
+                context.PurchaseOrders.Add(po);
 
+                context.SaveChanges();
+           
 
                 id = po.Id;
 

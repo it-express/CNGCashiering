@@ -28,8 +28,10 @@ namespace CNG.Models
 
         public DateTime Date { get; set; }
 
+        public int? CompanyId { get; set; }
 
-      
+
+
 
     }
 

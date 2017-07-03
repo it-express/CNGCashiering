@@ -1,4 +1,4 @@
-﻿@model IPagedList<CNG.Models.Item>
+﻿@model IPagedList<CNG.Models.ItemAssignment>
 @using PagedList.Mvc;
 @using PagedList;
 
@@ -87,27 +87,27 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Code)
+                                    @Html.DisplayFor(modelItem => item.Item.Code)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Description)
+                                    @Html.DisplayFor(modelItem => item.Item.Description)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Brand)
+                                    @Html.DisplayFor(modelItem => item.Item.Brand)
                                 </td>
                                 <td>
                                     @item.UnitCost.ToString("#,##0.00")
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Type.Description)
+                                    @Html.DisplayFor(modelItem => item.Item.Type.Description)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Active)
+                                    @Html.DisplayFor(modelItem => item.Item.Active)
                                 </td>
                                 <td>
                                     <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                        <a href="@Url.Action("Edit", new { id = item.Id })" data-original-title="Edit" data-placement="top" class="btn btn-xs btn-blue tooltips"><i class="fa fa-edit"></i></a>
-                                        <a href="@Url.Action("Delete", new { id = item.Id })" data-original-title="Remove" data-placement="top" class="btn btn-xs btn-red tooltips"><i class="fa fa-times fa fa-white"></i></a>
+                                        <a href="@Url.Action("Edit", new { id = item.ItemId })" data-original-title="Edit" data-placement="top" class="btn btn-xs btn-blue tooltips"><i class="fa fa-edit"></i></a>
+                                        <a href="@Url.Action("Delete", new { id = item.ItemId })" data-original-title="Remove" data-placement="top" class="btn btn-xs btn-red tooltips"><i class="fa fa-times fa fa-white"></i></a>
                                     </div>
 
                                 </td>

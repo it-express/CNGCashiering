@@ -36,19 +36,19 @@ namespace CNG.Controllers
 
             //IQueryable<Item> lstItem = itemRepo.List();
 
-            IQueryable<Item> lstItem = itemAssignmentRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value).Select(p => p.Item);
+            IQueryable<ItemAssignment> lstItem = itemAssignmentRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value);
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                lstItem = lstItem.Where(s => s.Code.Contains(searchString)
-                                       || s.Description.Contains(searchString)
+                lstItem = lstItem.Where(s => s.Item.Code.Contains(searchString)
+                                       || s.Item.Description.Contains(searchString)
                                        || s.UnitCost.ToString().Contains(searchString)
-                                       || s.Type.Description.Contains(searchString));
+                                       || s.Item.Type.Description.Contains(searchString));
             }
 
             if (String.IsNullOrEmpty(sortColumn))
             {
-                lstItem = lstItem.OrderBy(p => p.Description);
+                lstItem = lstItem.OrderBy(p => p.Item.Description);
             }
             else {
                 lstItem = lstItem.OrderBy(sortColumn + " " + sortOrder);
@@ -85,7 +85,7 @@ namespace CNG.Controllers
             if (ModelState.IsValid)
             {
 
-                    string msg = itemRepo.Save(item);
+                    string msg = itemRepo.SaveItem(item);
 
                 if (msg == "save")
                 {

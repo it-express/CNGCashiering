@@ -74,7 +74,7 @@ namespace CNG.Models
 
                     if (stItem.Quantity != 0)
                     {
-                        stItem.TransactionLogId = InsertLogs(stItem.ItemId, stItem.Quantity);
+                        stItem.TransactionLogId = null; //InsertLogs(stItem.ItemId, stItem.Quantity);
                     }
                 }
             }
@@ -114,7 +114,7 @@ namespace CNG.Models
                     stItem.StockTransferId = id;
                     if (stItem.Quantity != 0)
                     {
-                        stItem.TransactionLogId = InsertLogs(stItem.ItemId, stItem.Quantity);
+                        stItem.TransactionLogId = null; //InsertLogs(stItem.ItemId, stItem.Quantity);
                     }
 
                     context.StockTransferItems.Add(stItem);

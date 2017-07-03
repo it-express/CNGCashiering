@@ -19,7 +19,7 @@
         var rp = new Object();
 
         rp.Date = $('#txtDate').val();
-       
+        rp.VendorId = $('#VendorId').val();
         rp.CheckedBy = $('#CheckedBy').val();   
         var lstItem = new Array();
  
@@ -53,6 +53,32 @@
                
                 alert("Saved");
                 window.location.href = "/RequisitionPurchase/Index";
+            }
+        });
+    });
+
+    $('#VendorId').change(function () {
+        var vendorId = $(this).val();
+
+        $.ajax({
+            url: "/Vendor/GetById",
+            type: "POST",
+            data: "{'id' : '" + vendorId + "'}",
+            contentType: "application/json; charset=utf-8",
+            success: function (r) {
+                var vendor = r;
+
+                $('#lblVendorName').text(vendor.Name);
+                $('#lblVendorAddress').text(vendor.Address);
+                $('#lblVendorContactPerson').text(vendor.ContactPerson);
+                $('#lblVendorContactNo').text(vendor.ContactNo);
+
+                $('#lblTerms').text(vendor.Terms + ' days');
+
+                var today = new Date();
+                var dueDate = moment(today).add('days', vendor.Terms);
+
+                $('#lblDueDate').text(dueDate.format("MMMM Do YYYY"));
             }
         });
     });
