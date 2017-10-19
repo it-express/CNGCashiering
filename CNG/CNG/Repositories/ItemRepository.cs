@@ -149,6 +149,11 @@ namespace CNG.Models
                 if (dbEntry != null || dbEntry1!= null)
                 {
                     // update Items table
+
+                    dbEntry1.ItemId = item.Id;
+                    dbEntry1.CompanyId = Sessions.CompanyId.Value;
+                    dbEntry1.UnitCost = item.UnitCost;
+
                     dbEntry.Description = item.Description;
                     dbEntry.Brand = item.Brand;
                     dbEntry.UnitCost =0;

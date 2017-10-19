@@ -7,6 +7,7 @@ using CNG.Models;
 using PagedList;
 using System.Linq.Dynamic;
 using Microsoft.Reporting.WebForms;
+using System.Data.SqlClient;
 
 namespace CNG.Controllers
 {
@@ -342,14 +343,20 @@ namespace CNG.Controllers
         {
             ViewBag.CompanyId = Request.QueryString["companyId"];
             ViewBag.UserLevel = userRepo.GetByUserLevel(Common.GetCurrentUser.Id);
-            var affectedRows = context.Database.ExecuteSqlCommand("sp_Update_Item_UnitCost");
+
+            SqlParameter parameter1 = new SqlParameter("@CompanyID", Sessions.CompanyId);
+            var affectedRows = context.Database.ExecuteSqlCommand("sp_Update_Item_UnitCost @CompanyID", parameter1);
             var affectedRows1 = context.Database.ExecuteSqlCommand("spUpdate_Items_QuantityOnHand");
         }
 
         public JsonResult GetRRNo(string Date)
         {
 
-            string renumber =  poRepo.GenerateReNumber(Convert.ToDateTime(Date));
+            string renumber = poRepo.GenerateReNumber(Convert.ToDateTime(Date));
+
+            SqlParameter parameter1 = new SqlParameter("@CompanyID", Sessions.CompanyId);
+            var affectedRows = context.Database.ExecuteSqlCommand("sp_Update_Item_UnitCost @CompanyID", parameter1);
+            var affectedRows1 = context.Database.ExecuteSqlCommand("spUpdate_Items_QuantityOnHand");
 
             return Json(renumber);
         }

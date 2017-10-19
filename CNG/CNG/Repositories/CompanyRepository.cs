@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -17,7 +18,11 @@ namespace CNG.Models
         public Company GetById(int id)
         {
             Company company = context.Companies.FirstOrDefault(p => p.Id == id);
-            //var affectedRows = context.Database.ExecuteSqlCommand("sp_Update_Item_UnitCost");
+
+            SqlParameter parameter1 = new SqlParameter("@CompanyID", Sessions.CompanyId);
+            var affectedRows = context.Database.ExecuteSqlCommand("sp_Update_Item_UnitCost @CompanyID", parameter1);
+            var affectedRows1 = context.Database.ExecuteSqlCommand("spUpdate_Items_QuantityOnHand");
+
             return company;
         }
 

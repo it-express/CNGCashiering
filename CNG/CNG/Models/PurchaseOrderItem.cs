@@ -52,6 +52,25 @@ namespace CNG.Models
 
         }
 
+        public decimal LatestUnitCost
+        {
+            get
+            {
+                decimal Unit;
+                if (UnitCost > 1.00m)
+                {
+                    Unit = UnitCost;
+                }
+                else
+                {
+                    Unit = Item.GetLatestUnitCostByCompany;
+                }
+
+                return Unit;
+            }
+
+        }
+
         [Required]
         public int Quantity { get; set; }
 

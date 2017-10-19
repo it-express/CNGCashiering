@@ -89,6 +89,23 @@ namespace CNG.Models
            
         }
 
+        public decimal GetLatestUnitCostByCompany
+        {
+            get
+            {
+                try
+
+                {
+                    return itemAssignRepo.GetLatestUnitCostByCompany(Id, Sessions.CompanyId);
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+
+        }
+
 
 
         public virtual ItemType Type { get; set; }

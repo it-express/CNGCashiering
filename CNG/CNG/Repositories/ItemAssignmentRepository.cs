@@ -34,5 +34,13 @@ namespace CNG.Models
 
             return item;
         }
+
+        public decimal GetLatestUnitCostByCompany(int id, int? companyid)
+        {
+            decimal item = context.ItemPriceLogs.OrderByDescending(p=>p.Id).FirstOrDefault(p => p.ItemId == id && p.CompanyId == companyid).UnitCost;
+
+            return item;
+        }
+
     }
 }

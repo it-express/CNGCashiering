@@ -65,14 +65,26 @@
                             </div>
                         </div>
 
+                        @if (ViewBag.Action == "Create")
+                        {
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UnitCost, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-5">
+                                    <input type="text" id="UnitCost" name="UnitCost" value="@String.Format("{0:#,##0.00}", Model.GetUnitCostByCompany)" class="form-control atm"/>
+                                    @Html.ValidationMessageFor(model => model.UnitCost, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
                         <div class="form-group">
                             @Html.LabelFor(model => model.UnitCost, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-5">
-                                <input type="text" id="UnitCost" name="UnitCost" value="@String.Format("{0:#,##0.00}", Model.GetUnitCostByCompany)" class="form-control atm" />
+                                <input type="text" id="UnitCost" name="UnitCost" value="@String.Format("{0:#,##0.00}", Model.GetUnitCostByCompany)" class="form-control atm" disabled="disabled"/>
                                 @Html.ValidationMessageFor(model => model.UnitCost, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
+                        }
                         <div class="form-group">
                             @Html.LabelFor(model => model.TypeId, htmlAttributes: new { @class = "control-label col-md-2" })
 

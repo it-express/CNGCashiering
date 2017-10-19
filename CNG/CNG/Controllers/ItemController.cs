@@ -64,6 +64,7 @@ namespace CNG.Controllers
         {
             ItemCode(0);
             InitViewBags();
+            ViewBag.Action = "Create";
 
             return View("Edit", new Item());
         }
@@ -73,7 +74,7 @@ namespace CNG.Controllers
         {
             ItemCode(id);
             InitViewBags();
-
+            ViewBag.Action = "Update";
             Item item = itemRepo.GetById(id);
 
             return View(item);

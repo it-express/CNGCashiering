@@ -315,7 +315,6 @@ namespace CNG.Controllers
             SqlParameter parameter1 = new SqlParameter("@CompanyID", Sessions.CompanyId);
             var affectedRows = context.Database.ExecuteSqlCommand("sp_Update_Item_UnitCost @CompanyID", parameter1);
             var affectedRows1 = context.Database.ExecuteSqlCommand("spUpdate_Items_QuantityOnHand");
-            var affectedRows1 = context.Database.ExecuteSqlCommand("spUpdate_Items_QuantityOnHand");
         }
 
         public ActionResult RequisitionSummaryReport(string dateFrom, string dateTo)

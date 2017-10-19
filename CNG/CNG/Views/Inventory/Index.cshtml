@@ -1,4 +1,4 @@
-﻿@model IPagedList<CNG.Models.Item>
+﻿@model IPagedList<CNG.Models.ItemAssignment>
 @using PagedList.Mvc;
 @using PagedList;
 
@@ -84,25 +84,25 @@
                         {
                             <tr class="item-row">
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Code)
+                                    @Html.DisplayFor(modelItem => item.Item.Code)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Description)
+                                    @Html.DisplayFor(modelItem => item.Item.Description)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Brand)
+                                    @Html.DisplayFor(modelItem => item.Item.Brand)
                                 </td>
                                 <td>
                                     @item.UnitCost.ToString("#,##0.00")
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Type.Description)
+                                    @Html.DisplayFor(modelItem => item.Item.Type.Description)
                                 </td>
                                 <td>
 
                                     @{
                                         int companyId = CNG.Models.Sessions.CompanyId.Value;
-                                        int quantityOnHand = item.QuantityOnHand(companyId);
+                                        int quantityOnHand = item.Item.QuantityOnHand(companyId);
 
                                         <label class="quantity">@quantityOnHand.ToString()</label>
                                     }
@@ -110,7 +110,7 @@
                                 </td>
                                 <td>
                                     <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                        <a href="@Url.Action("TransactionHistory", new { id = item.Id })" data-original-title="View History" data-placement="top" class="btn btn-xs btn-orange tooltips"><i class="fa fa-history fa fa-white"></i></a>
+                                        <a href="@Url.Action("TransactionHistory", new { id = item.Item.Id })" data-original-title="View History" data-placement="top" class="btn btn-xs btn-orange tooltips"><i class="fa fa-history fa fa-white"></i></a>
                                     </div>
 
                                 </td>
