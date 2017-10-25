@@ -9,13 +9,13 @@
 
 <!-- start: TOOLBAR -->
 <div class="toolbar row">
-    <div class="col-sm-6 hidden-xs">
+    <div class="col-sm-4 hidden-xs">
         <div class="page-header">
             <h1>Inventory </h1>
         </div>
     </div>
 
-    <div class="col-sm-6 col-xs-12">
+    <div class="col-sm-8 col-xs-12">
         <div class="toolbar-tools pull-right">
             <!-- start: TOP NAVIGATION MENU -->
             @{ Html.RenderPartial("_InventoryMenu"); }
@@ -147,7 +147,7 @@
     $(document).ready(function () {
         $('ul.main-navigation-menu > li:nth-child(7)').addClass('active');
 
-        $('.toolbar ul.nav li:nth-child(1)').addClass('open');
+        $('.toolbar ul.nav li:nth-child(5)').addClass('open');
 
         //Highlight row if item quanity is less than 5
         $("tr.item-row").each(function () {

@@ -7,6 +7,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <style>
+        #ReportViewer1 {
+            width: 100% !important;
+            height: 400px !important;
+        }
+    </style>
 </head>
 <body style="margin: 0px; padding: 0px;">
     <form id="form1" runat="server">

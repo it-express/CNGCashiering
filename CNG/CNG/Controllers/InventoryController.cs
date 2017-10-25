@@ -626,7 +626,7 @@ namespace CNG.Controllers
 
             reportViewer.KeepSessionAlive = false;
             reportViewer.LocalReport.DataSources.Clear();
-            reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Views\Inventory\Report\DirectCharge.rdlc";
+            reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Views\Inventory\Report\rptDirectCharge.rdlc";
 
             List<ReportParameter> _parameter = new List<ReportParameter>();
             _parameter.Add(new ReportParameter("DateRange", dtDateFrom.ToString("MMMM dd, yyyy") + " - " + dtDateTo.ToString("MMMM dd, yyyy")));

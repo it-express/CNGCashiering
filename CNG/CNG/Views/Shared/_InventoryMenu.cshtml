@@ -1,13 +1,30 @@
 ﻿<ul class="nav navbar-right">
     <!-- start: TO-DO DROPDOWN -->
+
     <li>
-        <a href="@Url.Action("Index", "Inventory")">
-            <i class="fa fa-plus"></i> Inventory
+        <a href="@Url.Action("ConsumableReport", "Inventory")">
+            <i class="fa fa-file-text-o"></i> Consumable <br /> Report
         </a>
     </li>
     <li>
         <a href="@Url.Action("InventoryReport", "Inventory")">
-            <i class="fa fa-plus"></i> Inventory Report
+            <i class="fa fa-file-text-o"></i> Inventory <br /> Report
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("RepairedReport", "Inventory")">
+            <i class="fa fa-file-text-o"></i> Repaired <br /> Report
+        </a>
+    </li>
+
+    <li>
+        <a href="@Url.Action("DirectChargeReport", "Inventory")">
+            <i class="fa fa-file-text-o"></i> Direct Charge <br /> Report
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "Inventory")">
+            <i class="fa fa-plus"></i> Inventory
         </a>
     </li>
 </ul>
