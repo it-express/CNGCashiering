@@ -233,7 +233,9 @@ namespace CNG.Controllers
             _item.NewItemTypeId = newtypeid;
             _item.CompanyId = Sessions.CompanyId.Value;
             _item.Date = DateTime.Now;
-            
+
+            context.ItemHistories.Add(_item);
+            context.SaveChanges();
         }
 
         public void Checked(PurchaseOrderDTO entry)

@@ -17,6 +17,11 @@ namespace CNG.Models
             return context.StockCards;
         }
 
+        public IQueryable<ItemHistory> ItemHistoryList()
+        {
+            return context.ItemHistories;
+        }
+
         public void Add(StockCard stockcard)
         {
             if (stockcard.Date == DateTime.MinValue)
