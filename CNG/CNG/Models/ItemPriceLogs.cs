@@ -32,7 +32,6 @@ namespace CNG.Models
 
 
 
-
     }
 
 

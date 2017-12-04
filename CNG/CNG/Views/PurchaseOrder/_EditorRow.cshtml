@@ -8,7 +8,13 @@
         @Model.Item.Description
     </td>
     <td>
-        @Model.Item.Type.Description
+        @*@Model.Item.Type.Description*@
+        <select class="form-control itemtype">
+            <option value="1" @(Model.Item.TypeId == 1 ? "selected" : "")>Consumable</option>
+            <option value="2" @(Model.Item.TypeId == 2 ? "selected" : "")>Inventory</option>
+            <option value="3" @(Model.Item.TypeId == 3 ? "selected" : "")>Repaired</option>
+            <option value="4" @(Model.Item.TypeId == 4 ? "selected" : "")>Direct Charge</option>
+        </select>
     </td>
     <td>
         @Model.Item.Brand

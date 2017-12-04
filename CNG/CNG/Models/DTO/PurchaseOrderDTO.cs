@@ -13,6 +13,7 @@ namespace CNG.Models
             public int Quantity { get; set; }
             public string Remarks { get; set; }
             public string UnitCost { get; set; }
+            public int TypeId { get; set; }
         }
 
         public string No { get; set; }

@@ -23,6 +23,7 @@ namespace CNG.Controllers
         CompanyRepository companyRepo = new CompanyRepository();
         ItemAssignmentRepository itemAssignmentRepo = new ItemAssignmentRepository();
         UserRepository userRepo = new UserRepository();
+        ItemTypeRepository itemTypeRepo = new ItemTypeRepository();
 
         public PurchaseOrderController() {
             poItemRepo = new PurchaseOrderItemRepository(context);
@@ -152,7 +153,8 @@ namespace CNG.Controllers
             return Json(lstPoItem);
         }
 
-        public void Save(PurchaseOrderDTO entry) {
+        public void Save(PurchaseOrderDTO entry)
+        {
             PurchaseOrder po = new PurchaseOrder();
 
             //po.No = poRepo.GeneratePoNumber();
@@ -192,6 +194,7 @@ namespace CNG.Controllers
             foreach (PurchaseOrderDTO.Item item in entry.Items)
             {
                 ItemPriceLogs itemLogs = new ItemPriceLogs();
+                Item _item = itemRepo.GetById(item.Id);
 
                 itemLogs.PurchaseOrderId = po.Id;
                 itemLogs.ItemId = item.Id;
@@ -200,15 +203,37 @@ namespace CNG.Controllers
                 itemLogs.Date = DateTime.Now;
                 itemLogs.CompanyId = Sessions.CompanyId.Value;
 
-
                 po.ItemPriceLogs.Add(itemLogs);
+                UpdateItemType(item.Id, _item.TypeId, item.TypeId);
 
             }
 
 
             poRepo.Save(po);
-          
 
+            foreach (PurchaseOrderDTO.Item item in entry.Items)
+            {
+                Item _item = context.Items.Find(item.Id);
+                if(_item.TypeId != item.TypeId)
+                {
+                    _item.TypeId = item.TypeId;
+                    context.SaveChanges();
+                }
+
+            }
+
+        }
+
+        public void UpdateItemType(int itemid, int oldtypeid, int newtypeid)
+        {
+            ItemHistory _item = new ItemHistory();
+
+            _item.ItemId = itemid;
+            _item.OldItemTypeId = oldtypeid;
+            _item.NewItemTypeId = newtypeid;
+            _item.CompanyId = Sessions.CompanyId.Value;
+            _item.Date = DateTime.Now;
+            
         }
 
         public void Checked(PurchaseOrderDTO entry)
@@ -248,6 +273,7 @@ namespace CNG.Controllers
             ViewBag.CompanyId = companyId.ToString();
 
             ViewBag.UserLevel = userRepo.GetByUserLevel(Common.GetCurrentUser.Id);
+            ViewBag.ItemTypes = new SelectList(itemTypeRepo.List(), "Id", "Description");
 
             SqlParameter parameter1 = new SqlParameter("@CompanyID",Sessions.CompanyId);
             var affectedRows = context.Database.ExecuteSqlCommand("sp_Update_Item_UnitCost @CompanyID", parameter1);
@@ -324,6 +350,22 @@ namespace CNG.Controllers
             string ponumber = poRepo.GeneratePoNumber(Convert.ToDateTime(Date));
 
             return Json(ponumber);
+        }
+
+
+
+        public JsonResult GetItemTypes()
+        {
+           
+            List<ItemType> lstItemTypes = (from p in itemTypeRepo.List().ToList()
+                                                             select new ItemType
+                                                             {
+                                                                 Id = p.Id,
+                                                                 Description = p.Description
+
+                                                             }).ToList();
+
+            return Json(lstItemTypes);
         }
     }
 }

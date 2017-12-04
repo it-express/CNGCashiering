@@ -3,7 +3,7 @@
         var $row = $(this).closest("tr");
         $row.fadeOut("fast", function () {
             $row.remove();
-
+         
             GetTotalAmount();
         })
     });
@@ -120,12 +120,14 @@
     $('#btnAddItem').click(function (event) {
         event.preventDefault();
 
+        
         var itemId = $('#Items').val();
 
         var url = $(this).data('url') + '?itemId=' + itemId;
         $.get(url, function (data) {
             $('#tblItems').prepend(data);
         });
+        //GetItemTypes();
     });
 
     $('#txtDate').change(function () {
@@ -163,6 +165,7 @@ function GetSelectedItems() {
         item.Quantity = $this.find(".txtQuantity").val();
         item.Remarks = $this.find(".txtRemarks").val();
         item.UnitCost = $this.find(".lblUnitCost").val();
+        item.TypeId = $this.find(".itemtype").val();
         lstItem.push(item);
     });
     return lstItem;
@@ -261,3 +264,21 @@ $(function () {
 
 
 });
+
+//function GetItemTypes() {
+    
+//    $.ajax({
+//        url: "/PurchaseOrder/GetItemTypes",
+//        type: "POST",
+//        contentType: "application/json; charset=utf-8",
+//        success: function (data) {
+           
+//            var markup = "";
+//            for (var x = 0; x < data.length; x++) {
+//                markup += "<option value=" + data[x].Id + ">" + data[x].Description + "</option>";
+//            }
+//            $(".itemtype").html(markup);
+           
+//        },
+//    });
+//}

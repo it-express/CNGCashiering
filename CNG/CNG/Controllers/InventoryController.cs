@@ -184,15 +184,17 @@ namespace CNG.Controllers
 
 
             var lstItemAssignment = from itemAssign in itemAssignmentRepo.List().Where(p => p.CompanyId == Sessions.CompanyId.Value).ToList()
-                                    join item in itemRepo.List().Where(p=>p.TypeId == 2).OrderBy(p=>p.Description)
-                                    on itemAssign.ItemId equals item.Id into lst
+                                    join item in itemRepo.List().OrderBy(p=>p.Description)
+                                    on itemAssign.ItemId equals item.Id 
+                                    into lst
                                     from l in lst
                                     select new
                                     {
                                         ItemId = l.Id,
                                         Code = l.Code,
                                         Description = l.Description,
-                                        UnitCost = itemAssign.UnitCost
+                                        UnitCost = itemAssign.UnitCost,
+                                        TypeId = l.TypeId
                                     };
 
             var lstInventory =( from item in lstItemAssignment
@@ -203,6 +205,7 @@ namespace CNG.Controllers
                                    Description = item.Description,
                                    BegUnitCost = BegUnitCost(item.ItemId, string.Format("{0:#,##0.00}", item.UnitCost),dtDateTo),
                                    UnitCost = string.Format("{0:#,##0.00}", item.UnitCost), //item.UnitCost.ToString("F"),   
+                                   TypeId = item.TypeId,
                                                      
                                    StartingQuantity = i != null ? i.StartingQuantity - (i.In + i.Out) : 0,
                                    StartingMaterials = i != null ? i.StartingMaterials - (i.InMaterials + i.OutMaterials) : 0,
@@ -226,7 +229,7 @@ namespace CNG.Controllers
 
 
 
-                               }).ToList();
+                               }).Where(p=>p.TypeId == 2).ToList();
 
             int currCompanyId = Sessions.CompanyId.Value;
             int totalMaterials = 0; //itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Materials).ToList().Sum(p => p.QuantityOnHand(currCompanyId));

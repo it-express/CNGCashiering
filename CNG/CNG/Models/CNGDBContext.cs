@@ -15,6 +15,7 @@ namespace CNG.Models
         
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<ItemPriceLogs> ItemPriceLogs { get; set; }
+        public virtual DbSet<ItemHistory> ItemHistories { get; set; }
         public virtual DbSet<StockCard> StockCards { get; set; }
         public virtual DbSet<ItemType> ItemTypes { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
