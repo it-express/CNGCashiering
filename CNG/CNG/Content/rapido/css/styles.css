@@ -8156,4 +8156,20 @@ margin-bottom:32px;
 .TableHolder{
 margin-top:32px;
 }
+
+.select2-container--default .select2-selection--single{
+height:38px !important;
+border:1px solid #d5d5d5 !important;
+border-radius:0px !important;
+padding-top:4px !important;
+color:#858585 !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+color:#858585 !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow{
+top:6px !important;
+}
 /*additional*/

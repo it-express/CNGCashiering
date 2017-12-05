@@ -173,17 +173,17 @@
 
                         <div class="form-group">
                             <label class="control-label col-md-2">Search Item</label>
-                            <div class="col-md-5">
+                            <div class="col-md-4">
                                 @Html.DropDownList("Items", (IEnumerable<SelectListItem>)ViewBag.Items, "", new { @class = "form-control ddl-item" })
                                 
                             </div>
-                            <div class="col-md-1">
+                            <div class="col-md-1 no-padding">
                                 <input type="button" id="btnAddItem" value="Ok" data-url="@Url.Action("RenderEditorRow", "PurchaseOrder")" class="btn btn-dark-blue" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-1"></label>
-                            <div class="col-md-10">
+                            @*<label class="control-label col-md-1"></label>*@
+                            <div class="col-md-12">
                                 <table id="tblItems" class="table table-hover table-striped table-bordered">
                                     <thead>
                                         <tr>
