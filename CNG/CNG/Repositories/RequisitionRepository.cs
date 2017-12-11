@@ -14,6 +14,7 @@ namespace CNG.Models
         CompanyRepository companyRepo = new CompanyRepository();
         VehicleRepository vehicleRepo = new VehicleRepository();
         VehicleItemsRepository veItemRepo = new VehicleItemsRepository();
+        ItemRepository itemRepo = new ItemRepository();
         public RequisitionRepository() {
         }
 
@@ -168,7 +169,8 @@ namespace CNG.Models
                 Quantity = -quantiy,
                 Date = req_Date,
                 TransactionMethodId = (int)ETransactionMethod.Requisition,
-                CompanyId = Sessions.CompanyId.Value
+                CompanyId = Sessions.CompanyId.Value,
+                ItemTypeId = itemRepo.GetItemType(itemId)
             };
 
             return transactionLogRepo.Add(transactionLog);

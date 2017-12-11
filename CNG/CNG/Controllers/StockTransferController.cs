@@ -228,7 +228,8 @@ namespace CNG.Controllers
                 ItemId = itemId,
                 Quantity = quantiy,
                 TransactionMethodId = (int)ETransactionMethod.StockTransfer_Company,
-                CompanyId = companyId
+                CompanyId = companyId,
+                ItemTypeId = itemRepo.GetItemType(itemId)
             };
 
             transactionLogRepo.Add(transactionLog);

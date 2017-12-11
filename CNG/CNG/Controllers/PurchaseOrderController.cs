@@ -226,16 +226,19 @@ namespace CNG.Controllers
 
         public void UpdateItemType(int itemid, int oldtypeid, int newtypeid)
         {
-            ItemHistory _item = new ItemHistory();
+            if (oldtypeid != newtypeid)
+            {
+                ItemHistory _item = new ItemHistory();
 
-            _item.ItemId = itemid;
-            _item.OldItemTypeId = oldtypeid;
-            _item.NewItemTypeId = newtypeid;
-            _item.CompanyId = Sessions.CompanyId.Value;
-            _item.Date = DateTime.Now;
+                _item.ItemId = itemid;
+                _item.OldItemTypeId = oldtypeid;
+                _item.NewItemTypeId = newtypeid;
+                _item.CompanyId = Sessions.CompanyId.Value;
+                _item.Date = DateTime.Now;
 
-            context.ItemHistories.Add(_item);
-            context.SaveChanges();
+                context.ItemHistories.Add(_item);
+                context.SaveChanges();
+            }
         }
 
         public void Checked(PurchaseOrderDTO entry)

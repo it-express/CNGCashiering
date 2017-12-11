@@ -29,6 +29,13 @@ namespace CNG.Models
             return item;
         }
 
+        public int GetItemType(int id)
+        {
+            int itemType = context.Items.FirstOrDefault(p => p.Id == id).TypeId;
+
+            return itemType;
+        }
+
         public ItemAssignment GetByItemId(int id, int? companyid)
         {
             ItemAssignment item = context.ItemAssignments.FirstOrDefault(p => p.ItemId == id && p.CompanyId == companyid);

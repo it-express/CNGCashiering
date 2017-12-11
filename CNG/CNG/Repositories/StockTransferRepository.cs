@@ -127,13 +127,16 @@ namespace CNG.Models
         public int InsertLogs(int itemId, int quantiy)
         {
             TransactionLogRepository transactionLogRepo = new TransactionLogRepository();
+            ItemRepository itemRepo = new ItemRepository();
 
             TransactionLog transactionLog = new TransactionLog
             {
                 ItemId = itemId,
                 Quantity = -quantiy,
                 TransactionMethodId = (int)ETransactionMethod.StockTransfer_Company,
-                CompanyId = Sessions.CompanyId.Value
+                CompanyId = Sessions.CompanyId.Value,
+                ItemTypeId = itemRepo.GetItemType(itemId)
+
             };
 
             return transactionLogRepo.Add(transactionLog);

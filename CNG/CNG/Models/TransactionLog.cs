@@ -29,6 +29,8 @@ namespace CNG.Models
             }
         }
 
+        public int? ItemTypeId { get; set; }
+
         public virtual TransactionMethod TransactionMethod { get; set; }
         public virtual User User { get; set; }
         public virtual Item Item { get; set; }

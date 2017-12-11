@@ -22,6 +22,7 @@ namespace CNG.Controllers
         TransactionLogRepository transLogRepo = new TransactionLogRepository();
 
         UserRepository userRepo = new UserRepository();
+        ItemRepository itemRepo = new ItemRepository();
 
 
 
@@ -228,7 +229,7 @@ namespace CNG.Controllers
                     receiving.TransactionLogId = item.TransLogId;
                 }
                 else {
-                    receiving.TransactionLogId = InsertLogs(poItem.ItemId, item.Quantity, item.DateReceived);
+                    receiving.TransactionLogId = InsertLogs(poItem.ItemId, item.Quantity, item.DateReceived,itemRepo.GetItemType(poItem.ItemId));
                    
                 }
 
@@ -299,7 +300,7 @@ namespace CNG.Controllers
             return View();
         }
 
-        public int InsertLogs(int itemId, int quantiy, DateTime dateReceived) {
+        public int InsertLogs(int itemId, int quantiy, DateTime dateReceived, int itemType) {
             TransactionLogRepository transactionLogRepo = new TransactionLogRepository();
 
             TransactionLog transactionLog = new TransactionLog
@@ -308,7 +309,8 @@ namespace CNG.Controllers
                 Quantity = quantiy,
                 TransactionMethodId = (int)ETransactionMethod.Receiving,
                 CompanyId = Sessions.CompanyId.Value,
-                Date = dateReceived
+                Date = dateReceived,
+                ItemTypeId = itemType
             };
 
             transactionLogRepo.Add(transactionLog);
