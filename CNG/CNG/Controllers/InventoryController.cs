@@ -197,14 +197,14 @@ namespace CNG.Controllers
 
 
             var lstInventory =( from item in lstItemAssignment
-                               from i in lstInventory2.Where(i => i.ItemId == item.ItemId).DefaultIfEmpty()
+                               from i in lstInventory2.Where(i => i.ItemId == item.ItemId)//.DefaultIfEmpty()
                                select new
                                {
                                    Code = item.Code,
                                    Description = item.Description,
                                    BegUnitCost = BegUnitCost(item.ItemId, string.Format("{0:#,##0.00}", item.UnitCost),dtDateTo),
                                    UnitCost = string.Format("{0:#,##0.00}", item.UnitCost), //item.UnitCost.ToString("F"),   
-                                   TypeId = ItemType(item.ItemId,dtDateTo,2) > 0 ? ItemType(item.ItemId, dtDateTo,2): item.TypeId,
+                                   //TypeId = ItemType(item.ItemId,dtDateTo,2) > 0 ? ItemType(item.ItemId, dtDateTo,2): item.TypeId,
                                                      
                                    StartingQuantity = i != null ? i.StartingQuantity - (i.In + i.Out) : 0,
                                    StartingMaterials = i != null ? i.StartingMaterials - (i.InMaterials + i.OutMaterials) : 0,
@@ -227,8 +227,8 @@ namespace CNG.Controllers
                                    OutBatteries = i != null ? i.OutBatteries : 0
 
 
-
-                               }).Where(p=>p.TypeId == 2).ToList();
+                               }).ToList();
+            //}).Where(p=>p.TypeId == 2).ToList();
 
             int currCompanyId = Sessions.CompanyId.Value;
             int totalMaterials = 0; //itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Materials).ToList().Sum(p => p.QuantityOnHand(currCompanyId));
@@ -327,14 +327,14 @@ namespace CNG.Controllers
 
 
             var lstInventory = (from item in lstItemAssignment
-                                from i in lstInventory2.Where(i => i.ItemId == item.ItemId).DefaultIfEmpty()
+                                from i in lstInventory2.Where(i => i.ItemId == item.ItemId)//.DefaultIfEmpty()
                                 select new
                                 {
                                     Code = item.Code,
                                     Description = item.Description,
                                     BegUnitCost = BegUnitCost(item.ItemId, string.Format("{0:#,##0.00}", item.UnitCost), dtDateTo),
                                     UnitCost = string.Format("{0:#,##0.00}", item.UnitCost), //item.UnitCost.ToString("F"),   
-                                    TypeId = ItemType(item.ItemId, dtDateTo,1) > 0 ? ItemType(item.ItemId, dtDateTo,1) : item.TypeId,
+                                   // TypeId = ItemType(item.ItemId, dtDateTo,1) > 0 ? ItemType(item.ItemId, dtDateTo,1) : item.TypeId,
 
                                     StartingQuantity = i != null ? i.StartingQuantity - (i.In + i.Out) : 0,
                                     StartingMaterials = i != null ? i.StartingMaterials - (i.InMaterials + i.OutMaterials) : 0,
@@ -357,8 +357,8 @@ namespace CNG.Controllers
                                     OutBatteries = i != null ? i.OutBatteries : 0
 
 
-
-                                }).Where(p=>p.TypeId == 1).ToList();
+                                }).ToList();
+            //}).Where(p=>p.TypeId == 1).ToList();
 
             int currCompanyId = Sessions.CompanyId.Value;
             int totalMaterials = 0; //itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Materials).ToList().Sum(p => p.QuantityOnHand(currCompanyId));
@@ -456,14 +456,14 @@ namespace CNG.Controllers
 
 
             var lstInventory = (from item in lstItemAssignment
-                                from i in lstInventory2.Where(i => i.ItemId == item.ItemId).DefaultIfEmpty()
+                                from i in lstInventory2.Where(i => i.ItemId == item.ItemId)//.DefaultIfEmpty()
                                 select new
                                 {
                                     Code = item.Code,
                                     Description = item.Description,
                                     BegUnitCost = BegUnitCost(item.ItemId, string.Format("{0:#,##0.00}", item.UnitCost), dtDateTo),
                                     UnitCost = string.Format("{0:#,##0.00}", item.UnitCost), //item.UnitCost.ToString("F"),  
-                                    TypeId = ItemType(item.ItemId, dtDateTo,3) > 0 ? ItemType(item.ItemId, dtDateTo,3) : item.TypeId,
+                                   // TypeId = ItemType(item.ItemId, dtDateTo,3) > 0 ? ItemType(item.ItemId, dtDateTo,3) : item.TypeId,
 
                                     StartingQuantity = i != null ? i.StartingQuantity - (i.In + i.Out) : 0,
                                     StartingMaterials = i != null ? i.StartingMaterials - (i.InMaterials + i.OutMaterials) : 0,
@@ -486,8 +486,8 @@ namespace CNG.Controllers
                                     OutBatteries = i != null ? i.OutBatteries : 0
 
 
-
-                                }).Where(p=>p.TypeId == 3).ToList();
+                                }).ToList();
+            //}).Where(p=>p.TypeId == 3).ToList();
 
             int currCompanyId = Sessions.CompanyId.Value;
             int totalMaterials = 0; //itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Materials).ToList().Sum(p => p.QuantityOnHand(currCompanyId));
@@ -585,14 +585,14 @@ namespace CNG.Controllers
 
 
             var lstInventory = (from item in lstItemAssignment
-                                from i in lstInventory2.Where(i => i.ItemId == item.ItemId).DefaultIfEmpty()
+                                from i in lstInventory2.Where(i => i.ItemId == item.ItemId)//.DefaultIfEmpty()
                                 select new
                                 {
                                     Code = item.Code,
                                     Description = item.Description,
                                     BegUnitCost = BegUnitCost(item.ItemId, string.Format("{0:#,##0.00}", item.UnitCost), dtDateTo),
                                     UnitCost = string.Format("{0:#,##0.00}", item.UnitCost), //item.UnitCost.ToString("F"),  
-                                    TypeId = ItemType(item.ItemId, dtDateTo,4) > 0 ? ItemType(item.ItemId, dtDateTo,4) : item.TypeId,
+                                    //TypeId = ItemType(item.ItemId, dtDateTo,4) > 0 ? ItemType(item.ItemId, dtDateTo,4) : item.TypeId,
 
                                     StartingQuantity = i != null ? i.StartingQuantity - (i.In + i.Out) : 0,
                                     StartingMaterials = i != null ? i.StartingMaterials - (i.InMaterials + i.OutMaterials) : 0,
@@ -615,8 +615,8 @@ namespace CNG.Controllers
                                     OutBatteries = i != null ? i.OutBatteries : 0
 
 
-
-                                }).Where(p=>p.TypeId == 4).ToList();
+                                }).ToList();
+            //}).Where(p=>p.TypeId == 4).ToList();
 
             int currCompanyId = Sessions.CompanyId.Value;
             int totalMaterials = 0; //itemRepo.List().Where(p => p.ClassificationId == (int)EItemClassification.Materials).ToList().Sum(p => p.QuantityOnHand(currCompanyId));
@@ -693,13 +693,13 @@ namespace CNG.Controllers
             var lstHistory = (from stockCard in itemStockCardRepo.ItemHistoryList().Where(p => p.CompanyId == Sessions.CompanyId.Value 
                                                                                                 && DbFunctions.TruncateTime(p.Date) <= DbFunctions.TruncateTime(DateTo )
                                                                                                 && p.ItemId == itemid
-                                                                                                && p.OldItemTypeId == itemtype).ToList()
+                                                                                                && p.NewItemTypeId == itemtype).ToList()
 
                                 group stockCard by stockCard.ItemId into g
                                 select new
                                 {
                                     ItemId = g.Key,
-                                    TypeId = g.OrderByDescending(p => p.Date).FirstOrDefault().OldItemTypeId
+                                    TypeId = g.OrderByDescending(p => p.Date).FirstOrDefault().NewItemTypeId
 
                                 }).ToList();
 

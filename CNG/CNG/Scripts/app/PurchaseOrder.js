@@ -156,7 +156,7 @@ function addDays(date, days) {
 
 function GetSelectedItems() {
     var lstItem = new Array();
-
+   
     $("tr.item-row").each(function () {
         $this = $(this);
 
