@@ -691,7 +691,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!UnitCost.Value * Fields!StartingQuantity.Value</Value>
+                              <Value>=Fields!BegUnitCost.Value * Fields!StartingQuantity.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <Format>#,0.00;(#,0.00)</Format>
@@ -753,17 +753,17 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="UnitCost1">
+                    <Textbox Name="BegUnitCost2">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!UnitCost.Value</Value>
+                              <Value>=Fields!BegUnitCost.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
-                                <Format>#,0.00;(#,0.00)</Format>
+                                <Format>#,0.00;(#,0.00);''</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -772,7 +772,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>UnitCost1</rd:DefaultName>
+                      <rd:DefaultName>BegUnitCost</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -795,7 +795,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!In.Value * Fields!UnitCost.Value</Value>
+                              <Value>=Fields!In.Value * Fields!BegUnitCost.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <Format>#,0.00;(#,0.00)</Format>
@@ -857,14 +857,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="UnitCost2">
+                    <Textbox Name="BegUnitCost1">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!UnitCost.Value</Value>
+                              <Value>=Fields!BegUnitCost.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <Format>'$'#,0.00;('$'#,0.00)</Format>
@@ -877,7 +877,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>UnitCost2</rd:DefaultName>
+                      <rd:DefaultName>BegUnitCost1</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -901,7 +901,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!Out.Value * Fields!UnitCost.Value</Value>
+                              <Value>=Fields!Out.Value * Fields!BegUnitCost.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <Format>#,0.00;(#,0.00)</Format>
@@ -963,14 +963,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="UnitCost3">
+                    <Textbox Name="BegUnitCost3">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!UnitCost.Value</Value>
+                              <Value>=Fields!BegUnitCost.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <Format>#,0.00;(#,0.00)</Format>
@@ -982,7 +982,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>UnitCost3</rd:DefaultName>
+                      <rd:DefaultName>BegUnitCost3</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1005,7 +1005,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!EndingQuantity.Value * Fields!UnitCost.Value</Value>
+                              <Value>=Fields!EndingQuantity.Value * Fields!BegUnitCost.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <Format>#,0.00;(#,0.00)</Format>
@@ -1275,7 +1275,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!UnitCost.Value * Fields!In.Value)</Value>
+                              <Value>=Sum(Fields!BegUnitCost.Value * Fields!In.Value)</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                               </Style>
@@ -1374,7 +1374,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!UnitCost.Value * Fields!Out.Value)</Value>
+                              <Value>=Sum(Fields!BegUnitCost.Value * Fields!Out.Value)</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                               </Style>
@@ -1473,7 +1473,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!EndingQuantity.Value * Fields!UnitCost.Value)</Value>
+                              <Value>=Sum(Fields!EndingQuantity.Value * Fields!BegUnitCost.Value)</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <Format>#,0.00;(#,0.00)</Format>
@@ -1824,7 +1824,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!InMaterials.Value * Fields!UnitCost.Value)</Value>
+                              <Value>=Sum(Fields!InMaterials.Value * Fields!BegUnitCost.Value)</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <Format>#,0.00;(#,0.00)</Format>
@@ -1922,7 +1922,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!OutMaterials.Value * Fields!UnitCost.Value)</Value>
+                              <Value>=Sum(Fields!OutMaterials.Value * Fields!BegUnitCost.Value)</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <Format>#,0.00;(#,0.00)</Format>
@@ -2020,7 +2020,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!EndingMaterials.Value * Fields!UnitCost.Value)</Value>
+                              <Value>=Sum(Fields!EndingMaterials.Value * Fields!BegUnitCost.Value)</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <Format>#,0.00;(#,0.00)</Format>
@@ -2281,7 +2281,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!InTires.Value * Fields!UnitCost.Value)</Value>
+                              <Value>=Sum(Fields!InTires.Value * Fields!BegUnitCost.Value)</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <Format>#,0.00;(#,0.00)</Format>
@@ -2376,7 +2376,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!OutTires.Value * Fields!UnitCost.Value)</Value>
+                              <Value>=Sum(Fields!OutTires.Value * Fields!BegUnitCost.Value)</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <Format>#,0.00;(#,0.00)</Format>
@@ -2471,7 +2471,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!EndingTires.Value * Fields!UnitCost.Value)</Value>
+                              <Value>=Sum(Fields!EndingTires.Value * Fields!BegUnitCost.Value)</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <Format>#,0.00;(#,0.00)</Format>
@@ -2729,7 +2729,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!InBatteries.Value * Fields!UnitCost.Value)</Value>
+                              <Value>=Sum(Fields!InBatteries.Value * Fields!BegUnitCost.Value)</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <Format>#,0.00;(#,0.00)</Format>
@@ -2824,7 +2824,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!OutBatteries.Value * Fields!UnitCost.Value)</Value>
+                              <Value>=Sum(Fields!OutBatteries.Value * Fields!BegUnitCost.Value)</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <Format>#,0.00;(#,0.00)</Format>
@@ -2919,7 +2919,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!EndingBatteries.Value * Fields!UnitCost.Value)</Value>
+                              <Value>=Sum(Fields!EndingBatteries.Value * Fields!BegUnitCost.Value)</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <Format>#,0.00;(#,0.00)</Format>
@@ -3178,7 +3178,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!UnitCost.Value * Fields!In.Value)</Value>
+                              <Value>=Sum(Fields!BegUnitCost.Value * Fields!In.Value)</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                               </Style>
@@ -3272,7 +3272,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!UnitCost.Value * Fields!Out.Value)</Value>
+                              <Value>=Sum(Fields!BegUnitCost.Value * Fields!Out.Value)</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                               </Style>
@@ -3366,7 +3366,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!EndingQuantity.Value * Fields!UnitCost.Value)</Value>
+                              <Value>=Sum(Fields!EndingQuantity.Value * Fields!BegUnitCost.Value)</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <Format>#,0.00;(#,0.00)</Format>
