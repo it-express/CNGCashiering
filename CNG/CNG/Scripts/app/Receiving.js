@@ -16,6 +16,7 @@
     });
 
     $(document).on('click', '.btnEdit', function () {
+     
         var poItemId = $(this).data('po-item-id');
 
         var url = 'RenderReceivingLogEditor?poItemId=' + poItemId;
@@ -30,6 +31,8 @@
 
             $('.date-picker').datepicker();
         });
+
+       
     });
 
     $(document).on('keyup', '.txtReceivedQuantity', function () {
@@ -69,6 +72,8 @@
         }
     });
 
+    RefreshSubmitButtonState();
+
 });
 
 function RefreshItems() {
@@ -79,7 +84,7 @@ function RefreshItems() {
         var url = 'RenderEditorRow?poNo=' + poNo + '&&?ReNo=' + ReNo;
         $.get(url, function (data) {
             $('#tblItems tbody').empty().append(data);
-
+         
             RefreshSubmitButtonState();
 
             $('.date-picker').datepicker();
@@ -89,6 +94,7 @@ function RefreshItems() {
 
 function RefreshSubmitButtonState() {
     //Enable/disable submit button
+  
     if (HasNoRemainingBalance()) {
         $('#btnSubmit').prop('disabled', false);
     }

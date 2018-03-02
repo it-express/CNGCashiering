@@ -238,7 +238,14 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">Approved By</label>
                             <div class="col-md-5">
-                                <label id="lblApprovedBy" class="form-control">@ViewBag.GeneralManager</label>
+                                @if (Model.PurchaseOrder.Id != 0)
+                                {
+                                    <label id="lblApprovedBy" class="form-control">@Model.PurchaseOrder.ApprovedByObj.FullName</label>
+                                }
+                                else
+                                {
+                                    <label id="lblApprovedBy" class="form-control">@ViewBag.GeneralManager</label>
+                                }
                             </div>
                         </div>
                         

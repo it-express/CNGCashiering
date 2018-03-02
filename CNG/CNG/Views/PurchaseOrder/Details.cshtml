@@ -107,7 +107,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-2">Approved By</label>
                         <div class="col-md-3">
-                            <label class="form-control">@Html.DisplayFor(model => model.ApprovedByObj.Username)</label>
+                            <label class="form-control">@*@ViewBag.GeneralManager*@@Html.DisplayFor(model => model.ApprovedByObj.FullName)</label>
                         </div>
                         <div class="col-md-2 no-padding">
                             @if (ViewBag.UserLevel == 3)

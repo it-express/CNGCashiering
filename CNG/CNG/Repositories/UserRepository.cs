@@ -60,9 +60,12 @@ namespace CNG.Models
         {
             User user = context.Users.Find(id);
 
-            context.Users.Remove(user);
+            if (context.Users.Where(u => u.GeneralManagerId == id).Count() == 0)
+            {
+                context.Users.Remove(user);
 
-            context.SaveChanges();
+                context.SaveChanges();
+            }
         }
 
         public List<User> GetByUserTypeId(int userTypeId) {
