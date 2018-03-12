@@ -1,0 +1,23 @@
+﻿@model IEnumerable<CNGCashier.Models.Company>
+<ul class="CompanyList col-sm-8 col-sm-offset-2" style="margin-bottom:120px;">
+    @foreach (var item in Model)
+    {
+        <li class="col-sm-3">
+            <a href="@Url.Action("Dashboard", "Home", new { companyId = item.Id, })" class="panel">
+                <i class="fa fa-building"></i>
+                <span class="title">@item.Name</span>
+            </a>
+        </li>
+    }
+</ul>
+
+<script>
+
+    $(document).ready(function () {
+        $('ul.CompanyList li:nth-child(1) a').addClass('panel-red');
+        $('ul.CompanyList li:nth-child(2) a').addClass('panel-blue');
+        $('ul.CompanyList li:nth-child(3) a').addClass('panel-green');
+        $('ul.CompanyList li:nth-child(4) a').addClass('panel-orange');
+    });
+    d
+</script>

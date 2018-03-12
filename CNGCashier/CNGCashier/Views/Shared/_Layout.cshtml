@@ -1,42 +1,287 @@
 ﻿<!DOCTYPE html>
-<html>
+<!-- Template Name: Rapido - Responsive Admin Template build with Twitter Bootstrap 3.x Version: 1.2 Author: ClipTheme -->
+<!--[if IE 8]><html class="ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9" lang="en"><![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- start: HEAD -->
 <head>
+    <title>First CNG Inc - Cashiering System</title>
+    <!-- start: META -->
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- end: META -->
+    <!-- start: MAIN CSS -->
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,500,600,700,200,100,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="@Url.Content("~/Content/rapido/plugins/bootstrap/css/bootstrap.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/rapido/plugins/font-awesome/css/font-awesome.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/rapido/plugins/iCheck/skins/all.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/rapido/plugins/perfect-scrollbar/src/perfect-scrollbar.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/rapido/plugins/animate.css/animate.css")">
+    <!-- end: MAIN CSS -->
+    <!-- start: CSS REQUIRED FOR SUBVIEW CONTENTS -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/rapido/plugins/owl-carousel/owl-carousel/owl.carousel.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/rapido/plugins/owl-carousel/owl-carousel/owl.theme.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/rapido/plugins/owl-carousel/owl-carousel/owl.transitions.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/rapido/plugins/summernote/dist/summernote.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/rapido/plugins/fullcalendar/fullcalendar/fullcalendar.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/rapido/plugins/toastr/toastr.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/rapido/plugins/bootstrap-select/bootstrap-select.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/rapido/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/rapido/plugins/DataTables/media/css/DT_bootstrap.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/rapido/plugins/bootstrap-fileupload/bootstrap-fileupload.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/rapido/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css")">
+    <!-- end: CSS REQUIRED FOR THIS SUBVIEW CONTENTS-->
+    <!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
+    <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
+    <!-- start: CORE CSS -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/rapido/css/styles.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/rapido/css/styles-responsive.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/rapido/css/plugins.css")">
+    <link id="skin_color" type="text/css" href="@Url.Content("~/Content/rapido/css/themes/theme-style4.css")" rel="stylesheet">
+    @*<link rel="stylesheet" href="@Url.Content("~/Content/rapido/css/themes/theme-style8.css" type="text/css" id="skin_color">*@
+    <link rel="stylesheet" href="@Url.Content("~/Content/rapido/css/print.css")" type="text/css" media="print" />
+    <!-- end: CORE CSS -->
+    <link rel="shortcut icon" href="@Url.Content("~/Content/rapido/favicon.ico")" />
+
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/rapido/plugins/datepicker/css/datepicker.css")">
+
+
+    <!-- start: MAIN JAVASCRIPTS -->
+    <!--[if lt IE 9]>
+    <script src="@Url.Content("~/Content/rapido/plugins/respond.min.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/excanvas.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/rapido/plugins/jQuery/jquery-1.11.1.min.js")"></script>
+    <![endif]-->
+    <!--[if gte IE 9]><!-->
+    <script src="@Url.Content("~/Content/rapido/plugins/jQuery/jquery-2.1.1.min.js")"></script>
+    <!--<![endif]-->
+    <script src="@Url.Content("~/Content/rapido/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/bootstrap/js/bootstrap.min.js")"></script>
+
 </head>
+<!-- end: HEAD -->
+<!-- start: BODY -->
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    @* To be replaced by controller filters later... *@
+    @*@{
+            if (Session["uid"] == null) {
+                Response.Redirect("/Home/Login");
+            }
+        }*@
+
+    <!-- end: SLIDING BAR -->
+    <div class="main-wrapper">
+        <!-- start: TOPBAR -->
+        <header class="topbar navbar navbar-inverse navbar-fixed-top inner">
+            <!-- start: TOPBAR CONTAINER -->
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="sb-toggle-left hidden-md hidden-lg" href="#main-navbar">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                    <!-- start: LOGO -->
+                    @*<a class="navbar-brand" href="#">
+                        @{
+                            @(CNGCashier.Models.Sessions.CompanyName.ToUpper())
+                        }
+                    </a>*@
+                    <!-- end: LOGO -->
+                </div>
+                <div class="topbar-tools">
+                    <!-- start: TOP NAVIGATION MENU -->
+                    <ul class="nav navbar-right">
+                        <!-- start: USER DROPDOWN -->
+                        <li class="dropdown current-user">
+                            <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="#">
+                                <img src="@Url.Content("~/Content/rapido/images/avatar-1-small.jpg")" class="img-circle" alt=""> <span class="username hidden-xs">@Session["uname"].ToString()</span> <i class="fa fa-caret-down "></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-dark">
+                                <li>
+                                    <a href="@Url.Action("Index", "Home")">
+                                        Select Company
+                                    </a>
+                                    <a href="@Url.Action("Logout", "Home")">
+                                        Log Out
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- end: TOP NAVIGATION MENU -->
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+            <!-- end: TOPBAR CONTAINER -->
+        </header>
+        <!-- end: TOPBAR -->
+        <!-- start: PAGESLIDE LEFT -->
+        <a class="closedbar inner hidden-sm hidden-xs" href="#">
+        </a>
+        <nav id="pageslide-left" class="pageslide inner">
+            <div class="navbar-content">
+                <!-- start: SIDEBAR -->
+                <div class="main-navigation left-wrapper transition-left">
+                    <div class="navigation-toggler hidden-sm hidden-xs">
+                        <a href="#main-navbar" class="sb-toggle-left">
+                        </a>
+                    </div>
+                    <!-- start: MAIN NAVIGATION MENU -->
+                    <ul class="main-navigation-menu">
+                        <li>
+                            <a href="@Url.Action("Dashboard", "Home")"><i class="fa fa-home"></i> <span class="title">Home</span> </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-cog"></i> <span class="title"> Management </span><i class="icon-arrow"></i>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="@Url.Action("Index", "Driver")"><i class="fa fa-car"></i> <span class="title">Driver</span> </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index", "Vehicle")"><i class="fa fa-car"></i> <span class="title">Vehicle</span> </a>
+                                </li>
+                                @if (Convert.ToInt32(Session["utype"]) != 1)
+                                { //1 = User
+                                    <li>
+                                        <a href="@Url.Action("Index", "Company")"><i class="fa fa-building"></i> <span class="title">Company</span> </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index", "User")"><i class="fa fa-user"></i> <span class="title">User</span> </a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- end: MAIN NAVIGATION MENU -->
+                </div>
+                <!-- end: SIDEBAR -->
             </div>
+            <div class="slide-tools">
+                <div class="col-xs-6 text-left no-padding">
+                    @*<a class="btn btn-sm status" href="#">
+                            Status <i class="fa fa-dot-circle-o text-green"></i> <span>Online</span>
+                        </a>*@
+                </div>
+                <div class="col-xs-6 text-right no-padding">
+                    <a class="btn btn-sm log-out text-right" href="login_login.html">
+                        <i class="fa fa-power-off"></i> Log Out
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <!-- end: PAGESLIDE LEFT -->
+        <!-- start: MAIN CONTAINER -->
+        <div class="main-container inner">
+            <!-- start: PAGE -->
+            <div class="main-content">
+
+                <!-- end: SPANEL CONFIGURATION MODAL FORM -->
+                <div class="container">
+                    <!-- start: PAGE HEADER -->
+
+                    @RenderBody()
+
+
+                    <!-- end: PAGE CONTENT-->
+                </div>
+                <div class="subviews">
+                    <div class="subviews-container"></div>
+                </div>
+            </div>
+            <!-- end: PAGE -->
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        <!-- end: MAIN CONTAINER -->
+        <!-- start: FOOTER -->
+        <footer class="inner">
+            <div class="footer-inner">
+                <div class="pull-left">
+                    2016 &copy; CNG Cashiering System by SDS.
+                </div>
+                <div class="pull-right">
+                    <span class="go-top"><i class="fa fa-chevron-up"></i></span>
+                </div>
+            </div>
         </footer>
+        <!-- end: FOOTER -->
+
+
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+
     @RenderSection("scripts", required: false)
+
+    <script src="@Url.Content("~/Content/rapido/plugins/blockUI/jquery.blockUI.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/iCheck/jquery.icheck.min.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/moment/min/moment.min.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/bootstrap-modal/js/bootstrap-modalmanager.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/perfect-scrollbar/src/jquery.mousewheel.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/perfect-scrollbar/src/perfect-scrollbar.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/bootbox/bootbox.min.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/jquery.scrollTo/jquery.scrollTo.min.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/ScrollToFixed/jquery-scrolltofixed-min.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/jquery.appear/jquery.appear.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/jquery-cookie/jquery.cookie.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/velocity/jquery.velocity.min.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/TouchSwipe/jquery.touchSwipe.min.js")"></script>
+    <!-- end: MAIN JAVASCRIPTS -->
+    <!-- start: JAVASCRIPTS REQUIRED FOR SUBVIEW CONTENTS -->
+    <script src="@Url.Content("~/Content/rapido/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/owl-carousel/owl-carousel/owl.carousel.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/jquery-mockjax/jquery.mockjax.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/toastr/toastr.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/bootstrap-modal/js/bootstrap-modal.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/fullcalendar/fullcalendar/fullcalendar.min.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/bootstrap-select/bootstrap-select.min.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/jquery-validation/dist/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/bootstrap-fileupload/bootstrap-fileupload.min.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/DataTables/media/js/jquery.dataTables.min.js")"></script>
+
+    <script src="@Url.Content("~/Content/rapido/plugins/truncate/jquery.truncate.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/summernote/dist/summernote.min.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/plugins/bootstrap-daterangepicker/daterangepicker.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/js/subview.js")"></script>
+    <script src="@Url.Content("~/Content/rapido/js/subview-examples.js")"></script>
+
+
+    <script src="@Url.Content("~/Content/rapido/js/form-elements.js")"></script>
+    <!-- end: JAVASCRIPTS REQUIRED FOR SUBVIEW CONTENTS -->
+    <!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+    <!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+    <!-- start: CORE JAVASCRIPTS  -->
+    <script src="@Url.Content("~/Content/rapido/js/main.js")"></script>
+    <!-- end: CORE JAVASCRIPTS  -->
+    <script>
+        $(document).ready(function () {
+            Main.init();
+            SVExamples.init();
+            FormElements.init();
+
+            $('.date-picker').datepicker();
+        });
+
+        //$(window).load(function() {
+
+        //});
+
+        $(window).on("load", function () {
+            $.ready.then(function () {
+                $('.date-picker').datepicker();
+            });
+        })
+
+    </script>
+
+
 </body>
+<!-- end: BODY -->
 </html>
