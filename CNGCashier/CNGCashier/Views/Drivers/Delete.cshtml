@@ -1,0 +1,60 @@
+﻿@model CNGCashier.Models.Driver
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel-heading">
+    <h4 class="panel-title">Delete Driver</h4>
+    <hr />
+</div>
+
+<div class="panel-body">
+    <div class="form-horizontal">
+        @Html.HiddenFor(model => model.Id);
+        <div class="form-group">
+            <label class="control-label col-md-2">Lastname</label>
+            <div class="col-md-6">
+                <label class="custom-label">
+                    @Html.DisplayFor(model => model.LastName)
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Firstname</label>
+            <div class="col-md-6">
+                <label class="custom-label">
+                    @Html.DisplayFor(model => model.FirstName)
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Middlename</label>
+            <div class="col-md-6">
+                <label class="custom-label">
+                    @Html.DisplayFor(model => model.MiddleName)
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">License Number</label>
+            <div class="col-md-6">
+                <label class="custom-label">
+                    @Html.DisplayFor(model => model.LicenseNumber)
+                </label>
+            </div>
+        </div>
+
+        @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-dark-red" /> &nbsp;&nbsp;
+            <a href='@Url.Action("Index")' class="btn btn-light-orange">Back to List</a>
+        </div>
+}
+    </div>
+</div>
+

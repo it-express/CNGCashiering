@@ -88,11 +88,11 @@
                         <i class="fa fa-bars"></i>
                     </a>
                     <!-- start: LOGO -->
-                    @*<a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="#">
                         @{
                             @(CNGCashier.Models.Sessions.CompanyName.ToUpper())
                         }
-                    </a>*@
+                    </a>
                     <!-- end: LOGO -->
                 </div>
                 <div class="topbar-tools">
@@ -144,7 +144,7 @@
                             </a>
                             <ul class="sub-menu">
                                 <li>
-                                    <a href="@Url.Action("Index", "Driver")"><i class="fa fa-car"></i> <span class="title">Driver</span> </a>
+                                    <a href="@Url.Action("Index", "Drivers")"><i class="fa fa-car"></i> <span class="title">Driver</span> </a>
                                 </li>
                                 <li>
                                     <a href="@Url.Action("Index", "Vehicle")"><i class="fa fa-car"></i> <span class="title">Vehicle</span> </a>
@@ -155,7 +155,7 @@
                                         <a href="@Url.Action("Index", "Company")"><i class="fa fa-building"></i> <span class="title">Company</span> </a>
                                     </li>
                                     <li>
-                                        <a href="@Url.Action("Index", "User")"><i class="fa fa-user"></i> <span class="title">User</span> </a>
+                                        <a href="@Url.Action("Index", "Users")"><i class="fa fa-user"></i> <span class="title">User</span> </a>
                                     </li>
                                 }
                             </ul>
@@ -204,7 +204,7 @@
         <footer class="inner">
             <div class="footer-inner">
                 <div class="pull-left">
-                    2016 &copy; CNG Cashiering System by SDS.
+                    2018 &copy; CNG Cashiering System by SDS.
                 </div>
                 <div class="pull-right">
                     <span class="go-top"><i class="fa fa-chevron-up"></i></span>
