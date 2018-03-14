@@ -100,3 +100,19 @@ E:\CNGCashier\trunk\CNGCashier\CNGCashier\obj\Debug\CNGCashier.csproj.CoreCompil
 E:\CNGCashier\trunk\CNGCashier\CNGCashier\obj\Debug\CNGCashier.csproj.CopyComplete
 E:\CNGCashier\trunk\CNGCashier\CNGCashier\obj\Debug\CNGCashier.dll
 E:\CNGCashier\trunk\CNGCashier\CNGCashier\obj\Debug\CNGCashier.pdb
+D:\SD Solutions\CNV_v2\trunk\CNGCashier\CNGCashier\obj\Debug\CNGCashier.csprojResolveAssemblyReference.cache
+D:\SD Solutions\CNV_v2\trunk\CNGCashier\CNGCashier\obj\Debug\CNGCashier.dll
+D:\SD Solutions\CNV_v2\trunk\CNGCashier\CNGCashier\obj\Debug\CNGCashier.pdb
+D:\SD Solutions\CNV_v2\trunk\CNGCashier\CNGCashier\bin\ApplicationInsights.config
+D:\SD Solutions\CNV_v2\trunk\CNGCashier\CNGCashier\bin\CNGCashier.dll.config
+D:\SD Solutions\CNV_v2\trunk\CNGCashier\CNGCashier\bin\CNGCashier.dll
+D:\SD Solutions\CNV_v2\trunk\CNGCashier\CNGCashier\bin\CNGCashier.pdb
+D:\SD Solutions\CNV_v2\trunk\CNGCashier\CNGCashier\bin\EntityFramework.dll
+D:\SD Solutions\CNV_v2\trunk\CNGCashier\CNGCashier\bin\EntityFramework.SqlServer.dll
+D:\SD Solutions\CNV_v2\trunk\CNGCashier\CNGCashier\bin\PagedList.dll
+D:\SD Solutions\CNV_v2\trunk\CNGCashier\CNGCashier\bin\PagedList.Mvc.dll
+D:\SD Solutions\CNV_v2\trunk\CNGCashier\CNGCashier\bin\EntityFramework.xml
+D:\SD Solutions\CNV_v2\trunk\CNGCashier\CNGCashier\bin\EntityFramework.SqlServer.xml
+D:\SD Solutions\CNV_v2\trunk\CNGCashier\CNGCashier\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\SD Solutions\CNV_v2\trunk\CNGCashier\CNGCashier\bin\PagedList.xml
+D:\SD Solutions\CNV_v2\trunk\CNGCashier\CNGCashier\bin\PagedList.Mvc.xml
