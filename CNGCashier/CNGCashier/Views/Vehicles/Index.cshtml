@@ -1,0 +1,103 @@
+﻿@model PagedList.IPagedList<CNGCashier.Models.Vehicle>
+    @using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "Vehicles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Vehicles</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm("Index", "Vehicles", FormMethod.Get))
+{
+    <p>
+        Search by Mak: @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+
+}
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Make)*@
+            @Html.ActionLink("Make", "Index", new { sortOrder = ViewBag.MakeSortParm, currentFilter = ViewBag.CurrentFilter })
+
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Year)*@
+            @Html.ActionLink("Year", "Index", new { sortOrder = ViewBag.YearSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Model)*@
+            @Html.ActionLink("Model", "Index", new { sortOrder = ViewBag.ModelSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.CnNo)*@
+            @Html.ActionLink("Cn No", "Index", new { sortOrder = ViewBag.CnNoSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.LicenseNo)*@
+            @Html.ActionLink("License", "Index", new { sortOrder = ViewBag.LicenseSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.EngineNo)*@
+            @Html.ActionLink("Engine No", "Index", new { sortOrder = ViewBag.EngineNoSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.ChasisNo)*@
+            @Html.ActionLink("Chasis No", "Index", new { sortOrder = ViewBag.ChasisNoSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Color)*@
+            @Html.ActionLink("Color", "Index", new { sortOrder = ViewBag.ColorSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Active)*@
+            @Html.ActionLink("Active", "Index", new { sortOrder = ViewBag.ActiveSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Make)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Year)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Model)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CnNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LicenseNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EngineNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChasisNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Color)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

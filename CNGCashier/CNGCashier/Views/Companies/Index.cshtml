@@ -1,0 +1,116 @@
+﻿@model PagedList.IPagedList<CNGCashier.Models.Company>
+    @using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="toolbar row">
+    <div class="col-sm-6 hidden-xs">
+        <div class="page-header">
+            <h1>Company</h1>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="breadcrumb"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h4 class="panel-title pull-left"><span class="text-bold">Company List</span></h4>
+                <div class="pull-right">
+                    <a href="@Url.Action("Create")" class="btn btn-dark-blue">Create</a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel-body">
+                                @using (Html.BeginForm("Index", "Companies", FormMethod.Get))
+                                {
+                                    <div class="col-md-4 col-sm-12 no-padding pull-right" style="margin-bottom:16px; text-align:right;">
+                                        @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Search by Company Name", @style = "display:inline; width:74%;" })
+                                        <input type="submit" value="Search" class="btn btn-dark-beige" />
+                                       </div>
+
+                                }
+                <div class="clearfix">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @*@Html.DisplayNameFor(model => model.Name)*@
+                                                @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+                                            </th>
+                                            <th>
+                                                @*@Html.DisplayNameFor(model => model.Address)*@
+                                                @Html.ActionLink("Address", "Index", new { sortOrder = ViewBag.AddressSortParm, currentFilter = ViewBag.CurrentFilter })
+                                            </th>
+                                            <th>
+                                                @*@Html.DisplayNameFor(model => model.ContactPerson)*@
+                                                @Html.ActionLink("Contact Person", "Index", new { sortOrder = ViewBag.ContactPSortParm, currentFilter = ViewBag.CurrentFilter })
+                                            </th>
+                                            <th>
+                                                @*@Html.DisplayNameFor(model => model.ContactNo)*@
+                                                @Html.ActionLink("Contact No", "Index", new { sortOrder = ViewBag.ContactNSortParm, currentFilter = ViewBag.CurrentFilter })
+                                            </th>
+                                            <th>
+                                                @*@Html.DisplayNameFor(model => model.Active)*@
+                                                @Html.ActionLink("Active", "Index", new { sortOrder = ViewBag.ActiveSortParm, currentFilter = ViewBag.CurrentFilter })
+                                            </th>
+                                            <th>
+                                                @*@Html.DisplayNameFor(model => model.Prefix)*@
+                                                @Html.ActionLink("Prefix", "Index", new { sortOrder = ViewBag.PrefixSortParm, currentFilter = ViewBag.CurrentFilter })
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Name)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Address)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ContactPerson)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ContactNo)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Active)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Prefix)
+                                                </td>
+          
+                                                <td>
+                                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                                        <a href="@Url.Action("Edit", new { id = item.Id })" data-original-title="Edit" data-placement="top" class="btn btn-xs btn-blue tooltips"><i class="fa fa-edit"></i></a>
+                                                        <a href="@Url.Action("Delete", new { id = item.Id })" data-original-title="Remove" data-placement="top" class="btn btn-xs btn-red tooltips"><i class="fa fa-times fa fa-white"></i></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                    <div class="clearfix"></div>
+                    <div class="col-md-4 col-sm-12 no-padding pull-left" style="margin:20px 0px;">
+                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                        </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

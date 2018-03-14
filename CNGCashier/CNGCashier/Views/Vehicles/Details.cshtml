@@ -1,0 +1,91 @@
+﻿@model CNGCashier.Models.Vehicle
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Vehicle</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Make)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Make)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CnNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CnNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LicenseNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LicenseNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EngineNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EngineNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChasisNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChasisNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Color)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
