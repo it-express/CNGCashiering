@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -18,19 +19,22 @@ namespace CNGCashier.Controllers
         DriverRepo driverRepo = new DriverRepo();
 
         // GET: Drivers
-        public ActionResult Index(string sortColumn, string sortOrder, string currentFilter, string searchString, int? page)
+        public ActionResult Index(string sortColumn, string sortOrder,string nextpage, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortColumn;
-            ViewBag.SortOrder = sortOrder == "asc" ? "desc" : "asc";
+            ViewBag.SortOrder = sortOrder;
 
-            if (searchString != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
+            if(nextpage == null)
+                sortOrder = sortOrder == "asc" ? "desc" : "asc";
+
+            //if (searchString != null)
+            //{
+            //    page = 1;
+            //}
+            //else
+            //{
+            //    searchString = currentFilter;
+            //}
             ViewBag.CurrentFilter = searchString;
 
             IQueryable<Driver> driver = driverRepo.List();
@@ -43,13 +47,13 @@ namespace CNGCashier.Controllers
                                        || x.LicenseNumber.Contains(searchString));
             }
 
-            if (!String.IsNullOrEmpty(sortColumn))
+            if (String.IsNullOrEmpty(sortColumn))
             {
-                driver = driver.OrderByDescending(p => p.Id);
+                driver = driver.OrderByDescending(d => d.Id);
             }
             else
             {
-                driver = driver.OrderBy(p => sortColumn + " " + sortOrder);
+                driver = driver.OrderBy(sortColumn + " " + sortOrder);
             }
 
             int pageSize = 10;
@@ -78,9 +82,6 @@ namespace CNGCashier.Controllers
             return View();
         }
 
-        // POST: Drivers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,LastName,FirstName,MiddleName,LicenseNumber")] Driver driver)

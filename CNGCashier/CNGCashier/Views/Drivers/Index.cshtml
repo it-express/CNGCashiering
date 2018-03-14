@@ -11,7 +11,7 @@
 <div class="toolbar row">
     <div class="col-sm-6 hidden-xs">
         <div class="page-header">
-            <h1>Driver </h1>
+            <h1>Driver Management</h1>
         </div>
     </div>
 </div>
@@ -46,7 +46,7 @@
                 @using (Html.BeginForm())
                 {
                     <div class="col-md-4 col-sm-12 no-padding pull-right" style="margin-bottom:16px; text-align:right;">
-                        @Html.TextBox("SearchString", (string)ViewBag.CurrentFilter, new { @class = "form-control", @placeholder = "Find", @style = "display:inline; width:74%;" })
+                        @Html.TextBox("SearchString", (string)ViewBag.CurrentFilter, new { @class = "form-control", @placeholder = "Search", @style = "display:inline; width:74%;" })
                         <input type="submit" value="Search" class="btn btn-dark-beige" />
                     </div>
                 }
@@ -108,7 +108,7 @@
 
                 <div class="col-md-8 col-sm-12 no-padding pull-left" style="text-align:right;">
                     @Html.PagedListPager(Model, page => Url.Action("Index",
-                         new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                         new { page, nextpage="next",sortColumn = ViewBag.CurrentSort , sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter }))
                 </div>
 
                 <div class="clearfix"></div>

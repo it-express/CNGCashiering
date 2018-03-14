@@ -5,93 +5,92 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Vehicle</h4>
+<div class="panel-heading">
+    <h4 class="panel-title">Delete Vehicle</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Make)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Make)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Year)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Year)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Model)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Model)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CnNo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CnNo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LicenseNo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LicenseNo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EngineNo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EngineNo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ChasisNo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ChasisNo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Color)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Color)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Active)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Active)
-        </dd>
-
-    </dl>
-
+</div>
+<div class="panel-body">
+    <div class="form-horizontal">
+        @Html.HiddenFor(model => model.Id);
+        <div class="form-group">
+            <label class="control-label col-md-2">Make</label>
+            <div class="col-md-6">
+                <label class="custom-label">
+                    @Html.DisplayFor(model => model.Make)
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Year</label>
+            <div class="col-md-6">
+                <label class="custom-label">
+                    @Html.DisplayFor(model => model.Year)
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Model</label>
+            <div class="col-md-6">
+                <label class="custom-label">
+                    @Html.DisplayFor(model => model.Model)
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Cn. No.</label>
+            <div class="col-md-6">
+                <label class="custom-label">
+                    @Html.DisplayFor(model => model.CnNo)
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">License Number</label>
+            <div class="col-md-6">
+                <label class="custom-label">
+                    @Html.DisplayFor(model => model.LicenseNo)
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Engine Number</label>
+            <div class="col-md-6">
+                <label class="custom-label">
+                    @Html.DisplayFor(model => model.EngineNo)
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Chasis Number</label>
+            <div class="col-md-6">
+                <label class="custom-label">
+                    @Html.DisplayFor(model => model.ChasisNo)
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Color</label>
+            <div class="col-md-6">
+                <label class="custom-label">
+                    @Html.DisplayFor(model => model.Color)
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Active</label>
+            <div class="col-md-6">
+                <label class="custom-label">
+                    @Html.DisplayFor(model => model.Active)
+                </label>
+            </div>
+        </div>
+    </div>
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-dark-red" /> &nbsp;&nbsp;
+        <a href='@Url.Action("Index")' class="btn btn-light-orange">Back to List</a>
+    </div>
     }
 </div>

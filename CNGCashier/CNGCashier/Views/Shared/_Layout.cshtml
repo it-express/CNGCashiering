@@ -144,10 +144,10 @@
                             </a>
                             <ul class="sub-menu">
                                 <li>
-                                    <a href="@Url.Action("Index", "Drivers")"><i class="fa fa-car"></i> <span class="title">Driver</span> </a>
+                                    <a href="@Url.Action("Index", "Drivers")"><i class="fa fa-users"></i> <span class="title">Driver</span> </a>
                                 </li>
                                 <li>
-                                    <a href="@Url.Action("Index", "Vehicles")"><i class="fa fa-car"></i> <span class="title">Vehicle</span> </a>
+                                    <a href="@Url.Action("Index", "Vehicles")"><i class="fa fa-taxi"></i> <span class="title">Vehicle</span> </a>
                                 </li>
                                 @if (Convert.ToInt32(Session["utype"]) != 1)
                                 { //1 = User
@@ -172,7 +172,7 @@
                         </a>*@
                 </div>
                 <div class="col-xs-6 text-right no-padding">
-                    <a class="btn btn-sm log-out text-right" href="login_login.html">
+                    <a class="btn btn-sm log-out text-right" href="@Url.Action("Logout", "Home")">
                         <i class="fa fa-power-off"></i> Log Out
                     </a>
                 </div>
